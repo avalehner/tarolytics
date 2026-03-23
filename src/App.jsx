@@ -4,8 +4,6 @@ import TrackerInputPage from './pages/TrackerInputPage'
 import NavBar from './components/NavBar'
 
 function App() {
-
-
   return (  
     <>
       <NavBar />
