@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { createReading } from '../services/readingService' 
+import DatePicker from '../components/DatePicker'
 import AddCardButton from '../components/AddCardButton'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
+import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import './trackerInputPage.css'
 
 
@@ -10,6 +12,7 @@ const TrackerInputPage = () => {
   const [date, setDate] = useState('')
   const [readingTopic, setReadingTopic] = useState('card-of-day')
   const [customReadingTopic, setCustomReadingTopic] = useState('')
+  const [readingSpread, setReadingSpread] = useState('top-bottom')
   const [cards, setCards] = useState([''])
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
@@ -58,11 +61,9 @@ const TrackerInputPage = () => {
   return (
     <>
       <h1>Tarolytics</h1>
-      <input 
-        type="date" 
-        value={date}
-        placeholder="Enter date"
-        onChange={(e) => setDate(e.target.value)} //when onchange fires it recieves an event object. this includes the target (input element), the target.value (what the user inputted), the target.name (name of the input)
+      <DatePicker 
+        date={date}
+        setDate={setDate}
       />
       <ReadingTopicMenu 
         readingTopic={readingTopic}
@@ -70,6 +71,10 @@ const TrackerInputPage = () => {
         customReadingTopic={customReadingTopic}
         setCustomReadingTopic={setCustomReadingTopic}
       /> 
+      <ReadingSpreadMenu 
+        readingSpread = {readingSpread}
+        setReadingSpread={setReadingSpread}  
+      />
       <div id="card-inputs">
         <input 
           type="text" 
