@@ -36,7 +36,7 @@ const TrackerInputPage = () => {
 
     const reading = {
       reading_date: date, 
-      reading_type: readingType === 'custom' ? customReadingType : readingType, 
+      reading_type: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
       cards: cards.filter(c => c), //removes empty strings 
       notes: notes
     }
