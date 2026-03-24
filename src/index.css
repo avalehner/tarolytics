@@ -17,11 +17,7 @@
 :root {
   font-family: "Libertinus Serif", serif;
   font-weight: 500;
-  font-style: normal;
-
-  color-scheme: light dark;
-  color: #FFF8E5; 
-  background-color: #242424;
+  font-style: normal; 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -43,6 +39,7 @@ body {
   padding: 0; 
   min-width: 320px;
   min-height: 100vh;
+  background-color: #FFF8E5; 
 }
 
 h1 {

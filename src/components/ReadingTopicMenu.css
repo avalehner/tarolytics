@@ -2,3 +2,16 @@
   display: flex; 
   justify-content: center;
 }
+
+select {
+  appearance: none; 
+  border: 1px solid #C199CD;
+  -webkit-appearance: none;
+  border-radius: 6px; 
+  padding: 2px;
+  font-family: "Libertinus Serif", serif; 
+  width: 135px; 
+  text-align: center; 
+  font-size: 0.9rem; 
+  background-color: #FFFEFA; 
+}
