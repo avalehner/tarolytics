@@ -75,7 +75,6 @@ const TrackerInputPage = () => {
     } else if (readingSpread === 'top-bottom') {
       return (
         <div id="card-inputs">
-          <p></p>
           <input 
             type="text" 
             placeholder="top card" 
@@ -95,7 +94,6 @@ const TrackerInputPage = () => {
     } else if (readingSpread === 'past-present-future') {
       return (
          <div id="card-inputs">
-          <p></p>
           <input 
             type="text" 
             placeholder="past" 
@@ -122,7 +120,7 @@ const TrackerInputPage = () => {
     } else if (readingSpread === 'past-present-future-advice') {
       return (
         <div id="card-inputs">
-          <p></p>
+
           <input 
             type="text" 
             placeholder="past" 
@@ -263,11 +261,17 @@ const TrackerInputPage = () => {
         />
       </div>
       <div>
-        <button
+        <button className="save-reading-btn"
           onClick={saveReading}
           disabled={saving}
         >
-          {saving ? 'Saving...' : 'Save Reading'}
+          {saving ? 'Saving...' : 'SAVE READING'}
+        </button>
+        <button className="upload-picture-btn"
+          // onClick={saveReading}
+          // disabled={saving}
+        >
+          UPLOAD PICTURE
         </button>
         {message && <p>{message}</p>}
       </div>

@@ -3,13 +3,36 @@ h1 {
   margin-top: 1.5em; 
 }
 
-input {
+.card-input {
   border: 1px solid #C199CD;
-  border-radius: 6px; 
+  border-radius: 9px; 
   padding: 12px;
   font-family: "Libertinus Serif", serif; 
   width: 135px; 
   text-align: center; 
-  font-size: 0.9rem; 
+  font-size: 1rem; 
   background-color: #FFFEFA; 
+  margin: 0.5rem; 
+}
+
+.reading-notes input{
+  border: 1px solid #C199CD;
+  border-radius: 9px; 
+  padding: 12px;
+  font-family: "Libertinus Serif", serif; 
+  width: 250px; 
+  text-align: center; 
+  font-size: 1rem; 
+  background-color: #FFFEFA; 
+  margin: 0.6rem 0; 
+}
+
+button {
+  border: 1px solid #97B48E;
+  border-radius: 9px; 
+  padding: 0.8rem 1.2rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #EBFFE4; 
+  font-size: 1rem; 
+  margin: 0.7rem 0.5rem; 
 }

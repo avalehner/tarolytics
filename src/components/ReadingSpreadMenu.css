@@ -11,9 +11,9 @@
   -webkit-appearance: none;
   border-radius: 7px; 
   font-family: "Libertinus Serif", serif; 
-  /* width: auto;  */
   padding: 6px 10px; 
   text-align: center; 
   font-size: 1rem; 
   background-color: #FFFEFA; 
+  cursor: pointer; 
 }
