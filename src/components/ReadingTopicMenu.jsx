@@ -26,7 +26,7 @@ const ReadingTopicMenu = ({
   }
 
   return (
-    <div>
+    <div className="topic-container">
       <div className="topic-menu-container">
         <p className="topic-label">topic:</p>
         <select ref={selectRef}className="topic-menu" value={readingTopic} onChange={handleReadingTopic}>
@@ -42,8 +42,9 @@ const ReadingTopicMenu = ({
       
       {readingTopic === 'custom' && (
         <input 
+          className="card-input"
           type="text"
-          placeholder="enter reading topic"
+          placeholder="enter topic"
           value={customReadingTopic}
           onChange={(e) => setCustomReadingTopic(e.target.value)}
         />

@@ -227,6 +227,19 @@ const TrackerInputPage = () => {
           />  
         </div>
       ) 
+    } else {
+      return (
+        <div>
+          <input 
+            type="text" 
+            placeholder="enter card" 
+            className="card-input"
+            value={cards[0] || ''}
+            onChange={(e) => setCards([e.target.value])}
+          /> 
+          <AddCardButton /> 
+        </div>
+      )
     }
   }
 

@@ -1,5 +1,12 @@
+.topic-container {
+  margin-top: 0.8rem; 
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem; 
+}
+
 .topic-menu-container {
-  margin-top: 1rem; 
   display: flex; 
   justify-content: center;
   align-items: center;

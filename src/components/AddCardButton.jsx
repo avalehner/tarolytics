@@ -22,8 +22,8 @@ const AddCardButton = () => {
       {/* Card inputs container */}
       <div id="card-input">
         {cardInputs.map(card => (
-          <div key={card.id} className="card-input">
-            <input type="text" placeholder="Enter card" />
+          <div key={card.id} >
+            <input type="text" className="card-input" placeholder="Enter card" />
             <i 
               className="fa-solid fa-xmark remove-card-btn" 
               onClick={() => handleRemoveCard(card.id)}

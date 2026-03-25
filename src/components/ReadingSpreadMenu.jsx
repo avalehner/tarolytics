@@ -26,7 +26,7 @@ const ReadingSpreadMenu = ({
   }
 
   return (
-    <div>
+    <div className="spread-container">
       <div className="spread-menu-container">
         <p className="spread-label">spread:</p>
         <select ref={selectRef} className="spread-menu" value={readingSpread} onChange={handleReadingSpread}> 
@@ -41,6 +41,7 @@ const ReadingSpreadMenu = ({
 
     {readingSpread === "custom" && (
       <input 
+        className="card-input"
         type="text"
         placeholder="enter spread"
         value={customReadingSpread}
