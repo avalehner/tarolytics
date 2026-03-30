@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { createReading } from '../services/readingService' 
 import DatePicker from '../components/DatePicker'
-import AddCardButton from '../components/AddCardButton'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
+import spreadConfig from '../data/spreadConfig'
+import CardInput from '../components/CardInput'
 import './trackerInputPage.css'
 
 
@@ -14,25 +15,10 @@ const TrackerInputPage = () => {
   const [customReadingTopic, setCustomReadingTopic] = useState('')
   const [readingSpread, setReadingSpread] = useState('top-bottom')
   const [customReadingSpread, setCustomReadingSpread] = useState('')
-  const [cards, setCards] = useState([''])
+  const [card, setCard] = useState([''])
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
-
-  // const addCard = () => {
-  //   const newCards = [...cards, '']
-  //   setCards(newCards)
-  // }
-
-  // const updateCard = (index, value) => { //index (which card to update), value (new text)
-  //   const newCards = [...cards]
-  //   newCards[index] = value 
-  //   setCards(newCards)
-  // }
-
-  // const removeCard = (index) => {
-  //   const newCards = [...cards].filter()
-  // }
 
   const saveReading = async () => {
     setSaving(true)
@@ -41,7 +27,7 @@ const TrackerInputPage = () => {
     const reading = {
       reading_date: date, 
       reading_type: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
-      cards: cards.filter(c => c), //removes empty strings 
+      card: card.filter(c => c), //removes empty strings 
       notes: notes
     }
 
@@ -50,7 +36,7 @@ const TrackerInputPage = () => {
     if(result.success) {
       setMessage('reading saved')
       setDate('')
-      setCards([])
+      setCard([])
       setNotes('')
     } else {
       setMessage('error:' + result.error)
@@ -59,188 +45,49 @@ const TrackerInputPage = () => {
     setSaving(false)
   }
 
-  const handleCardInputs = (readingSpread) => {
-    if (readingSpread === 'single-card') {
-       return (
-        <div id="card-inputs">
-            <input 
-              type="text" 
-              placeholder="enter card" 
-              className="card-input"
-              value={cards[0] || ''}
-              onChange={(e) => setCards([e.target.value])}
-            /> 
-          </div>
-       )
-    } else if (readingSpread === 'top-bottom') {
-      return (
-        <div id="card-inputs">
-          <input 
-            type="text" 
-            placeholder="top card" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="bottom card" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-        </div>
-      )
-    } else if (readingSpread === 'past-present-future') {
-      return (
-         <div id="card-inputs">
-          <input 
-            type="text" 
-            placeholder="past" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="present" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="future" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-        </div>
-      )
-    } else if (readingSpread === 'past-present-future-advice') {
-      return (
-        <div id="card-inputs">
+  const renderCardInputs = (readingSpread) => {
+    const labels = spreadConfig[readingSpread] || []
 
-          <input 
-            type="text" 
-            placeholder="past" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="present" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="future" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />
-          <input 
-            type="text" 
-            placeholder="advice" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />  
-        </div>
-      )
-    } else if (readingSpread === 'celtic') {
+    const handleAddCard = () => setCard([...card, ''])
+
+    const handleRemoveCard = (indexToRemove) => {
+      setCard(card.filter((_, index) => index !== indexToRemove))
+      console.log('test')
+    }
+
+    if (readingSpread === 'custom') {
       return (
-        <div id="card-inputs">
-          <p></p>
-          <input 
-            type="text" 
-            placeholder="1. situation" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="2. challenge" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="3. focus" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />
-          <input 
-            type="text" 
-            placeholder="4. recent past" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />
-          <input 
-            type="text" 
-            placeholder="5. possibilities" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="6. near future" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="7. power" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />
-          <input 
-            type="text" 
-            placeholder="8. environment" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <input 
-            type="text" 
-            placeholder="9. hopes" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />
-          <input 
-            type="text" 
-            placeholder="10. outcomes" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          />  
-        </div>
-      ) 
-    } else {
-      return (
-        <div>
-          <input 
-            type="text" 
-            placeholder="enter card" 
-            className="card-input"
-            value={cards[0] || ''}
-            onChange={(e) => setCards([e.target.value])}
-          /> 
-          <AddCardButton /> 
-        </div>
+        <>
+        <button className="add-card-btn" onClick={() => handleAddCard()}>ADD CARD</button>
+        {card.map((_, index) => 
+            <div key={index} className="card-inputs-container">
+              <CardInput 
+                card={card}
+                setCard={setCard} 
+                label="select card"
+                index={index}
+              />
+              <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
+            </div>
+          )
+        }
+      </> 
       )
     }
+
+    return (
+      <div className="card-inputs-container">
+        {labels.map((label, index) => 
+          <CardInput 
+            card={card}
+            setCard={setCard}
+            label={label}
+            index={index}
+            key={index}
+          />
+        )}
+      </div>
+    )
   }
 
   return (
@@ -263,7 +110,7 @@ const TrackerInputPage = () => {
         setCustomReadingSpread={setCustomReadingSpread}
       />
 
-      {handleCardInputs(readingSpread)}   
+      {renderCardInputs(readingSpread)}   
 
       <div className="reading-notes">
         <input 

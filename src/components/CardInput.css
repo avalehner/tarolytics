@@ -1,0 +1,13 @@
+.card-input {
+  appearance: none; 
+  border: 1px solid #C199CD;
+  border-radius: 9px; 
+  padding: 12px;
+  font-family: "Libertinus Serif", serif; 
+  width: 135px;   
+  text-align: center; 
+  font-size: 1rem; 
+  background-color: #FFFEFA; 
+  margin: 0.5rem;   
+  cursor: pointer; 
+}

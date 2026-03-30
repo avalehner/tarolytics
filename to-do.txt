@@ -1,0 +1,21 @@
+JS
+1. Drop down for cards (needs to have state)
+2. Make sure its saving to database correctly (how does this change given the spread)
+
+CSS
+1. style date picker 
+2. style drop down menus
+3. hover state for buttons
+4. purple background color on front page
+
+General Design 
+1. Card outline for front page
+2. Design upload picture modal
+
+Features
+1. Upload picture 
+2. pull data from backend to analytics page 
+3. pull card images from backend for each individual reading
+
+Data 
+1. Set up postgres database 

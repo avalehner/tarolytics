@@ -43,7 +43,7 @@ const ReadingSpreadMenu = ({
       <input 
         className="card-input"
         type="text"
-        placeholder="enter spread"
+        placeholder="spread name"
         value={customReadingSpread}
         onChange={(e) => setCustomReadingSpread(e.target.value)}
       />
