@@ -132,8 +132,8 @@ const TrackerInputPage = () => {
           {saving ? 'Saving...' : 'SAVE READING'}
         </button>
         <button className="upload-picture-btn"
-          onClick={saveReading}
-          disabled={saving}
+          // onClick={saveReading}
+          // disabled={saving}
         >
           UPLOAD PICTURE
         </button>
