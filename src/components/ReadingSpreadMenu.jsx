@@ -2,6 +2,7 @@ import './ReadingSpreadMenu.css'
 import { useRef, useEffect } from 'react'
 
 const ReadingSpreadMenu = ({ 
+  setCards,
   readingSpread, 
   setReadingSpread, 
   customReadingSpread, 
@@ -23,6 +24,7 @@ const ReadingSpreadMenu = ({
 
   const handleReadingSpread = (e) => {
     setReadingSpread(e.target.value)
+    setCards([''])
   }
 
   return (

@@ -15,19 +15,22 @@ const TrackerInputPage = () => {
   const [customReadingTopic, setCustomReadingTopic] = useState('')
   const [readingSpread, setReadingSpread] = useState('top-bottom')
   const [customReadingSpread, setCustomReadingSpread] = useState('')
-  const [card, setCard] = useState([''])
+  const [cards, setCards] = useState([''])
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
 
   const saveReading = async () => {
+    console.log(cards)
+    
     setSaving(true)
     setMessage('')
 
     const reading = {
       reading_date: date, 
-      reading_type: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
-      card: card.filter(c => c), //removes empty strings 
+      reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
+      reading_spread: readingSpread === 'custom' ? customReadingSpread : readingSpread, 
+      cards: cards.filter(c => c), //removes empty strings 
       notes: notes
     }
 
@@ -36,7 +39,7 @@ const TrackerInputPage = () => {
     if(result.success) {
       setMessage('reading saved')
       setDate('')
-      setCard([])
+      setCards([])
       setNotes('')
     } else {
       setMessage('error:' + result.error)
@@ -48,10 +51,10 @@ const TrackerInputPage = () => {
   const renderCardInputs = (readingSpread) => {
     const labels = spreadConfig[readingSpread] || []
 
-    const handleAddCard = () => setCard([...card, ''])
+    const handleAddCard = () => setCards([...cards, ''])
 
     const handleRemoveCard = (indexToRemove) => {
-      setCard(card.filter((_, index) => index !== indexToRemove))
+      setCards(cards.filter((_, index) => index !== indexToRemove))
       console.log('test')
     }
 
@@ -59,11 +62,11 @@ const TrackerInputPage = () => {
       return (
         <>
         <button className="add-card-btn" onClick={() => handleAddCard()}>ADD CARD</button>
-        {card.map((_, index) => 
+        {cards.map((_, index) => 
             <div key={index} className="card-inputs-container">
               <CardInput 
-                card={card}
-                setCard={setCard} 
+                cards={cards}
+                setCard={setCards} 
                 label="select card"
                 index={index}
               />
@@ -79,8 +82,8 @@ const TrackerInputPage = () => {
       <div className="card-inputs-container">
         {labels.map((label, index) => 
           <CardInput 
-            card={card}
-            setCard={setCard}
+            cards={cards}
+            setCards={setCards}
             label={label}
             index={index}
             key={index}
@@ -108,6 +111,7 @@ const TrackerInputPage = () => {
         setReadingSpread={setReadingSpread}
         customReadingSpread={customReadingSpread}  
         setCustomReadingSpread={setCustomReadingSpread}
+        setCards={setCards}
       />
 
       {renderCardInputs(readingSpread)}   
@@ -128,8 +132,8 @@ const TrackerInputPage = () => {
           {saving ? 'Saving...' : 'SAVE READING'}
         </button>
         <button className="upload-picture-btn"
-          // onClick={saveReading}
-          // disabled={saving}
+          onClick={saveReading}
+          disabled={saving}
         >
           UPLOAD PICTURE
         </button>

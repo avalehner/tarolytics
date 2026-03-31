@@ -7,7 +7,8 @@ export const createReading = async (readingData) => {
       .from('readings')
       .insert({
         reading_date: readingData.reading_date, 
-        reading_type: readingData.reading_type,
+        reading_topic: readingData.reading_topic,
+        reading_spread: readingData.reading_spread,
         cards: readingData.cards,
         notes: readingData.notes
       })
