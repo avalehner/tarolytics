@@ -1,0 +1,26 @@
+.spread-container {
+  display: flex;  
+  justify-content: center ;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.spread-menu-container {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem; 
+}
+
+.spread-menu {
+  appearance: none; 
+  border: 1px solid #C199CD;
+  -webkit-appearance: none;
+  border-radius: 7px; 
+  font-family: "Libertinus Serif", serif; 
+  padding: 6px 10px; 
+  text-align: center; 
+  font-size: 1rem; 
+  background-color: #FFFEFA; 
+  cursor: pointer; 
+}
