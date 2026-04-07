@@ -1,19 +1,18 @@
-.topic-container {
-  margin-top: 0.8rem; 
+.spread-container {
   display: flex;  
-  justify-content: center;
+  justify-content: center ;
   align-items: center;
-  gap: 0.3rem; 
+    gap: 0.3rem;
 }
 
-.topic-menu-container {
+.spread-menu-container {
   display: flex; 
   justify-content: center;
   align-items: center;
   gap: 0.8rem; 
 }
 
-.topic-menu {
+.spread-menu {
   appearance: none; 
   border: 1px solid #C199CD;
   -webkit-appearance: none;
@@ -23,5 +22,5 @@
   text-align: center; 
   font-size: 1rem; 
   background-color: #FFFEFA; 
-  cursor: pointer;
+  cursor: pointer; 
 }
