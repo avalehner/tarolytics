@@ -24,7 +24,6 @@ const ReadingSpreadMenu = ({setCards, readingSpread, setReadingSpread, customRea
     document.body.appendChild(span)
     selectEl.style.width = `${span.offsetWidth + 40}px`
     document.body.removeChild(span)
-
   }, [readingSpread])
 
   const handleReadingSpread = (e: React.ChangeEvent<HTMLSelectElement>) => {
