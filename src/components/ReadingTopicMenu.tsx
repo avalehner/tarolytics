@@ -18,7 +18,7 @@ const ReadingTopicMenu = ({readingTopic, setReadingTopic, customReadingTopic, se
     if(!selectEl) return 
     const text = selectEl.options[selectEl.selectedIndex]?.text || ''
     const span = document.createElement('span')
-    span.style.cssText = `visibility:hidden; position; absolute; font:${window.getComputedStyle(selectEl).font}`
+    span.style.cssText = `visibility:hidden; position: absolute; font:${window.getComputedStyle(selectEl).font}`
     span.textContent = text 
     document.body.appendChild(span)
     selectEl.style.width = `${span.offsetWidth +40}px`
@@ -39,6 +39,7 @@ const ReadingTopicMenu = ({readingTopic, setReadingTopic, customReadingTopic, se
           <option value="custom">custom</option>
         </select>
       </div>
+    
       
       {readingTopic === 'custom' && (
         <input 
