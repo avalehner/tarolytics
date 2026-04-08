@@ -1,0 +1,54 @@
+h1 {
+  font-family: 'Pamela'; 
+  margin-top: 3.5rem; 
+}
+
+.card-inputs-container {
+  margin: 0 auto; 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  align-items: center; 
+  max-width: 800px; 
+}
+
+.reading-notes input{
+  border: 1px solid #C199CD;
+  border-radius: 9px; 
+  padding: 12px;
+  font-family: "Libertinus Serif", serif; 
+  width: 250px; 
+  text-align: center; 
+  font-size: 1rem; 
+  background-color: #FFFEFA; 
+  margin: 0.6rem 0; 
+}
+
+.save-reading-btn, .upload-picture-btn {
+  border: 1px solid #97B48E;
+  border-radius: 9px; 
+  padding: 0.8rem 1.2rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #EBFFE4; 
+  font-size: 1rem; 
+  margin: 0.7rem 0.5rem; 
+}
+
+.add-card-btn {
+  border: 1px solid #889fcc;
+  border-radius: 9px; 
+  padding: 0.6rem 1rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #E2E8FF; 
+  font-size: 0.9rem; 
+  margin: 0.7rem 0.5rem; 
+}
+
+.save-reading-btn:hover, .upload-picture-btn:hover {
+  background-color: #cee9c6;  
+}
+
+.add-card-btn:hover {
+  background-color: #c2cbec; 
+}
+
