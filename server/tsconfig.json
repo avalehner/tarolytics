@@ -1,11 +1,11 @@
 {
-  "compilerOptions": {
+  "compilerOptions": { //compiler options: how to compile 
     "target": "ES2020", 
     "module": "CommonJS", 
     "rootDir": "./src", 
     "outDir": "./dist", 
     "strict": true, 
     "esModuleInterop": true, 
-    "include": "src"
-  }
+  },
+  "include": ["src"] //top level: what to compile (include, exclude, files); needs to be an array because include is designed to accept multiple paths 
 }
