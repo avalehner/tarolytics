@@ -5,7 +5,7 @@ import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
-import './trackerInputPage.css'
+import './TrackerInputPage.css'
 
 
 const TrackerInputPage = () => {
