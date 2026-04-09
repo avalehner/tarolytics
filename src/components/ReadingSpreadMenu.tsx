@@ -1,5 +1,13 @@
-import './ReadingSpreadMenu.css'
+import './css/ReadingSpreadMenu.css'
 import { useRef, useEffect } from 'react'
+
+interface ReadingSpreadMenuProps {
+  setCards: (value:string[]) => void
+  readingSpread: string 
+  setReadingSpread: (value: string) => void
+  customReadingSpread: string
+  setCustomReadingSpread: (value: string) => void
+}
 
 const ReadingSpreadMenu = ({ 
   setCards,
@@ -7,9 +15,10 @@ const ReadingSpreadMenu = ({
   setReadingSpread, 
   customReadingSpread, 
   setCustomReadingSpread 
-}) => {
+}: ReadingSpreadMenuProps) => {
 
-  const selectRef = useRef(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
+  
   useEffect(() => {
     const selectEl = selectRef.current
     if(!selectEl) return 
@@ -22,7 +31,7 @@ const ReadingSpreadMenu = ({
     document.body.removeChild(span)
   }, [readingSpread])
 
-  const handleReadingSpread = (e) => {
+  const handleReadingSpread = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setReadingSpread(e.target.value)
     setCards([''])
   }

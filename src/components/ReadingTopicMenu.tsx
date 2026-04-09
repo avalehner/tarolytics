@@ -1,14 +1,22 @@
-import './ReadingTopicMenu.css'
+import './css/ReadingTopicMenu.css'
 import { useRef, useEffect } from 'react'
+
+interface ReadingTopicMenuProps {
+  readingTopic: string 
+  setReadingTopic: (value: string) => void 
+  customReadingTopic: string 
+  setCustomReadingTopic: (value: string) => void 
+}
 
 const ReadingTopicMenu = ({ 
   readingTopic, 
   setReadingTopic, 
   customReadingTopic, 
   setCustomReadingTopic 
-}) => {
+}: ReadingTopicMenuProps) => {
 
-  const selectRef = useRef(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
+
   useEffect(() => {
     const selectEl = selectRef.current 
     if (!selectEl) return 
@@ -21,15 +29,11 @@ const ReadingTopicMenu = ({
     document.body.removeChild(span)
   }, [readingTopic])
 
-  const handleReadingTopic = (e) => {
-    setReadingTopic(e.target.value)
-  }
-
   return (
     <div className="topic-container">
       <div className="topic-menu-container">
         <p className="topic-label">topic:</p>
-        <select ref={selectRef}className="topic-menu" value={readingTopic} onChange={handleReadingTopic}>
+        <select ref={selectRef}className="topic-menu" value={readingTopic} onChange={e=> setReadingTopic(e.target.value)}>
           <option value="card-of-day">daily</option>
           <option value="love-reading">love</option>
           <option value="health">health</option>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createReading } from '../services/readingService' 
+// import { createReading } from '../services/readingService' 
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
@@ -10,50 +10,50 @@ import './trackerInputPage.css'
 
 const TrackerInputPage = () => {
 
-  const [date, setDate] = useState('')
-  const [readingTopic, setReadingTopic] = useState('card-of-day')
-  const [customReadingTopic, setCustomReadingTopic] = useState('')
-  const [readingSpread, setReadingSpread] = useState('top-bottom')
-  const [customReadingSpread, setCustomReadingSpread] = useState('')
-  const [cards, setCards] = useState([''])
-  const [notes, setNotes] = useState('')
-  const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState('')
+  const [date, setDate] = useState<string>('')
+  const [readingTopic, setReadingTopic] = useState<string>('card-of-day')
+  const [customReadingTopic, setCustomReadingTopic] = useState<string>('')
+  const [readingSpread, setReadingSpread] = useState<string>('top-bottom')
+  const [customReadingSpread, setCustomReadingSpread] = useState<string>('')
+  const [cards, setCards] = useState<string[]>([''])
+  const [notes, setNotes] = useState<string>('')
+  // const [saving, setSaving] = useState(false)
+  // const [message, setMessage] = useState('')
 
-  const saveReading = async () => {
-    console.log(cards)
+  // const saveReading = async () => {
+  //   console.log(cards)
     
-    setSaving(true)
-    setMessage('')
+  //   setSaving(true)
+  //   setMessage('')
 
-    const reading = {
-      reading_date: date, 
-      reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
-      reading_spread: readingSpread === 'custom' ? customReadingSpread : readingSpread, 
-      cards: cards.filter(c => c), //removes empty strings 
-      notes: notes
-    }
+  //   const reading = {
+  //     reading_date: date, 
+  //     reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
+  //     reading_spread: readingSpread === 'custom' ? customReadingSpread : readingSpread, 
+  //     cards: cards.filter(c => c), //removes empty strings 
+  //     notes: notes
+  //   }
 
-    const result = await createReading(reading)
+  //   const result = await createReading(reading)
 
-    if(result.success) {
-      setMessage('reading saved')
-      setDate('')
-      setCards([])
-      setNotes('')
-    } else {
-      setMessage('error:' + result.error)
-    }
+  //   if(result.success) {
+  //     setMessage('reading saved')
+  //     setDate('')
+  //     setCards([])
+  //     setNotes('')
+  //   } else {
+  //     setMessage('error:' + result.error)
+  //   }
 
-    setSaving(false)
-  }
+  //   setSaving(false)
+  // }
 
-  const renderCardInputs = (readingSpread) => {
+  const renderCardInputs = (readingSpread: string) => {
     const labels = spreadConfig[readingSpread] || []
 
     const handleAddCard = () => setCards([...cards, ''])
 
-    const handleRemoveCard = (indexToRemove) => {
+    const handleRemoveCard = (indexToRemove: number) => {
       setCards(cards.filter((_, index) => index !== indexToRemove))
       console.log('test')
     }
@@ -66,7 +66,7 @@ const TrackerInputPage = () => {
             <div key={index} className="card-inputs-container">
               <CardInput 
                 cards={cards}
-                setCard={setCards} 
+                setCards={setCards} 
                 label="select card"
                 index={index}
               />
@@ -126,10 +126,11 @@ const TrackerInputPage = () => {
       </div>
       <div>
         <button className="save-reading-btn"
-          onClick={saveReading}
-          disabled={saving}
+          // onClick={saveReading}
+          // disabled={saving}
         >
-          {saving ? 'Saving...' : 'SAVE READING'}
+          {/* {saving ? 'Saving...' : 'SAVE READING'} */}
+          SAVE READING
         </button>
         <button className="upload-picture-btn"
           // onClick={saveReading}
@@ -137,7 +138,7 @@ const TrackerInputPage = () => {
         >
           UPLOAD PICTURE
         </button>
-        {message && <p>{message}</p>}
+        {/* {message && <p>{message}</p>} */}
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-export const tarotCards = [
+const tarotCards: string[] = [
   'The Fool',
   'The Magician',
   'The High Priestess',
@@ -156,4 +156,6 @@ export const tarotCards = [
   'Queen of Pentacles rx',
   'King of Pentacles rx'
 ]
+
+export default tarotCards 
 

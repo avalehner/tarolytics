@@ -1,4 +1,4 @@
-const spreadConfig = {
+const spreadConfig: Record<string, string[]>  = {
   'single-card': ['select card'], 
   'top-bottom': ['top', 'bottom'], 
   'past-present-future': ['past', 'present', 'future'], 

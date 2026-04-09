@@ -1,10 +1,17 @@
-import './CardInput.css'
-import { tarotCards } from '../data/tarotCards'
+import "./css/CardInput.css"
+import tarotCards from "../data/tarotCards"
 import { useRef, useEffect } from 'react'
 
-const CardInput = ({ cards, setCards, label, index }) => {
+interface CardInputProps {
+  cards: string[]
+  setCards: (value:string[]) => void 
+  label: string
+  index: number  
+}
+
+const CardInput = ({ cards, setCards, label, index }: CardInputProps) => {
   
-  const selectRef = useRef(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
   useEffect(() => {
     const selectEl = selectRef.current
     if(!selectEl) return 
@@ -17,20 +24,21 @@ const CardInput = ({ cards, setCards, label, index }) => {
     document.body.removeChild(span)
   }, [cards])
 
-  const updateCard = (index, value) => { //index (which card to update), value (new text)
+  const updateCard = (index: number, value: string) => { //index (which card to update), value (new text)
     const newCard = [...cards] //copies the cards array 
     newCard[index] = value 
     setCards(newCard)
   }
 
-  const getFilteredCards = (index) => {
+  const getFilteredCards = (index: number) => {
     const otherSelectedCards = cards.filter((_, i) => i !== index)
-    return tarotCards.filter(cardName => !otherSelectedCards.includes(cardName))
+    const availableCards = tarotCards.filter(cardName => !otherSelectedCards.includes(cardName))
+    return availableCards 
   }
 
   return (
     <div>
-      <select ref={selectRef} type="text" value={cards[index] || ''} className="card-input" onChange={(e) => updateCard(index, e.target.value)}>
+      <select ref={selectRef} value={cards[index] || ''} className="card-input" onChange={e => updateCard(index, e.target.value)}>
         <option value="" disabled>{label}</option>
          {getFilteredCards(index).map((cardName) => <option key={cardName} value={cardName}>{cardName}</option>)}    
       </select> 
