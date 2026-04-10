@@ -1,12 +1,12 @@
-import { useState } from 'react'
-// import { createReading } from '../services/readingService' 
+import { useState, useEffect } from 'react'
+import { getAllReadings, createReading } from '../services/readingService'
+import { NewReadingTypes } from '../types.ts'
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
 import './TrackerInputPage.css'
-
 
 const TrackerInputPage = () => {
 
@@ -17,36 +17,34 @@ const TrackerInputPage = () => {
   const [customReadingSpread, setCustomReadingSpread] = useState<string>('')
   const [cards, setCards] = useState<string[]>([''])
   const [notes, setNotes] = useState<string>('')
-  // const [saving, setSaving] = useState(false)
-  // const [message, setMessage] = useState('')
+  const [interpretation, setInterpretation] = useState<string>('')
+  const [saving, setSaving] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
 
-  // const saveReading = async () => {
-  //   console.log(cards)
-    
-  //   setSaving(true)
-  //   setMessage('')
+  // useEffect(() => {
+  //   getAllReadings()
+  //     .then(data=> console.log(data))
+  // }, [])
 
-  //   const reading = {
-  //     reading_date: date, 
-  //     reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic, 
-  //     reading_spread: readingSpread === 'custom' ? customReadingSpread : readingSpread, 
-  //     cards: cards.filter(c => c), //removes empty strings 
-  //     notes: notes
-  //   }
-
-  //   const result = await createReading(reading)
-
-  //   if(result.success) {
-  //     setMessage('reading saved')
-  //     setDate('')
-  //     setCards([])
-  //     setNotes('')
-  //   } else {
-  //     setMessage('error:' + result.error)
-  //   }
-
-  //   setSaving(false)
-  // }
+  const saveReading = async () => {
+    setSaving(true)
+    try {
+      const requestObj = {
+        reading_date: date, 
+        reading_topic: readingTopic,
+        spread_type: readingSpread, 
+        notes: notes, 
+        interpretation: interpretation, 
+      }
+      await createReading(requestObj) 
+      setMessage('reading saved :)')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong' //checks if error is an error object, if it is we can access the error message, if not itll say 'Unknown error' since we dont know what was thrown. typescript doesn't know what's thrown, anything can eb thrown so we gotta make sure it's an error object
+      setMessage(message)
+    } finally {
+      setSaving(false)
+    }
+  }
 
   const renderCardInputs = (readingSpread: string) => {
     const labels = spreadConfig[readingSpread] || []
@@ -124,21 +122,28 @@ const TrackerInputPage = () => {
           onChange={(e) => setNotes(e.target.value)} 
         />
       </div>
+      <div className="reading-notes">
+        <input 
+          type="text" 
+          value={interpretation}
+          placeholder="interpretation"
+          onChange={(e) => setInterpretation(e.target.value)} 
+        />
+      </div>
       <div>
         <button className="save-reading-btn"
-          // onClick={saveReading}
-          // disabled={saving}
+          onClick={saveReading}
+          disabled={saving}
         >
-          {/* {saving ? 'Saving...' : 'SAVE READING'} */}
-          SAVE READING
+          {saving ? 'Saving...' : 'SAVE READING'}
         </button>
         <button className="upload-picture-btn"
-          // onClick={saveReading}
-          // disabled={saving}
+          onClick={saveReading}
+          disabled={saving}
         >
           UPLOAD PICTURE
         </button>
-        {/* {message && <p>{message}</p>} */}
+        {message && <p>{message}</p>}
       </div>
     </>
   )
