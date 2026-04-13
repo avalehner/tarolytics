@@ -5,6 +5,9 @@ export const getAllReadings = async (): Promise<ReadingTypes[]> => {
     method: 'GET', 
     headers: { 'Content-Type': 'application/json' }, 
   })
+  if (!response.ok) {
+    throw new Error(`Server error: ${response.status}`)
+  }
   const readingData = await response.json()
   return readingData 
 }
