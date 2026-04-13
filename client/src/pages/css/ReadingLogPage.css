@@ -16,3 +16,25 @@
   display: flex; 
   align-items: center;
 }
+
+.reading-log-container {
+  margin: 0 auto; 
+  background-color: #FFF8E5; 
+  border: 1px solid #C45500; 
+  border-radius: 20px;
+  max-width: 75%; 
+}
+
+.reading-log-labels {
+  display: flex; 
+  font-weight: 900; 
+  justify-content: center; 
+  gap: 9rem; 
+  margin-top: 1.5rem; 
+}
+
+hr {
+  border: none; 
+  border-top: 1px dashed black; 
+  width: 95%; 
+}
