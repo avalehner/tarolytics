@@ -27,14 +27,16 @@ const TrackerInputPage = () => {
 
   const saveReading = async () => {
     setSaving(true)
+
+    const requestObj = {
+      reading_date: date, 
+      reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic,
+      spread_type: readingSpread ==='custom' ? customReadingSpread : readingSpread, 
+      notes: notes, 
+      interpretation: interpretation, 
+    }
+
     try {
-      const requestObj = {
-        reading_date: date, 
-        reading_topic: readingTopic,
-        spread_type: readingSpread, 
-        notes: notes, 
-        interpretation: interpretation, 
-      }
       await createReading(requestObj) 
       setMessage('reading saved :)')
     } catch (error) {
