@@ -54,7 +54,7 @@ const ReadingLogPage = () => {
     <>
       <h1>Tarolytics</h1>
       <div className="search-bar-container">
-        <p className='search-label'>search:</p>
+        <p className='search-label'>search by:</p>
         <SearchMenu 
           searchCategory={searchCategory}
           setSearchCategory={setSearchCategory}

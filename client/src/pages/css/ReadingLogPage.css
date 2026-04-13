@@ -22,7 +22,8 @@
   background-color: #FFF8E5; 
   border: 1px solid #C45500; 
   border-radius: 20px;
-  max-width: 65%; 
+  max-width: 75%; 
+  padding: 0.5rem 0; 
 }
 
 .reading-log-labels {
@@ -32,8 +33,9 @@
   place-content: center; 
   font-weight: 900; 
   margin: 1.5rem auto 0.4rem;
-  max-width: 65%;
-  padding: 0 1.5rem;  
+  max-width: 75%;
+  padding: 0 1.5rem;
+  font-size: 1.1rem;   
 }
 
 hr {
