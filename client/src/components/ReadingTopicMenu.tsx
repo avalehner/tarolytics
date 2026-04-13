@@ -32,8 +32,7 @@ const ReadingTopicMenu = ({
   return (
     <div className="topic-container">
       <div className="topic-menu-container">
-        <p className="topic-label">topic:</p>
-        <select ref={selectRef}className="topic-menu" value={readingTopic} onChange={e=> setReadingTopic(e.target.value)}>
+        <select ref={selectRef} className="topic-menu" value={readingTopic} onChange={e=> setReadingTopic(e.target.value)}>
           <option value="card-of-day">daily</option>
           <option value="love-reading">love</option>
           <option value="health">health</option>

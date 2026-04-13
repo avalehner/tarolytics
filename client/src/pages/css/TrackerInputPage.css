@@ -3,13 +3,20 @@ h1 {
   margin: 6rem 0 1.7rem; 
 }
 
-.card-inputs-container {
+.card-input-container {
   margin: 0 auto; 
   display: flex; 
   flex-wrap: wrap; 
   justify-content: center; 
   align-items: center; 
   max-width: 800px; 
+  /* gap: 1rem;  */
+}
+
+.all-card-inputs-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 .reading-notes input{
@@ -50,5 +57,12 @@ h1 {
 
 .add-card-btn:hover {
   background-color: #c2cbec; 
+}
+
+.reading-topic-menu-container{
+  display: flex; 
+  justify-content: center;
+  gap: 1rem; 
+  align-items: center;
 }
 

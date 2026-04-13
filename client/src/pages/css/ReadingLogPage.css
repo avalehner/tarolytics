@@ -1,0 +1,18 @@
+.search-bar-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 1.4rem; 
+}
+
+.all-card-inputs-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 1rem; 
+}
+
+.search-card-input-wrapper {
+  display: flex; 
+  align-items: center;
+}

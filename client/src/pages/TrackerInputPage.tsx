@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { getAllReadings, createReading } from '../services/readingService'
-import { NewReadingTypes } from '../types.ts'
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
-import './TrackerInputPage.css'
+import './css/TrackerInputPage.css'
 
 const TrackerInputPage = () => {
 
@@ -61,14 +60,16 @@ const TrackerInputPage = () => {
         <>
         <button className="add-card-btn" onClick={() => handleAddCard()}>ADD CARD</button>
         {cards.map((_, index) => 
-            <div key={index} className="card-inputs-container">
-              <CardInput 
-                cards={cards}
-                setCards={setCards} 
-                label="select card"
-                index={index}
-              />
-              <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
+            <div key={index} className="all-card-inputs-container">
+              <div className="card-input-container">
+                <CardInput 
+                  cards={cards}
+                  setCards={setCards} 
+                  label="select card"
+                  index={index}
+                />
+                <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
+              </div>
             </div>
           )
         }
@@ -98,19 +99,25 @@ const TrackerInputPage = () => {
         date={date}
         setDate={setDate}
       />
-      <ReadingTopicMenu 
-        readingTopic={readingTopic}
-        setReadingTopic={setReadingTopic}
-        customReadingTopic={customReadingTopic}
-        setCustomReadingTopic={setCustomReadingTopic}
-      /> 
-      <ReadingSpreadMenu 
-        readingSpread = {readingSpread}
-        setReadingSpread={setReadingSpread}
-        customReadingSpread={customReadingSpread}  
-        setCustomReadingSpread={setCustomReadingSpread}
-        setCards={setCards}
-      />
+      <div className="reading-topic-menu-container">
+        <p className="topic-label">topic:</p>
+        <ReadingTopicMenu 
+          readingTopic={readingTopic}
+          setReadingTopic={setReadingTopic}
+          customReadingTopic={customReadingTopic}
+          setCustomReadingTopic={setCustomReadingTopic}
+        /> 
+      </div>
+      <div className="reading-topic-menu-container">
+        <p className="spread-label">spread:</p>
+        <ReadingSpreadMenu 
+          readingSpread = {readingSpread}
+          setReadingSpread={setReadingSpread}
+          customReadingSpread={customReadingSpread}  
+          setCustomReadingSpread={setCustomReadingSpread}
+          setCards={setCards}
+        />
+      </div>
 
       {renderCardInputs(readingSpread)}   
 

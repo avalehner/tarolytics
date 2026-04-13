@@ -2,7 +2,7 @@ import './css/ReadingSpreadMenu.css'
 import { useRef, useEffect } from 'react'
 
 interface ReadingSpreadMenuProps {
-  setCards: (value:string[]) => void
+  setCards?: (value:string[]) => void
   readingSpread: string 
   setReadingSpread: (value: string) => void
   customReadingSpread: string
@@ -33,13 +33,12 @@ const ReadingSpreadMenu = ({
 
   const handleReadingSpread = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setReadingSpread(e.target.value)
-    setCards([''])
+    setCards?.([''])
   }
 
   return (
     <div className="spread-container">
       <div className="spread-menu-container">
-        <p className="spread-label">spread:</p>
         <select ref={selectRef} className="spread-menu" value={readingSpread} onChange={handleReadingSpread}> 
           <option value="single-card">single card</option>
           <option value="top-bottom">top / bottom</option> 

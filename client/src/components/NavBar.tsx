@@ -5,10 +5,8 @@ const NavBar = () => {
   return (
     <nav>
       <ul className="nav-left">
-        <li>
-          <NavLink to="">TRACK</NavLink>
-        </li>
-        <li>ANALYTICS</li>
+        <li><NavLink to="">TRACK</NavLink></li>
+        <li><NavLink to="/analytics">ANALYTICS</NavLink></li>
         <li>PULL CARD</li>
       </ul>
       <ul className="nav-right">
