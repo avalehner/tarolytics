@@ -40,6 +40,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #FFF8E5; 
+  background: radial-gradient(ellipse at center, #FFF8E5 20%, #CEBCC5 100%);
 }
 
 h1 {
