@@ -1,5 +1,7 @@
 import './css/readingLog.css'
 import { ReadingTypes } from '../types'
+import spreadLabels from '../data/spreadLabels'
+import topicLabels from '../data/topicLabels'
 
 interface ReadingLogProps {
   reading: ReadingTypes
@@ -9,8 +11,8 @@ const ReadingLog = ({reading}: ReadingLogProps) => {
   return (
     <div className="reading-log">
       <p>{reading.reading_date}</p>
-      <p>{reading.reading_topic}</p>
-      <p>{reading.spread_type}</p>
+      <p>{topicLabels[reading.reading_topic] || reading.reading_topic}</p>
+      <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
       <p>[cards]</p>
       <p>{reading.notes}</p>
       <p>{reading.interpretation}</p>
