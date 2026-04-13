@@ -1,6 +1,7 @@
 .reading-log {
-  display: flex;
-  gap: 9rem; 
-  align-items: center; 
-  justify-content: center; 
+  display: grid;
+  grid-template-columns:  2fr 2fr 2fr 2fr 2fr 2fr; 
+  place-items: center; 
+  place-content: center; 
+  padding: 0 1.5rem; 
 }
