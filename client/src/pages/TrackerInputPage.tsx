@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
-import { getAllReadings, createReading } from '../services/readingService'
+import { useState } from 'react'
+import { createReading } from '../services/readingService'
+import { saveCards } from '../services/cardsService'
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
@@ -20,15 +21,10 @@ const TrackerInputPage = () => {
   const [saving, setSaving] = useState<boolean>(false)
   const [message, setMessage] = useState<string>('')
 
-  // useEffect(() => {
-  //   getAllReadings()
-  //     .then(data=> console.log(data))
-  // }, [])
-
   const saveReading = async () => {
     setSaving(true)
 
-    const requestObj = {
+    const readingRequestObj = {
       reading_date: date, 
       reading_topic: readingTopic === 'custom' ? customReadingTopic : readingTopic,
       spread_type: readingSpread ==='custom' ? customReadingSpread : readingSpread, 
@@ -37,7 +33,17 @@ const TrackerInputPage = () => {
     }
 
     try {
-      await createReading(requestObj) 
+      const newReading = await createReading(readingRequestObj) 
+      for (const [index, card] of cards.entries()) {
+        const cardRequestObj = {
+          reading_id: newReading.id, 
+          card_name: card, 
+          position_name: readingSpread === 'custom' ? null : spreadConfig[readingSpread][index], 
+          position_order: index, 
+        } 
+        await saveCards(cardRequestObj)
+      }
+
       setMessage('reading saved :)')
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Something went wrong' //checks if error is an error object, if it is we can access the error message, if not itll say 'Unknown error' since we dont know what was thrown. typescript doesn't know what's thrown, anything can eb thrown so we gotta make sure it's an error object
@@ -45,6 +51,7 @@ const TrackerInputPage = () => {
     } finally {
       setSaving(false)
     }
+
   }
 
   const renderCardInputs = (readingSpread: string) => {
@@ -61,26 +68,25 @@ const TrackerInputPage = () => {
       return (
         <>
         <button className="add-card-btn" onClick={() => handleAddCard()}>ADD CARD</button>
-        {cards.map((_, index) => 
-            <div key={index} className="all-card-inputs-container">
-              <div className="card-input-container">
-                <CardInput 
-                  cards={cards}
-                  setCards={setCards} 
-                  label="select card"
-                  index={index}
-                />
-                <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
-              </div>
+        <div className="all-card-inputs-container">
+          {cards.map((_, index) => 
+            <div key={index} className="card-input-container">
+              <CardInput 
+                cards={cards}
+                setCards={setCards} 
+                label="select card"
+                index={index}
+              />
+              <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
             </div>
-          )
-        }
+          )}
+        </div>
       </> 
       )
     }
 
     return (
-      <div className="card-inputs-container">
+      <div className="all-card-inputs-container">
         {labels.map((label, index) => 
           <CardInput 
             cards={cards}
