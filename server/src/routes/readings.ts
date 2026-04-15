@@ -23,7 +23,8 @@ readingsRouter.get('/', async (req: Request, res: Response) => { // '/' is the r
   try {
     const dbResponse = await pool.query('SELECT * FROM readings')
     const readingData = dbResponse.rows
-    res.json(readingData)
+    res.status(200)
+      .json(readingData)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error' //checks if error is an error object, if it is we can access the error message, if not itll say 'Unknown error' since we dont know what was thrown. typescript doesn't know what's thrown, anything can eb thrown so we gotta make sure it's an error object
     res.status(500) //status(500) means server error 
@@ -50,7 +51,7 @@ readingsRouter.post('/', async (req: Request, res: Response) => {
   }
 })
 
-readingsRouter.patch('/:readingId', async (req: Request, res: Response) => { //':' marks a route parameter 
+readingsRouter.patch('/:readingId', async (req: Request, res: Response) => { //':' marks a URL parameter, allows us to destructure from req.params
   try {
     const { readingId } = req.params
     const { reading_date, reading_topic, spread_type, notes, interpretation } = req.body 
@@ -77,8 +78,8 @@ readingsRouter.delete('/:readingId', async (req: Request, res: Response) => {
     const { readingId } = req.params 
     const dbResponse = await pool.query(`
       DELETE FROM readings 
-      WHERE id = $1;
-      RETURNING *`, 
+      WHERE id = $1
+      RETURNING *;`, 
       [readingId]
     )
     const deletedReading = dbResponse.rows[0] 
@@ -90,4 +91,5 @@ readingsRouter.delete('/:readingId', async (req: Request, res: Response) => {
       .json({ error: message })
   }
 })
+
 export default readingsRouter 
