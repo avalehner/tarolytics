@@ -5,18 +5,34 @@ import pool from "../db"
 const cardsRouter = Router()
 
 //routes
-cardsRouter.get('/:readingId', async (req: Request, res: Response) => {
+
+//get all cards 
+cardsRouter.get('/', async (req:Request, res:Response) => {
   try {
-    const { readingId } = req.params 
     const dbResponse = await pool.query(`
-      SELECT * 
-      FROM cards 
-      WHERE reading_id =$1;`, 
-      [readingId]
-    )
-    const cardData = dbResponse.rows
+      SELECT *
+      FROM cards; 
+    `)
+    const cardsData = dbResponse.rows 
     res.status(200)
-      .json(cardData)
+      .json(cardsData)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    res.status(500)
+      .json({ error: message })
+  }
+})
+
+//get all cards 
+cardsRouter.get('/', async (req:Request, res:Response) => {
+  try {
+    const dbResponse = await pool.query(`
+      SELECT *
+      FROM cards; 
+    `)
+    const cardsData = dbResponse.rows 
+    res.status(200)
+      .json(cardsData)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'
     res.status(500)
@@ -26,12 +42,12 @@ cardsRouter.get('/:readingId', async (req: Request, res: Response) => {
 
 cardsRouter.post('/', async (req:Request, res: Response) => {
   try {
-    const { reading_id, card_name, position, position_order } = req.body
+    const { reading_id, card_name, position_name, position_order } = req.body
     const dbResponse = await pool.query(`
-      INSERT INTO cards (reading_id, card_name, position, position_order)
+      INSERT INTO cards (reading_id, card_name, position_name, position_order)
       VALUES ($1, $2, $3, $4)
       RETURNING *;`, 
-      [reading_id, card_name, position, position_order]
+      [reading_id, card_name, position_name, position_order]
     )
     const cardData = dbResponse.rows[0]
     res.status(200)
