@@ -25,6 +25,7 @@ const SearchMenu = ({searchCategory, setSearchCategory}: SearchMenuProps) => {
   return(
     <div className='search-menu-container'>
       <select ref={selectRef} className='search-menu' value={searchCategory} onChange={e=> setSearchCategory(e.target.value)}>
+        <option value="all">all</option>
         <option value="date">date</option>
         <option value="reading-topic">reading topic</option>
         <option value="spread-type">spread type</option>

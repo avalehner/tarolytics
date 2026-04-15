@@ -21,7 +21,11 @@ const readingsRouter = Router()
 //official name: GET request handler. this received the HTTP GET request fro the front end and sends out a response  
 readingsRouter.get('/', async (req: Request, res: Response) => { // '/' is the route path, means the root of whatever path the router is mounted on 
   try {
-    const dbResponse = await pool.query('SELECT * FROM readings')
+    const dbResponse = await pool.query(`
+      SELECT * 
+      FROM readings
+      ORDER BY reading_date DESC; 
+      `)
     const readingData = dbResponse.rows
     res.status(200)
       .json(readingData)

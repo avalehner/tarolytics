@@ -4,7 +4,6 @@ import SearchMenu from '../components/SearchMenu'
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
-import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
 import { getAllReadings } from '../services/readingService'
 import { getAllCards } from '../services/cardsService'
@@ -12,7 +11,7 @@ import { ReadingTypes, CardTypes } from '../types'
 import ReadingLog from "../components/ReadingLog"
 
 const ReadingLogPage = () => {
-  const [searchCategory, setSearchCategory] = useState<string>('date')
+  const [searchCategory, setSearchCategory] = useState<string>('all')
   const [date, setDate] = useState<string>('')
   const [readingTopic, setReadingTopic] = useState<string>('card-of-day')
   const [customReadingTopic, setCustomReadingTopic] = useState<string>('')
@@ -30,16 +29,33 @@ const ReadingLogPage = () => {
       .then(data => setCards(data))
   }, []) //[] tells react to only run the effect once on initial mount
 
-  console.log(readings)
-
   const handleRemoveCard = (indexToRemove: number) => {
     setSearchCards(searchCards.filter((_, index) => index !== indexToRemove))
-    console.log('test')
+  }
+
+  const getFilteredReadings = () => {
+    if (searchCategory === 'date') {
+      if (!date) return readings
+      return readings.filter(reading => reading.reading_date.slice(0, 10) === date)
+    } else if (searchCategory === 'reading-topic') {
+      return readings.filter(reading => reading.reading_topic === readingTopic)
+    } else if (searchCategory === 'spread-type') {
+      return readings.filter(reading => reading.spread_type === readingSpread)
+    } else if (searchCategory === 'cards') {
+      const activeSearchCards = searchCards.filter(searchCard => searchCard !== '') //strips out default empty string 
+      if (activeSearchCards.length === 0) return readings 
+      return readings.filter(reading => {
+        const readingCards = allCards.filter(card => card.reading_id === reading.id)
+        return activeSearchCards.some(searchCard => readingCards.some(card => card.card_name === searchCard))
+      })
+    } else if (searchCategory === 'all') return readings 
+    return readings 
   }
 
   const renderReadingLogs = () => {
-    const readingsList = readings.map((reading, index)=> {
-      if (index < readings.length -1) {
+    const filteredReadings = getFilteredReadings()
+    const readingsList = filteredReadings.map((reading, index)=> {
+      if (index < filteredReadings.length -1) {
         return(
           <>
             <ReadingLog reading={reading} cards={allCards.filter((card) => card.reading_id === reading.id)}/>
