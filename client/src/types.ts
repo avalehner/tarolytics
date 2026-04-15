@@ -16,7 +16,7 @@ export interface CardTypes {
   id: string, 
   reading_id: string, 
   card_name: string, 
-  position: string, 
+  position_name?: string | null, 
   position_order: number, 
   created_at: string, 
   updated_at: string, 
