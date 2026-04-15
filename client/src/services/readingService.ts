@@ -5,22 +5,20 @@ export const getAllReadings = async (): Promise<ReadingTypes[]> => {
     method: 'GET', 
     headers: { 'Content-Type': 'application/json' }, 
   })
-  if (!response.ok) {
-    throw new Error(`Server error: ${response.status}`)
-  }
+  if (!response.ok) throw new Error(`Server error: ${response.status}`)
+  
   const readingData = await response.json()
   return readingData 
 }
 
-export const createReading = async (data: NewReadingTypes): Promise<NewReadingTypes> => {
+export const createReading = async (data: NewReadingTypes): Promise<ReadingTypes> => {
   const response = await fetch('http://localhost:3000/api/readings/', {
     method: 'POST', 
     headers: {'Content-Type': 'application/json' }, 
     body: JSON.stringify(data), //convert data from object to string
   })
-  if (!response.ok) {
-    throw new Error(`Server error: ${response.status}`)
-  }
+  if (!response.ok) throw new Error(`Server error: ${response.status}`) //fetch only throws error on network falures (no internet/server down). if server responds with status(500) or 404 fetch still considers that successful. this check throws an error for when the server is running but sends back an error 
+  
   const readingData = await response.json()
   return readingData
 }
