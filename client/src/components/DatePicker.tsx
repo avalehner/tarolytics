@@ -10,9 +10,9 @@ interface DatePickerProps {
 const DatePicker = ({ date, setDate }: DatePickerProps) => {
   return (
     <ReactDatePicker
-      selected={date ? new Date(date) : null} //converts date from string into date object os react date picker can understand it
+      selected={date ? new Date(date + 'T00:00:00') : null} //converts date from string into date object os react date picker can understand it
       onChange={(selectedDate: Date | null) => {
-        if (selectedDate) setDate(selectedDate.toISOString().split('T')[0])} //converts selecteddate back into a string for the setDate function, react-date-picker only uses react Date type
+        if (selectedDate) setDate(selectedDate.toLocaleDateString('en-CA'))} //converts selecteddate back into a string for the setDate function, react-date-picker only uses react Date type
       }
       placeholderText="mm/dd/yyyy"
       dateFormat="MM/dd/yyyy"
