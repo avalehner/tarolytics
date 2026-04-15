@@ -7,7 +7,8 @@ import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
 import { getAllReadings } from '../services/readingService'
-import { ReadingTypes } from '../types'
+import { getAllCards } from '../services/cardsService'
+import { ReadingTypes, CardTypes } from '../types'
 import ReadingLog from "../components/ReadingLog"
 
 const ReadingLogPage = () => {
@@ -17,18 +18,22 @@ const ReadingLogPage = () => {
   const [customReadingTopic, setCustomReadingTopic] = useState<string>('')
   const [readingSpread, setReadingSpread] = useState<string>('top-bottom')
   const [customReadingSpread, setCustomReadingSpread] = useState<string>('')
-  const [cards, setCards] = useState<string[]>([''])
+  const [allCards, setCards] = useState<CardTypes[]>([])
+  const [searchCards, setSearchCards] = useState<string[]>([''])
   const [readings, setReadings] = useState<ReadingTypes[]>([])
 
   useEffect(()=> {
     getAllReadings()
-      .then(data => setReadings(data))
+      .then(data => setReadings(data)) // use .then as an alternative to await bc useeffect cant be async and await needs an async wrapper
+
+    getAllCards()
+      .then(data => setCards(data))
   }, []) //[] tells react to only run the effect once on initial mount
 
   console.log(readings)
 
   const handleRemoveCard = (indexToRemove: number) => {
-    setCards(cards.filter((_, index) => index !== indexToRemove))
+    setSearchCards(searchCards.filter((_, index) => index !== indexToRemove))
     console.log('test')
   }
 
@@ -37,13 +42,13 @@ const ReadingLogPage = () => {
       if (index < readings.length -1) {
         return(
           <>
-            <ReadingLog reading={reading}/>
+            <ReadingLog reading={reading} cards={allCards.filter((card) => card.reading_id === reading.id)}/>
             <hr /> 
           </>
         )
       } else {
         return(
-          <ReadingLog reading={reading}/>
+          <ReadingLog reading={reading} cards={allCards.filter((card) => card.reading_id === reading.id)}/>
         )
       }
     })
@@ -70,16 +75,16 @@ const ReadingLogPage = () => {
                                                   setReadingSpread={setReadingSpread}
                                                   customReadingSpread={customReadingSpread}
                                                   setCustomReadingSpread={setCustomReadingSpread} />}
-         {searchCategory === 'cards' && <button className="add-card-btn" onClick={() => setCards([...cards, ''])}>ADD CARD</button>}
+         {searchCategory === 'cards' && <button className="add-card-btn" onClick={() => setSearchCards([...searchCards, ''])}>ADD CARD</button>}
       </div>
       {searchCategory === 'cards' && (
           <>
             <div className="all-card-inputs-container">
-              {cards.map((_, index) => 
+              {searchCards.map((_, index) => 
                 <div key={index} className="search-card-input-wrapper">
                   <CardInput 
-                    cards={cards}
-                    setCards={setCards} 
+                    cards={searchCards}
+                    setCards={setSearchCards} 
                     label="select card"
                     index={index}
                   />
