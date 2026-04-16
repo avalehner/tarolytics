@@ -11,6 +11,17 @@ export const getAllReadings = async (): Promise<ReadingTypes[]> => {
   return readingData 
 }
 
+export const getReadingById = async (readingId: string ): Promise<ReadingTypes> => {
+  const response = await fetch(`http://localhost:3000/api/readings/${readingId}`, {
+    method: 'GET', 
+    headers: {'Content-Type': 'application/json'}
+  })
+  if(!response.ok) throw new Error(`Server error: ${response.status}`)
+
+  const readingData = await response.json()
+  return readingData
+}
+
 export const createReading = async (data: NewReadingTypes): Promise<ReadingTypes> => {
   const response = await fetch('http://localhost:3000/api/readings/', {
     method: 'POST', 
