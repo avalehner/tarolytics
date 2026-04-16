@@ -34,22 +34,27 @@ const ReadingLogPage = () => {
   }
 
   const getFilteredReadings = () => {
-    if (searchCategory === 'date') {
-      if (!date) return readings
-      return readings.filter(reading => reading.reading_date.slice(0, 10) === date)
-    } else if (searchCategory === 'reading-topic') {
-      return readings.filter(reading => reading.reading_topic === readingTopic)
-    } else if (searchCategory === 'spread-type') {
-      return readings.filter(reading => reading.spread_type === readingSpread)
-    } else if (searchCategory === 'cards') {
-      const activeSearchCards = searchCards.filter(searchCard => searchCard !== '') //strips out default empty string 
-      if (activeSearchCards.length === 0) return readings 
-      return readings.filter(reading => {
-        const readingCards = allCards.filter(card => card.reading_id === reading.id)
-        return activeSearchCards.some(searchCard => readingCards.some(card => card.card_name === searchCard))
-      })
-    } else if (searchCategory === 'all') return readings 
-    return readings 
+    switch(searchCategory) {
+      case 'date': 
+        return readings.filter(reading => reading.reading_date.slice(0, 10) === date)
+      case 'reading-topic': 
+        return readings.filter(reading => reading.reading_topic === readingTopic)
+      case 'spread-type': 
+        return readings.filter(reading => reading.spread_type === readingSpread)
+      case 'date': 
+        const activeSearchCards = searchCards.filter(searchCard => searchCard != '') //strips out default empty string 
+        if (activeSearchCards.length === 0) return readings //shows readings if no search cards selected 
+        return readings.filter(reading => {
+          const readingCards = allCards.filter(card => card.reading_id === reading.id) //cards in current reading
+          return activeSearchCards.some(searchCard => readingCards.some(card => card.card_name === searchCard)) //.some() searches for an item in the array that matches the condition, as soon as it finds one it returns true, if it doesnt it returns false 
+           //outer .some() loops through ALL active search cards, grabs one and compares to the readingCards. need the outer loop or else we wouldnt be able to grab one search card at a time
+          //use .some() because we don't need to check them all, only need ot check until one returns true
+        })
+      case 'all': 
+        return readings
+      default: 
+        return readings 
+    }
   }
 
   const renderReadingLogs = () => {
