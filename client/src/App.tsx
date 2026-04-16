@@ -3,6 +3,7 @@ import './App.css'
 // import TestServiceFunctionsComponent from './components/testServiceFunctionsComponent'
 import TrackerInputPage from './pages/TrackerInputPage'
 import ReadingLogPage from './pages/ReadingLogPage'
+import ViewReadingPage from './pages/ViewReadingPage'
 import NavBar from './components/NavBar'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<TrackerInputPage />} />
         <Route path="/analytics" element={<ReadingLogPage />} />
+        <Route path="/reading/:readingId" element={<ViewReadingPage />} />
       </Routes>
     </>
   )

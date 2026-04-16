@@ -1,4 +1,4 @@
-import "./css/CardInput.css"
+import styles from "./css/CardInput.module.css"
 import tarotCards from "../data/tarotCards"
 import { useRef, useEffect } from 'react'
 
@@ -38,7 +38,7 @@ const CardInput = ({ cards, setCards, label, index }: CardInputProps) => {
 
   return (
     <div>
-      <select ref={selectRef} value={cards[index] || ''} className="card-input" onChange={e => updateCard(index, e.target.value)}>
+      <select ref={selectRef} value={cards[index] || ''} className={styles['card-input']} onChange={e => updateCard(index, e.target.value)}>
         <option value="" disabled>{label}</option>
          {getFilteredCards(index).map((cardName) => <option key={cardName} value={cardName}>{cardName}</option>)}    
       </select> 

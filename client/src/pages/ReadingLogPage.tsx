@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './css/ReadingLogPage.css'
+import styles from './css/ReadingLogPage.module.css'
 import SearchMenu from '../components/SearchMenu'
 import DatePicker from '../components/DatePicker'
 import ReadingTopicMenu from '../components/ReadingTopicMenu'
@@ -36,12 +36,15 @@ const ReadingLogPage = () => {
   const getFilteredReadings = () => {
     switch(searchCategory) {
       case 'date': 
+        if(!date) return readings
         return readings.filter(reading => reading.reading_date.slice(0, 10) === date)
       case 'reading-topic': 
+        if(!readingTopic) return readings
         return readings.filter(reading => reading.reading_topic === readingTopic)
       case 'spread-type': 
+        if(!readingSpread) return readings
         return readings.filter(reading => reading.spread_type === readingSpread)
-      case 'date': 
+      case 'cards': 
         const activeSearchCards = searchCards.filter(searchCard => searchCard != '') //strips out default empty string 
         if (activeSearchCards.length === 0) return readings //shows readings if no search cards selected 
         return readings.filter(reading => {
@@ -79,8 +82,8 @@ const ReadingLogPage = () => {
   return (
     <>
       <h1>Tarolytics</h1>
-      <div className="search-bar-container">
-        <p className='search-label'>search by:</p>
+      <div className={styles['search-bar-container']}>
+        <p className={styles['search-label']}>search by:</p>
         <SearchMenu 
           searchCategory={searchCategory}
           setSearchCategory={setSearchCategory}
@@ -96,13 +99,13 @@ const ReadingLogPage = () => {
                                                   setReadingSpread={setReadingSpread}
                                                   customReadingSpread={customReadingSpread}
                                                   setCustomReadingSpread={setCustomReadingSpread} />}
-         {searchCategory === 'cards' && <button className="add-card-btn" onClick={() => setSearchCards([...searchCards, ''])}>ADD CARD</button>}
+         {searchCategory === 'cards' && <button className={styles["add-card-btn"]} onClick={() => setSearchCards([...searchCards, ''])}>ADD CARD</button>}
       </div>
       {searchCategory === 'cards' && (
           <>
-            <div className="all-card-inputs-container">
+            <div className={styles["all-card-inputs-container"]}>
               {searchCards.map((_, index) => 
-                <div key={index} className="search-card-input-wrapper">
+                <div key={index} className={styles["search-card-input-wrapper"]}>
                   <CardInput 
                     cards={searchCards}
                     setCards={setSearchCards} 
@@ -115,7 +118,7 @@ const ReadingLogPage = () => {
             </div>
           </>
         )}  
-      <div className="reading-log-labels">
+      <div className={styles["reading-log-labels"]}>
         <p>DATE</p>
         <p>TOPIC</p>
         <p>SPREAD</p>
@@ -123,7 +126,7 @@ const ReadingLogPage = () => {
         <p>NOTES</p>
         <p>INTERPRETATION</p>
       </div>
-      <div className="reading-log-container">
+      <div className={styles["reading-log-container"]}>
         {renderReadingLogs()}
       </div>
     </>

@@ -1,4 +1,4 @@
-import './css/ReadingSpreadMenu.css'
+import styles from './css/ReadingSpreadMenu.module.css'
 import { useRef, useEffect } from 'react'
 
 interface ReadingSpreadMenuProps {
@@ -37,9 +37,9 @@ const ReadingSpreadMenu = ({
   }
 
   return (
-    <div className="spread-container">
-      <div className="spread-menu-container">
-        <select ref={selectRef} className="spread-menu" value={readingSpread} onChange={handleReadingSpread}> 
+    <div className={styles['spread-container']}>
+      <div className={styles['spread-menu-container']}>
+        <select ref={selectRef} className={styles['spread-menu']} value={readingSpread} onChange={handleReadingSpread}> 
           <option value="single-card">single card</option>
           <option value="top-bottom">top / bottom</option> 
           <option value="past-present-future">past present future</option>
@@ -51,7 +51,7 @@ const ReadingSpreadMenu = ({
 
     {readingSpread === "custom" && (
       <input 
-        className="card-input"
+        className={styles['card-input']}
         type="text"
         placeholder="spread name"
         value={customReadingSpread}

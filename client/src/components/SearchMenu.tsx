@@ -1,4 +1,4 @@
-import './css/SearchMenu.css'
+import styles from './css/SearchMenu.module.css'
 import { useRef, useEffect } from 'react'
 
 interface SearchMenuProps {
@@ -23,8 +23,8 @@ const SearchMenu = ({searchCategory, setSearchCategory}: SearchMenuProps) => {
   }, [searchCategory])
 
   return(
-    <div className='search-menu-container'>
-      <select ref={selectRef} className='search-menu' value={searchCategory} onChange={e=> setSearchCategory(e.target.value)}>
+    <div className={styles['search-menu-container']}>
+      <select ref={selectRef} className={styles['search-menu']} value={searchCategory} onChange={e=> setSearchCategory(e.target.value)}>
         <option value="all">all</option>
         <option value="date">date</option>
         <option value="reading-topic">reading topic</option>

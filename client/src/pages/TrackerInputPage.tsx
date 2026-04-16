@@ -6,7 +6,7 @@ import ReadingTopicMenu from '../components/ReadingTopicMenu'
 import ReadingSpreadMenu from '../components/ReadingSpreadMenu'
 import spreadConfig from '../data/spreadConfig'
 import CardInput from '../components/CardInput'
-import './css/TrackerInputPage.css'
+import styles from './css/TrackerInputPage.module.css'
 
 const TrackerInputPage = () => {
 
@@ -67,10 +67,10 @@ const TrackerInputPage = () => {
     if (readingSpread === 'custom') {
       return (
         <>
-        <button className="add-card-btn" onClick={() => handleAddCard()}>ADD CARD</button>
-        <div className="all-card-inputs-container">
+        <button className={styles["add-card-btn"]} onClick={() => handleAddCard()}>ADD CARD</button>
+        <div className={styles["all-card-inputs-container"]}>
           {cards.map((_, index) => 
-            <div key={index} className="card-input-container">
+            <div key={index} className={styles["card-input-container"]}>
               <CardInput 
                 cards={cards}
                 setCards={setCards} 
@@ -86,7 +86,7 @@ const TrackerInputPage = () => {
     }
 
     return (
-      <div className="all-card-inputs-container">
+      <div className={styles["all-card-inputs-container"]}>
         {labels.map((label, index) => 
           <CardInput 
             cards={cards}
@@ -107,8 +107,8 @@ const TrackerInputPage = () => {
         date={date}
         setDate={setDate}
       />
-      <div className="reading-topic-menu-container">
-        <p className="topic-label">topic:</p>
+      <div className={styles["reading-topic-menu-container"]}>
+        <p className={styles["topic-label"]}>topic:</p>
         <ReadingTopicMenu 
           readingTopic={readingTopic}
           setReadingTopic={setReadingTopic}
@@ -116,8 +116,8 @@ const TrackerInputPage = () => {
           setCustomReadingTopic={setCustomReadingTopic}
         /> 
       </div>
-      <div className="reading-topic-menu-container">
-        <p className="spread-label">spread:</p>
+      <div className={styles["reading-topic-menu-container"]}>
+        <p className={styles["spread-label"]}>spread:</p>
         <ReadingSpreadMenu 
           readingSpread = {readingSpread}
           setReadingSpread={setReadingSpread}
@@ -129,7 +129,7 @@ const TrackerInputPage = () => {
 
       {renderCardInputs(readingSpread)}   
 
-      <div className="reading-notes">
+      <div className={styles["reading-notes"]}>
         <input 
           type="text" 
           value={notes}
@@ -137,7 +137,7 @@ const TrackerInputPage = () => {
           onChange={(e) => setNotes(e.target.value)} 
         />
       </div>
-      <div className="reading-notes">
+      <div className={styles["reading-notes"]}>
         <input 
           type="text" 
           value={interpretation}
@@ -146,13 +146,13 @@ const TrackerInputPage = () => {
         />
       </div>
       <div>
-        <button className="save-reading-btn"
+        <button className={styles["save-reading-btn"]}
           onClick={saveReading}
           disabled={saving}
         >
           {saving ? 'Saving...' : 'SAVE READING'}
         </button>
-        <button className="upload-picture-btn"
+        <button className={styles["upload-picture-btn"]}
           onClick={saveReading}
           disabled={saving}
         >

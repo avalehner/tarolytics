@@ -1,4 +1,4 @@
-import './css/ReadingTopicMenu.css'
+import styles from './css/ReadingTopicMenu.module.css'
 import { useRef, useEffect } from 'react'
 
 interface ReadingTopicMenuProps {
@@ -30,9 +30,9 @@ const ReadingTopicMenu = ({
   }, [readingTopic])
 
   return (
-    <div className="topic-container">
-      <div className="topic-menu-container">
-        <select ref={selectRef} className="topic-menu" value={readingTopic} onChange={e=> setReadingTopic(e.target.value)}>
+    <div className={styles['topic-container']}>
+      <div className={styles['topic-menu-container']}>
+        <select ref={selectRef} className={styles['topic-menu']} value={readingTopic} onChange={e=> setReadingTopic(e.target.value)}>
           <option value="card-of-day">daily</option>
           <option value="love-reading">love</option>
           <option value="health">health</option>
@@ -45,7 +45,7 @@ const ReadingTopicMenu = ({
       
       {readingTopic === 'custom' && (
         <input 
-          className="card-input"
+          className={styles['card-input']}
           type="text"
           placeholder="enter topic"
           value={customReadingTopic}
