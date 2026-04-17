@@ -67,7 +67,7 @@ const ReadingLogPage = () => {
         return(
           <>
             <ReadingLog reading={reading} cards={allCards.filter((card) => card.reading_id === reading.id)}/>
-            <hr /> 
+            <hr className={styles['log-divider']}/> 
           </>
         )
       } else {

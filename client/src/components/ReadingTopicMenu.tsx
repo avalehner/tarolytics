@@ -45,7 +45,7 @@ const ReadingTopicMenu = ({
       
       {readingTopic === 'custom' && (
         <input 
-          className={styles['card-input']}
+          className={styles['custom-topic-input']}
           type="text"
           placeholder="enter topic"
           value={customReadingTopic}

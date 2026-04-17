@@ -51,7 +51,7 @@ const ReadingSpreadMenu = ({
 
     {readingSpread === "custom" && (
       <input 
-        className={styles['card-input']}
+        className={styles['custom-spread-input']}
         type="text"
         placeholder="spread name"
         value={customReadingSpread}

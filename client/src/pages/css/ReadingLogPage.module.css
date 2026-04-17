@@ -47,8 +47,22 @@
   font-size: 1.1rem;   
 }
 
-hr {
+.log-divider {
   border: none; 
   border-top: 1px dashed black; 
   width: 95%; 
+}
+
+.add-card-btn {
+  border: 1px solid #889fcc;
+  border-radius: 9px; 
+  padding: 0.6rem 1rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #E2E8FF; 
+  font-size: 0.9rem; 
+  margin: 0.7rem 0.5rem; 
+}
+
+.add-card-btn:hover {
+  background-color: #c2cbec; 
 }
