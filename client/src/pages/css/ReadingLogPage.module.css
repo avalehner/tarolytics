@@ -1,3 +1,12 @@
+.reading-log-page-container {
+  text-align: center; 
+}
+
+.title {
+  font-family: 'Pamela'; 
+  margin: 4rem 0 1.7rem; 
+}
+
 .search-bar-container {
   display: flex; 
   justify-content: center; 

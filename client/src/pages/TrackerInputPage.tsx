@@ -101,8 +101,8 @@ const TrackerInputPage = () => {
   }
 
   return (
-    <>
-      <h1>Tarolytics</h1>
+    <div className={styles['tracker-input-page-container']}>
+      <h1 className={styles["title"]}>Tarolytics</h1>
       <DatePicker 
         date={date}
         setDate={setDate}
@@ -160,7 +160,7 @@ const TrackerInputPage = () => {
         </button>
         {message && <p>{message}</p>}
       </div>
-    </>
+    </div>
   )
 }
 

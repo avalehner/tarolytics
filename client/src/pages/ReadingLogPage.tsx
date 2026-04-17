@@ -80,8 +80,8 @@ const ReadingLogPage = () => {
   }
 
   return (
-    <>
-      <h1>Tarolytics</h1>
+    <div className={styles["reading-log-page-container"]}>
+      <h1 className={styles["title"]}>Tarolytics</h1>
       <div className={styles['search-bar-container']}>
         <p className={styles['search-label']}>search by:</p>
         <SearchMenu 
@@ -129,7 +129,7 @@ const ReadingLogPage = () => {
       <div className={styles["reading-log-container"]}>
         {renderReadingLogs()}
       </div>
-    </>
+    </div>
   )
 }
 
