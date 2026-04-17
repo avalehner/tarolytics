@@ -34,31 +34,35 @@ const ViewReadingPage = () => {
   return (
     <>
       <div className={styles["reading-info-container"]}>
-        <div className="month-day-container">
-          <h1>{formatDate(reading.reading_date).month}</h1>
-          <h1>{convertDayToWord(formatDate(reading.reading_date).day)}</h1>
+        <div className={styles["month-day-container"]}>
+          <h1 className={styles['month']}>{formatDate(reading.reading_date).month}</h1>
+          <h1 className={styles['day']}>{convertDayToWord(formatDate(reading.reading_date).day)}</h1>
         </div>
-        <h2>{formatDate(reading.reading_date).year}</h2>
-        <hr />
-        <div className={styles["topic-container"]}>
-          <p>topic:</p>
-          <p>{reading.reading_topic}</p>
-        </div>
-        <div className={styles["spread-container"]}>
-          <p>spread:</p>
-          <p>{reading.spread_type}</p>
-        </div>
-        <div className={styles["reading-notes"]}>
-          <p>notes:</p>
-          <p>{reading.notes}</p>
+        <h2 className={styles["year"]}>{formatDate(reading.reading_date).year}</h2>
+        <hr className={styles['aesthetic-divider']}/>
+        <div className={styles['details-container']}>
+          <div className={styles["topic-container"]}>
+            <p>topic:</p>
+            <p>{reading.reading_topic}</p>
+          </div>
+          <div className={styles["spread-container"]}>
+            <p>spread:</p>
+            <p>{reading.spread_type}</p>
+          </div>
+          <div className={styles["notes-container"]}>
+            <p>notes:</p>
+            <p>{reading.notes}</p>
+          </div>
         </div>
         <div className={styles["button-container"]}>
-          <button className={styles["redit-reading-btn"]}>EDIT</button>
+          <button className={styles["edit-reading-btn"]}>EDIT</button>
           <button className={styles["clarifyer-btn"]}>CLARIFYER</button>
         </div>
-        <hr />
-        <div className={styles["interpretation-container"]}>
-          <p className={styles["interpretation"]}>[interpretation]</p>
+        <hr className={styles['aesthetic-divider']}/>
+        <div className={styles["interpretation-card"]}>
+          <p className={styles["interpretation"]}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi  ut aliquip ex ea commodo consequat. Duis aute irure dolor in  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla  pariatur.
+          </p>
         </div>
         <button className={styles["save-interpretation-btn"]}>SAVE INTERPRETATION</button>
       </div>

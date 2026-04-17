@@ -1,0 +1,93 @@
+.reading-info-container {
+  margin: 2rem 7rem; 
+  color: black; 
+  width: 23%;
+}
+
+.month-day-container {
+  display: flex; 
+  gap: 1.1rem; 
+  font-style: italic; 
+  margin: 4rem 0 0.8rem;  
+}
+
+.month, .day {
+  margin: 0; 
+  font-size: 3.2rem; 
+  font-weight: 600; 
+}
+
+.year {
+  font-weight: 600; 
+  font-size: 1.9rem;
+  margin: 0; 
+  font-style: italic;
+}
+
+.aesthetic-divider {
+  width: 8.5%; 
+  margin: 0.8rem 0 0; 
+  border-bottom: 0.5px; 
+}
+
+.spread-container, .notes-container, .topic-container{
+  display: flex; 
+  gap: 1rem; 
+}
+
+.spread-container p, .notes-container p, .topic-container p {
+  margin: 0 0 0.5rem; 
+}
+
+.details-container {
+  margin: 1rem 0 0.8rem; 
+}
+
+.button-container {
+  display: flex; 
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;  
+}
+
+.edit-reading-btn, .clarifyer-btn{
+  border: 1px solid #5c7dbf;
+  border-radius: 9px; 
+  padding: 0.5rem 0.9rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #E2E8FF; 
+  font-size: 0.8rem; 
+  margin: 0; 
+}
+
+.edit-reading-btn:hover, .clarifyer-btn:hover{
+  background-color: #c2cbec; 
+}
+
+.interpretation-card {
+  background-color: #FFE8D4; 
+  border: 1px solid #ed9494; 
+  border-radius: 12px; 
+  margin: 1.5rem 0 1.4rem; 
+  padding: 0.5rem 2rem; 
+  text-align: center; 
+  box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.interpretation {
+  line-height: 1.4;
+}
+
+.save-interpretation-btn {
+  border: 0.5px solid #97B48E;
+  border-radius: 9px; 
+  padding: 0.8rem 1.2rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #EBFFE4; 
+  font-size: 1rem; 
+  margin: 0.7rem auto; 
+}
+
+.save-interpretation-btn:hover {
+  background-color: #cee9c6;  
+}
+
