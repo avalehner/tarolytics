@@ -1,5 +1,5 @@
 import ReactDatePicker from 'react-datepicker'
-import styles from 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css'
 import './css/DatePicker.css'
 
 interface DatePickerProps {
