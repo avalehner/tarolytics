@@ -23,13 +23,16 @@ cardsRouter.get('/', async (req:Request, res:Response) => {
   }
 })
 
-//get all cards 
-cardsRouter.get('/', async (req:Request, res:Response) => {
+//get cards by reading id 
+cardsRouter.get('/:readingId', async (req:Request, res:Response) => {
+  const { readingId } = req.params
   try {
     const dbResponse = await pool.query(`
-      SELECT *
-      FROM cards; 
-    `)
+      SELECT * FROM cards 
+      WHERE reading_id = $1
+      ORDER BY position_order;`, 
+      [readingId]
+    )
     const cardsData = dbResponse.rows 
     res.status(200)
       .json(cardsData)

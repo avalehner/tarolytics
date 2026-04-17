@@ -1,6 +1,6 @@
 import { CardTypes, NewCardTypes } from "../types"
 
-export const getCardsForReading = async (readingId: string): Promise<CardTypes[]> => {
+export const getCardsByReadingId = async (readingId: string): Promise<CardTypes[]> => {
   const response = await fetch(`http://localhost:3000/api/cards/${readingId}`, {
     method: 'GET', 
     headers: { 'Content-Type': 'application/json'}, 
