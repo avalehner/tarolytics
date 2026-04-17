@@ -1,14 +1,20 @@
+.view-reading-container {
+  display: flex;
+  padding: 0;  
+}
+
 .reading-info-container {
-  margin: 2rem 7rem; 
+  margin: 0rem 7rem; 
   color: black; 
-  width: 23%;
+  width: 25%;
+  padding: 0.1px; 
 }
 
 .month-day-container {
   display: flex; 
   gap: 1.1rem; 
   font-style: italic; 
-  margin: 4rem 0 0.8rem;  
+  padding: 2rem 0 0.8rem;  
 }
 
 .month, .day {
@@ -91,5 +97,15 @@
 .save-interpretation-btn:hover {
   background-color: #cee9c6;  
   transition: all 0.1s ease; 
+}
+
+.spread-display-container {
+  position: relative; 
+  width: 500px; 
+  height: 400px; 
+}
+.card-image {
+  /* width: 48%;  */
+  box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
