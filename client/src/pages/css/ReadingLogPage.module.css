@@ -65,4 +65,5 @@
 
 .add-card-btn:hover {
   background-color: #c2cbec; 
+  transition: all 0.1s ease; 
 }

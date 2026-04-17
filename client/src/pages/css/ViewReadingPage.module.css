@@ -61,6 +61,7 @@
 
 .edit-reading-btn:hover, .clarifyer-btn:hover{
   background-color: #c2cbec; 
+  transition: all 0.1s ease; 
 }
 
 .interpretation-card {
@@ -89,5 +90,6 @@
 
 .save-interpretation-btn:hover {
   background-color: #cee9c6;  
+  transition: all 0.1s ease; 
 }
 

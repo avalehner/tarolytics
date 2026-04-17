@@ -77,7 +77,7 @@ const TrackerInputPage = () => {
                 label="select card"
                 index={index}
               />
-              <i className="fa-regular fa-x" onClick={() => handleRemoveCard(index)}></i>
+              <i className="fa-regular fa-x" style={{cursor: 'pointer'}} onClick={() => handleRemoveCard(index)}></i>
             </div>
           )}
         </div>

@@ -55,10 +55,12 @@
 
 .save-reading-btn:hover, .upload-picture-btn:hover {
   background-color: #cee9c6;  
+  transition: all 0.1s ease; 
 }
 
 .add-card-btn:hover {
   background-color: #c2cbec; 
+  transition: all 0.1s ease; 
 }
 
 .reading-topic-menu-container{
@@ -67,4 +69,3 @@
   gap: 1rem; 
   align-items: center;
 }
-
