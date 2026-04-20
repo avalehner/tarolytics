@@ -1,9 +1,13 @@
 const spreadPositions: Record<string, { 
-  cardWidth: number, 
+  cardWidth: number,
   positions: {
     x: number, 
     y: number, 
     rotation: number,
+    labelOffset?: {
+    x: number,
+    y: number 
+  }
   }[]
 }> = {
   'single-card': {
@@ -37,15 +41,15 @@ const spreadPositions: Record<string, {
   'celtic': {
     cardWidth: 20, 
     positions: [
-      { x: 45, y: 68, rotation: 0 }, 
-      { x: 45, y: 68, rotation: 90 }, 
-      { x: 45, y: 14, rotation: 0 }, 
-      { x: 45, y: 123, rotation: 0 },
-      { x: 7, y: 68, rotation: 0 },
-      { x: 83, y: 68, rotation: 0 },
-      { x: 119, y: 135, rotation: 0 },
-      { x: 119, y: 91, rotation: 0 },
-      { x: 119, y: 47, rotation: 0 },
+      { x: 45, y: 80, rotation: 0 }, 
+      { x: 45, y: 80, rotation: 90, labelOffset: {x: -90, y: 40} }, 
+      { x: 45, y: 26, rotation: 0 }, 
+      { x: 45, y: 135, rotation: 0 },
+      { x: 7, y: 80, rotation: 0 },
+      { x: 83, y: 80, rotation: 0 },
+      { x: 119, y: 162, rotation: 0 },
+      { x: 119, y: 109, rotation: 0 },
+      { x: 119, y: 56, rotation: 0 },
       { x: 119, y: 3, rotation: 0 },
     ]
   }

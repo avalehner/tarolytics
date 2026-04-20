@@ -8,6 +8,9 @@ import { convertDayToWord } from '../util'
 import { getCardsByReadingId } from '../services/cardsService'
 import { getCardImagePath } from '../util'
 import spreadPositions from '../data/spreadPositions'
+import topicLabels from '../data/topicLabels'
+import spreadLabels from '../data/spreadLabels'
+import spreadConfig from '../data/spreadConfig'
 
 const ViewReadingPage = () => {
   const [reading, setReading] = useState<ReadingTypes | null>(null) //because this holds a single reading which is just an object, there is no way to represent an empty object so we have to write null
@@ -36,24 +39,46 @@ const ViewReadingPage = () => {
     }
   }
 
-  const renderCardImage = (card: CardTypes) => {
+  const renderCardImage = (card: CardTypes, index: number) => {
     const {positions, cardWidth} = spreadPositions[reading.spread_type]
-    const {x, y, rotation} = positions[card.position_order]
+    const {x, y, rotation, labelOffset} = positions[card.position_order]
     const cardImagePath = getCardImagePath(card.card_name)
     let cardRotation = rotation
+    const labelRotation = cardRotation
     if (card.card_name.includes('rx')) cardRotation += 180
+    const spreadType = reading.spread_type
+
+    const labelStyle = labelOffset 
+      ? { position: 'absolute' as const, 
+          left: `${labelOffset.x}%`, 
+          top: `${labelOffset.y}%`,
+          transform: `rotate(${labelRotation}deg)` }
+      : {transform: `rotate(${labelRotation}deg)`}
 
     return (
-      <img 
-      className={styles['card-image']}
-      src={`${cardImagePath}`}
-      style={{ //style is a React prop that accepts a JS object which is y it need 2 brackets 
-        position: 'absolute', 
-        left: `${x}%`, 
-        top: `${y}%`, 
-        transform: `rotate(${cardRotation}deg)`, 
-        width: `${cardWidth}%`
-      }}></img>
+      <>
+        <div className={styles['card-label-container']}
+          style={{
+            position: 'absolute', 
+            left: `${x}%`, 
+            top: `${y}%`, 
+            width: `${cardWidth}%`,
+            // transform: `rotate(${cardRotation}deg)`,
+          }}
+        >
+          <img 
+          className={styles['card-image']}
+          src={`${cardImagePath}`}
+          style={{ //style is a React prop that accepts a JS object which is y it need 2 brackets 
+            transform: `rotate(${cardRotation}deg)`, 
+            width: `100%`
+          }}></img>
+          <p
+            className={styles['card-label']}
+            style={labelStyle}
+            >{spreadConfig[spreadType][index]}</p>
+        </div>
+      </>
     )
   }
 
@@ -70,11 +95,11 @@ const ViewReadingPage = () => {
           <div className={styles['details-container']}>
             <div className={styles["topic-container"]}>
               <p>topic:</p>
-              <p>{reading.reading_topic}</p>
+              <p>{topicLabels[reading.reading_topic] || reading.reading_topic}</p>
             </div>
             <div className={styles["spread-container"]}>
               <p>spread:</p>
-              <p>{reading.spread_type}</p>
+              <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
             </div>
             <div className={styles["notes-container"]}>
               <p>notes:</p>
@@ -94,7 +119,7 @@ const ViewReadingPage = () => {
           <button className={styles["save-interpretation-btn"]}>SAVE INTERPRETATION</button>
         </div>
         <div className={styles['spread-display-container']}>
-          {cards.map((card) => renderCardImage(card))}
+          {cards.map((card, index) => renderCardImage(card, index))}
         </div>
       </div>
     </>
