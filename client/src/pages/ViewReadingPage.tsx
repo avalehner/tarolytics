@@ -24,13 +24,11 @@ const ViewReadingPage = () => {
       .then(data => setCards(data))
   }, [readingId])
 
-  console.log(cards)
-
   if (!reading) return //makes sure reading is not null
 
   const formatDate = (date: string) => {
     const rawDate = date.slice(0,10)
-    const unformattedDate = new Date(rawDate)
+    const unformattedDate = new Date(rawDate + 'T00:00:00')
     return {
       month: format(unformattedDate, 'MMMM'),
       day: Number(format(unformattedDate, 'dd')),
@@ -44,8 +42,6 @@ const ViewReadingPage = () => {
     const cardImagePath = getCardImagePath(card.card_name)
     let cardRotation = rotation
     if (card.card_name.includes('rx')) cardRotation += 180
-    
-    console.log(cardWidth)
 
     return (
       <img 
