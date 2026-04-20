@@ -20,6 +20,7 @@ const TrackerInputPage = () => {
   const [interpretation, setInterpretation] = useState<string>('')
   const [saving, setSaving] = useState<boolean>(false)
   const [message, setMessage] = useState<string>('')
+  const [isManual, setIsManual] = useState<boolean>(false)
 
   const saveReading = async () => {
     setSaving(true)
@@ -61,7 +62,6 @@ const TrackerInputPage = () => {
 
     const handleRemoveCard = (indexToRemove: number) => {
       setCards(cards.filter((_, index) => index !== indexToRemove))
-      console.log('test')
     }
 
     if (readingSpread === 'custom') {
@@ -116,7 +116,19 @@ const TrackerInputPage = () => {
           setCustomReadingTopic={setCustomReadingTopic}
         /> 
       </div>
-      <div className={styles["reading-topic-menu-container"]}>
+      {!isManual &&
+        <div>
+          <button className={styles["save-reading-btn"]}
+            onClick={() => setIsManual(true)}
+            >
+            ENTER MANUALLY
+          </button>
+          <button className={styles["upload-picture-btn"]}>
+            UPLOAD PICTURE
+          </button>
+        </div>}
+      {isManual === true &&
+        <div className={styles["reading-topic-menu-container"]}>
         <p className={styles["spread-label"]}>spread:</p>
         <ReadingSpreadMenu 
           readingSpread = {readingSpread}
@@ -124,42 +136,42 @@ const TrackerInputPage = () => {
           customReadingSpread={customReadingSpread}  
           setCustomReadingSpread={setCustomReadingSpread}
           setCards={setCards}
-        />
-      </div>
+        /> 
+      </div>}
 
-      {renderCardInputs(readingSpread)}   
+      {isManual === true && renderCardInputs(readingSpread)}   
 
-      <div className={styles["reading-notes"]}>
-        <input 
-          type="text" 
-          value={notes}
-          placeholder="notes"
-          onChange={(e) => setNotes(e.target.value)} 
-        />
-      </div>
-      <div className={styles["reading-notes"]}>
-        <input 
-          type="text" 
-          value={interpretation}
-          placeholder="interpretation"
-          onChange={(e) => setInterpretation(e.target.value)} 
-        />
-      </div>
-      <div>
-        <button className={styles["save-reading-btn"]}
-          onClick={saveReading}
-          disabled={saving}
-        >
-          {saving ? 'Saving...' : 'SAVE READING'}
-        </button>
-        <button className={styles["upload-picture-btn"]}
-          onClick={saveReading}
-          disabled={saving}
-        >
-          UPLOAD PICTURE
-        </button>
-        {message && <p>{message}</p>}
-      </div>
+      {isManual === true && 
+      <>
+        <div className={styles["reading-notes"]}>
+          <input 
+            type="text" 
+            value={notes}
+            placeholder="notes"
+            onChange={(e) => setNotes(e.target.value)} 
+          />
+        </div>
+        <div className={styles["reading-notes"]}>
+          <input 
+            type="text" 
+            value={interpretation}
+            placeholder="interpretation"
+            onChange={(e) => setInterpretation(e.target.value)} 
+          />
+        </div>
+        <div>
+          <button className={styles["save-reading-btn"]}
+            onClick={saveReading}
+            disabled={saving}
+          >
+            {saving ? 'Saving...' : 'SAVE READING'}
+          </button>
+          {/* <button className={styles["upload-picture-btn"]}>
+            UPLOAD PICTURE
+          </button> */}
+          {message && <p>{message}</p>}
+        </div>
+      </>}
     </div>
   )
 }
