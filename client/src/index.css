@@ -23,6 +23,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FFF8E5; 
+  background: radial-gradient(ellipse at center, #FFF8E5 20%, #CEBCC5 100%);
 }
 
 a {
@@ -36,8 +38,6 @@ body {
   padding: 0; 
   min-width: 320px;
   min-height: 100vh;
-  background-color: #FFF8E5; 
-  background: radial-gradient(ellipse at center, #FFF8E5 20%, #CEBCC5 100%);
 }
 
 h1 {
@@ -62,7 +62,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -73,4 +73,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
