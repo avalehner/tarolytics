@@ -1,23 +1,25 @@
 CSS
 1. style date picker 
 2. style drop down menus
-3. hover state for buttons
-4. purple background color on front page
 
 General Design 
 1. Card outline for front page
 2. Design upload picture modal
 
-Frontend 
-1. change all JSX to TSX 
-
 Features
 1. Upload picture 
-2. pull data from backend to analytics page 
-3. pull card images from backend for each individual reading
 
-Backend 
-1. hook up backend to new database instead of supabase 
+Frontend 
+1. display cards 
+2. tracker page-make it so all fields must be filled out, get rid of the 500 error 
+3. hook up edit button on individual reading page 
+4. add card meanings somehow 
+
+Data
+1. get users chart information 
+
+backend 
+1. Oauthorization 
 
 Analytics 
 1. emotion visualization 
