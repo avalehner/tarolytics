@@ -93,24 +93,25 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
 })
 
 authRouter.get('/me', async (req: Request, res: Response) => {
-  const token = req.cookies.authToken 
+  const token = req.cookies.authToken //gets jwt from cookie sent from app.tsx fetch req 
   if (!token) return res.status(401) // if no token return error 
     .json({ error: 'Unauthorized' }) //sends json repsonse body
   
   try {
-    const decoded = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`) //decodes the token and returns the payload which contains the userid 
-    const { userId } = decoded as jwt.JwtPayload //casts result so typescript knows what type it is and i can access userId 
+    const decodedToken = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`) //decodes the token and returns the payload which contains the userid 
+    const { userId } = decodedToken as jwt.JwtPayload //casts result so typescript knows what type it is and i can access userId 
 
+    //queries db for the user obtained from decoded token 
     const dbReponse = await pool.query(`
       SELECT * 
       FROM users 
       WHERE id=$1;`, 
       [userId]
     )
-    const userData = dbReponse.rows[0]
+    const userData = dbReponse.rows[0] 
     
     res.status(200)
-      .json(userData)
+      .json(userData) //returns user data 
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'

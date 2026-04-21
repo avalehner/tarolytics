@@ -8,7 +8,7 @@ const LoginPage = () => {
       <div className={styles['login-container']}>
         <h1 className={styles['welcome-text']}>welcome to</h1>
         <h1 className={styles['tarolytics']}>Tarolytics</h1> 
-        <button className={styles['login-btn']}><NavLink to="http://localhost:3000/auth/google">LOG IN</NavLink></button>
+        <button className={styles['login-btn']}><a href="http://localhost:3000/auth/google">LOG IN</a></button>
       </div>
     </>
   )
