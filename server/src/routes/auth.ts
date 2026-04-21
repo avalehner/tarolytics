@@ -94,4 +94,37 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
   } 
 })
 
+authRouter.get('/me', async (req: Request, res: Response) => {
+  const token = req.cookies.authToken 
+  if (!token) return res.status(401) // if no token return error 
+    .json({ error: 'Unauthorized' }) //sends json repsonse body
+  
+  try {
+    const decoded = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`) //decodes the token and returns the payload which contains the userid 
+    const { userId } = decoded as jwt.JwtPayload //casts result so typescript knows what type it is and i can access userId 
+
+    const dbReponse = await pool.query(`
+      SELECT * 
+      FROM users 
+      WHERE id=$1;`, 
+      [userId]
+    )
+    const userData = dbReponse.rows[0]
+    
+    res.status(200)
+      .json(userData)
+
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    res.status(401)
+      .json({ error: message })
+  }
+})
+ 
+
+authRouter.get('/logout', async (req: Request, res: Response) => {
+  res.clearCookie('authToken') //clears jwt token
+  res.redirect('http://localhost:5173/login') //redirects to login page
+})
+
 export default authRouter
