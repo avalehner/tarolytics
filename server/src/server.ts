@@ -14,7 +14,7 @@ app.use(cors({ origin: 'http://localhost:5173'})) //tells express to only allow 
 //routes
 app.use('/api/readings', readingsRouter)
 app.use('/api/cards', cardsRouter)
-app.use('/auth')
+app.use('/auth', authRouter)
 
 //server: actually creates the server and tells it to start listening on port 3000
 app.listen(3000, ()=> {
