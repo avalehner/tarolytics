@@ -6,12 +6,11 @@ const NavBar = () => {
     <nav>
       <ul className={styles['nav-left']}>
         <li><NavLink to="">TRACK</NavLink></li>
-        <li><NavLink to="/analytics">ANALYTICS</NavLink></li>
+        <li><NavLink to="/analytics">ANALYZE</NavLink></li>
         <li>PULL CARD</li>
       </ul>
       <ul className={styles['nav-right']}>
-        <li>DOWNLOAD IOS</li>
-        <li>DOWNLOAD ANDROID</li>
+        <li><NavLink to="/login/">LOG IN</NavLink></li>
       </ul>
     </nav>
   )
