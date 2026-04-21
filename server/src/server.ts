@@ -3,13 +3,15 @@ import express, { Express } from "express" //type only
 import readingsRouter from './routes/readings'
 import cardsRouter from './routes/cards'
 import authRouter from './routes/auth'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 const app: Express = express() //creates app instance: the request handling logic, doesn't listen for network traffic. knows what to do with requests but doesn't handle any on its own 
 
 //middleware
 app.use(express.json()) //parses incoming JSON request bodies from the front end (only does this if req has a body)
-app.use(cors({ origin: 'http://localhost:5173'})) //tells express to only allow requests from the vite dev server
+app.use(cors({ origin: 'http://localhost:5173', credentials: true})) //tells express to only allow requests from the vite dev server, credentials true for cookie parser 
+app.use(cookieParser()) 
 
 //routes
 app.use('/api/readings', readingsRouter)

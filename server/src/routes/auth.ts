@@ -36,10 +36,12 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
         'code': `${authenticationCode}`, 
         'client_id': `${process.env.GOOGLE_OAUTH_CLIENT_ID}`, 
         'redirect_uri': `http://localhost:3000/auth/google/callback`, 
-        'grant_type': 'authorization_code'
+        'grant_type': 'authorization_code', 
+        'client_secret': `${process.env.GOOGLE_OAUTH_CLIENT_SECRET}`
       })
     }) 
 
+    console.log('google')
     if (!googleResponse.ok) throw new Error(`Auth server error: ${googleResponse.status}`)
     const googleObj = await googleResponse.json() //contains access token 
 
@@ -48,6 +50,7 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
       headers: {'Authorization': `Bearer ${googleObj.access_token}`}
     })
 
+    console.log('user info')
     if (!userInfoResponse.ok) throw new Error(`Auth server error: ${userInfoResponse.status}`)
     const userInfo = await userInfoResponse.json() //object with users info 
 
@@ -74,10 +77,15 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
       algorithm: 'HS256', 
       expiresIn: '7d'
     } )
+
+    //attach jwt cookie to the response. browser recieves cookie in res headers and stores it automatically
+    res.cookie( 'authToken', `${token}`, {
+      httpOnly: true, 
+      sameSite: 'lax', 
+      secure: false //false for local development (HTTP)
+    })
   
-    //redirect to frontend with tokan as url query (page that says login successful or something)
-    const frontendRedirectUrl = `http://localhost:5173/auth/callback?token=${token}`
-    res.redirect(frontendRedirectUrl)
+    res.redirect('http://localhost:5173/')
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown Error'
