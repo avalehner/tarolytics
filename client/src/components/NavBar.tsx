@@ -1,7 +1,13 @@
 import styles from './css/NavBar.module.css'
 import { NavLink } from 'react-router-dom'
+import { UserTypes } from '../types'
+
+interface NavBarProps {
+  currentUser: UserTypes | null
+}
  
-const NavBar = () => {
+const NavBar = ({currentUser}: NavBarProps) => {
+  console.log(currentUser)
   return (
     <nav>
       <ul className={styles['nav-left']}>
@@ -10,7 +16,7 @@ const NavBar = () => {
         <li>PULL CARD</li>
       </ul>
       <ul className={styles['nav-right']}>
-        <li><NavLink to="/login/">LOG IN</NavLink></li>
+        {currentUser ? <li><NavLink to="http://localhost:3000/auth/logout/">LOG OUT</NavLink></li> : <li><a href="/login/">LOG IN</a></li>}
       </ul>
     </nav>
   )

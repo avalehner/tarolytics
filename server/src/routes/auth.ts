@@ -41,7 +41,6 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
       })
     }) 
 
-    console.log('google')
     if (!googleResponse.ok) throw new Error(`Auth server error: ${googleResponse.status}`)
     const googleObj = await googleResponse.json() //contains access token 
 
@@ -50,7 +49,6 @@ authRouter.get('/google/callback', async (req: Request, res: Response) => {
       headers: {'Authorization': `Bearer ${googleObj.access_token}`}
     })
 
-    console.log('user info')
     if (!userInfoResponse.ok) throw new Error(`Auth server error: ${userInfoResponse.status}`)
     const userInfo = await userInfoResponse.json() //object with users info 
 

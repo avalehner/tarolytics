@@ -23,3 +23,13 @@ export interface CardTypes {
 }
 
 export type NewCardTypes = Omit<CardTypes, 'id' | 'created_at' | 'updated_at'>
+
+export interface UserTypes {
+  id: string, 
+  email: string, 
+  last_name: string, 
+  first_name: string, 
+  google_id: string, 
+  profile_url: string, 
+  full_name: string
+}
