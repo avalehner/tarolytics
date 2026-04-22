@@ -11,6 +11,7 @@ export interface ReadingTypes {
 }
 
 export type NewReadingTypes = Omit<ReadingTypes, 'id' | 'created_at' | 'updated_at' | 'user_id'>
+export type UpdateReadingTypes = Omit<ReadingTypes, 'id' | 'created_at' | 'user_id' |'reading_date' | 'spread_type' | 'reading_topic' | 'updated_at'>
 
 export interface CardTypes {
   id: string, 
@@ -23,6 +24,7 @@ export interface CardTypes {
 }
 
 export type NewCardTypes = Omit<CardTypes, 'id' | 'created_at' | 'updated_at'>
+export type UpdateCardTypes = Omit<CardTypes, 'id' | 'created_at' | 'updated_at'> 
 
 export interface UserTypes {
   id: string, 

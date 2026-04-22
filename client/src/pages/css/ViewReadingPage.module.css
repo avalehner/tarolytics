@@ -55,7 +55,7 @@
   margin-bottom: 1.2rem;  
 }
 
-.edit-reading-btn, .clarifyer-btn{
+.update-reading-btn, .clarifier-btn{
   border: 1px solid #5c7dbf;
   border-radius: 9px; 
   padding: 0.5rem 0.9rem;
@@ -65,7 +65,7 @@
   margin: 0; 
 }
 
-.edit-reading-btn:hover, .clarifyer-btn:hover{
+.update-reading-btn:hover, .clarifier-btn:hover{
   background-color: #c2cbec; 
   transition: all 0.1s ease; 
 }
@@ -91,7 +91,7 @@
   font-family: "Libertinus Serif", serif; 
   background-color: #EBFFE4; 
   font-size: 1rem; 
-  margin: 0.7rem auto; 
+  margin: 1rem auto; 
 }
 
 .save-interpretation-btn:hover {
@@ -99,24 +99,104 @@
   transition: all 0.1s ease; 
 }
 
+.all-card-display-container {
+  display: flex; 
+  flex-direction: column; 
+}
+
+
 .spread-display-container {
   position: relative; 
   width: 500px; 
   height: 400px; 
 }
+
+.clarifier-display-container {
+  margin-top: 200px; 
+  margin-left: 5%; 
+  width: 700px;
+}
+
+.clarifier-container {
+  display: flex; 
+  gap: 1rem; 
+}
+
+.clarifier-card-label {
+  margin-top: 0.5rem; 
+  text-align: center;
+}
+
+.clarifier-card-container {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
 .card-image {
-  /* width: 48%;  */
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.card-label-container {
+.card-image-container {
   display: flex; 
   flex-direction: column; 
   align-items: center;
-  justify-content: center; ;
+  justify-content: center;
 }
 
 .card-label {
   margin-top: 0.5rem; 
+}
+
+.update-reading-modal {
+  position: absolute; 
+  left: 40%; 
+  top: 30%; 
+  padding: 5rem; 
+  background-color: #FFF8E5; 
+  border: 1px solid #C45500;
+  border-radius: 12px; 
+  width: 22%; 
+}
+
+.reading-notes input{
+  border: 1px solid #C199CD;
+  border-radius: 9px; 
+  padding: 12px;
+  font-family: "Libertinus Serif", serif; 
+  width: 250px; 
+  text-align: center; 
+  font-size: 1rem; 
+  background-color: #FFFEFA; 
+  margin: 0.6rem 0; 
+}
+
+.add-card-btn {
+  border: 1px solid #889fcc;
+  border-radius: 9px; 
+  padding: 0.6rem 1rem;
+  font-family: "Libertinus Serif", serif; 
+  background-color: #E2E8FF; 
+  font-size: 0.9rem; 
+  margin: 0.7rem 0.5rem; 
+}
+
+.add-card-btn:hover {
+  background-color: #c2cbec; 
+  transition: all 0.1s ease; 
+}
+
+.card-input-container {
+  display: flex; 
+  align-items: center; 
+}
+
+.all-card-inputs-container {
+  display: flex; 
+  flex-wrap: wrap; 
+  /* justify-content: center;  */
+  align-items: center;
+  max-width: 40%; 
+  /* margin:0 auto;  */
 }
 

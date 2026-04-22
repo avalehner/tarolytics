@@ -1,12 +1,14 @@
 import styles from './css/ViewReadingPage.module.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getReadingById } from '../services/readingService'
+import { getReadingById, updateReadingById } from '../services/readingService'
+import { saveCards } from '../services/cardsService'
 import { ReadingTypes, CardTypes } from '../types'
-import { format } from "date-fns"
+import { add, format } from "date-fns"
 import { convertDayToWord } from '../util'
 import { getCardsByReadingId } from '../services/cardsService'
 import { getCardImagePath } from '../util'
+import CardInput from '../components/CardInput'
 import spreadPositions from '../data/spreadPositions'
 import topicLabels from '../data/topicLabels'
 import spreadLabels from '../data/spreadLabels'
@@ -15,6 +17,12 @@ import spreadConfig from '../data/spreadConfig'
 const ViewReadingPage = () => {
   const [reading, setReading] = useState<ReadingTypes | null>(null) //because this holds a single reading which is just an object, there is no way to represent an empty object so we have to write null
   const [cards, setCards] = useState<CardTypes[]>([])
+  const [addedCards, setAddedCards] = useState<string[]>([])
+  const [notes, setNotes] = useState<string>('')
+  const [interpretation, setInterpretation] = useState<string>('')
+  const [updating, setUpdating] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
+  const [updateModal, setUpdateModal] = useState<boolean>(false)
 
   const { readingId } = useParams()
 
@@ -40,8 +48,10 @@ const ViewReadingPage = () => {
   }
 
   const renderCardImage = (card: CardTypes, index: number) => {
-    const {positions, cardWidth} = spreadPositions[reading.spread_type]
-    const {x, y, rotation, labelOffset} = positions[card.position_order]
+    const { positions, cardWidth } = spreadPositions[reading.spread_type] 
+    const position = positions[card.position_order]
+    if(!position) return null //skip any card without a valid position 
+    const {x, y, rotation, labelOffset} = position
     const cardImagePath = getCardImagePath(card.card_name)
     let cardRotation = rotation
     const labelRotation = cardRotation
@@ -57,7 +67,7 @@ const ViewReadingPage = () => {
 
     return (
       <>
-        <div className={styles['card-label-container']}
+        <div className={styles['card-image-container']}
           style={{
             position: 'absolute', 
             left: `${x}%`, 
@@ -76,11 +86,78 @@ const ViewReadingPage = () => {
           <p
             className={styles['card-label']}
             style={labelStyle}
-            >{spreadConfig[spreadType][index]}</p>
+            >{spreadConfig[spreadType][index]}
+          </p>
         </div>
       </>
     )
   }
+
+  const renderCardInputsForUpdate = () => {
+    const handleAddCard = () => setAddedCards([...addedCards, ''])
+
+    const handleRemoveCard = (indexToRemove: number) => {
+      setAddedCards(addedCards.filter((_, index) => index !== indexToRemove))
+    }
+
+      return (
+        <>
+          <button className={styles["add-card-btn"]} onClick={() => handleAddCard()}>ADD CARD</button>
+          <div className={styles["all-card-inputs-container"]}>
+            {addedCards.map((_, index) => 
+              <div key={index} className={styles["card-input-container"]}>
+                <CardInput 
+                  cards={addedCards}
+                  setCards={setAddedCards} 
+                  label="select card"
+                  index={index}
+                  excludedCards= {cards.map((card) => card.card_name)}
+                />
+                <i className="fa-regular fa-x" style={{cursor: 'pointer'}} onClick={() => handleRemoveCard(index)}></i>
+              </div>
+            )}
+          </div>
+        </> 
+      )
+  }
+
+  const updateReadingAndCards = async () => {
+    setUpdating(true)
+
+    const updateReadingRequestObj = {
+      notes: notes, 
+      interpretation: interpretation,  
+    } 
+
+    try {
+      const updatedReading = await updateReadingById(readingId, updateReadingRequestObj)
+
+      for (const [index, card] of addedCards.entries()) {
+        const updateCardRequestObj = {
+          reading_id: readingId!, 
+          card_name: card, 
+          position_name: 'clarifier', 
+          position_order: cards.length + index 
+        }
+        await saveCards(updateCardRequestObj)
+      }
+      const updatedCards = await getCardsByReadingId(readingId!)
+      setCards(updatedCards)
+      setNotes(updatedReading.notes)
+      setInterpretation(updatedReading.interpretation)
+      setMessage('reading updated :)')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong'
+      setMessage(message)
+    } finally {
+      setUpdating(false)
+    }
+  }
+
+  const originalSpread = cards.filter(card => card.position_name !== 'clarifier')
+  const clarifiers = cards.filter(card=> card.position_name === 'clarifier')
+
+  console.log(`original ${originalSpread}`, `clarifiers ${clarifiers}`)
 
   return (
     <>
@@ -107,8 +184,8 @@ const ViewReadingPage = () => {
             </div>
           </div>
           <div className={styles["button-container"]}>
-            <button className={styles["edit-reading-btn"]}>EDIT</button>
-            <button className={styles["clarifyer-btn"]}>CLARIFYER</button>
+            <button className={styles["update-reading-btn"]} onClick={()=> {setUpdateModal(true)}}>UPDATE</button>
+            <button className={styles["clarifier-btn"]}>PULL CLARIFIER</button>
           </div>
           <hr className={styles['aesthetic-divider']}/>
           <div className={styles["interpretation-card"]}>
@@ -118,9 +195,56 @@ const ViewReadingPage = () => {
           </div>
           <button className={styles["save-interpretation-btn"]}>SAVE INTERPRETATION</button>
         </div>
-        <div className={styles['spread-display-container']}>
-          {cards.map((card, index) => renderCardImage(card, index))}
+        <div className={styles['all-card-display-container']}>
+          <div className={styles['spread-display-container']}>
+            {originalSpread.map((card, index) => renderCardImage(card, index))}
+          </div>
+          <div className={styles['clarifier-display-container']}> 
+            <div className={styles['clarifier-container']}>
+              {clarifiers.map((card) => (
+                <>
+                  <div className={styles['clarifier-card-container']} style={{
+                    width: `${spreadPositions[reading.spread_type].cardWidth}%`}}
+                  >
+                    <img 
+                      className={styles['card-image']}
+                      src={`${getCardImagePath(card.card_name)}`}
+                      style={{width: '100%'}}
+                    />
+                    <p className={styles['clarifier-card-label']}>clarifier</p>
+                  </div>
+                </>
+              ))}
+            </div>
+          </div>
         </div>
+        {updateModal &&<div className={styles['update-reading-modal']}>
+          <i className="fa-regular fa-x" style={{cursor: 'pointer'}} onClick={() => setUpdateModal(false)}></i>
+          <div className={styles["reading-notes"]}>
+            <input 
+              type="text" 
+              value={notes}
+              placeholder="notes"
+              onChange={(e) => setNotes(e.target.value)} 
+            />
+          </div>
+          <div className={styles["reading-notes"]}>
+            <input 
+              type="text" 
+              value={interpretation}
+              placeholder="interpretation"
+              onChange={(e) => setInterpretation(e.target.value)} 
+            />
+          </div>
+          {renderCardInputsForUpdate()}
+          <button className={styles["save-interpretation-btn"]}
+            onClick={updateReadingAndCards}
+            disabled={updating}
+          >
+            {updating ? 'Updating...' : 'UPDATE READING'}
+          </button>
+          {message && <p>{message}</p>}
+        </div>}
       </div>
     </>
   )

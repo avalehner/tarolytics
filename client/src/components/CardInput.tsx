@@ -6,10 +6,11 @@ interface CardInputProps {
   cards: string[]
   setCards: (value:string[]) => void 
   label: string
-  index: number  
+  index: number 
+  excludedCards?: string[] 
 }
 
-const CardInput = ({ cards, setCards, label, index }: CardInputProps) => {
+const CardInput = ({ cards, setCards, label, index, excludedCards }: CardInputProps) => {
   
   const selectRef = useRef<HTMLSelectElement>(null)
   useEffect(() => {
@@ -32,7 +33,7 @@ const CardInput = ({ cards, setCards, label, index }: CardInputProps) => {
 
   const getFilteredCards = (index: number) => {
     const otherSelectedCards = cards.filter((_, i) => i !== index)
-    const availableCards = tarotCards.filter(cardName => !otherSelectedCards.includes(cardName))
+    const availableCards = tarotCards.filter(cardName => !otherSelectedCards.includes(cardName) && !excludedCards?.includes(cardName))
     return availableCards 
   }
 

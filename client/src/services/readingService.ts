@@ -1,4 +1,4 @@
-import { ReadingTypes, NewReadingTypes } from "../types"
+import { ReadingTypes, NewReadingTypes, UpdateReadingTypes } from "../types"
 
 export const getAllReadings = async (): Promise<ReadingTypes[]> => {
   const response = await fetch('http://localhost:3000/api/readings/', {
@@ -35,4 +35,17 @@ export const createReading = async (data: NewReadingTypes): Promise<ReadingTypes
   
   const readingData = await response.json()
   return readingData
+}
+
+export const updateReadingById = async (readingId: string | undefined, data: UpdateReadingTypes): Promise<ReadingTypes> => {
+  const response = await fetch(`http://localhost:3000/api/readings/${readingId}`, {
+    method: 'PATCH', 
+    headers: { 'Content-Type': 'application/json ' }, 
+    body: JSON.stringify(data), 
+    credentials: "include"
+  })
+  if(!response.ok) throw new Error(`Server error: ${response.status}`)
+  
+  const updatedReadingData = await response.json()
+  return updatedReadingData
 }

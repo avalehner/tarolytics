@@ -77,14 +77,14 @@ readingsRouter.post('/', async (req: Request, res: Response) => {
 readingsRouter.patch('/:readingId', async (req: Request, res: Response) => { //':' marks a URL parameter, allows us to destructure from req.params
   try {
     const { readingId } = req.params
-    const { reading_date, reading_topic, spread_type, notes, interpretation } = req.body 
+    const { notes, interpretation } = req.body 
 
     const dbResponse = await pool.query(`
       UPDATE readings 
-      SET reading_date = $1, reading_topic = $2, spread_type = $3, notes = $4, interpretation=$5
-      WHERE id = $6
+      SET notes = $1, interpretation=$2
+      WHERE id = $3
       RETURNING *;`, 
-      [reading_date, reading_topic, spread_type, notes, interpretation, readingId]
+      [notes, interpretation, readingId]
     )
     const updatedReading = dbResponse.rows[0]
     res.status(201)
