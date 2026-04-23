@@ -23,9 +23,9 @@ const ReadingLog = ({ reading, cards }: ReadingLogProps)=> {
       <p>{getDate()}</p>
       <p>{topicLabels[reading.reading_topic] || reading.reading_topic}</p>
       <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
-      <p>{cards.map(card => card.card_name).join(', ')}</p>
-      <p>{reading.notes}</p>
-      <p>{reading.interpretation}</p>
+      <p className={styles['truncate']}>{cards.map(card => card.card_name).join(', ')}</p>
+      <p className={styles['truncate']}>{reading.notes}</p>
+      <p className={styles['truncate']}>{reading.interpretation}</p>
     </div>
   )
 }
