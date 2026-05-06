@@ -32,7 +32,7 @@ const ReadingLogPage = () => {
   const handleRemoveCard = (indexToRemove: number) => {
     setSearchCards(searchCards.filter((_, index) => index !== indexToRemove))
   }
-
+ 
   const getFilteredReadings = () => {
     switch(searchCategory) {
       case 'date': 
