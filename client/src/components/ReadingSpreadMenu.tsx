@@ -1,3 +1,4 @@
+import { set } from 'date-fns/fp'
 import styles from './css/ReadingSpreadMenu.module.css'
 import { useRef, useEffect } from 'react'
 
@@ -5,8 +6,8 @@ interface ReadingSpreadMenuProps {
   setCards?: (value:string[]) => void
   readingSpread: string 
   setReadingSpread: (value: string) => void
-  customReadingSpread: string
-  setCustomReadingSpread: (value: string) => void
+  customReadingSpread?: string
+  setCustomReadingSpread?: (value: string) => void
 }
 
 const ReadingSpreadMenu = ({ 
@@ -39,13 +40,17 @@ const ReadingSpreadMenu = ({
   return (
     <div className={styles['spread-container']}>
       <div className={styles['spread-menu-container']}>
-        <select ref={selectRef} className={styles['spread-menu']} value={readingSpread} onChange={handleReadingSpread}> 
-          <option value="single-card">single card</option>
-          <option value="top-bottom">top / bottom</option> 
-          <option value="past-present-future">past present future</option>
-          <option value="past-present-future-advice">past present future advice</option>
-          <option value="celtic">celtic</option>
-          <option value="custom">custom</option>
+        <select 
+          ref={selectRef} 
+          className={styles['spread-menu']} 
+          value={readingSpread} 
+          onChange={handleReadingSpread}> 
+            <option value="single-card">single card</option>
+            <option value="top-bottom">top / bottom</option> 
+            <option value="past-present-future">past present future</option>
+            <option value="past-present-future-advice">past present future advice</option>
+            <option value="celtic">celtic</option>
+            <option value="custom">custom</option>
         </select>
       </div>
 
@@ -55,7 +60,7 @@ const ReadingSpreadMenu = ({
         type="text"
         placeholder="spread name"
         value={customReadingSpread}
-        onChange={(e) => setCustomReadingSpread(e.target.value)}
+        onChange={(e) => setCustomReadingSpread?.(e.target.value)}
       />
     )}
     </div>
