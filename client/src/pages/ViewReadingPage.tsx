@@ -264,7 +264,6 @@ const ViewReadingPage = () => {
             <button className={styles['yes-delete-btn']} onClick={() => {deleteReading(readingId!)}}>YES</button>
             <button className={styles['no-delete-btn']} onClick={() => {setDeleteModal(false)}}>NO</button>
             {deleteMessage && <p>{deleteMessage}</p>}
-            {/* {navigate('/analytics')} */}
           </div>}
       </div>
     </>
