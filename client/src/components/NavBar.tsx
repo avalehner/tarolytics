@@ -7,13 +7,12 @@ interface NavBarProps {
 }
  
 const NavBar = ({currentUser}: NavBarProps) => {
-  console.log(currentUser)
   return (
     <nav>
       <ul className={styles['nav-left']}>
         <li><NavLink to="">TRACK</NavLink></li>
         <li><NavLink to="/analytics">ANALYZE</NavLink></li>
-        <li>PULL CARD</li>
+        <li><NavLink to="/pull">PULL CARD</NavLink></li>
       </ul>
       <ul className={styles['nav-right']}>
         {currentUser ? <li><NavLink to="http://localhost:3000/auth/logout/">LOG OUT</NavLink></li> : <li><a href="/login/">LOG IN</a></li>}
