@@ -5,6 +5,7 @@ import TrackerInputPage from './pages/TrackerInputPage'
 import ReadingLogPage from './pages/ReadingLogPage'
 import ViewReadingPage from './pages/ViewReadingPage'
 import LoginPage from './pages/LoginPage'
+import PullPage from './pages/PullPage'
 import NavBar from './components/NavBar'
 import { useState, useEffect } from 'react'
 import { UserTypes } from './types'
@@ -40,6 +41,7 @@ useEffect(()=> {
         <Route path="/analytics" element={<ReadingLogPage />} />
         <Route path="/reading/:readingId" element={<ViewReadingPage />} />
         <Route path="/login" element={<LoginPage />} /> 
+        <Route path="/pull" element={<PullPage />} />
       </Routes>
     </>
   )
