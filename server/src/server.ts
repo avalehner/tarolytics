@@ -3,6 +3,7 @@ import express, { Express } from "express" //type only
 import readingsRouter from './routes/readings'
 import cardsRouter from './routes/cards'
 import authRouter from './routes/auth'
+import randomRouter from './routes/random'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -17,6 +18,7 @@ app.use(cookieParser())
 app.use('/api/readings', readingsRouter)
 app.use('/api/cards', cardsRouter)
 app.use('/auth', authRouter)
+app.use('/api/random', randomRouter)
 
 //server: actually creates the server and tells it to start listening on port 3000
 app.listen(3000, ()=> {
