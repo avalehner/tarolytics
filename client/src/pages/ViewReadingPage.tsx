@@ -1,7 +1,7 @@
 import styles from './css/ViewReadingPage.module.css'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { getReadingById, updateReadingById } from '../services/readingService'
+import { useParams, useNavigate } from 'react-router-dom'
+import { getReadingById, updateReadingById, deletedReadingById } from '../services/readingService'
 import { saveCards } from '../services/cardsService'
 import { ReadingTypes, CardTypes } from '../types'
 import { add, format } from "date-fns"
@@ -15,14 +15,17 @@ import spreadLabels from '../data/spreadLabels'
 import spreadConfig from '../data/spreadConfig'
 
 const ViewReadingPage = () => {
+  const navigate = useNavigate()
   const [reading, setReading] = useState<ReadingTypes | null>(null) //because this holds a single reading which is just an object, there is no way to represent an empty object so we have to write null
   const [cards, setCards] = useState<CardTypes[]>([])
   const [addedCards, setAddedCards] = useState<string[]>([])
   const [notes, setNotes] = useState<string>('')
   const [interpretation, setInterpretation] = useState<string>('')
   const [updating, setUpdating] = useState<boolean>(false)
-  const [message, setMessage] = useState<string>('')
+  const [updateMessage, setUpdateMessage] = useState<string>('')
   const [updateModal, setUpdateModal] = useState<boolean>(false)
+  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [deleteMessage, setDeleteMessage] =useState<string>('')
 
   const { readingId } = useParams()
 
@@ -35,7 +38,7 @@ const ViewReadingPage = () => {
       .then(data => setCards(data))
   }, [readingId])
 
-  if (!reading) return //makes sure reading is not null
+  if (!reading) return null //makes sure reading is not null
 
   const formatDate = (date: string) => {
     const rawDate = date.slice(0,10)
@@ -145,19 +148,29 @@ const ViewReadingPage = () => {
       setCards(updatedCards)
       setNotes(updatedReading.notes)
       setInterpretation(updatedReading.interpretation)
-      setMessage('reading updated :)')
+      setUpdateMessage('reading updated :)')
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Something went wrong'
-      setMessage(message)
+      setUpdateMessage(message)
     } finally {
       setUpdating(false)
     }
   }
 
+  const deleteReading = async (readingId: string) => {
+    try {
+      const deletedReading = await deletedReadingById(readingId)
+      setDeleteMessage('reading deleted :)')
+      navigate('/analytics')
+      return deletedReading
+    } catch (error) {
+     const message = error instanceof Error ? error.message : 'Something went wrong'
+      setDeleteMessage(message)
+    }
+  }
+
   const originalSpread = cards.filter(card => card.position_name !== 'clarifier')
   const clarifiers = cards.filter(card=> card.position_name === 'clarifier')
-
-  console.log(`original ${originalSpread}`, `clarifiers ${clarifiers}`)
 
   return (
     <>
@@ -184,7 +197,7 @@ const ViewReadingPage = () => {
             </div>
           </div>
           <div className={styles["button-container"]}>
-            <button className={styles["update-reading-btn"]} onClick={()=> {setUpdateModal(true)}}>UPDATE</button>
+            <button className={styles["update-reading-btn"]} onClick={()=> {setUpdateModal(true)}}>MANUAL UPDATE</button>
             <button className={styles["clarifier-btn"]}>PULL CLARIFIER</button>
           </div>
           <hr className={styles['aesthetic-divider']}/>
@@ -194,6 +207,7 @@ const ViewReadingPage = () => {
             </p>
           </div>
           <button className={styles["save-interpretation-btn"]}>SAVE INTERPRETATION</button>
+          <button className={styles["delete-reading-btn"]} onClick={()=> setDeleteModal(true)}>DELETE READING</button>
         </div>
         <div className={styles['all-card-display-container']}>
           <div className={styles['spread-display-container']}>
@@ -243,8 +257,15 @@ const ViewReadingPage = () => {
           >
             {updating ? 'Updating...' : 'UPDATE READING'}
           </button>
-          {message && <p>{message}</p>}
+          {updateMessage && <p>{updateMessage}</p>}
         </div>}
+        {deleteModal && <div className={styles['delete-modal']}>
+            <p>are you sure you want to delete this reading?</p>
+            <button className={styles['yes-delete-btn']} onClick={() => {deleteReading(readingId!)}}>YES</button>
+            <button className={styles['no-delete-btn']} onClick={() => {setDeleteModal(false)}}>NO</button>
+            {deleteMessage && <p>{deleteMessage}</p>}
+            {/* {navigate('/analytics')} */}
+          </div>}
       </div>
     </>
   )

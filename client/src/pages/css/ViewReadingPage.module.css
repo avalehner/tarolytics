@@ -94,7 +94,7 @@
   margin: 1rem auto; 
 }
 
-.save-interpretation-btn:hover {
+.save-interpretation-btn:hover, .yes-delete-btn:hover {
   background-color: #cee9c6;  
   transition: all 0.1s ease; 
 }
@@ -200,3 +200,36 @@
   /* margin:0 auto;  */
 }
 
+.delete-reading-btn {
+  background-color: rgb(255, 224, 224); 
+  border: 1px solid rgb(225, 134, 134); 
+  display: block; 
+}
+
+.delete-reading-btn:hover, .no-delete-btn:hover {
+  background-color: rgb(255, 185, 185); 
+  border: 1px solid rgb(175, 64, 64); 
+  transition: all 0.1s ease; 
+}
+
+.delete-modal {
+  position: absolute; 
+  left: 40%; 
+  top: 30%; 
+  padding: 5rem; 
+  background-color: #FFF8E5; 
+  border: 1px solid #C45500;
+  border-radius: 12px; 
+  width: 22%; 
+}
+
+.no-delete-btn {
+  background-color: rgb(255, 224, 224); 
+  border: 1px solid rgb(225, 134, 134); 
+}
+
+.yes-delete-btn {
+  border: 0.5px solid #97B48E;
+  border-radius: 9px; 
+  background-color: #EBFFE4; 
+}
