@@ -8,6 +8,7 @@ interface ReadingSpreadMenuProps {
   setReadingSpread: (value: string) => void
   customReadingSpread?: string
   setCustomReadingSpread?: (value: string) => void
+  isDisabled?: boolean
 }
 
 const ReadingSpreadMenu = ({ 
@@ -15,7 +16,8 @@ const ReadingSpreadMenu = ({
   readingSpread, 
   setReadingSpread, 
   customReadingSpread, 
-  setCustomReadingSpread 
+  setCustomReadingSpread, 
+  isDisabled 
 }: ReadingSpreadMenuProps) => {
 
   const selectRef = useRef<HTMLSelectElement>(null)
@@ -44,7 +46,8 @@ const ReadingSpreadMenu = ({
           ref={selectRef} 
           className={styles['spread-menu']} 
           value={readingSpread} 
-          onChange={handleReadingSpread}> 
+          onChange={handleReadingSpread}
+          disabled={isDisabled}> 
             <option value="single-card">single card</option>
             <option value="top-bottom">top / bottom</option> 
             <option value="past-present-future">past present future</option>
