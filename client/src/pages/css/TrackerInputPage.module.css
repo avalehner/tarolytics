@@ -69,3 +69,9 @@
   gap: 1rem; 
   align-items: center;
 }
+
+.spread-display-container {
+  position: relative; 
+  width: 500px; 
+  height: 800px;
+}
