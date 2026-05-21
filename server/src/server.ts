@@ -1,26 +1,26 @@
-import 'dotenv/config' //loads environment variables when the server starts for entire app 
-import express, { Express } from "express" //type only 
-import readingsRouter from './routes/readings'
-import cardsRouter from './routes/cards'
-import authRouter from './routes/auth'
-import randomRouter from './routes/random'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
+import "dotenv/config"; //loads environment variables when the server starts for entire app
+import express, { Express } from "express"; //type only
+import readingsRouter from "./routes/readings";
+import cardsRouter from "./routes/cards";
+import authRouter from "./routes/auth";
+import randomRouter from "./routes/random";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
-const app: Express = express() //creates app instance: the request handling logic, doesn't listen for network traffic. knows what to do with requests but doesn't handle any on its own 
+const app: Express = express(); //creates app instance: the request handling logic, doesn't listen for network traffic. knows what to do with requests but doesn't handle any on its own
 
 //middleware
-app.use(express.json()) //parses incoming JSON request bodies from the front end (only does this if req has a body)
-app.use(cors({ origin: 'http://localhost:5173', credentials: true})) //tells express to only allow requests from the vite dev server, credentials true for cookie parser 
-app.use(cookieParser()) 
+app.use(express.json()); //parses incoming JSON request bodies from the front end (only does this if req has a body)
+app.use(cors({ origin: "http://localhost:5173", credentials: true })); //tells express to only allow requests from the vite dev server, credentials true for cookie parser
+app.use(cookieParser());
 
 //routes
-app.use('/api/readings', readingsRouter)
-app.use('/api/cards', cardsRouter)
-app.use('/auth', authRouter)
-app.use('/api/random', randomRouter)
+app.use("/api/readings", readingsRouter);
+app.use("/api/cards", cardsRouter);
+app.use("/auth", authRouter);
+app.use("/api/random", randomRouter);
 
 //server: actually creates the server and tells it to start listening on port 3000
-app.listen(3000, ()=> {
-  console.log('Server running on port 3000')
-}) //actually creates the server and tells it to start listening on port 3000
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+}); //actually creates the server and tells it to start listening on port 3000
