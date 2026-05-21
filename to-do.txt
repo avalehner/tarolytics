@@ -18,8 +18,5 @@ Frontend
 Data
 1. get users chart information 
 
-backend 
-1. Oauthorization 
-
 Analytics 
 1. emotion visualization 

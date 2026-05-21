@@ -1,30 +1,32 @@
 /* font */
 
-@import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
 
 @font-face {
-  font-family: 'Pamela';
-  src: url('./assets/fonts/TarotPamelaColmanSmith-Regular.ttf') format('truetype'); 
+  font-family: "Pamela";
+  src: url("./assets/fonts/TarotPamelaColmanSmith-Regular.ttf")
+    format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 :root {
   font-family: "Libertinus Serif", serif;
   font-weight: 500;
-  font-style: normal; 
+  font-style: normal;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FFF8E5; 
-  background: radial-gradient(ellipse at center, #FFF8E5 20%, #CEBCC5 100%);
+  background-color: #fff8e5;
+  background: radial-gradient(ellipse at center, #fff8e5 20%, #cebcc5 100%);
 }
 
 a {
@@ -35,7 +37,7 @@ a {
 
 body {
   margin: 0;
-  padding: 0; 
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
 }

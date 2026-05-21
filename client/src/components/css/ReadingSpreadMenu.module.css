@@ -1,38 +1,38 @@
 .spread-container {
-  display: flex;  
-  justify-content: center ;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 0.7rem;
 }
 
 .spread-menu-container {
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8rem; 
+  gap: 0.8rem;
 }
 
 .spread-menu {
-  appearance: none; 
-  border: 1px solid #C199CD;
+  appearance: none;
+  border: 1px solid #c199cd;
   -webkit-appearance: none;
-  border-radius: 7px; 
-  font-family: "Libertinus Serif", serif; 
-  padding: 6px 10px; 
-  text-align: center; 
-  font-size: 1rem; 
-  background-color: #FFFEFA; 
-  cursor: pointer; 
+  border-radius: 7px;
+  font-family: "Libertinus Serif", serif;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fffefa;
+  cursor: pointer;
 }
 
-.custom-spread-input{
-  border: 1px solid #C199CD;
-  border-radius: 9px; 
+.custom-spread-input {
+  border: 1px solid #c199cd;
+  border-radius: 9px;
   padding: 12px;
-  font-family: "Libertinus Serif", serif; 
-  width: 120px; 
-  text-align: center; 
-  font-size: 1rem; 
-  background-color: #FFFEFA; 
-  margin: 0.6rem 0; 
+  font-family: "Libertinus Serif", serif;
+  width: 120px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fffefa;
+  margin: 0.6rem 0;
 }

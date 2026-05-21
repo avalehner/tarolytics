@@ -1,35 +1,35 @@
 .login-container {
-  display: flex; 
+  display: flex;
   justify-content: center;
-  align-items: center; ;
+  align-items: center;
   flex-direction: column;
-  margin: 10rem auto 0; 
+  margin: 10rem auto 0;
 }
 
 .welcome-text {
-  font-style: italic; 
-  font-weight: 100; 
-  font-size: 3rem; 
-  margin: 0; 
+  font-style: italic;
+  font-weight: 100;
+  font-size: 3rem;
+  margin: 0;
 }
 
 .tarolytics {
-  font-family: 'Pamela';
-  font-size: 3.6rem; 
-  margin: 0.5rem 0; 
+  font-family: "Pamela";
+  font-size: 3.6rem;
+  margin: 0.5rem 0;
 }
 
-.login-btn{
-  border: 1px solid #97B48E;
-  border-radius: 9px; 
+.login-btn {
+  border: 1px solid #97b48e;
+  border-radius: 9px;
   padding: 0.8rem 1.2rem;
-  font-family: "Libertinus Serif", serif; 
-  background-color: #EBFFE4; 
-  font-size: 1rem; 
-  margin: 0.7rem 0.5rem; 
+  font-family: "Libertinus Serif", serif;
+  background-color: #ebffe4;
+  font-size: 1rem;
+  margin: 0.7rem 0.5rem;
 }
 
 .login-btn:hover {
-  background-color: #cee9c6;  
-  transition: all 0.1s ease; 
+  background-color: #cee9c6;
+  transition: all 0.1s ease;
 }
