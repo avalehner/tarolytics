@@ -242,6 +242,22 @@ const TrackerInputPage = () => {
     }
   };
 
+  const handleRefresh = () => {
+    setDate("");
+    setReadingTopic("card-of-day");
+    setCustomReadingTopic("");
+    setReadingSpread("");
+    setCustomReadingSpread("");
+    setInputtedCards([""]);
+    setPulledCards([""]);
+    setNotes("");
+    setInterpretation("");
+    setSaving(false);
+    setIsManual(false);
+    setMessage("");
+    setIsCardsPulled(false);
+  };
+
   console.log("Manual", isManual);
   console.log("cards pulled", isCardsPulled);
 
@@ -310,7 +326,10 @@ const TrackerInputPage = () => {
           <div>
             <button
               className={styles["save-reading-btn"]}
-              onClick={saveReading}
+              onClick={() => {
+                saveReading();
+                handleRefresh();
+              }}
               disabled={saving}
             >
               {saving ? "Saving..." : "SAVE READING"}
