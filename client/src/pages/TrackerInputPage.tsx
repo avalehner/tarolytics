@@ -1,5 +1,6 @@
 //react imports
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 //function imports
 import { createReading } from "../services/readingService";
 import { saveCards } from "../services/cardsService";
@@ -14,6 +15,8 @@ import CardInput from "../components/CardInput";
 import spreadConfig from "../data/spreadConfig";
 import tarotCards from "../data/tarotCards";
 import spreadPositions from "../data/spreadPositions";
+//types
+import { ReadingTypes } from "../types";
 //styling
 import styles from "./css/TrackerInputPage.module.css";
 
@@ -29,9 +32,14 @@ const TrackerInputPage = () => {
   const [notes, setNotes] = useState<string>("");
   const [interpretation, setInterpretation] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
+  const [savedReadingData, setSavedReadingData] = useState<ReadingTypes | null>(
+    null,
+  );
   const [message, setMessage] = useState<string>("");
   const [isManual, setIsManual] = useState<boolean>(false);
   const [isCardsPulled, setIsCardsPulled] = useState<boolean>(false);
+  const [viewReadingModal, setViewReadingModal] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   //functions
   const pullCards = async () => {
@@ -203,6 +211,7 @@ const TrackerInputPage = () => {
 
     try {
       const newReading = await createReading(readingRequestObj);
+      setSavedReadingData(newReading);
       //card.entries() returns an iterator of [index, value] pairs for ebery element in the array ex: ['0', 'The Fool']
       //destructures so that you have botht he position and card name available
       if (isManual) {
@@ -326,9 +335,9 @@ const TrackerInputPage = () => {
           <div>
             <button
               className={styles["save-reading-btn"]}
-              onClick={() => {
-                saveReading();
-                handleRefresh();
+              onClick={async () => {
+                await saveReading(); //making sure the reading has been saved before showing the modal
+                setViewReadingModal(true);
               }}
               disabled={saving}
             >
@@ -357,6 +366,27 @@ const TrackerInputPage = () => {
             </div>)   
           } */}
         </>
+      )}
+      {viewReadingModal && (
+        <div className={styles["view-reading-modal"]}>
+          <button
+            className={styles["view-reading-btn"]}
+            onClick={() =>
+              savedReadingData && navigate(`/reading/${savedReadingData.id}`)
+            }
+          >
+            VIEW READING
+          </button>
+          <button
+            className={styles["submit-another-btn"]}
+            onClick={() => {
+              setViewReadingModal(false);
+              handleRefresh();
+            }}
+          >
+            SUBMIT ANOTHER
+          </button>
+        </div>
       )}
     </div>
   );

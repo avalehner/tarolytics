@@ -55,12 +55,14 @@
 }
 
 .save-reading-btn:hover,
-.upload-picture-btn:hover {
+.upload-picture-btn:hover,
+.view-reading-btn:hover {
   background-color: #cee9c6;
   transition: all 0.1s ease;
 }
 
-.add-card-btn:hover {
+.add-card-btn:hover,
+.submit-another-btn:hover {
   background-color: #c2cbec;
   transition: all 0.1s ease;
 }
@@ -95,4 +97,35 @@
 
 .card-image {
   width: 100%;
+}
+
+.view-reading-modal {
+  position: absolute;
+  top: 50%;
+  left: 39%;
+  padding: 3rem;
+  background-color: #fff8e5;
+  border: 1px solid #c45500;
+  border-radius: 12px;
+  width: 22%;
+  box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.view-reading-btn,
+.submit-another-btn {
+  border-radius: 9px;
+  padding: 0.8rem 1.2rem;
+  font-family: "Libertinus Serif", serif;
+  font-size: 1rem;
+  margin: 0.7rem 0.5rem;
+}
+
+.view-reading-btn {
+  border: 1px solid #97b48e;
+  background-color: #ebffe4;
+}
+
+.submit-another-btn {
+  border: 1px solid #889fcc;
+  background-color: #e2e8ff;
 }
