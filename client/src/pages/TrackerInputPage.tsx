@@ -55,6 +55,34 @@ const TrackerInputPage = () => {
     }
   };
 
+  const renderCardImagesV2 = (card: string, index: number) => {
+    const { positions } = spreadPositions[readingSpread];
+    const cardImagePath = getCardImagePath(card);
+    const position = positions[pulledCards.indexOf(card)];
+    if (!position) return null; //skip any card without a valid position
+    const { rotation } = position;
+    let cardRotation = rotation;
+    if (card.includes("rx")) cardRotation += 180;
+    if (cardRotation === 90) cardRotation -= 90;
+    const spreadType = readingSpread;
+    return (
+      <div className={styles["card-image-container"]}>
+        <img
+          className={styles["card-image"]}
+          src={`${cardImagePath}`}
+          style={{
+            //style is a React prop that accepts a JS object which is y it need 2 brackets
+            transform: `rotate(${cardRotation}deg)`,
+            width: `100%`,
+          }}
+        ></img>
+        <p className={styles["card-label"]}>
+          {spreadConfig[spreadType][index]}
+        </p>
+      </div>
+    );
+  };
+
   const renderCardImages = (card: string, index: number) => {
     const { positions, cardWidth } = spreadPositions[readingSpread];
     const position = positions[pulledCards.indexOf(card)];
@@ -261,13 +289,6 @@ const TrackerInputPage = () => {
       {/* manual input logic */}
       {isManual && renderCardInputs(readingSpread)}
 
-      {/* pull cards logic */}
-      {isCardsPulled && (
-        <div className={styles["spread-display-container"]}>
-          {pulledCards.map((card, index) => renderCardImages(card, index))}
-        </div>
-      )}
-
       {(isManual || isCardsPulled) && ( //wrapping in parenthesis for order of operations issue (&& stronger than ||)
         <>
           <div className={styles["reading-notes"]}>
@@ -299,6 +320,23 @@ const TrackerInputPage = () => {
           </button> */}
             {message && <p>{message}</p>}
           </div>
+          {/* pull cards logic */}
+          {isCardsPulled && (
+            <div className={styles["spread-display-container"]}>
+              {pulledCards.map((card, index) =>
+                renderCardImagesV2(card, index),
+              )}
+            </div>
+          )}
+          {/* {isCardsPulled && readingSpread === 'celtic' 
+            ? (
+            <div className={styles["spread-display-container"]}>
+              {pulledCards.map((card, index) => renderCardImages(card, index))}
+            </div>) 
+            : (<div className={styles["spread-display-container"]}>
+              {pulledCards.map((card, index) => renderCardImagesV2(card, index))}
+            </div>)   
+          } */}
         </>
       )}
     </div>

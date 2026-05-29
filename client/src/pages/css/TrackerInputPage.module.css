@@ -74,6 +74,25 @@
 
 .spread-display-container {
   position: relative;
-  width: 500px;
-  height: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  width: 40%;
+  /* height: 20%;  */
+  margin: 1.5rem auto;
+  padding: 2.5rem 1rem 1rem;
+  background-color: #fff8e5;
+  border: 1px dashed #c45500;
+  border-radius: 20px;
+  /* transform: translateX(-50%) */
+}
+
+.card-image-container {
+  width: 100px;
+}
+
+.card-image {
+  width: 100%;
 }

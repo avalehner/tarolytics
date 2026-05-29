@@ -9,6 +9,7 @@ import { getAllReadings } from "../services/readingService";
 import { getAllCards } from "../services/cardsService";
 import { ReadingTypes, CardTypes } from "../types";
 import ReadingLog from "../components/ReadingLog";
+import { Fragment } from "react";
 
 const ReadingLogPage = () => {
   const [searchCategory, setSearchCategory] = useState<string>("all");
@@ -75,20 +76,22 @@ const ReadingLogPage = () => {
     const readingsList = filteredReadings.map((reading, index) => {
       if (index < filteredReadings.length - 1) {
         return (
-          <>
+          <Fragment key={index}>
             <ReadingLog
               reading={reading}
               cards={allCards.filter((card) => card.reading_id === reading.id)}
             />
             <hr className={styles["log-divider"]} />
-          </>
+          </Fragment>
         );
       } else {
         return (
-          <ReadingLog
-            reading={reading}
-            cards={allCards.filter((card) => card.reading_id === reading.id)}
-          />
+          <Fragment key={index}>
+            <ReadingLog
+              reading={reading}
+              cards={allCards.filter((card) => card.reading_id === reading.id)}
+            />
+          </Fragment>
         );
       }
     });
