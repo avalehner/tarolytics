@@ -255,7 +255,7 @@ const TrackerInputPage = () => {
     setDate("");
     setReadingTopic("card-of-day");
     setCustomReadingTopic("");
-    setReadingSpread("");
+    setReadingSpread("top-bottom");
     setCustomReadingSpread("");
     setInputtedCards([""]);
     setPulledCards([""]);
