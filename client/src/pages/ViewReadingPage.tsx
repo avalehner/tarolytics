@@ -5,6 +5,7 @@ import {
   getReadingById,
   updateReadingById,
   deletedReadingById,
+  interpretReadingById,
 } from "../services/readingService";
 import { saveCards } from "../services/cardsService";
 import { ReadingTypes, CardTypes } from "../types";
@@ -25,6 +26,7 @@ const ViewReadingPage = () => {
   const [addedCards, setAddedCards] = useState<string[]>([]);
   const [notes, setNotes] = useState<string>("");
   const [userInterpretation, setUserInterpretation] = useState<string>("");
+  const [aiInterpretation, setAiInterpretation] = useState<string>("");
   const [updating, setUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -243,11 +245,14 @@ const ViewReadingPage = () => {
           </div>
           <hr className={styles["aesthetic-divider"]} />
           <div className={styles["interpretation-card"]}>
-            <p className={styles["interpretation"]}>
-              [placeholder - AI Interpretation]
-            </p>
+            <p className={styles["interpretation"]}>{aiInterpretation}</p>
           </div>
-          <button className={styles["save-interpretation-btn"]}>
+          <button
+            className={styles["save-interpretation-btn"]}
+            onClick={async () => {
+              setAiInterpretation(await interpretReadingById(readingId));
+            }}
+          >
             {isAIInterpretation
               ? "SAVE INTERPRETATION"
               : "GENERATE INTERPRETATION"}
