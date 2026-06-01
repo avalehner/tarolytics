@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import interpretReading from "../services/geminiService";
 import pool from "../db"; //pool allows backend code to talk to postgres and run SQL queries
 
 //create router instance
@@ -8,7 +9,7 @@ const readingsRouter = Router();
 //get - fetches data, never modifies anything
 //post - creates a new record
 //put - updates an existing record (replaces the whole record)
-//patch -updates an existing record (only updates specific fields)
+//patch - updates an existing record (only updates specific fields)
 //delete - deletes a record
 
 //notes:
@@ -76,10 +77,62 @@ readingsRouter.post("/", async (req: Request, res: Response) => {
       .status(201) //set status code to 201 meaning new record was successfully created
       .json(newReading); //send response back in json
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unkown error";
+    const message = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({ error: message });
   }
 });
+
+readingsRouter.post(
+  "/:readingId/interpret",
+  async (req: Request, res: Response) => {
+    try {
+      const { readingId } = req.params;
+      const readingDbResponse = await pool.query(
+        `
+      SELECT * 
+      FROM readings 
+      WHERE id = $1`,
+        [readingId],
+      );
+      const readingData = readingDbResponse.rows[0];
+
+      const cardDbResponse = await pool.query(
+        `
+        SELECT * 
+        FROM cards 
+        WHERE reading_id = $1`,
+        [readingId],
+      );
+
+      const cardData = cardDbResponse.rows;
+
+      const prompt = `
+      Interpret the following tarot reading given a topic, spread, cards, and notes inputted by the user. For each card you will be given the card name, the position order in the spread, and the name associated with the position order. Use all of this date to deliver a concise interpretation of the reading for the reader. Structure the interpretation in the following format: 
+      <reading_topic>${readingData.reading_topic}</reading_topic>
+      <reading_spread>${readingData.spread_type}</reading_spread>
+      <cards>${cardData
+        .map((card) => {
+          return `
+          <card_name>${card.card_name}</card_name>
+          <position_order>${card.position_order}</position_order>
+          <position_name>${card.position_name}</position_name>
+          `;
+        })
+        .join("")}</cards>
+      <user_notes>${readingData.notes}</user_notes>
+      `;
+
+      console.log(prompt);
+
+      const interpretation = await interpretReading(prompt);
+      console.log(interpretation);
+      res.status(200).json(interpretation);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown Error";
+      res.status(500).json({ error: message });
+    }
+  },
+);
 
 readingsRouter.patch("/:readingId", async (req: Request, res: Response) => {
   //':' marks a URL parameter, allows us to destructure from req.params
