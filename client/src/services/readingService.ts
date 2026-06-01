@@ -93,3 +93,24 @@ export const deletedReadingById = async (readingId: string | undefined) => {
   const deletedReadingData = await response.json();
   return deletedReadingData;
 };
+
+export const interpretReadingById = async (
+  readingId: string | undefined,
+): Promise<string> => {
+  const response = await fetch(
+    `http://localhost:3000/api/readings/${readingId}/interpret`,
+    {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      credentials: "include",
+    },
+  );
+
+  if (!response.ok)
+    throw new Error(
+      `Server error [interpretReadingById- readingService.ts]: ${response.status}`,
+    );
+
+  const interpretation = await response.json();
+  return interpretation;
+};
