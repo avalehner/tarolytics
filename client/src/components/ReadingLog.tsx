@@ -29,7 +29,7 @@ const ReadingLog = ({ reading, cards }: ReadingLogProps) => {
         {cards.map((card) => card.card_name).join(", ")}
       </p>
       <p className={styles["truncate"]}>{reading.notes}</p>
-      <p className={styles["truncate"]}>{reading.interpretation}</p>
+      <p className={styles["truncate"]}>{reading.user_interpretation}</p>
     </div>
   );
 };

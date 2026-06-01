@@ -5,14 +5,15 @@ export interface ReadingTypes {
   spread_type: string;
   reading_topic: string;
   notes: string;
-  interpretation: string;
+  user_interpretation: string;
+  ai_interpretation: string;
   created_at: string;
   updated_at: string;
 }
 
 export type NewReadingTypes = Omit<
   ReadingTypes,
-  "id" | "created_at" | "updated_at" | "user_id"
+  "id" | "created_at" | "updated_at" | "user_id" | "ai_interpretation"
 >;
 export type UpdateReadingTypes = Omit<
   ReadingTypes,
@@ -23,6 +24,7 @@ export type UpdateReadingTypes = Omit<
   | "spread_type"
   | "reading_topic"
   | "updated_at"
+  | "ai_interpretation"
 >;
 
 export interface CardTypes {

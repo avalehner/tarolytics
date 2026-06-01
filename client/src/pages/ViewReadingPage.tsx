@@ -8,7 +8,7 @@ import {
 } from "../services/readingService";
 import { saveCards } from "../services/cardsService";
 import { ReadingTypes, CardTypes } from "../types";
-import { add, format } from "date-fns";
+import { format } from "date-fns";
 import { convertDayToWord } from "../util";
 import { getCardsByReadingId } from "../services/cardsService";
 import { getCardImagePath } from "../util";
@@ -24,12 +24,13 @@ const ViewReadingPage = () => {
   const [cards, setCards] = useState<CardTypes[]>([]);
   const [addedCards, setAddedCards] = useState<string[]>([]);
   const [notes, setNotes] = useState<string>("");
-  const [interpretation, setInterpretation] = useState<string>("");
+  const [userInterpretation, setUserInterpretation] = useState<string>("");
   const [updating, setUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
+  const [isAIInterpretation, setIsAIInterpretation] = useState<boolean>(false);
 
   const { readingId } = useParams();
 
@@ -143,7 +144,7 @@ const ViewReadingPage = () => {
 
     const updateReadingRequestObj = {
       notes: notes,
-      interpretation: interpretation,
+      user_interpretation: userInterpretation,
     };
 
     try {
@@ -164,7 +165,7 @@ const ViewReadingPage = () => {
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
       setNotes(updatedReading.notes);
-      setInterpretation(updatedReading.interpretation);
+      setUserInterpretation(updatedReading.user_interpretation);
       setUpdateMessage("reading updated :)");
     } catch (error) {
       const message =
@@ -224,6 +225,10 @@ const ViewReadingPage = () => {
               <p>notes:</p>
               <p>{reading.notes}</p>
             </div>
+            <div className={styles["notes-container"]}>
+              <p>your interpretation:</p>
+              <p>{reading.user_interpretation}</p>
+            </div>
           </div>
           <div className={styles["button-container"]}>
             <button
@@ -239,16 +244,13 @@ const ViewReadingPage = () => {
           <hr className={styles["aesthetic-divider"]} />
           <div className={styles["interpretation-card"]}>
             <p className={styles["interpretation"]}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.
+              [placeholder - AI Interpretation]
             </p>
           </div>
           <button className={styles["save-interpretation-btn"]}>
-            SAVE INTERPRETATION
+            {isAIInterpretation
+              ? "SAVE INTERPRETATION"
+              : "GENERATE INTERPRETATION"}
           </button>
           <button
             className={styles["delete-reading-btn"]}
@@ -301,9 +303,9 @@ const ViewReadingPage = () => {
             <div className={styles["reading-notes"]}>
               <input
                 type="text"
-                value={interpretation}
+                value={userInterpretation}
                 placeholder="interpretation"
-                onChange={(e) => setInterpretation(e.target.value)}
+                onChange={(e) => setUserInterpretation(e.target.value)}
               />
             </div>
             {renderCardInputsForUpdate()}

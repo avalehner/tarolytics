@@ -30,7 +30,7 @@ const TrackerInputPage = () => {
   const [inputtedCards, setInputtedCards] = useState<string[]>([""]);
   const [pulledCards, setPulledCards] = useState<string[]>([""]);
   const [notes, setNotes] = useState<string>("");
-  const [interpretation, setInterpretation] = useState<string>("");
+  const [userInterpretation, setUserInterpretation] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
   const [savedReadingData, setSavedReadingData] = useState<ReadingTypes | null>(
     null,
@@ -91,54 +91,54 @@ const TrackerInputPage = () => {
     );
   };
 
-  const renderCardImages = (card: string, index: number) => {
-    const { positions, cardWidth } = spreadPositions[readingSpread];
-    const position = positions[pulledCards.indexOf(card)];
-    if (!position) return null; //skip any card without a valid position
-    const { x, y, rotation, labelOffset } = position;
-    const cardImagePath = getCardImagePath(card);
-    let cardRotation = rotation;
-    const labelRotation = cardRotation;
-    if (card.includes("rx")) cardRotation += 180;
-    const spreadType = readingSpread;
+  // const renderCardImages = (card: string, index: number) => {
+  //   const { positions, cardWidth } = spreadPositions[readingSpread];
+  //   const position = positions[pulledCards.indexOf(card)];
+  //   if (!position) return null; //skip any card without a valid position
+  //   const { x, y, rotation, labelOffset } = position;
+  //   const cardImagePath = getCardImagePath(card);
+  //   let cardRotation = rotation;
+  //   const labelRotation = cardRotation;
+  //   if (card.includes("rx")) cardRotation += 180;
+  //   const spreadType = readingSpread;
 
-    const labelStyle = labelOffset
-      ? {
-          position: "absolute" as const,
-          left: `${labelOffset.x}%`,
-          top: `${labelOffset.y}%`,
-          transform: `rotate(${labelRotation}deg)`,
-        }
-      : { transform: `rotate(${labelRotation}deg)` };
+  //   const labelStyle = labelOffset
+  //     ? {
+  //         position: "absolute" as const,
+  //         left: `${labelOffset.x}%`,
+  //         top: `${labelOffset.y}%`,
+  //         transform: `rotate(${labelRotation}deg)`,
+  //       }
+  //     : { transform: `rotate(${labelRotation}deg)` };
 
-    return (
-      <>
-        <div
-          className={styles["card-image-container"]}
-          style={{
-            position: "absolute",
-            left: `${x}%`,
-            top: `${y}%`,
-            width: `${cardWidth}%`,
-            // transform: `rotate(${cardRotation}deg)`,
-          }}
-        >
-          <img
-            className={styles["card-image"]}
-            src={`${cardImagePath}`}
-            style={{
-              //style is a React prop that accepts a JS object which is y it need 2 brackets
-              transform: `rotate(${cardRotation}deg)`,
-              width: `100%`,
-            }}
-          ></img>
-          <p className={styles["card-label"]} style={labelStyle}>
-            {spreadConfig[spreadType][index]}
-          </p>
-        </div>
-      </>
-    );
-  };
+  //   return (
+  //     <>
+  //       <div
+  //         className={styles["card-image-container"]}
+  //         style={{
+  //           position: "absolute",
+  //           left: `${x}%`,
+  //           top: `${y}%`,
+  //           width: `${cardWidth}%`,
+  //           // transform: `rotate(${cardRotation}deg)`,
+  //         }}
+  //       >
+  //         <img
+  //           className={styles["card-image"]}
+  //           src={`${cardImagePath}`}
+  //           style={{
+  //             //style is a React prop that accepts a JS object which is y it need 2 brackets
+  //             transform: `rotate(${cardRotation}deg)`,
+  //             width: `100%`,
+  //           }}
+  //         ></img>
+  //         <p className={styles["card-label"]} style={labelStyle}>
+  //           {spreadConfig[spreadType][index]}
+  //         </p>
+  //       </div>
+  //     </>
+  //   );
+  // };
 
   const renderCardInputs = (readingSpread: string) => {
     const labels = spreadConfig[readingSpread] || [];
@@ -206,7 +206,7 @@ const TrackerInputPage = () => {
       spread_type:
         readingSpread === "custom" ? customReadingSpread : readingSpread,
       notes: notes,
-      interpretation: interpretation,
+      user_interpretation: userInterpretation,
     };
 
     try {
@@ -260,7 +260,7 @@ const TrackerInputPage = () => {
     setInputtedCards([""]);
     setPulledCards([""]);
     setNotes("");
-    setInterpretation("");
+    setUserInterpretation("");
     setSaving(false);
     setIsManual(false);
     setMessage("");
@@ -327,9 +327,9 @@ const TrackerInputPage = () => {
           <div className={styles["reading-notes"]}>
             <input
               type="text"
-              value={interpretation}
+              value={userInterpretation}
               placeholder="interpretation"
-              onChange={(e) => setInterpretation(e.target.value)}
+              onChange={(e) => setUserInterpretation(e.target.value)}
             />
           </div>
           <div>
