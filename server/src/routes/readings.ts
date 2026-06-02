@@ -107,22 +107,20 @@ readingsRouter.post(
       const cardData = cardDbResponse.rows;
 
       const prompt = `
-      Interpret the following tarot reading given a topic, spread, cards, and notes inputted by the user. For each card you will be given the card name, the position order in the spread, and the name associated with the position order. Use all of this date to deliver a concise interpretation of the reading for the reader. Structure the interpretation in the following format: 
-      <reading_topic>${readingData.reading_topic}</reading_topic>
-      <reading_spread>${readingData.spread_type}</reading_spread>
-      <cards>${cardData
-        .map((card) => {
-          return `
-          <card_name>${card.card_name}</card_name>
-          <position_order>${card.position_order}</position_order>
-          <position_name>${card.position_name}</position_name>
-          `;
-        })
-        .join("")}</cards>
-      <user_notes>${readingData.notes}</user_notes>
+        Interpret the following tarot reading given a topic, spread, cards, and notes inputted by the user. For each card you will be given the card name, the position order in the spread, and the name associated with the position order. Use all of this data to deliver a concise interpretation of the reading for the reader. Structure the interpretation in the following format: ###Overall Reading Summary 4 sentences max; ###Card by Card Analysis 3 sentences max for each card. Put the returned text in Markdown format: Overall Reading Summary and Card by Card analysis are ### Heading; Card names are are **bold text**. Include a colon ':' after specific card names. Do not bullet the card by card analysis results. Do not include introductory text such as "Here is an interpretation of your tarot reading.". Do not include the spread or reading topic, the user already knows this. 
+        <reading_topic>${readingData.reading_topic}</reading_topic>
+        <reading_spread>${readingData.spread_type}</reading_spread>
+        <cards>${cardData
+          .map((card) => {
+            return `
+            <card_name>${card.card_name}</card_name>
+            <position_order>${card.position_order}</position_order>
+            <position_name>${card.position_name}</position_name>
+            `;
+          })
+          .join("")}</cards>
+        <user_notes>${readingData.notes}</user_notes>
       `;
-
-      console.log(prompt);
 
       const interpretation = await interpretReading(prompt);
       console.log(interpretation);
