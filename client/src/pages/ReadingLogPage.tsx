@@ -163,6 +163,7 @@ const ReadingLogPage = () => {
         <p>CARDS</p>
         <p>NOTES</p>
         <p>INTERPRETATION</p>
+        <p>AI INTERPRETATION</p>
       </div>
       <div className={styles["reading-log-container"]}>
         {renderReadingLogs()}

@@ -37,7 +37,7 @@
 
 .reading-log-labels {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
   place-items: center;
   place-content: center;
   font-weight: 900;
