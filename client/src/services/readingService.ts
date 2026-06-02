@@ -54,7 +54,7 @@ export const createReading = async (
 };
 
 export const updateReadingById = async (
-  readingId: string | undefined,
+  readingId: string,
   data: UpdateReadingTypes,
 ): Promise<ReadingTypes> => {
   const response = await fetch(
@@ -95,7 +95,7 @@ export const deletedReadingById = async (readingId: string | undefined) => {
 };
 
 export const interpretReadingById = async (
-  readingId: string | undefined,
+  readingId: string,
 ): Promise<string> => {
   const response = await fetch(
     `http://localhost:3000/api/readings/${readingId}/interpret`,
@@ -113,4 +113,27 @@ export const interpretReadingById = async (
 
   const interpretation = await response.json();
   return interpretation;
+};
+
+export const saveAIInterpretation = async (
+  readingId: string,
+  interpretation: Object,
+): Promise<ReadingTypes> => {
+  const response = await fetch(
+    `http://localhost:3000/api/readings/${readingId}/ai-interpretation`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(interpretation),
+      credentials: "include",
+    },
+  );
+
+  if (!response.ok)
+    throw new Error(
+      `Server error [saveAIInterpretation readingService.ts]: ${response.status}`,
+    );
+
+  const updatedReading = await response.json();
+  return updatedReading;
 };
