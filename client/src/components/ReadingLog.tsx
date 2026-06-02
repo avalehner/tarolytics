@@ -30,6 +30,7 @@ const ReadingLog = ({ reading, cards }: ReadingLogProps) => {
       </p>
       <p className={styles["truncate"]}>{reading.notes}</p>
       <p className={styles["truncate"]}>{reading.user_interpretation}</p>
+      <p className={styles["truncate"]}>placeholder</p>
     </div>
   );
 };
