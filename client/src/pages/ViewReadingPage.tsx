@@ -82,31 +82,30 @@ const ViewReadingPage = () => {
       : { transform: `rotate(${labelRotation}deg)` };
 
     return (
-      <>
-        <div
-          className={styles["card-image-container"]}
+      <div
+        key={index}
+        className={styles["card-image-container"]}
+        style={{
+          position: "absolute",
+          left: `${x}%`,
+          top: `${y}%`,
+          width: `${cardWidth}%`,
+          // transform: `rotate(${cardRotation}deg)`,
+        }}
+      >
+        <img
+          className={styles["card-image"]}
+          src={`${cardImagePath}`}
           style={{
-            position: "absolute",
-            left: `${x}%`,
-            top: `${y}%`,
-            width: `${cardWidth}%`,
-            // transform: `rotate(${cardRotation}deg)`,
+            //style is a React prop that accepts a JS object which is y it need 2 brackets
+            transform: `rotate(${cardRotation}deg)`,
+            width: `100%`,
           }}
-        >
-          <img
-            className={styles["card-image"]}
-            src={`${cardImagePath}`}
-            style={{
-              //style is a React prop that accepts a JS object which is y it need 2 brackets
-              transform: `rotate(${cardRotation}deg)`,
-              width: `100%`,
-            }}
-          ></img>
-          <p className={styles["card-label"]} style={labelStyle}>
-            {spreadConfig[spreadType][index]}
-          </p>
-        </div>
-      </>
+        ></img>
+        <p className={styles["card-label"]} style={labelStyle}>
+          {spreadConfig[spreadType][index]}
+        </p>
+      </div>
     );
   };
 
@@ -284,13 +283,13 @@ const ViewReadingPage = () => {
           <div
             className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
           >
-            <p className={styles["interpretation"]}>
+            <div className={styles["interpretation"]}>
               {isGenerating && !AIInterpretation ? (
                 "interpreting..."
               ) : (
                 <ReactMarkdown>{AIInterpretation}</ReactMarkdown>
               )}
-            </p>
+            </div>
           </div>
           <button
             className={`${styles["save-interpretation-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
@@ -322,22 +321,21 @@ const ViewReadingPage = () => {
           </div>
           <div className={styles["clarifier-display-container"]}>
             <div className={styles["clarifier-container"]}>
-              {clarifiers.map((card) => (
-                <>
-                  <div
-                    className={styles["clarifier-card-container"]}
-                    style={{
-                      width: `${spreadPositions[reading.spread_type].cardWidth}%`,
-                    }}
-                  >
-                    <img
-                      className={styles["card-image"]}
-                      src={`${getCardImagePath(card.card_name)}`}
-                      style={{ width: "100%" }}
-                    />
-                    <p className={styles["clarifier-card-label"]}>clarifier</p>
-                  </div>
-                </>
+              {clarifiers.map((card, index) => (
+                <div
+                  key={index}
+                  className={styles["clarifier-card-container"]}
+                  style={{
+                    width: `${spreadPositions[reading.spread_type].cardWidth}%`,
+                  }}
+                >
+                  <img
+                    className={styles["card-image"]}
+                    src={`${getCardImagePath(card.card_name)}`}
+                    style={{ width: "100%" }}
+                  />
+                  <p className={styles["clarifier-card-label"]}>clarifier</p>
+                </div>
               ))}
             </div>
           </div>
