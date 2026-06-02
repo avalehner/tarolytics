@@ -132,11 +132,12 @@ readingsRouter.post(
   },
 );
 
+//update reading (notes and user interpretation)
 readingsRouter.patch("/:readingId", async (req: Request, res: Response) => {
   //':' marks a URL parameter, allows us to destructure from req.params
   try {
     const { readingId } = req.params;
-    const { notes, userInterpretation } = req.body;
+    const { notes, user_interpretation } = req.body;
 
     const dbResponse = await pool.query(
       `
@@ -144,7 +145,7 @@ readingsRouter.patch("/:readingId", async (req: Request, res: Response) => {
       SET notes = $1, user_interpretation=$2
       WHERE id = $3
       RETURNING *;`,
-      [notes, userInterpretation, readingId],
+      [notes, user_interpretation, readingId],
     );
     const updatedReading = dbResponse.rows[0];
     res.status(201).json(updatedReading);
@@ -153,6 +154,33 @@ readingsRouter.patch("/:readingId", async (req: Request, res: Response) => {
     res.status(500).json({ error: message });
   }
 });
+
+//save & update ai interpretation
+readingsRouter.patch(
+  "/:readingId/ai-interpretation",
+  async (req: Request, res: Response) => {
+    try {
+      console.log(req.body);
+      const { readingId } = req.params;
+      const { ai_interpretation } = req.body;
+
+      const dbResponse = await pool.query(
+        `
+        UPDATE readings
+        SET ai_interpretation = $1
+        WHERE id = $2
+        RETURNING *;`,
+        [ai_interpretation, readingId],
+      );
+
+      const updatedReading = dbResponse.rows[0];
+      res.status(201).json(updatedReading);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown Error";
+      res.status(500).json({ error: message });
+    }
+  },
+);
 
 readingsRouter.delete("/:readingId", async (req: Request, res: Response) => {
   try {
