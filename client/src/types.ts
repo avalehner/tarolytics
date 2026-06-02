@@ -6,7 +6,7 @@ export interface ReadingTypes {
   reading_topic: string;
   notes: string;
   user_interpretation: string;
-  ai_interpretation: string;
+  ai_interpretation?: string;
   created_at: string;
   updated_at: string;
 }
