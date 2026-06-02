@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown";
 import styles from "./css/ReadingLog.module.css";
 import { ReadingTypes, CardTypes } from "../types";
 import spreadLabels from "../data/spreadLabels";
@@ -30,7 +31,9 @@ const ReadingLog = ({ reading, cards }: ReadingLogProps) => {
       </p>
       <p className={styles["truncate"]}>{reading.notes}</p>
       <p className={styles["truncate"]}>{reading.user_interpretation}</p>
-      <p className={styles["truncate"]}>placeholder</p>
+      <p className={`${styles["truncate"]} ${styles["ai-interpretation"]}`}>
+        <ReactMarkdown>{reading.ai_interpretation}</ReactMarkdown>
+      </p>
     </div>
   );
 };

@@ -13,3 +13,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.ai-interpretation {
+  overflow: hidden;
+  max-height: 3rem;
+  /* -webkit-line-clamp: 3; */
+}
