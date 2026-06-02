@@ -7,6 +7,7 @@ import {
   updateReadingById,
   deletedReadingById,
   interpretReadingById,
+  saveAIInterpretation,
 } from "../services/readingService";
 import { saveCards } from "../services/cardsService";
 import { ReadingTypes, CardTypes } from "../types";
@@ -28,23 +29,27 @@ const ViewReadingPage = () => {
   const [notes, setNotes] = useState<string>("");
   const [userInterpretation, setUserInterpretation] = useState<string>("");
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
-  const [updating, setUpdating] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   // const [isAIInterpretation, setIsAIInterpretation] = useState<boolean>(false);
 
   const { readingId } = useParams();
 
   useEffect(() => {
     if (!readingId) return; //makes sure readingId is not null
-    getReadingById(readingId).then((data) => setReading(data));
-
+    getReadingById(readingId).then((data) => {
+      setReading(data);
+      setAIInterpretation(data.ai_interpretation || "");
+    });
     getCardsByReadingId(readingId).then((data) => setCards(data));
   }, [readingId]);
 
+  if (!readingId) return null;
   if (!reading) return null; //makes sure reading is not null
 
   const formatDate = (date: string) => {
@@ -56,7 +61,6 @@ const ViewReadingPage = () => {
       year: format(unformattedDate, "yyyy"),
     };
   };
-
   const renderCardImage = (card: CardTypes, index: number) => {
     const { positions, cardWidth } = spreadPositions[reading.spread_type];
     const position = positions[card.position_order];
@@ -144,7 +148,7 @@ const ViewReadingPage = () => {
   };
 
   const updateReadingAndCards = async () => {
-    setUpdating(true);
+    setIsUpdating(true);
 
     const updateReadingRequestObj = {
       notes: notes,
@@ -176,7 +180,7 @@ const ViewReadingPage = () => {
         error instanceof Error ? error.message : "Something went wrong";
       setUpdateMessage(message);
     } finally {
-      setUpdating(false);
+      setIsUpdating(false);
     }
   };
 
@@ -190,6 +194,37 @@ const ViewReadingPage = () => {
       const message =
         error instanceof Error ? error.message : "Something went wrong";
       setDeleteMessage(message);
+    }
+  };
+
+  const handleGenerateAIInterpretation = async (readingId: string) => {
+    try {
+      setIsGenerating(true);
+      setAIInterpretation(await interpretReadingById(readingId));
+      setIsGenerating(false);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown Error";
+      console.error(message);
+    }
+  };
+
+  const handleSaveAIInterpretation = async (
+    readingId: string,
+    interpretation: Object,
+  ) => {
+    try {
+      setIsSaving(true);
+      const updatedReading = await saveAIInterpretation(readingId, {
+        ai_interpretation: interpretation,
+      });
+      if (updatedReading.ai_interpretation) {
+        setAIInterpretation(updatedReading.ai_interpretation);
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unkown error";
+      console.error(message);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -258,16 +293,21 @@ const ViewReadingPage = () => {
             </p>
           </div>
           <button
-            className={styles["save-interpretation-btn"]}
+            className={`${styles["save-interpretation-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
             onClick={async () => {
-              setIsGenerating(true);
-              setAIInterpretation(await interpretReadingById(readingId));
-              setIsGenerating(false);
+              await handleGenerateAIInterpretation(readingId);
             }}
           >
-            {!AIInterpretation
-              ? "GENERATE INTERPRETATION"
-              : "SAVE INTERPRETATION"}
+            {isGenerating ? "generating..." : "GENERATE INTERPRETATION"}
+          </button>
+          <button
+            className={`${styles["save-interpretation-btn"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
+            disabled={isSaving}
+            onClick={async () => {
+              await handleSaveAIInterpretation(readingId, AIInterpretation);
+            }}
+          >
+            {isSaving ? "saving..." : "SAVE INTERPRETATION"}
           </button>
           <button
             className={styles["delete-reading-btn"]}
@@ -329,9 +369,9 @@ const ViewReadingPage = () => {
             <button
               className={styles["save-interpretation-btn"]}
               onClick={updateReadingAndCards}
-              disabled={updating}
+              disabled={isUpdating}
             >
-              {updating ? "Updating..." : "UPDATE READING"}
+              {isUpdating ? "Updating..." : "UPDATE READING"}
             </button>
             {updateMessage && <p>{updateMessage}</p>}
           </div>
