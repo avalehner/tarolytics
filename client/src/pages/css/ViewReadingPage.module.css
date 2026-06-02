@@ -241,3 +241,7 @@
   border-radius: 9px;
   background-color: #ebffe4;
 }
+
+.hidden {
+  display: none;
+}

@@ -1,6 +1,7 @@
 import styles from "./css/ViewReadingPage.module.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import {
   getReadingById,
   updateReadingById,
@@ -26,13 +27,14 @@ const ViewReadingPage = () => {
   const [addedCards, setAddedCards] = useState<string[]>([]);
   const [notes, setNotes] = useState<string>("");
   const [userInterpretation, setUserInterpretation] = useState<string>("");
-  const [aiInterpretation, setAiInterpretation] = useState<string>("");
+  const [AIInterpretation, setAIInterpretation] = useState<string>("");
   const [updating, setUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
-  const [isAIInterpretation, setIsAIInterpretation] = useState<boolean>(false);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  // const [isAIInterpretation, setIsAIInterpretation] = useState<boolean>(false);
 
   const { readingId } = useParams();
 
@@ -244,18 +246,28 @@ const ViewReadingPage = () => {
             <button className={styles["clarifier-btn"]}>PULL CLARIFIER</button>
           </div>
           <hr className={styles["aesthetic-divider"]} />
-          <div className={styles["interpretation-card"]}>
-            <p className={styles["interpretation"]}>{aiInterpretation}</p>
+          <div
+            className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
+          >
+            <p className={styles["interpretation"]}>
+              {isGenerating && !AIInterpretation ? (
+                "interpreting..."
+              ) : (
+                <ReactMarkdown>{AIInterpretation}</ReactMarkdown>
+              )}
+            </p>
           </div>
           <button
             className={styles["save-interpretation-btn"]}
             onClick={async () => {
-              setAiInterpretation(await interpretReadingById(readingId));
+              setIsGenerating(true);
+              setAIInterpretation(await interpretReadingById(readingId));
+              setIsGenerating(false);
             }}
           >
-            {isAIInterpretation
-              ? "SAVE INTERPRETATION"
-              : "GENERATE INTERPRETATION"}
+            {!AIInterpretation
+              ? "GENERATE INTERPRETATION"
+              : "SAVE INTERPRETATION"}
           </button>
           <button
             className={styles["delete-reading-btn"]}
