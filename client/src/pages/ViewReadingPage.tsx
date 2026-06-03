@@ -26,8 +26,9 @@ const ViewReadingPage = () => {
   const [reading, setReading] = useState<ReadingTypes | null>(null); //because this holds a single reading which is just an object, there is no way to represent an empty object so we have to write null
   const [cards, setCards] = useState<CardTypes[]>([]);
   const [addedCards, setAddedCards] = useState<string[]>([]);
-  const [notes, setNotes] = useState<string>("");
-  const [userInterpretation, setUserInterpretation] = useState<string>("");
+  const [updatedNotes, setUpdatedNotes] = useState<string>("");
+  const [updatedUserInterpretation, setUpdatedUserInterpretation] =
+    useState<string>("");
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
@@ -150,8 +151,8 @@ const ViewReadingPage = () => {
     setIsUpdating(true);
 
     const updateReadingRequestObj = {
-      notes: notes,
-      user_interpretation: userInterpretation,
+      notes: updatedNotes,
+      user_interpretation: updatedUserInterpretation,
     };
 
     try {
@@ -172,8 +173,8 @@ const ViewReadingPage = () => {
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
       setReading(updatedReading);
-      setNotes(updatedReading.notes);
-      setUserInterpretation(updatedReading.user_interpretation);
+      setUpdatedNotes(updatedReading.notes);
+      setUpdatedUserInterpretation(updatedReading.user_interpretation);
       setUpdateMessage("reading updated :)");
     } catch (error) {
       const message =
@@ -351,17 +352,18 @@ const ViewReadingPage = () => {
             <div className={styles["reading-notes"]}>
               <input
                 type="text"
-                value={notes}
+                value={updatedNotes}
                 placeholder="notes"
-                onChange={(e) => setNotes(e.target.value)}
+                onChange={(e) => setUpdatedNotes(e.target.value)}
               />
             </div>
             <div className={styles["reading-notes"]}>
               <input
                 type="text"
-                value={userInterpretation}
+                //inputs current value
+                value={updatedUserInterpretation}
                 placeholder="interpretation"
-                onChange={(e) => setUserInterpretation(e.target.value)}
+                onChange={(e) => setUpdatedUserInterpretation(e.target.value)}
               />
             </div>
             {renderCardInputsForUpdate()}
