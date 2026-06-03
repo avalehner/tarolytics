@@ -39,6 +39,7 @@ const ViewReadingPage = () => {
   const [deleteMessage, setDeleteMessage] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isReversals, setIsReversals] = useState<boolean>(false);
 
   const { readingId } = useParams();
 
@@ -235,7 +236,7 @@ const ViewReadingPage = () => {
 
   const pullClarifier = async () => {
     try {
-      const randomNumber = await getRandomSequence(1);
+      const randomNumber = await getRandomSequence(1, isReversals);
       const cardName = tarotCards[randomNumber[0]];
       console.log("card name:", cardName);
 
@@ -260,7 +261,8 @@ const ViewReadingPage = () => {
     (card) => card.position_name !== "clarifier",
   );
   const clarifiers = cards.filter((card) => card.position_name === "clarifier");
-  console.log("clarifiers:", clarifiers);
+
+  console.log("isReversals", isReversals);
 
   return (
     <>
@@ -310,6 +312,19 @@ const ViewReadingPage = () => {
             <button className={styles["clarifier-btn"]} onClick={pullClarifier}>
               PULL CLARIFIER
             </button>
+            <div className={styles["toggle-container"]}>
+              <label className={styles["toggle"]}>
+                <span className={styles["toggle-label"]}>no reversals</span>
+                <input
+                  type="checkbox"
+                  checked={isReversals}
+                  onChange={(e) => setIsReversals(e.target.checked)}
+                  className={styles["toggle-input"]}
+                />
+                <span className={styles["toggle-slider"]} />
+                <span className={styles["toggle-label"]}>reversals</span>
+              </label>
+            </div>
           </div>
           <hr className={styles["aesthetic-divider"]} />
           <div
