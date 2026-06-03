@@ -15,11 +15,13 @@ import { format } from "date-fns";
 import { convertDayToWord } from "../util";
 import { getCardsByReadingId } from "../services/cardsService";
 import { getCardImagePath } from "../util";
+import { getRandomSequence } from "../services/randomService";
 import CardInput from "../components/CardInput";
 import spreadPositions from "../data/spreadPositions";
 import topicLabels from "../data/topicLabels";
 import spreadLabels from "../data/spreadLabels";
 import spreadConfig from "../data/spreadConfig";
+import tarotCards from "../data/tarotCards";
 
 const ViewReadingPage = () => {
   const navigate = useNavigate();
@@ -37,10 +39,10 @@ const ViewReadingPage = () => {
   const [deleteMessage, setDeleteMessage] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  // const [isAIInterpretation, setIsAIInterpretation] = useState<boolean>(false);
 
   const { readingId } = useParams();
 
+  //useEffects
   useEffect(() => {
     if (!readingId) return; //makes sure readingId is not null
     getReadingById(readingId).then((data) => {
@@ -53,6 +55,7 @@ const ViewReadingPage = () => {
   if (!readingId) return null;
   if (!reading) return null; //makes sure reading is not null
 
+  //functions
   const formatDate = (date: string) => {
     const rawDate = date.slice(0, 10);
     const unformattedDate = new Date(rawDate + "T00:00:00");
@@ -62,6 +65,7 @@ const ViewReadingPage = () => {
       year: format(unformattedDate, "yyyy"),
     };
   };
+
   const renderCardImage = (card: CardTypes, index: number) => {
     const { positions, cardWidth } = spreadPositions[reading.spread_type];
     const position = positions[card.position_order];
@@ -229,10 +233,34 @@ const ViewReadingPage = () => {
     }
   };
 
+  const pullClarifier = async () => {
+    try {
+      const randomNumber = await getRandomSequence(1);
+      const cardName = tarotCards[randomNumber[0]];
+      console.log("card name:", cardName);
+
+      const updateCardRequestObj = {
+        reading_id: readingId!,
+        card_name: cardName,
+        position_name: "clarifier",
+        position_order: cards.length + 1,
+      };
+
+      await saveCards(updateCardRequestObj);
+      const updatedCards = await getCardsByReadingId(readingId!);
+      setCards(updatedCards);
+      console.log("pulled clarifier added");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown Error";
+      console.error(message);
+    }
+  };
+
   const originalSpread = cards.filter(
     (card) => card.position_name !== "clarifier",
   );
   const clarifiers = cards.filter((card) => card.position_name === "clarifier");
+  console.log("clarifiers:", clarifiers);
 
   return (
     <>
@@ -279,7 +307,9 @@ const ViewReadingPage = () => {
             >
               MANUAL UPDATE
             </button>
-            <button className={styles["clarifier-btn"]}>PULL CLARIFIER</button>
+            <button className={styles["clarifier-btn"]} onClick={pullClarifier}>
+              PULL CLARIFIER
+            </button>
           </div>
           <hr className={styles["aesthetic-divider"]} />
           <div
@@ -334,7 +364,10 @@ const ViewReadingPage = () => {
                   <img
                     className={styles["card-image"]}
                     src={`${getCardImagePath(card.card_name)}`}
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      transform: `rotate(${card.card_name.includes("rx") ? 180 : 0}deg)`,
+                    }}
                   />
                   <p className={styles["clarifier-card-label"]}>clarifier</p>
                 </div>
