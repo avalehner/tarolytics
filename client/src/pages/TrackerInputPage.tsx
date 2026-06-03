@@ -38,6 +38,7 @@ const TrackerInputPage = () => {
   const [message, setMessage] = useState<string>("");
   const [isManual, setIsManual] = useState<boolean>(false);
   const [isCardsPulled, setIsCardsPulled] = useState<boolean>(false);
+  const [isReversals, setIsReversals] = useState<boolean>(false);
   const [viewReadingModal, setViewReadingModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -49,7 +50,10 @@ const TrackerInputPage = () => {
         console.log("custom");
       } else {
         const numberOfCards = spreadConfig[readingSpread].length;
-        const randomSequence = await getRandomSequence(numberOfCards);
+        const randomSequence = await getRandomSequence(
+          numberOfCards,
+          isReversals,
+        );
         console.log(randomSequence.length);
         const cardNames = randomSequence.map(
           (number) => tarotCards[number - 1],
@@ -267,8 +271,7 @@ const TrackerInputPage = () => {
     setIsCardsPulled(false);
   };
 
-  console.log("Manual", isManual);
-  console.log("cards pulled", isCardsPulled);
+  console.log("reversals:", isReversals);
 
   return (
     <div className={styles["tracker-input-page-container"]}>
@@ -296,6 +299,19 @@ const TrackerInputPage = () => {
       </div>
       {!isManual && !isCardsPulled && (
         <div>
+          <div className={styles["toggle-container"]}>
+            <label className={styles["toggle"]}>
+              <span className={styles["toggle-label"]}>no reversals</span>
+              <input
+                type="checkbox"
+                checked={isReversals}
+                onChange={(e) => setIsReversals(e.target.checked)}
+                className={styles["toggle-input"]}
+              />
+              <span className={styles["toggle-slider"]} />
+              <span className={styles["toggle-label"]}>reversals</span>
+            </label>
+          </div>
           <button
             className={styles["save-reading-btn"]}
             onClick={() => setIsManual(true)}
