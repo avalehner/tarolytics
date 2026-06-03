@@ -171,6 +171,7 @@ const ViewReadingPage = () => {
       }
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
+      setReading(updatedReading);
       setNotes(updatedReading.notes);
       setUserInterpretation(updatedReading.user_interpretation);
       setUpdateMessage("reading updated :)");
