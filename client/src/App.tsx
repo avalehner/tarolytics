@@ -5,8 +5,9 @@ import TrackerInputPage from "./pages/TrackerInputPage";
 import ReadingLogPage from "./pages/ReadingLogPage";
 import ViewReadingPage from "./pages/ViewReadingPage";
 import LoginPage from "./pages/LoginPage";
+import AstrologicalChartPage from "./pages/AstrologicalChartPage";
 import NavBar from "./components/NavBar";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
 import { UserTypes } from "./types";
 
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<TrackerInputPage />} />
         <Route path="/analytics" element={<ReadingLogPage />} />
+        <Route path="/chart" element={<AstrologicalChartPage />} />
         <Route path="/reading/:readingId" element={<ViewReadingPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
