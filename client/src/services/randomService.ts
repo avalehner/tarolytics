@@ -1,4 +1,6 @@
-export const getRandomSequence = async (numCards: number): Promise<[]> => {
+export const getRandomSequence = async (
+  numCards: number,
+): Promise<number[]> => {
   const randomResponse = await fetch(`http://localhost:3000/api/random`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -11,8 +13,8 @@ export const getRandomSequence = async (numCards: number): Promise<[]> => {
   }
 
   const randomData = await randomResponse.json();
-  console.log(randomData);
+  console.log("randomData:", randomData);
   const randomCardIndeces = randomData.slice(0, numCards);
-  console.log(randomCardIndeces);
+  console.log("randomCardIndeces", randomCardIndeces);
   return randomCardIndeces;
 };
