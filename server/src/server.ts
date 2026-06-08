@@ -5,9 +5,10 @@ import cardsRouter from "./routes/cards";
 import authRouter from "./routes/auth";
 import randomRouter from "./routes/random";
 import citiesRouter from "./routes/cities";
-import usersRouter from "./routes/users"
+import usersRouter from "./routes/users";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import astrologyRouter from "./routes/astrology";
 
 const app: Express = express(); //creates app instance: the request handling logic, doesn't listen for network traffic. knows what to do with requests but doesn't handle any on its own
 
@@ -22,7 +23,8 @@ app.use("/api/cards", cardsRouter);
 app.use("/auth", authRouter);
 app.use("/api/random", randomRouter);
 app.use("/api/cities", citiesRouter);
-app.use("/api/users", usersRouter)
+app.use("/api/users", usersRouter);
+app.use("/api/astrology", astrologyRouter);
 
 //server: actually creates the server and tells it to start listening on port 3000
 app.listen(3000, () => {
