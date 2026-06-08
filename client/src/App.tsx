@@ -5,7 +5,7 @@ import TrackerInputPage from "./pages/TrackerInputPage";
 import ReadingLogPage from "./pages/ReadingLogPage";
 import ViewReadingPage from "./pages/ViewReadingPage";
 import LoginPage from "./pages/LoginPage";
-import AstrologicalChartPage from "./pages/AstrologicalChartPage";
+import AstrologyChartPage from "./pages/AstrologyChartPage";
 import ProfilePage from "./pages/ProfilePage";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -40,7 +40,15 @@ function App() {
       <Routes>
         <Route path="/" element={<TrackerInputPage />} />
         <Route path="/history" element={<ReadingLogPage />} />
-        <Route path="/chart" element={<AstrologicalChartPage />} />
+        <Route
+          path="/chart"
+          element={
+            <AstrologyChartPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
         <Route path="/reading/:readingId" element={<ViewReadingPage />} />
         <Route
           path="/profile"
