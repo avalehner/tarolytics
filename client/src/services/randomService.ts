@@ -16,8 +16,6 @@ export const getRandomSequence = async (
     );
   }
   const randomData = await randomResponse.json();
-  console.log("randomData:", randomData);
   const randomCardIndeces = randomData.slice(0, numCards);
-  console.log("randomCardIndeces", randomCardIndeces);
   return randomCardIndeces;
 };
