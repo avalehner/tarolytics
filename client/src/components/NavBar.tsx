@@ -14,7 +14,7 @@ const NavBar = ({ currentUser }: NavBarProps) => {
           <NavLink to="">TRACK</NavLink>
         </li>
         <li>
-          <NavLink to="/analytics">ANALYZE</NavLink>
+          <NavLink to="/history">HISTORY</NavLink>
         </li>
         <li>
           <NavLink to="/chart">CHART</NavLink>
@@ -22,9 +22,14 @@ const NavBar = ({ currentUser }: NavBarProps) => {
       </ul>
       <ul className={styles["nav-right"]}>
         {currentUser ? (
-          <li>
-            <NavLink to="http://localhost:3000/auth/logout/">LOG OUT</NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink to="/profile">PROFILE</NavLink>
+            </li>
+            <li>
+              <NavLink to="http://localhost:3000/auth/logout/">LOG OUT</NavLink>
+            </li>
+          </>
         ) : (
           <li>
             <a href="/login/">LOG IN</a>
