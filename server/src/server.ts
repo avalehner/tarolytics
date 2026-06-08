@@ -4,6 +4,8 @@ import readingsRouter from "./routes/readings";
 import cardsRouter from "./routes/cards";
 import authRouter from "./routes/auth";
 import randomRouter from "./routes/random";
+import citiesRouter from "./routes/cities";
+import usersRouter from "./routes/users"
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -19,6 +21,8 @@ app.use("/api/readings", readingsRouter);
 app.use("/api/cards", cardsRouter);
 app.use("/auth", authRouter);
 app.use("/api/random", randomRouter);
+app.use("/api/cities", citiesRouter);
+app.use("/api/users", usersRouter)
 
 //server: actually creates the server and tells it to start listening on port 3000
 app.listen(3000, () => {
