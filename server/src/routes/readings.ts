@@ -165,8 +165,7 @@ readingsRouter.patch(
       const { ai_interpretation } = req.body;
 
       const dbResponse = await pool.query(
-        `
-        UPDATE readings
+        `UPDATE readings
         SET ai_interpretation = $1
         WHERE id = $2
         RETURNING *;`,
