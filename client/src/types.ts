@@ -51,10 +51,11 @@ export interface UserTypes {
   google_id: string;
   profile_url: string;
   full_name: string;
-  birth_day?: string;
+  birthday?: string | null;
   birth_time?: string;
   birth_timezone?: string;
-  birth_location?: string;
+  birth_location?: CityTypes | null;
+  birth_city?: string;
 }
 
 export type UserProfileTypes = Omit<
