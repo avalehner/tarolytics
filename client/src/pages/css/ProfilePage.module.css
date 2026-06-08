@@ -1,0 +1,8 @@
+.birthday-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-container {
+  margin: 0 2rem;
+}
