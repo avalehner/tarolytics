@@ -6,6 +6,7 @@ import ReadingLogPage from "./pages/ReadingLogPage";
 import ViewReadingPage from "./pages/ViewReadingPage";
 import LoginPage from "./pages/LoginPage";
 import AstrologicalChartPage from "./pages/AstrologicalChartPage";
+import ProfilePage from "./pages/ProfilePage";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
@@ -36,9 +37,13 @@ function App() {
       <NavBar currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<TrackerInputPage />} />
-        <Route path="/analytics" element={<ReadingLogPage />} />
+        <Route path="/history" element={<ReadingLogPage />} />
         <Route path="/chart" element={<AstrologicalChartPage />} />
         <Route path="/reading/:readingId" element={<ViewReadingPage />} />
+        <Route
+          path="/profile"
+          element={<ProfilePage currentUser={currentUser} />}
+        />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />
