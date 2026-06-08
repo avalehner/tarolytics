@@ -5,7 +5,6 @@ const randomRouter = Router();
 
 randomRouter.get("/:isReversals", async (req: Request, res: Response) => {
   try {
-    const { isReversals } = req.params;
     const isReversalsBoolean = req.params.isReversals === "true";
     let maxNumber = 78;
     if (isReversalsBoolean) maxNumber = 156;
@@ -27,7 +26,7 @@ randomRouter.get("/:isReversals", async (req: Request, res: Response) => {
 
     const randomText = await randomResponse.text();
 
-    // console.log("random-text", randomText);
+    console.log("random-text", randomText);
 
     //.trim() removes any leading/trailing whitespace
     //numbers are returned with '\n' as a splitter
