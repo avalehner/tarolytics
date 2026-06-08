@@ -14,6 +14,7 @@ import { UserTypes } from "./types";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<UserTypes | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState<boolean>(true);
 
   //browser cant tell if user is logged in because we are sending JWT as http only cookie (javascript cant read it)
   //on ever mount app.tsx runs this useEffect that fetches the auth/me endpoint sending the jwt cookie
@@ -27,6 +28,7 @@ function App() {
       if (!response.ok) return; //return early if response isnt ok
       const userData = await response.json(); //user data retrieved from cookie thru backend
       setCurrentUser(userData); //sets current user to user data object, if no user current user stays null meaning no one is logged in
+      setIsAuthLoading(false);
     };
 
     fetchUser();
@@ -42,7 +44,12 @@ function App() {
         <Route path="/reading/:readingId" element={<ViewReadingPage />} />
         <Route
           path="/profile"
-          element={<ProfilePage currentUser={currentUser} />}
+          element={
+            <ProfilePage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
         />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

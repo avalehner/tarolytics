@@ -10,9 +10,10 @@ import styles from "./css/ProfilePage.module.css";
 
 interface ProflePageProps {
   currentUser: UserTypes | null;
+  isAuthLoading: boolean;
 }
 
-const ProfilePage = ({ currentUser }: ProflePageProps) => {
+const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
   const navigate = useNavigate();
 
   const [birthDate, setBirthDate] = useState<Date | null>(null);
@@ -28,8 +29,9 @@ const ProfilePage = ({ currentUser }: ProflePageProps) => {
   const [saveMessage, setSaveMessage] = useState<string>("");
 
   useEffect(() => {
+    if (isAuthLoading) return;
     if (!currentUser) {
-      // navigate("/login");
+      navigate("/login");
       return;
     }
 
