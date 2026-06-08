@@ -51,4 +51,30 @@ export interface UserTypes {
   google_id: string;
   profile_url: string;
   full_name: string;
+  birth_day?: string;
+  birth_time?: string;
+  birth_timezone?: string;
+  birth_location?: string;
+}
+
+export type UserProfileTypes = Omit<
+  UserTypes,
+  | "id"
+  | "email"
+  | "last_name"
+  | "first_name"
+  | "google_id"
+  | "profile_url"
+  | "full_name"
+>;
+
+export interface CityTypes {
+  formatted: string;
+  lat: number;
+  lng: number;
+}
+
+export interface CityOptionTypes {
+  label: string;
+  value: CityTypes;
 }
