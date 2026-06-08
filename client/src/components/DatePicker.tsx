@@ -15,7 +15,7 @@ const DatePicker = ({ date, setDate }: DatePickerProps) => {
       dropdownMode="select"
       yearDropdownItemNumber={100}
       scrollableYearDropdown
-      selected={date ? new Date(date) : null}
+      selected={date}
       onChange={(selectedDate: Date | null) => {
         if (selectedDate) setDate(selectedDate);
       }}
