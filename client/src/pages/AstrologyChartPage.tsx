@@ -14,7 +14,7 @@ const AstrologyChartPage = ({
   isAuthLoading,
 }: AstrologyChartProps) => {
   const navigate = useNavigate();
-  const [astroChartUrl, setAstroChartUrl] = useState<string>("");
+  const [astroChartUrl, setAstroChartUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -38,7 +38,11 @@ const AstrologyChartPage = ({
     <div className={styles["astro-chart-container"]}>
       <p>chart lol</p>
       <div className={styles["astro-chart"]}>
-        <img src={astroChartUrl} alt="astrology chart" />
+        {astroChartUrl ? (
+          <img src={astroChartUrl} alt="astrology chart" />
+        ) : (
+          <p>loading chart...</p>
+        )}
       </div>
     </div>
   );
