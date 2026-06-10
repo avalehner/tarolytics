@@ -83,8 +83,6 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
     }
   };
 
-  const handleUpdateProfile = () => {};
-
   return (
     <div className={styles["profile-container"]}>
       <h1>Your Profile</h1>
