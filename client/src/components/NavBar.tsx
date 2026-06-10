@@ -17,7 +17,7 @@ const NavBar = ({ currentUser }: NavBarProps) => {
           <NavLink to="/history">HISTORY</NavLink>
         </li>
         <li>
-          <NavLink to="/chart">CHART</NavLink>
+          <NavLink to="/astrology">ASTROLOGY</NavLink>
         </li>
       </ul>
       <ul className={styles["nav-right"]}>

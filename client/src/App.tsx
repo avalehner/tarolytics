@@ -41,7 +41,7 @@ function App() {
         <Route path="/" element={<TrackerInputPage />} />
         <Route path="/history" element={<ReadingLogPage />} />
         <Route
-          path="/chart"
+          path="/astrology"
           element={
             <AstrologyChartPage
               currentUser={currentUser}
