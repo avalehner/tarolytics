@@ -11,10 +11,13 @@ const NavBar = ({ currentUser }: NavBarProps) => {
     <nav>
       <ul className={styles["nav-left"]}>
         <li>
-          <NavLink to="">TRACK</NavLink>
+          <NavLink to="">PULL CARDS</NavLink>
         </li>
         <li>
           <NavLink to="/history">HISTORY</NavLink>
+        </li>
+        <li>
+          <NavLink to="/analytics">ANALYTICS</NavLink>
         </li>
         <li>
           <NavLink to="/astrology">ASTROLOGY</NavLink>
