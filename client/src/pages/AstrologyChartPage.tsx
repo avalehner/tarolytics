@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { UserTypes } from "../types";
+import type {
+  UserTypes,
+  PlanetTypes,
+  PlanetInterpretationTypes,
+} from "../types";
 import styles from "./css/AstrologicalChartPage.module.css";
-import { getAstrologyChart } from "../services/astrologyService";
+import { getAstrologyData } from "../services/astrologyService";
 
 interface AstrologyChartProps {
   currentUser: UserTypes | null;
@@ -14,7 +18,11 @@ const AstrologyChartPage = ({
   isAuthLoading,
 }: AstrologyChartProps) => {
   const navigate = useNavigate();
-  const [astroChartUrl, setAstroChartUrl] = useState<string | null>(null);
+  const [astroChart, setAstroChart] = useState<string | null>(null);
+  const [planetData, setPlanetData] = useState<PlanetTypes[] | null>(null);
+  const [interpretations, setInterpretations] = useState<
+    PlanetInterpretationTypes[] | null
+  >(null);
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -23,8 +31,16 @@ const AstrologyChartPage = ({
       return;
     }
 
-    getAstrologyChart(currentUser.id).then((data: { chartUrl: string }) =>
-      setAstroChartUrl(data.chartUrl),
+    getAstrologyData(currentUser.id).then(
+      (data: {
+        chartData: string;
+        planetData: PlanetTypes[];
+        interpretations: PlanetInterpretationTypes[];
+      }) => {
+        (setAstroChart(data.chartData),
+          setPlanetData(data.planetData),
+          setInterpretations(data.interpretations));
+      },
     );
   }, [currentUser, isAuthLoading]);
 
@@ -32,18 +48,17 @@ const AstrologyChartPage = ({
     return null;
   }
 
-  console.log("astro chart url", astroChartUrl);
-
   return (
     <div className={styles["astro-chart-container"]}>
       <p>chart lol</p>
       <div className={styles["astro-chart"]}>
-        {astroChartUrl ? (
-          <img src={astroChartUrl} alt="astrology chart" />
+        {astroChart ? (
+          <img src={astroChart} alt="astrology chart" />
         ) : (
           <p>loading chart...</p>
         )}
       </div>
+      <div className={styles["planets-container"]}></div>
     </div>
   );
 };
