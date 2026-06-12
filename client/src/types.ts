@@ -81,15 +81,17 @@ export interface CityOptionTypes {
 }
 
 export interface PlanetInterpretationTypes {
-  id: string;
-  key: string;
-  category: string;
-  title: string;
-  body: string;
-  tone: string;
-  tags: [string, string];
-  created_at: string;
-  updated_at: string;
+  sections: {
+    id: string;
+    key: string;
+    category: string;
+    title: string;
+    body: string;
+    tone: string;
+    tags: [string, string];
+    created_at: string;
+    updated_at: string;
+  };
 }
 
 export interface PlanetTypes {
