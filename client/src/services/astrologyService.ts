@@ -4,8 +4,8 @@ export const getAstrologyData = async (
   userId: string,
 ): Promise<{
   chartData: string;
-  planetData: PlanetTypes[];
-  interpretations: PlanetInterpretationTypes[];
+  planetsData: PlanetTypes[];
+  interpretations: any;
 }> => {
   const response = await fetch(
     `http://localhost:3000/api/astrology/${userId}`,
