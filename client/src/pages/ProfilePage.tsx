@@ -83,6 +83,9 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
     }
   };
 
+  //null guards
+  if (!currentUser) return null; //prevents form from flashing while auth loads
+
   return (
     <div className={styles["profile-container"]}>
       <h1>Your Profile</h1>

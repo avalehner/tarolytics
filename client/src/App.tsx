@@ -77,7 +77,15 @@ function App() {
             />
           }
         />
-        <Route path="/reading/:readingId" element={<ViewReadingPage />} />
+        <Route
+          path="/reading/:readingId"
+          element={
+            <ViewReadingPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
         <Route
           path="/profile"
           element={

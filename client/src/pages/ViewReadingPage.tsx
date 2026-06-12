@@ -10,7 +10,7 @@ import {
   saveAIInterpretation,
 } from "../services/readingService";
 import { saveCards } from "../services/cardsService";
-import { ReadingTypes, CardTypes } from "../types";
+import type { ReadingTypes, CardTypes, UserTypes } from "../types";
 import { format } from "date-fns";
 import { convertDayToWord } from "../util";
 import { getCardsByReadingId } from "../services/cardsService";
@@ -23,7 +23,15 @@ import spreadLabels from "../data/spreadLabels";
 import spreadConfig from "../data/spreadConfig";
 import tarotCards from "../data/tarotCards";
 
-const ViewReadingPage = () => {
+interface ViewReadingPageProps {
+  currentUser: UserTypes | null;
+  isAuthLoading: boolean;
+}
+
+const ViewReadingPage = ({
+  currentUser,
+  isAuthLoading,
+}: ViewReadingPageProps) => {
   const navigate = useNavigate();
   const [reading, setReading] = useState<ReadingTypes | null>(null); //because this holds a single reading which is just an object, there is no way to represent an empty object so we have to write null
   const [cards, setCards] = useState<CardTypes[]>([]);
@@ -45,6 +53,11 @@ const ViewReadingPage = () => {
 
   //useEffects
   useEffect(() => {
+    if (isAuthLoading) return;
+    if (!currentUser) navigate("/login");
+  }, [currentUser, isAuthLoading]);
+
+  useEffect(() => {
     if (!readingId) return; //makes sure readingId is not null
     getReadingById(readingId).then((data) => {
       setReading(data);
@@ -52,9 +65,6 @@ const ViewReadingPage = () => {
     });
     getCardsByReadingId(readingId).then((data) => setCards(data));
   }, [readingId]);
-
-  if (!readingId) return null;
-  if (!reading) return null; //makes sure reading is not null
 
   //functions
   const formatDate = (date: string) => {
@@ -68,6 +78,8 @@ const ViewReadingPage = () => {
   };
 
   const renderCardImage = (card: CardTypes, index: number) => {
+    if (!reading) return;
+
     const { positions, cardWidth } = spreadPositions[reading.spread_type];
     const position = positions[card.position_order];
     if (!position) return null; //skip any card without a valid position
@@ -153,6 +165,8 @@ const ViewReadingPage = () => {
   };
 
   const updateReadingAndCards = async () => {
+    if (!readingId) return;
+
     setIsUpdating(true);
 
     const updateReadingRequestObj = {
@@ -262,7 +276,10 @@ const ViewReadingPage = () => {
   );
   const clarifiers = cards.filter((card) => card.position_name === "clarifier");
 
-  console.log("isReversals", isReversals);
+  if (isAuthLoading) return null;
+  if (!currentUser) return null;
+  if (!readingId) return null;
+  if (!reading) return null; //makes sure reading is not null
 
   return (
     <>

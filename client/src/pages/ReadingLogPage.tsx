@@ -8,7 +8,7 @@ import ReadingSpreadMenu from "../components/ReadingSpreadMenu";
 import CardInput from "../components/CardInput";
 import { getAllReadings } from "../services/readingService";
 import { getAllCards } from "../services/cardsService";
-import { ReadingTypes, CardTypes, UserTypes } from "../types";
+import type { ReadingTypes, CardTypes, UserTypes } from "../types";
 import ReadingLog from "../components/ReadingLog";
 import { Fragment } from "react";
 
@@ -115,6 +115,9 @@ const ReadingLogPage = ({
     });
     return readingsList;
   };
+
+  //null guards
+  if (!currentUser) return null; //prevents form from flashing while auth loads
 
   return (
     <div className={styles["reading-log-page-container"]}>

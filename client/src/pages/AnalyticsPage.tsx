@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { RechartsDevtools } from "@recharts/devtools";
 //types
-import { UserTypes } from "../types";
+import type { UserTypes } from "../types";
 //styles
 import styles from "./css/AnalyticsPage.module.css";
 
@@ -22,6 +22,9 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     if (isAuthLoading) return;
     if (!currentUser) navigate("/login");
   }, [currentUser, isAuthLoading]);
+
+  //null guards
+  if (!currentUser) return null; //prevents form from flashing while auth loads
 
   return (
     <div className={styles["analytics-page-container"]}>

@@ -49,6 +49,9 @@ const AstrologyChartPage = ({
   console.log("planets", planetData);
   console.log("interpretations", interpretations);
 
+  //null guards
+  if (!currentUser) return null; //prevents form from flashing while auth loads
+
   return (
     <div className={styles["astro-info-container"]}>
       <div className={styles["astro-chart"]}>
