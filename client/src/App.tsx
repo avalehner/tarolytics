@@ -21,15 +21,17 @@ function App() {
   //on ever mount app.tsx runs this useEffect that fetches the auth/me endpoint sending the jwt cookie
   useEffect(() => {
     const fetchUser = async (): Promise<void> => {
-      const response = await fetch("http://localhost:3000/auth/me", {
-        method: "GET",
-        credentials: "include", //sending cookie
-      });
-
-      if (!response.ok) return; //return early if response isnt ok
-      const userData = await response.json(); //user data retrieved from cookie thru backend
-      setCurrentUser(userData); //sets current user to user data object, if no user current user stays null meaning no one is logged in
-      setIsAuthLoading(false);
+      try {
+        const response = await fetch("http://localhost:3000/auth/me", {
+          method: "GET",
+          credentials: "include", //sending cookie
+        });
+        if (!response.ok) return;
+        const userData = await response.json(); //user data retrieved from cookie thru backend
+        setCurrentUser(userData); //sets curr
+      } finally {
+        setIsAuthLoading(false);
+      }
     };
 
     fetchUser();
@@ -39,9 +41,33 @@ function App() {
     <>
       <NavBar currentUser={currentUser} />
       <Routes>
-        <Route path="/" element={<TrackerInputPage />} />
-        <Route path="/history" element={<ReadingLogPage />} />
-        <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route
+          path="/"
+          element={
+            <TrackerInputPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ReadingLogPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <AnalyticsPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
         <Route
           path="/astrology"
           element={

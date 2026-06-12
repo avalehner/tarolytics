@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type {
   UserTypes,
   PlanetTypes,
-  PlanetInterpretationTypes,
+  // PlanetInterpretationTypes,
 } from "../types";
 import styles from "./css/AstrologicalChartPage.module.css";
 import { getAstrologyData } from "../services/astrologyService";
@@ -20,9 +20,7 @@ const AstrologyChartPage = ({
   const navigate = useNavigate();
   const [astroChart, setAstroChart] = useState<string | null>(null);
   const [planetData, setPlanetData] = useState<PlanetTypes[] | null>(null);
-  const [interpretations, setInterpretations] = useState<
-    PlanetInterpretationTypes[] | null
-  >(null);
+  const [interpretations, setInterpretations] = useState<any | null>(null);
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -34,11 +32,11 @@ const AstrologyChartPage = ({
     getAstrologyData(currentUser.id).then(
       (data: {
         chartData: string;
-        planetData: PlanetTypes[];
-        interpretations: PlanetInterpretationTypes[];
+        planetsData: PlanetTypes[];
+        interpretations: any;
       }) => {
         (setAstroChart(data.chartData),
-          setPlanetData(data.planetData),
+          setPlanetData(data.planetsData),
           setInterpretations(data.interpretations));
       },
     );
@@ -48,9 +46,11 @@ const AstrologyChartPage = ({
     return null;
   }
 
+  console.log("planets", planetData);
+  console.log("interpretations", interpretations);
+
   return (
-    <div className={styles["astro-chart-container"]}>
-      <p>chart lol</p>
+    <div className={styles["astro-info-container"]}>
       <div className={styles["astro-chart"]}>
         {astroChart ? (
           <img src={astroChart} alt="astrology chart" />
@@ -58,7 +58,21 @@ const AstrologyChartPage = ({
           <p>loading chart...</p>
         )}
       </div>
-      <div className={styles["planets-container"]}></div>
+      {/* <div className={styles["planets-container"]}>
+        {planetData?.map((planet) => {
+          return <div key={planet.id}>{planet.name}</div>;
+        })}
+      </div> */}
+      <div className={styles["interpretations-container"]}>
+        {interpretations?.sections?.core_self?.map((interpretation: any) => {
+          return (
+            <div key={interpretation.id}>
+              <div>{interpretation.body}</div>
+              <hr />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

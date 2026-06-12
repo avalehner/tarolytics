@@ -1,5 +1,5 @@
 //react imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 //function imports
 import { createReading } from "../services/readingService";
@@ -16,11 +16,19 @@ import spreadConfig from "../data/spreadConfig";
 import tarotCards from "../data/tarotCards";
 import spreadPositions from "../data/spreadPositions";
 //types
-import { ReadingTypes } from "../types";
+import { ReadingTypes, UserTypes } from "../types";
 //styling
 import styles from "./css/TrackerInputPage.module.css";
 
-const TrackerInputPage = () => {
+interface TrackerInputPageProps {
+  currentUser: UserTypes | null;
+  isAuthLoading: boolean;
+}
+
+const TrackerInputPage = ({
+  currentUser,
+  isAuthLoading,
+}: TrackerInputPageProps) => {
   //state variables
   const [date, setDate] = useState<Date | null>(null);
   const [readingTopic, setReadingTopic] = useState<string>("card-of-day");
@@ -41,6 +49,12 @@ const TrackerInputPage = () => {
   const [isReversals, setIsReversals] = useState<boolean>(false);
   const [viewReadingModal, setViewReadingModal] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  //useEffects
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (!currentUser) navigate("/login");
+  }, [currentUser, isAuthLoading]);
 
   //functions
   const pullCards = async () => {
@@ -201,7 +215,8 @@ const TrackerInputPage = () => {
   };
 
   const saveReading = async () => {
-    //null guard for date
+    //null guard for currentUser date (fixes possibly null type errors)
+    if (!currentUser) return;
     if (!date) {
       setMessage("Please select a date");
       return;
@@ -210,6 +225,7 @@ const TrackerInputPage = () => {
     setSaving(true);
 
     const readingRequestObj = {
+      user_id: currentUser.id,
       reading_date: date?.toISOString() ?? null, //converts
       reading_topic:
         readingTopic === "custom" ? customReadingTopic : readingTopic,
@@ -277,7 +293,10 @@ const TrackerInputPage = () => {
     setIsCardsPulled(false);
   };
 
-  console.log("reversals:", isReversals);
+  //null guards
+  if (!currentUser) return null; //prevents form from flashing while auth loads
+
+  console.log(currentUser);
 
   return (
     <div className={styles["tracker-input-page-container"]}>

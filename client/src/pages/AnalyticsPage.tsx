@@ -1,9 +1,28 @@
+//react imports
 import { useEffect } from "react";
-import styles from "./css/AnalyticsPage.module.css";
+import { useNavigate } from "react-router-dom";
+//recharts imports
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { RechartsDevtools } from "@recharts/devtools";
+//types
+import { UserTypes } from "../types";
+//styles
+import styles from "./css/AnalyticsPage.module.css";
 
-const AnalyticsPage = () => {
+interface AnalyticsPageProps {
+  currentUser: UserTypes | null;
+  isAuthLoading: boolean;
+}
+
+const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
+  const navigate = useNavigate();
+
+  //useEffects
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (!currentUser) navigate("/login");
+  }, [currentUser, isAuthLoading]);
+
   return (
     <div className={styles["analytics-page-container"]}>
       <div className={styles["stat-highlights-container"]}>
@@ -98,9 +117,13 @@ const AnalyticsPage = () => {
         </div>
         <div>
           <div className={styles["most-pulled-cards-container"]}>
+            <h3>Most pulled cards</h3>
+            <p>by total pull count</p>
             {/* insert recharts component */}
           </div>
           <div className={styles["suit-trend-container"]}>
+            <h3>Suit trend</h3>
+            <p>share of pulls | [time period]</p>
             {/* insert recharts component */}
           </div>
         </div>

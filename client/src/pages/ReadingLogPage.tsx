@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./css/ReadingLogPage.module.css";
 import SearchMenu from "../components/SearchMenu";
 import DatePicker from "../components/DatePicker";
@@ -7,13 +8,21 @@ import ReadingSpreadMenu from "../components/ReadingSpreadMenu";
 import CardInput from "../components/CardInput";
 import { getAllReadings } from "../services/readingService";
 import { getAllCards } from "../services/cardsService";
-import { ReadingTypes, CardTypes } from "../types";
+import { ReadingTypes, CardTypes, UserTypes } from "../types";
 import ReadingLog from "../components/ReadingLog";
 import { Fragment } from "react";
 
-const ReadingLogPage = () => {
+interface ReadingLogPageProps {
+  currentUser: UserTypes | null;
+  isAuthLoading: boolean;
+}
+
+const ReadingLogPage = ({
+  currentUser,
+  isAuthLoading,
+}: ReadingLogPageProps) => {
   const [searchCategory, setSearchCategory] = useState<string>("all");
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(null);
   const [readingTopic, setReadingTopic] = useState<string>("card-of-day");
   const [customReadingTopic, setCustomReadingTopic] = useState<string>("");
   const [readingSpread, setReadingSpread] = useState<string>("top-bottom");
@@ -21,6 +30,13 @@ const ReadingLogPage = () => {
   const [allCards, setCards] = useState<CardTypes[]>([]);
   const [searchCards, setSearchCards] = useState<string[]>([""]);
   const [readings, setReadings] = useState<ReadingTypes[]>([]);
+  const navigate = useNavigate();
+
+  //useEffects
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (!currentUser) navigate("/login");
+  }, [currentUser, isAuthLoading]);
 
   useEffect(() => {
     getAllReadings().then((data) => setReadings(data)); // use .then as an alternative to await bc useeffect cant be async and await needs an async wrapper
@@ -37,7 +53,9 @@ const ReadingLogPage = () => {
       case "date":
         if (!date) return readings;
         return readings.filter(
-          (reading) => reading.reading_date.slice(0, 10) === date,
+          (reading) =>
+            reading.reading_date.slice(0, 10) ===
+            date.toLocaleDateString("en-CA"), //uses the browsers system timezone automatically
         );
       case "reading-topic":
         if (!readingTopic) return readings;
