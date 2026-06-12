@@ -175,9 +175,6 @@ astrologyRouter.get("/:userId", async (req: Request, res: Response) => {
 
     const interpretationData = await chartInterpretationResponse.json();
     const planetData = interpretationData.planets;
-    const interpretations =
-      interpretationData.interpretation.sections.core_self;
-    console.log(interpretationData);
 
     //add astro info to db
     await pool.query(
@@ -196,7 +193,7 @@ astrologyRouter.get("/:userId", async (req: Request, res: Response) => {
     res.status(200).json({
       chartData: chartData,
       planetData: planetData,
-      interpretations: interpretations,
+      interpretations: interpretationData.interpretation,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unkown error";
