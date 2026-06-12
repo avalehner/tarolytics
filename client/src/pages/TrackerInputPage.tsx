@@ -22,7 +22,7 @@ import styles from "./css/TrackerInputPage.module.css";
 
 const TrackerInputPage = () => {
   //state variables
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(null);
   const [readingTopic, setReadingTopic] = useState<string>("card-of-day");
   const [customReadingTopic, setCustomReadingTopic] = useState<string>("");
   const [readingSpread, setReadingSpread] = useState<string>("top-bottom");
@@ -201,10 +201,16 @@ const TrackerInputPage = () => {
   };
 
   const saveReading = async () => {
+    //null guard for date
+    if (!date) {
+      setMessage("Please select a date");
+      return;
+    }
+
     setSaving(true);
 
     const readingRequestObj = {
-      reading_date: date,
+      reading_date: date?.toISOString() ?? null, //converts
       reading_topic:
         readingTopic === "custom" ? customReadingTopic : readingTopic,
       spread_type:
@@ -256,7 +262,7 @@ const TrackerInputPage = () => {
   };
 
   const handleRefresh = () => {
-    setDate("");
+    setDate(null);
     setReadingTopic("card-of-day");
     setCustomReadingTopic("");
     setReadingSpread("top-bottom");
