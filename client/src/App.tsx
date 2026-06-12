@@ -5,6 +5,7 @@ import TrackerInputPage from "./pages/TrackerInputPage";
 import ReadingLogPage from "./pages/ReadingLogPage";
 import ViewReadingPage from "./pages/ViewReadingPage";
 import LoginPage from "./pages/LoginPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 import AstrologyChartPage from "./pages/AstrologyChartPage";
 import ProfilePage from "./pages/ProfilePage";
 import NavBar from "./components/NavBar";
@@ -40,6 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<TrackerInputPage />} />
         <Route path="/history" element={<ReadingLogPage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
         <Route
           path="/astrology"
           element={
