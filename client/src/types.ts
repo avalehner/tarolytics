@@ -1,6 +1,6 @@
 export interface ReadingTypes {
   id: string;
-  user_id?: string; //? marks as optional
+  user_id: string; //? marks as optional
   reading_date: string;
   spread_type: string;
   reading_topic: string;
@@ -13,7 +13,7 @@ export interface ReadingTypes {
 
 export type NewReadingTypes = Omit<
   ReadingTypes,
-  "id" | "created_at" | "updated_at" | "user_id" | "ai_interpretation"
+  "id" | "created_at" | "updated_at" | "ai_interpretation"
 >;
 export type UpdateReadingTypes = Omit<
   ReadingTypes,
