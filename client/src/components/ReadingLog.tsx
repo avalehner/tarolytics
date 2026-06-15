@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import styles from "./css/ReadingLog.module.css";
-import type { ReadingTypes, CardTypes, ReadingWithCardTypes } from "../types";
+import type { ReadingWithCardTypes } from "../types";
 import spreadLabels from "../data/spreadLabels";
 import topicLabels from "../data/topicLabels";
 import { useNavigate } from "react-router-dom";
