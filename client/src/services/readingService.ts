@@ -1,4 +1,9 @@
-import { ReadingTypes, NewReadingTypes, UpdateReadingTypes } from "../types";
+import {
+  ReadingTypes,
+  NewReadingTypes,
+  UpdateReadingTypes,
+  ReadingWithCardTypes,
+} from "../types";
 
 export const getAllReadings = async (): Promise<ReadingTypes[]> => {
   const response = await fetch("http://localhost:3000/api/readings/", {
@@ -15,7 +20,7 @@ export const getAllReadings = async (): Promise<ReadingTypes[]> => {
   return readingData;
 };
 
-export const getReadingById = async (
+export const getReadingByReadingId = async (
   readingId: string,
 ): Promise<ReadingTypes> => {
   const response = await fetch(
@@ -33,6 +38,26 @@ export const getReadingById = async (
 
   const readingData = await response.json();
   return readingData;
+};
+
+export const getReadingsByUserId = async (
+  userId: string,
+): Promise<ReadingWithCardTypes[]> => {
+  const response = await fetch(
+    `http://localhost:3000/api/readings/user/${userId}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", //for auth
+    },
+  );
+
+  if (!response.ok)
+    throw new Error(`
+      Server error [getReadingsByUserId - readingService.ts]: ${response.status}`);
+
+  const readingsData = await response.json();
+  return readingsData;
 };
 
 export const createReading = async (

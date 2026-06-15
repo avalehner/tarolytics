@@ -6,9 +6,12 @@ import DatePicker from "../components/DatePicker";
 import ReadingTopicMenu from "../components/ReadingTopicMenu";
 import ReadingSpreadMenu from "../components/ReadingSpreadMenu";
 import CardInput from "../components/CardInput";
-import { getAllReadings } from "../services/readingService";
+import {
+  // getAllReadings,
+  getReadingsByUserId,
+} from "../services/readingService";
 import { getAllCards } from "../services/cardsService";
-import type { ReadingTypes, CardTypes, UserTypes } from "../types";
+import type { ReadingWithCardTypes, CardTypes, UserTypes } from "../types";
 import ReadingLog from "../components/ReadingLog";
 import { Fragment } from "react";
 
@@ -27,9 +30,9 @@ const ReadingLogPage = ({
   const [customReadingTopic, setCustomReadingTopic] = useState<string>("");
   const [readingSpread, setReadingSpread] = useState<string>("top-bottom");
   const [customReadingSpread, setCustomReadingSpread] = useState<string>("");
-  const [allCards, setCards] = useState<CardTypes[]>([]);
+  // const [allCards, setCards] = useState<string[]>([]);
   const [searchCards, setSearchCards] = useState<string[]>([""]);
-  const [readings, setReadings] = useState<ReadingTypes[]>([]);
+  const [readings, setReadings] = useState<ReadingWithCardTypes[]>([]);
   const navigate = useNavigate();
 
   //useEffects
@@ -39,10 +42,12 @@ const ReadingLogPage = ({
   }, [currentUser, isAuthLoading]);
 
   useEffect(() => {
-    getAllReadings().then((data) => setReadings(data)); // use .then as an alternative to await bc useeffect cant be async and await needs an async wrapper
+    if (!currentUser) return;
+    // getAllReadi ngs().then((data) => setReadings(data)); // use .then as an alternative to await bc useeffect cant be async and await needs an async wrapper
 
-    getAllCards().then((data) => setCards(data));
-  }, []); //[] tells react to only run the effect once on initial mount
+    // getAllCards().then((data) => setCards(data));
+    getReadingsByUserId(currentUser.id).then((data) => setReadings(data));
+  }, [currentUser]); //[] tells react to only run the effect once on initial mount
 
   const handleRemoveCard = (indexToRemove: number) => {
     setSearchCards(searchCards.filter((_, index) => index !== indexToRemove));
@@ -73,11 +78,11 @@ const ReadingLogPage = ({
         ); //strips out default empty string
         if (activeSearchCards.length === 0) return readings; //shows readings if no search cards selected
         return readings.filter((reading) => {
-          const readingCards = allCards.filter(
-            (card) => card.reading_id === reading.id,
-          ); //cards in current reading
+          // const readingCards = allCards.filter(
+          //   (card) => card.reading_id === reading.id,
+          // ); //cards in current reading
           return activeSearchCards.some((searchCard) =>
-            readingCards.some((card) => card.card_name === searchCard),
+            reading.card_names?.includes(searchCard),
           ); //.some() searches for an item in the array that matches the condition, as soon as it finds one it returns true, if it doesnt it returns false
           //outer .some() loops through ALL active search cards, grabs one and compares to the readingCards. need the outer loop or else we wouldnt be able to grab one search card at a time
           //use .some() because we don't need to check them all, only need ot check until one returns true
@@ -95,10 +100,7 @@ const ReadingLogPage = ({
       if (index < filteredReadings.length - 1) {
         return (
           <Fragment key={index}>
-            <ReadingLog
-              reading={reading}
-              cards={allCards.filter((card) => card.reading_id === reading.id)}
-            />
+            <ReadingLog reading={reading} />
             <hr className={styles["log-divider"]} />
           </Fragment>
         );
@@ -107,7 +109,7 @@ const ReadingLogPage = ({
           <Fragment key={index}>
             <ReadingLog
               reading={reading}
-              cards={allCards.filter((card) => card.reading_id === reading.id)}
+              // cards={allCards.filter((card) => card.reading_id === reading.id)}
             />
           </Fragment>
         );
@@ -118,6 +120,8 @@ const ReadingLogPage = ({
 
   //null guards
   if (!currentUser) return null; //prevents form from flashing while auth loads
+
+  console.log(readings);
 
   return (
     <div className={styles["reading-log-page-container"]}>

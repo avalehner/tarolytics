@@ -11,6 +11,10 @@ export interface ReadingTypes {
   updated_at: string;
 }
 
+export interface ReadingWithCardTypes extends ReadingTypes {
+  card_names: string[] | null;
+}
+
 export type NewReadingTypes = Omit<
   ReadingTypes,
   "id" | "created_at" | "updated_at" | "ai_interpretation"
