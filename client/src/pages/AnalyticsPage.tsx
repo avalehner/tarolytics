@@ -8,12 +8,13 @@ import MostPulledCardsChart from "../components/MostPulledChart";
 //types
 import type {
   UserTypes,
-  mostPulledTypes,
-  summaryStatsTypes,
-  suitTrendTypes,
+  MostPulledTypes,
+  SummaryStatsTypes,
+  SuitTrendTypes,
 } from "../types";
 //styles
 import styles from "./css/AnalyticsPage.module.css";
+import SuitTrendChart from "../components/SuitTrendChart";
 
 interface AnalyticsPageProps {
   currentUser: UserTypes | null;
@@ -22,11 +23,11 @@ interface AnalyticsPageProps {
 
 const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   const navigate = useNavigate();
-  const [summaryStats, setSummaryStats] = useState<summaryStatsTypes | null>(
+  const [summaryStats, setSummaryStats] = useState<SummaryStatsTypes | null>(
     null,
   );
-  const [mostPulled, setMostPulled] = useState<mostPulledTypes[] | null>(null);
-  const [suitTrend, setSuitTrend] = useState<suitTrendTypes[] | null>(null);
+  const [mostPulled, setMostPulled] = useState<MostPulledTypes[] | null>(null);
+  const [suitTrend, setSuitTrend] = useState<SuitTrendTypes[] | null>(null);
 
   //useEffects
   useEffect(() => {
@@ -40,20 +41,31 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
       // console.log(data);
       setSummaryStats(data.summary_stats);
       setMostPulled(
-        //convert pullcount to number
+        //convert pull_count to number
         data.most_pulled.map((item: any) => ({
           ...item,
           pull_count: Number(item.pull_count),
         })),
       );
-      setSuitTrend(data.suit_trend);
+      setSuitTrend(
+        data.suit_trend.map((item: any) => ({
+          ...item,
+          cups: Number(item.cups),
+          major: Number(item.major),
+          month_num: Number(item.month_num),
+          pentacles: Number(item.pentacles),
+          swords: Number(item.swords),
+          wands: Number(item.wands),
+          year: Number(item.year),
+        })),
+      );
     });
   }, [currentUser]);
 
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
-  // console.log("suit trend", suitTrend);
+  console.log("suit trend", suitTrend);
 
   //null guards
   if (!currentUser || !summaryStats || !mostPulled || !suitTrend) return null; //prevents form from flashing while auth loads
@@ -150,7 +162,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
             <p className={styles["reading-note"]}>[note]</p>
           </div>
         </div>
-        <div>
+        <div className={styles["charts"]}>
           <div
             className={styles["most-pulled-cards-container"]}
             // style={{ width: "500px", height: "300px", border: "1px solid red" }}
@@ -161,8 +173,8 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           </div>
           <div className={styles["suit-trend-container"]}>
             <h3>Suit trend</h3>
-            <p>share of pulls | [time period]</p>
-            {/* insert recharts component */}
+            <p>share of pulls</p>
+            <SuitTrendChart suitTrend={suitTrend} />
           </div>
         </div>
       </div>
