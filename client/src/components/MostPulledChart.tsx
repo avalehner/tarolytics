@@ -1,5 +1,5 @@
 //types
-import type { mostPulledTypes } from "../types";
+import type { MostPulledTypes } from "../types";
 //recharts imports
 import {
   BarChart,
@@ -11,14 +11,14 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { RechartsDevtools } from "@recharts/devtools";
+// import { RechartsDevtools } from "@recharts/devtools";
 
 interface MostPulledChartTypes {
-  mostPulled: mostPulledTypes[];
+  mostPulled: MostPulledTypes[];
 }
 
 const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
-  console.log("most pulled component", mostPulled);
+  // console.log("most pulled component", mostPulled);
   return (
     // <ResponsiveContainer width="100%" height={220}>
     <BarChart
@@ -55,6 +55,7 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
       />
       <Tooltip cursor={{ fill: "rgba(0,0,0,0.04)" }} />
       <Bar dataKey="pull_count" fill="#7F77DD" radius={[0, 3, 3, 0]} />
+      {/* <RechartsDevtools /> */}
     </BarChart>
     // </ResponsiveContainer>
   );
