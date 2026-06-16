@@ -38,15 +38,20 @@ analyticsRouter.get("/:userId", async (req: Request, res: Response) => {
     `;
 
     const suitTrendQuery = `
-      SELECT
-        COALESCE(suit::text, 'major arcana') AS suit,
-        COUNT(*) AS count,
-        ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 1) AS percentage
+      SELECT 
+        TO_CHAR(readings.reading_date, 'Mon') AS month,
+        EXTRACT(YEAR FROM readings.reading_date) AS year,
+        EXTRACT(MONTH FROM readings.reading_date) AS month_num,
+        ROUND(COUNT(*) FILTER (WHERE cards.suit = 'cups') * 100.0 / NULLIF(COUNT(*), 0), 1) AS cups,
+        ROUND(COUNT(*) FILTER (WHERE cards.suit = 'swords') * 100.0 / NULLIF(COUNT(*), 0), 1) AS swords,
+        ROUND(COUNT(*) FILTER (WHERE cards.suit = 'wands') * 100.0 / NULLIF(COUNT(*), 0), 1) AS wands,
+        ROUND(COUNT(*) FILTER (WHERE cards.suit = 'pentacles') * 100.0 / NULLIF(COUNT(*), 0), 1) AS pentacles,
+        ROUND(COUNT(*) FILTER (WHERE cards.suit IS NULL) * 100.0 / NULLIF(COUNT(*), 0), 1) AS major
       FROM cards
       JOIN readings ON cards.reading_id = readings.id
       WHERE readings.user_id = $1
-      GROUP BY suit
-      ORDER BY count DESC;
+      GROUP BY TO_CHAR(readings.reading_date, 'Mon'), EXTRACT(YEAR FROM readings.reading_date), EXTRACT(MONTH FROM readings.reading_date)
+      ORDER BY year ASC, month_num ASC;
     `;
 
     // COUNT(*) returns the total number of rows in a table or filtered result set
