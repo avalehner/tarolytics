@@ -1,11 +1,17 @@
 //react imports
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-//recharts imports
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { RechartsDevtools } from "@recharts/devtools";
+//service functions
+import { getNonSearchData } from "../services/analyticsService";
+//components
+import MostPulledCardsChart from "../components/MostPulledChart";
 //types
-import type { UserTypes } from "../types";
+import type {
+  UserTypes,
+  mostPulledTypes,
+  summaryStatsTypes,
+  suitTrendTypes,
+} from "../types";
 //styles
 import styles from "./css/AnalyticsPage.module.css";
 
@@ -16,6 +22,11 @@ interface AnalyticsPageProps {
 
 const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   const navigate = useNavigate();
+  const [summaryStats, setSummaryStats] = useState<summaryStatsTypes | null>(
+    null,
+  );
+  const [mostPulled, setMostPulled] = useState<mostPulledTypes[] | null>(null);
+  const [suitTrend, setSuitTrend] = useState<suitTrendTypes[] | null>(null);
 
   //useEffects
   useEffect(() => {
@@ -23,31 +34,52 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     if (!currentUser) navigate("/login");
   }, [currentUser, isAuthLoading]);
 
+  useEffect(() => {
+    if (!currentUser) return;
+    getNonSearchData(currentUser.id).then((data) => {
+      // console.log(data);
+      setSummaryStats(data.summary_stats);
+      setMostPulled(
+        //convert pullcount to number
+        data.most_pulled.map((item: any) => ({
+          ...item,
+          pull_count: Number(item.pull_count),
+        })),
+      );
+      setSuitTrend(data.suit_trend);
+    });
+  }, [currentUser]);
+
+  // console.log("current user", currentUser);
+  // console.log("summary stats", summaryStats);
+  // console.log("most pulled", mostPulled);
+  // console.log("suit trend", suitTrend);
+
   //null guards
-  if (!currentUser) return null; //prevents form from flashing while auth loads
+  if (!currentUser || !summaryStats || !mostPulled || !suitTrend) return null; //prevents form from flashing while auth loads
 
   return (
     <div className={styles["analytics-page-container"]}>
       <div className={styles["stat-highlights-container"]}>
         <div className={styles["stat-highlight"]}>
           <p>total readings</p>
-          <p>[number of readings]</p>
+          <p>{summaryStats?.total_readings}</p>
           <p>[detail]</p>
         </div>
         <div className={styles["stat-highlight"]}>
           <p>unique cards seen</p>
-          <p>[number of unique cards]</p>
-          <p>[detail]</p>
+          <p>{summaryStats?.unique_cards}</p>
+          <p>{78 - Number(summaryStats?.unique_cards)} unseen</p>
         </div>
         <div className={styles["stat-highlight"]}>
           <p>major arcana share</p>
-          <p>[number of readings]</p>
+          <p>{summaryStats?.major_arcana_pct}/78</p>
           <p>[detail]</p>
         </div>
         <div className={styles["stat-highlight"]}>
           <p>avg pulls/week</p>
-          <p>[number of readings]</p>
-          <p>[detail]</p>
+          <p>{summaryStats?.avg_per_week}</p>
+          <p>all time</p>
         </div>
       </div>
       <div className={styles["card-search-container"]}>
@@ -119,10 +151,13 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           </div>
         </div>
         <div>
-          <div className={styles["most-pulled-cards-container"]}>
+          <div
+            className={styles["most-pulled-cards-container"]}
+            // style={{ width: "500px", height: "300px", border: "1px solid red" }}
+          >
             <h3>Most pulled cards</h3>
             <p>by total pull count</p>
-            {/* insert recharts component */}
+            <MostPulledCardsChart mostPulled={mostPulled} />
           </div>
           <div className={styles["suit-trend-container"]}>
             <h3>Suit trend</h3>
