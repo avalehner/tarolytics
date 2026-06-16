@@ -7,7 +7,7 @@ analyticsRouter.get("/:userId", async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
 
-    const combinedStatsQuery = `
+    const combinedStatsQuery = ` 
       SELECT 
         (SELECT COUNT(*)
         FROM readings WHERE user_id = $1) AS total_readings, 
@@ -60,12 +60,10 @@ analyticsRouter.get("/:userId", async (req: Request, res: Response) => {
     ]);
 
     const data = {
-      summaryStats: summaryStats.rows[0],
-      mostPulled: mostPulled.rows,
-      suitTrend: suitTrend.rows,
+      summary_stats: summaryStats.rows[0],
+      most_pulled: mostPulled.rows,
+      suit_trend: suitTrend.rows,
     };
-
-    console.log(data);
 
     res.status(200).json(data);
   } catch (error) {
