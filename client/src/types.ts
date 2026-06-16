@@ -120,19 +120,19 @@ export interface PlanetTypes {
 }
 
 //analytics types
-export interface summaryStatsTypes {
+export interface SummaryStatsTypes {
   total_readings: string;
   unique_cards: string;
   major_arcana_pct: string;
   avg_per_week: string;
 }
 
-export interface mostPulledTypes {
+export interface MostPulledTypes {
   card_name: string;
   pull_count: string;
 }
 
-export interface suitTrendTypes {
+export interface SuitTrendTypes {
   suit: string;
   count: string;
 }
