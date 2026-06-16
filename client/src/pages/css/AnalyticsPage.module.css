@@ -18,3 +18,20 @@
   display: flex;
   justify-content: space-between;
 }
+
+.most-pulled-cards-container {
+  width: 500px;
+  height: 300px;
+  /* border: 1px solid red; */
+}
+
+.suit-trend-container {
+  width: 500px;
+  height: 300px;
+  /* border: 1px solid red; */
+}
+
+.charts {
+  display: flex;
+  gap: 5rem;
+}
