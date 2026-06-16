@@ -1,3 +1,4 @@
+//reading types
 export interface ReadingTypes {
   id: string;
   user_id: string; //? marks as optional
@@ -31,6 +32,7 @@ export type UpdateReadingTypes = Omit<
   | "ai_interpretation"
 >;
 
+//card types
 export interface CardTypes {
   id: string;
   reading_id: string;
@@ -46,6 +48,8 @@ export type UpdateCardTypes = Omit<
   CardTypes,
   "id" | "created_at" | "updated_at"
 >;
+
+//user types
 
 export interface UserTypes {
   id: string;
@@ -73,6 +77,7 @@ export type UserProfileTypes = Omit<
   | "full_name"
 >;
 
+//city types
 export interface CityTypes {
   formatted: string;
   lat: number;
@@ -84,6 +89,7 @@ export interface CityOptionTypes {
   value: CityTypes;
 }
 
+//astrology types
 export interface PlanetInterpretationTypes {
   sections: {
     id: string;
@@ -111,4 +117,22 @@ export interface PlanetTypes {
   speed: number;
   is_stationary: false;
   declination_deg: number;
+}
+
+//analytics types
+export interface summaryStatsTypes {
+  total_readings: string;
+  unique_cards: string;
+  major_arcana_pct: string;
+  avg_per_week: string;
+}
+
+export interface mostPulledTypes {
+  card_name: string;
+  pull_count: string;
+}
+
+export interface suitTrendTypes {
+  suit: string;
+  count: string;
 }
