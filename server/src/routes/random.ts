@@ -8,7 +8,6 @@ randomRouter.get("/:isReversals", async (req: Request, res: Response) => {
     const isReversalsBoolean = req.params.isReversals === "true";
     let maxNumber = 78;
     if (isReversalsBoolean) maxNumber = 156;
-    console.log("maxNumber", maxNumber);
     //format=plain means plain text
     const randomResponse = await fetch(
       `https://www.random.org/sequences/?min=1&max=${maxNumber}&col=1&format=plain&rnd=new`,
@@ -25,9 +24,6 @@ randomRouter.get("/:isReversals", async (req: Request, res: Response) => {
     }
 
     const randomText = await randomResponse.text();
-
-    console.log("random-text", randomText);
-
     //.trim() removes any leading/trailing whitespace
     //numbers are returned with '\n' as a splitter
     //.split() creates an array

@@ -296,8 +296,6 @@ const TrackerInputPage = ({
   //null guards
   if (!currentUser) return null; //prevents form from flashing while auth loads
 
-  console.log(currentUser);
-
   return (
     <div className={styles["tracker-input-page-container"]}>
       <h1 className={styles["title"]}>Tarolytics</h1>
