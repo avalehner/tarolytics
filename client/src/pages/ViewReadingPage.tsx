@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {
-  getReadingById,
+  getReadingByReadingId,
   updateReadingById,
   deletedReadingById,
   interpretReadingById,
@@ -59,7 +59,7 @@ const ViewReadingPage = ({
 
   useEffect(() => {
     if (!readingId) return; //makes sure readingId is not null
-    getReadingById(readingId).then((data) => {
+    getReadingByReadingId(readingId).then((data) => {
       setReading(data);
       setAIInterpretation(data.ai_interpretation || "");
     });
