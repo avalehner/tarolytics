@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import interpretReading from "../services/geminiService";
 import pool from "../db"; //pool allows backend code to talk to postgres and run SQL queries
+import { requireAuth } from "../middleware/auth";
 
 //create router instance
 const readingsRouter = Router();
@@ -55,11 +56,14 @@ readingsRouter.get("/:readingId", async (req: Request, res: Response) => {
   }
 });
 
-readingsRouter.get("/user/:userId", async (req: Request, res: Response) => {
-  try {
-    const { userId } = req.params;
-    const dbResponse = await pool.query(
-      `SELECT readings.*, 
+readingsRouter.get(
+  "/user/",
+  requireAuth,
+  async (req: Request, res: Response) => {
+    try {
+      const { userId } = (req as any).userId;
+      const dbResponse = await pool.query(
+        `SELECT readings.*, 
           JSON_AGG(cards.card_name ORDER BY cards.position_order) AS card_names
        FROM readings 
        LEFT JOIN cards ON cards.reading_id = readings.id 
@@ -67,16 +71,17 @@ readingsRouter.get("/user/:userId", async (req: Request, res: Response) => {
        GROUP BY readings.id
        ORDER BY readings.reading_date DESC; 
        `,
-      [userId],
-    );
+        [userId],
+      );
 
-    const readingsData = dbResponse.rows;
-    res.status(200).json(readingsData);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    res.status(500).json({ error: message });
-  }
-});
+      const readingsData = dbResponse.rows;
+      res.status(200).json(readingsData);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: message });
+    }
+  },
+);
 
 readingsRouter.post("/", async (req: Request, res: Response) => {
   try {

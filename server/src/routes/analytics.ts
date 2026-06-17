@@ -1,11 +1,13 @@
 import { Router, Request, Response } from "express";
+import { requireAuth } from "../middleware/auth";
 import pool from "../db";
 
 const analyticsRouter = Router();
 
-analyticsRouter.get("/:userId", async (req: Request, res: Response) => {
+analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    //need to type cast as any because there is no userId property on the Request type
+    const { userId } = (req as any).userId; //from the JWT, not the url
 
     const combinedStatsQuery = ` 
       SELECT 
