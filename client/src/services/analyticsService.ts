@@ -1,12 +1,9 @@
-export const getNonSearchData = async (userId: string) => {
-  const response = await fetch(
-    `http://localhost:3000/api/analytics/${userId}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/josn" },
-      credentials: "include",
-    },
-  );
+export const getNonSearchData = async () => {
+  const response = await fetch(`http://localhost:3000/api/analytics/`, {
+    method: "GET",
+    headers: { "Content-Type": "application/josn" },
+    credentials: "include",
+  });
 
   if (!response.ok)
     throw new Error(

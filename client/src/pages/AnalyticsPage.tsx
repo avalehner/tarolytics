@@ -37,7 +37,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
 
   useEffect(() => {
     if (!currentUser) return;
-    getNonSearchData(currentUser.id).then((data) => {
+    getNonSearchData().then((data) => {
       // console.log(data);
       setSummaryStats(data.summary_stats);
       setMostPulled(

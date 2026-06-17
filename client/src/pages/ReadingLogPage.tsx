@@ -38,7 +38,7 @@ const ReadingLogPage = ({
 
   useEffect(() => {
     if (!currentUser) return;
-    getReadingsByUserId(currentUser.id).then((data) => setReadings(data));
+    getReadingsByUserId().then((data) => setReadings(data));
   }, [currentUser]); //[] tells react to only run the effect once on initial mount
 
   const handleRemoveCard = (indexToRemove: number) => {

@@ -29,7 +29,7 @@ const AstrologyChartPage = ({
       return;
     }
 
-    getAstrologyData(currentUser.id).then(
+    getAstrologyData().then(
       (data: {
         chartData: string;
         planetsData: PlanetTypes[];
