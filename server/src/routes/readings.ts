@@ -39,29 +39,13 @@ readingsRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-readingsRouter.get("/:readingId", async (req: Request, res: Response) => {
-  try {
-    const { readingId } = req.params;
-    const dbResponse = await pool.query(
-      `SELECT * 
-        FROM readings 
-        WHERE id = $1`,
-      [readingId],
-    );
-    const readingData = dbResponse.rows[0];
-    res.status(200).json(readingData);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown Error";
-    res.status(500).json({ error: message });
-  }
-});
-
 readingsRouter.get(
   "/user/",
   requireAuth,
   async (req: Request, res: Response) => {
     try {
       const userId = (req as any).userId;
+      console.log(userId);
       const dbResponse = await pool.query(
         `SELECT readings.*, 
           JSON_AGG(cards.card_name ORDER BY cards.position_order) AS card_names
@@ -82,6 +66,23 @@ readingsRouter.get(
     }
   },
 );
+
+readingsRouter.get("/:readingId", async (req: Request, res: Response) => {
+  try {
+    const { readingId } = req.params;
+    const dbResponse = await pool.query(
+      `SELECT * 
+        FROM readings 
+        WHERE id = $1`,
+      [readingId],
+    );
+    const readingData = dbResponse.rows[0];
+    res.status(200).json(readingData);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown Error";
+    res.status(500).json({ error: message });
+  }
+});
 
 readingsRouter.post("/", async (req: Request, res: Response) => {
   try {
