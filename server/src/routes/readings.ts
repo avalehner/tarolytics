@@ -61,7 +61,7 @@ readingsRouter.get(
   requireAuth,
   async (req: Request, res: Response) => {
     try {
-      const { userId } = (req as any).userId;
+      const userId = (req as any).userId;
       const dbResponse = await pool.query(
         `SELECT readings.*, 
           JSON_AGG(cards.card_name ORDER BY cards.position_order) AS card_names

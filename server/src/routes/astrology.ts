@@ -5,7 +5,7 @@ import pool from "../db";
 const astrologyRouter = Router();
 
 astrologyRouter.get("/", requireAuth, async (req: Request, res: Response) => {
-  const { userId } = (req as any).userId;
+  const userId = (req as any).userId;
   try {
     const dbResponse = await pool.query(
       `SELECT full_name, birthday, birth_time, birth_timezone, birth_location, birth_city, natal_chart_svg, natal_chart_data 

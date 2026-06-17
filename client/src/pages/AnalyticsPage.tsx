@@ -65,7 +65,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
-  console.log("suit trend", suitTrend);
+  // console.log("suit trend", suitTrend);
 
   //null guards
   if (!currentUser || !summaryStats || !mostPulled || !suitTrend) return null; //prevents form from flashing while auth loads

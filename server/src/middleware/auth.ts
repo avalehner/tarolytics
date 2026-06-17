@@ -18,7 +18,8 @@ export const requireAuth = (
     ) as jwt.JwtPayload;
 
     (req as any).userId = decodedToken.userId;
-    next();
+
+    next(); //"i'm done move onto the next route handler"
   } catch {
     //not binding the error to a variable because we dont care specifically what went wrong, no conditional logic that depends on that
     //we dont want to expose the jwt internals to the client
