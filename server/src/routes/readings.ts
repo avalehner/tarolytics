@@ -45,15 +45,14 @@ readingsRouter.get(
   async (req: Request, res: Response) => {
     try {
       const userId = (req as any).userId;
-      console.log(userId);
       const dbResponse = await pool.query(
         `SELECT readings.*, 
           JSON_AGG(cards.card_name ORDER BY cards.position_order) AS card_names
-       FROM readings 
-       LEFT JOIN cards ON cards.reading_id = readings.id 
-       WHERE readings.user_id = $1
-       GROUP BY readings.id
-       ORDER BY readings.reading_date DESC; 
+        FROM readings 
+        LEFT JOIN cards ON cards.reading_id = readings.id 
+        WHERE readings.user_id = $1
+        GROUP BY readings.id
+        ORDER BY readings.reading_date DESC; 
        `,
         [userId],
       );

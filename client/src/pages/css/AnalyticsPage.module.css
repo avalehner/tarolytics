@@ -1,3 +1,7 @@
+.analytics-page-container {
+  margin: 1rem 2rem;
+}
+
 .stat-highlights-container,
 .searched-card-stats-container {
   display: flex;
@@ -12,6 +16,10 @@
 
 .search-container {
   display: flex;
+}
+
+.search-input {
+  height: 100%;
 }
 
 .reading-note-headers {

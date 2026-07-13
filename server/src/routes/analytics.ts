@@ -8,7 +8,6 @@ analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
   try {
     //need to type cast as any because there is no userId property on the Request type
     const userId = (req as any).userId; //from the JWT, not the url
-    console.log(userId);
 
     const combinedStatsQuery = ` 
       SELECT 
@@ -79,5 +78,45 @@ analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
     res.status(500).json({ error: message });
   }
 });
+
+analyticsRouter.get(
+  "/card-search",
+  requireAuth,
+  async (req: Request, res: Response) => {
+    try {
+      const userId = (req as any).userId;
+      const { cardName, timePeriod } = req.query;
+      const dbResponse = await pool.query(
+        `
+        SELECT 
+          COUNT(*) AS total_pulls, 
+          MIN(cards.suit) AS suit, 
+          COUNT(*) FILTER (WHERE cards.reversed = true) AS reversed_pulls, 
+          ROUND(COUNT(*) FILTER (WHERE cards.reversed = true) * 100.00 / NULLIF(COUNT(*), 0), 1) AS reversed_pct, 
+          JSON_AGG(
+            JSON_BUILD_OBJECT(
+              'date', readings.reading_date, 
+              'spread_type', readings.spread_type, 
+              'position_name', cards.position_name, 
+              'notes', readings.notes
+            )) FILTER (WHERE readings.notes IS NOT NULL AND readings.notes != '')
+          AS reading_notes 
+        FROM cards
+        LEFT JOIN readings ON cards.reading_id = readings.id
+        WHERE readings.user_id = $1
+          AND (cards.card_name = $2 OR cards.card_name = $2 || ' rx')
+          AND ($3::int IS NULL OR readings.reading_date >= NOW() - ($3 || ' days')::interval)
+      `,
+        [userId, cardName, timePeriod],
+      );
+
+      const cardSearchData = dbResponse.rows[0];
+      res.status(200).json(cardSearchData);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown Error";
+      res.status(500).json({ error: message });
+    }
+  },
+);
 
 export default analyticsRouter;

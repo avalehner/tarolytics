@@ -1,8 +1,11 @@
 //react imports
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //service functions
-import { getNonSearchData } from "../services/analyticsService";
+import {
+  getNonSearchData,
+  getCardSearchData,
+} from "../services/analyticsService";
 //components
 import MostPulledCardsChart from "../components/MostPulledChart";
 //types
@@ -11,10 +14,16 @@ import type {
   MostPulledTypes,
   SummaryStatsTypes,
   SuitTrendTypes,
+  CardSearchTypes,
+  CardSearchNotesTypes,
+  PullsPerMonthTypes,
+  MonthlyPullEntryType,
 } from "../types";
 //styles
 import styles from "./css/AnalyticsPage.module.css";
 import SuitTrendChart from "../components/SuitTrendChart";
+import tarotCards from "../data/tarotCards";
+import MonthlyFrequencyChart from "../components/MonthlyFrequencyChart";
 
 interface AnalyticsPageProps {
   currentUser: UserTypes | null;
@@ -28,6 +37,12 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   );
   const [mostPulled, setMostPulled] = useState<MostPulledTypes[] | null>(null);
   const [suitTrend, setSuitTrend] = useState<SuitTrendTypes[] | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [cardSearchInput, setCardSearchInput] = useState<string>("");
+  const [timePeriodInput, setTimePeriodInput] = useState<number | null>(null);
+  const [cardSearchResults, setCardSearchResults] =
+    useState<CardSearchTypes | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   //useEffects
   useEffect(() => {
@@ -38,7 +53,6 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   useEffect(() => {
     if (!currentUser) return;
     getNonSearchData().then((data) => {
-      // console.log(data);
       setSummaryStats(data.summary_stats);
       setMostPulled(
         //convert pull_count to number
@@ -62,10 +76,95 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     });
   }, [currentUser]);
 
+  useEffect(() => {
+    const handleClickOutsideDropdown = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current?.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
+
+    //removes event listener when the component unmounts, every useeffect that adds a global event listener needs a cleanup function
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+    };
+  }, []); //empty array: runs once on mount
+
+  const handleCardSearch = async (
+    cardName: string,
+    timePeriod: number | null,
+  ) => {
+    if (!cardSearchInput) return;
+    const data = await getCardSearchData(cardName, timePeriod);
+    setCardSearchResults(data);
+  };
+
+  const renderReadingNotes = (notes: CardSearchNotesTypes[]) => {
+    return notes.map((note, index) => {
+      return (
+        <div key={index} className={styles["reading-note-card"]}>
+          <div className={styles["reading-note-headers"]}>
+            <p>{note.date}</p>
+            <p>{note.spread_type}</p>
+          </div>
+          <p className={styles["card-position"]}>
+            position: {note.position_name}
+          </p>
+          <p className={styles["reading-note"]}>{note.notes}</p>
+        </div>
+      );
+    });
+  };
+
+  const getPullsByMonth = (
+    notes: CardSearchNotesTypes[],
+  ): MonthlyPullEntryType[] => {
+    if (!notes) return [];
+
+    const pullsByMonthObj = notes.reduce<PullsPerMonthTypes>(
+      (results, currentReading) => {
+        const month = currentReading.date.substring(0, 7);
+        results[month] = (results[month] || 0) + 1;
+        return results;
+      },
+      {},
+    ); //{} is the initial value of the accumulator (results)
+
+    return Object.entries(pullsByMonthObj).map(([month, pulls]) => ({
+      month,
+      pulls,
+    }));
+  };
+
+  // const getPullsByMonthArr = () => {
+  //   const pullsByMonthObj = getPullsByMonth(cardSearchResults.reading_notes);
+
+  //   const chartData: ChartDataPoint[] = Object.entries(pullsByMonthObj).map(
+  //     ([month, count]) => ({
+  //       month, // e.g., "2026-05"
+  //       pulls: count, // e.g., 3
+  //     }),
+  //   );
+  // };
+
+  const filteredCards = tarotCards
+    .slice(0, 78)
+    .filter((card) =>
+      card.toLowerCase().includes(cardSearchInput.toLowerCase()),
+    );
+
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
   // console.log("suit trend", suitTrend);
+  console.log("card search results", cardSearchResults);
+  if (cardSearchResults?.reading_notes) {
+    console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
+  }
 
   //null guards
   if (!currentUser || !summaryStats || !mostPulled || !suitTrend) return null; //prevents form from flashing while auth loads
@@ -97,70 +196,104 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
       <div className={styles["card-search-container"]}>
         <h3>cards search</h3>
         <p>instructions</p>
-        <div className={styles["search-container"]}>
-          <input type="text" />
-          <button className={"search-filter-btn"}>1 week</button>
-          <button className={"search-filter-btn"}>30 days</button>
-          <button className={"search-filter-btn"}>90 days</button>
-          <button className={"search-filter-btn"}>all time</button>
+        <div ref={dropdownRef} className={styles["search-container"]}>
+          <div className={styles["search-dropdown"]}>
+            <input
+              type="text"
+              value={cardSearchInput}
+              onChange={(e) => {
+                setCardSearchInput(e.target.value);
+                setShowDropdown(true);
+              }}
+              className={styles["search-input"]}
+            />
+            {showDropdown && filteredCards.length > 0 && (
+              <ul
+                style={{
+                  position: "absolute",
+                  background: "white",
+                  listStyle: "none",
+                  margin: "0",
+                }}
+              >
+                {filteredCards.map((card) => (
+                  <li
+                    key={card}
+                    onClick={() => {
+                      setCardSearchInput(card);
+                      setShowDropdown(false);
+                    }}
+                  >
+                    {card}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className={styles["search-btns-container"]}>
+            <button
+              className={"search-filter-btn"}
+              onClick={() => setTimePeriodInput(7)}
+            >
+              1 week
+            </button>
+            <button
+              className={"search-filter-btn"}
+              onClick={() => setTimePeriodInput(30)}
+            >
+              30 days
+            </button>
+            <button
+              className={"search-filter-btn"}
+              onClick={() => setTimePeriodInput(90)}
+            >
+              90 days
+            </button>
+            <button
+              className={"search-filter-btn"}
+              onClick={() => setTimePeriodInput(null)}
+            >
+              all time
+            </button>
+            <button
+              className={"search-filter-btn"}
+              onClick={() => handleCardSearch(cardSearchInput, timePeriodInput)}
+            >
+              search
+            </button>
+          </div>
         </div>
         <div className={styles["searched-card-container"]}>
-          <h2>[card name]</h2>
-          <p>[tag: major/minor arcana]</p>
+          <h2>{cardSearchInput}</h2>
+          <p>{cardSearchResults?.suit ? "minor arcana" : "major arcana"}</p>
         </div>
         <div className={styles["searched-card-stats-container"]}>
           <div className={styles["searched-card-stat"]}>
             <p>pulled</p>
-            <p>[number of times pulled]</p>
-            <p>[time period]</p>
+            <p>{cardSearchResults?.total_pulls}</p>
+            <p>{timePeriodInput ? timePeriodInput : "all time"}</p>
           </div>
           <div className={styles["searched-card-stat"]}>
             <p>reversed</p>
-            <p>[percentage]</p>
-            <p>[of all pulls]</p>
+            <p>{cardSearchResults?.reversed_pulls}</p>
+            <p>{cardSearchResults?.reversed_pct}% of all pulls</p>
           </div>
           <div className={styles["searched-card-stat"]}>
             <p>notes logged</p>
-            <p>[number]</p>
-            <p>[readings with notes]</p>
+            <p>{cardSearchResults?.reading_notes?.length}</p>
+            <p>readings with notes</p>
           </div>
         </div>
         <div className={styles["frequency-graph-container"]}>
-          {/* insert recharts component */}
+          {cardSearchResults?.reading_notes && (
+            <MonthlyFrequencyChart
+              data={getPullsByMonth(cardSearchResults.reading_notes)}
+            />
+          )}
+          <div>this is where the freqeuency graph goes</div>
         </div>
         <div className={styles["reading-notes-container"]}>
-          <div className={styles["reading-note-card"]}>
-            <div className={styles["reading-note-headers"]}>
-              <p>[date]</p>
-              <p>[spread-type]</p>
-            </div>
-            <p className={styles["card-position"]}>position:[position]</p>
-            <p className={styles["reading-note"]}>[note]</p>
-          </div>
-          <div className={styles["reading-note-card"]}>
-            <div className={styles["reading-note-headers"]}>
-              <p>[date]</p>
-              <p>[spread-type]</p>
-            </div>
-            <p className={styles["card-position"]}>position:[position]</p>
-            <p className={styles["reading-note"]}>[note]</p>
-          </div>
-          <div className={styles["reading-note-card"]}>
-            <div className={styles["reading-note-headers"]}>
-              <p>[date]</p>
-              <p>[spread-type]</p>
-            </div>
-            <p className={styles["card-position"]}>position:[position]</p>
-            <p className={styles["reading-note"]}>[note]</p>
-          </div>
-          <div className={styles["reading-note-card"]}>
-            <div className={styles["reading-note-headers"]}>
-              <p>[date]</p>
-              <p>[spread-type]</p>
-            </div>
-            <p className={styles["card-position"]}>position:[position]</p>
-            <p className={styles["reading-note"]}>[note]</p>
-          </div>
+          {renderReadingNotes(cardSearchResults?.reading_notes ?? [])}
         </div>
         <div className={styles["charts"]}>
           <div

@@ -1,6 +1,3 @@
-//types
-import type { MostPulledTypes } from "../types";
-//recharts imports
 import {
   BarChart,
   Bar,
@@ -11,25 +8,24 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-// import { RechartsDevtools } from "@recharts/devtools";
+import styles from "./css/MonthlyFrequencyChart.module.css";
+import type { PullsPerMonthTypes, MonthlyPullEntryType } from "../types";
 
-interface MostPulledChartTypes {
-  mostPulled: MostPulledTypes[];
+interface MonthlyFrequencyChartTypes {
+  data: MonthlyPullEntryType[];
 }
 
-const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
-  // console.log("most pulled component", mostPulled);
+const MonthlyFrequencyChart = ({ data }: MonthlyFrequencyChartTypes) => {
   return (
-    // <ResponsiveContainer width="100%" height={220}>
     <BarChart
       width={500}
       height={220}
-      data={mostPulled}
+      data={data}
       layout="vertical"
       style={{
         width: "100%",
         maxWidth: "700px",
-        maxHeight: "70vh", 
+        maxHeight: "70vh",
         aspectRatio: 1.618,
       }}
       responsive
@@ -57,8 +53,7 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
       <Bar dataKey="pull_count" fill="#7F77DD" radius={[0, 3, 3, 0]} />
       {/* <RechartsDevtools /> */}
     </BarChart>
-    // </ResponsiveContainer>
   );
 };
 
-export default MostPulledChart;
+export default MonthlyFrequencyChart;
