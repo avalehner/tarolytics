@@ -161,36 +161,39 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
   // console.log("suit trend", suitTrend);
-  console.log("card search results", cardSearchResults);
-  if (cardSearchResults?.reading_notes) {
-    console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
-  }
+  // console.log("card search results", cardSearchResults);
+  // if (cardSearchResults?.reading_notes) {
+  //   console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
+  // }
 
   //null guards
   if (!currentUser || !summaryStats || !mostPulled || !suitTrend) return null; //prevents form from flashing while auth loads
 
   return (
     <div className={styles["analytics-page-container"]}>
+      <p className={styles["analytics-page-title"]}>Analytics</p>
       <div className={styles["stat-highlights-container"]}>
-        <div className={styles["stat-highlight"]}>
-          <p>total readings</p>
-          <p>{summaryStats?.total_readings}</p>
-          <p>[detail]</p>
+        <div className={styles["stat-highlight-card"]}>
+          <p className={styles["stat-title"]}>total readings</p>
+          <p className={styles["stat"]}>{summaryStats?.total_readings}</p>
+          <p className={styles["stat-detail"]}>[detail]</p>
         </div>
-        <div className={styles["stat-highlight"]}>
-          <p>unique cards seen</p>
-          <p>{summaryStats?.unique_cards}</p>
-          <p>{78 - Number(summaryStats?.unique_cards)} unseen</p>
+        <div className={styles["stat-highlight-card"]}>
+          <p className={styles["stat-title"]}>unique cards seen</p>
+          <p className={styles["stat"]}>{summaryStats?.unique_cards}</p>
+          <p className={styles["stat-detail"]}>
+            {78 - Number(summaryStats?.unique_cards)} unseen
+          </p>
         </div>
-        <div className={styles["stat-highlight"]}>
-          <p>major arcana share</p>
-          <p>{summaryStats?.major_arcana_pct}/78</p>
-          <p>[detail]</p>
+        <div className={styles["stat-highlight-card"]}>
+          <p className={styles["stat-title"]}>major arcana share</p>
+          <p className={styles["stat"]}>{summaryStats?.major_arcana_pct}/78</p>
+          <p className={styles["stat-detail"]}>[detail]</p>
         </div>
-        <div className={styles["stat-highlight"]}>
-          <p>avg pulls/week</p>
-          <p>{summaryStats?.avg_per_week}</p>
-          <p>all time</p>
+        <div className={styles["stat-highlight-card"]}>
+          <p className={styles["stat-title"]}>avg pulls/week</p>
+          <p className={styles["stat"]}>{summaryStats?.avg_per_week}</p>
+          <p className={styles["stat-detail"]}>all time</p>
         </div>
       </div>
       <div className={styles["card-search-container"]}>

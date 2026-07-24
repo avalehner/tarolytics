@@ -3,13 +3,13 @@ import {
   Bar,
   XAxis,
   YAxis,
-  ResponsiveContainer,
-  CartesianGrid,
+  // ResponsiveContainer,
+  // CartesianGrid,
   Tooltip,
-  Legend,
+  // Legend,
 } from "recharts";
 import styles from "./css/MonthlyFrequencyChart.module.css";
-import type { PullsPerMonthTypes, MonthlyPullEntryType } from "../types";
+import type { MonthlyPullEntryType } from "../types";
 
 interface MonthlyFrequencyChartTypes {
   data: MonthlyPullEntryType[];
@@ -43,14 +43,14 @@ const MonthlyFrequencyChart = ({ data }: MonthlyFrequencyChartTypes) => {
       <YAxis
         type="category"
         interval={0}
-        dataKey="card_name"
+        dataKey="month"
         width={110}
         axisLine={false}
         tickLine={false}
         tick={{ fontSize: 12 }}
       />
       <Tooltip cursor={{ fill: "rgba(0,0,0,0.04)" }} />
-      <Bar dataKey="pull_count" fill="#7F77DD" radius={[0, 3, 3, 0]} />
+      <Bar dataKey="pulls" fill="#7F77DD" radius={[0, 3, 3, 0]} />
       {/* <RechartsDevtools /> */}
     </BarChart>
   );

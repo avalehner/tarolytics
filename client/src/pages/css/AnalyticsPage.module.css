@@ -1,22 +1,60 @@
 .analytics-page-container {
-  margin: 1rem 2rem;
+  width: 1200px;
+  max-width: calc(100% - 10rem);
+  margin: auto;
 }
 
-.stat-highlights-container,
-.searched-card-stats-container {
+.analytics-page-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+}
+
+.searched-card-stats-container,
+.search-container {
   display: flex;
 }
 
-.stat-highlight,
+.stat-highlights-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  gap: 2rem;
+}
+
+.stat-highlight-card {
+  border: none;
+  background-color: rgb(255, 252, 241, 0.37);
+  padding: 0.25rem 1.6rem 0.3rem;
+  border-radius: 10px;
+}
+
+.stat-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+.stat {
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.stat-detail {
+  font-size: 1.1rem;
+  margin-top: 0.8rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #5e5f5e;
+}
+
+/* .stat-highlight-card,
 .searched-card-stat,
 .reading-note-card,
 .reading-note {
   border: solid 1px;
-}
-
-.search-container {
-  display: flex;
-}
+} */
 
 .search-input {
   height: 100%;
@@ -27,12 +65,7 @@
   justify-content: space-between;
 }
 
-.most-pulled-cards-container {
-  width: 500px;
-  height: 300px;
-  /* border: 1px solid red; */
-}
-
+.most-pulled-cards-container,
 .suit-trend-container {
   width: 500px;
   height: 300px;
@@ -42,4 +75,8 @@
 .charts {
   display: flex;
   gap: 5rem;
+}
+
+.frequency-graph-container {
+  width: 100%;
 }
