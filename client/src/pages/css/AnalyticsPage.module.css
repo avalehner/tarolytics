@@ -63,7 +63,32 @@
   margin: 1.5rem 0 1.3rem 0;
 }
 
+.search-dropdown {
+  position: relative;
+}
+
+.search-dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: white;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #c199cd;
+  border-radius: 5px;
+}
+
+.search-dropdown-list li {
+  padding-bottom: 0.4rem;
+}
+
 .search-input {
+  width: 400px;
   height: 100%;
   padding: 0.7rem 1rem;
   border: 1px #c199cd solid;
@@ -154,6 +179,11 @@
 .reading-note-headers {
   display: flex;
   justify-content: space-between;
+  font-size: 1rem;
+}
+
+.card-position {
+  margin-top: 0;
 }
 
 .reading-note {

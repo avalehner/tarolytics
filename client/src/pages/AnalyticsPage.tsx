@@ -211,14 +211,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
               className={styles["search-input"]}
             />
             {showDropdown && filteredCards.length > 0 && (
-              <ul
-                style={{
-                  position: "absolute",
-                  background: "white",
-                  listStyle: "none",
-                  margin: "0",
-                }}
-              >
+              <ul className={styles["search-dropdown-list"]}>
                 {filteredCards.map((card) => (
                   <li
                     key={card}
