@@ -49,20 +49,128 @@
   color: #5e5f5e;
 }
 
-/* .stat-highlight-card,
-.searched-card-stat,
-.reading-note-card,
-.reading-note {
-  border: solid 1px;
-} */
+.card-search-container {
+  border: none;
+  background-color: rgb(255, 252, 241, 0.37);
+  padding: 0.7rem 2.5rem 2.2rem;
+  border-radius: 10px;
+  margin-top: 2.5rem;
+}
+
+.search-title {
+  font-size: 2rem;
+  font-style: italic;
+  margin: 1.5rem 0 1.3rem 0;
+}
 
 .search-input {
   height: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px #c199cd solid;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.search-filter-btn,
+.search-btn {
+  border: 1px solid #b195d4;
+  border-radius: 7px;
+  padding: 0.7rem 0.9rem;
+  font-family: "Libertinus Serif", serif;
+  background-color: #f7e4ff;
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.search-btn {
+  border: 1px solid #97b48e;
+  background-color: #ebffe4;
+}
+
+.search-filter-btn:hover {
+  background-color: #f0d4fc;
+}
+
+.search-btn:hover {
+  background-color: #d8f6cd;
+}
+
+.searched-card {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.card-suit {
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.searched-card-stats-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2fr 2fr 2fr;
+  gap: 2rem;
+}
+
+.searched-card-stat-container {
+  border: 1px solid rgb(196, 39, 0, 0.39);
+  border-radius: 10px;
+  background-color: #fff8e5;
+  padding: 0.5rem 1.5rem;
+}
+
+.searched-stat {
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.searched-stat-detail {
+  font-size: 1.1rem;
+  margin-top: 0.8rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #5e5f5e;
+}
+
+.monthly-frequency-title,
+.reading-notes-title {
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+.reading-note-card,
+.frequency-graph-container,
+.chart-container {
+  border: 1px solid rgb(196, 39, 0, 0.39);
+  border-radius: 10px;
+  background-color: #fff8e5;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .reading-note-headers {
   display: flex;
   justify-content: space-between;
+}
+
+.reading-note {
+  border: 1px solid rgb(196, 85, 0, 0.69);
+  border-radius: 10px;
+  background-color: #ffe8d4;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.spread-type-tag {
+  background-color: #ebffe4;
+  border: 1px solid #97b48e;
+  border-radius: 15px;
+  padding: 0 0.5rem;
+  font-size: 0.9rem;
+  /* margin: 0; */
 }
 
 .most-pulled-cards-container,
@@ -72,9 +180,30 @@
   /* border: 1px solid red; */
 }
 
+.chart-title {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 600;
+  margin: 1.3rem 0 0.6rem;
+  /* color: rgb(32, 17, 5, 0.52); */
+}
+
+.chart-subtitle {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 0 1.2rem;
+  color: rgb(32, 17, 5, 0.52);
+}
+
 .charts {
-  display: flex;
-  gap: 5rem;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  border: none;
+  background-color: rgb(255, 252, 241, 0.37);
+  padding: 0.7rem 2.5rem 5rem;
+  border-radius: 10px;
+  margin-top: 2.5rem;
 }
 
 .frequency-graph-container {

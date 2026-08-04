@@ -148,6 +148,7 @@ export interface CardSearchNotesTypes {
   spread_type: string;
   position_name: string;
   notes: string;
+  //add cards in spread
 }
 
 export interface CardSearchTypes {

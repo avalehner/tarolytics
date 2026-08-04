@@ -109,10 +109,10 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         <div key={index} className={styles["reading-note-card"]}>
           <div className={styles["reading-note-headers"]}>
             <p>{note.date}</p>
-            <p>{note.spread_type}</p>
+            <p className={styles["spread-type-tag"]}>{note.spread_type}</p>
           </div>
           <p className={styles["card-position"]}>
-            position: {note.position_name}
+            Position: {note.position_name}
           </p>
           <p className={styles["reading-note"]}>{note.notes}</p>
         </div>
@@ -197,12 +197,12 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         </div>
       </div>
       <div className={styles["card-search-container"]}>
-        <h3>cards search</h3>
-        <p>instructions</p>
+        <h3 className={styles["search-title"]}>Search</h3>
         <div ref={dropdownRef} className={styles["search-container"]}>
           <div className={styles["search-dropdown"]}>
             <input
               type="text"
+              placeholder="enter card..."
               value={cardSearchInput}
               onChange={(e) => {
                 setCardSearchInput(e.target.value);
@@ -235,81 +235,103 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           </div>
           <div className={styles["search-btns-container"]}>
             <button
-              className={"search-filter-btn"}
+              className={styles["search-filter-btn"]}
               onClick={() => setTimePeriodInput(7)}
             >
-              1 week
+              1 WEEK
             </button>
             <button
-              className={"search-filter-btn"}
+              className={styles["search-filter-btn"]}
               onClick={() => setTimePeriodInput(30)}
             >
-              30 days
+              1 MONTH
             </button>
             <button
-              className={"search-filter-btn"}
+              className={styles["search-filter-btn"]}
               onClick={() => setTimePeriodInput(90)}
             >
-              90 days
+              3 MONTHS
             </button>
             <button
-              className={"search-filter-btn"}
+              className={styles["search-filter-btn"]}
               onClick={() => setTimePeriodInput(null)}
             >
-              all time
+              ALL TIME
             </button>
             <button
-              className={"search-filter-btn"}
+              className={styles["search-btn"]}
               onClick={() => handleCardSearch(cardSearchInput, timePeriodInput)}
             >
-              search
+              SEARCH
             </button>
           </div>
         </div>
-        <div className={styles["searched-card-container"]}>
-          <h2>{cardSearchInput}</h2>
-          <p>{cardSearchResults?.suit ? "minor arcana" : "major arcana"}</p>
-        </div>
-        <div className={styles["searched-card-stats-container"]}>
-          <div className={styles["searched-card-stat"]}>
-            <p>pulled</p>
-            <p>{cardSearchResults?.total_pulls}</p>
-            <p>{timePeriodInput ? timePeriodInput : "all time"}</p>
+        {cardSearchResults && (
+          <div className={styles["card-search-results"]}>
+            <div className={styles["searched-card-container"]}>
+              <h2 className={styles["searched-card"]}>{cardSearchInput}</h2>
+              <p className={styles["card-suit"]}>
+                {cardSearchResults?.suit ? "minor arcana" : "major arcana"}
+              </p>
+            </div>
+            <div className={styles["searched-card-stats-container"]}>
+              <div className={styles["searched-card-stat-container"]}>
+                <p>Pulled</p>
+                <p className={styles["searched-stat"]}>
+                  {cardSearchResults?.total_pulls}
+                </p>
+                <p className={styles["searched-stat-detail"]}>
+                  {timePeriodInput ? timePeriodInput : "all time"}
+                </p>
+              </div>
+              <div className={styles["searched-card-stat-container"]}>
+                <p>Reversed</p>
+                <p className={styles["searched-stat"]}>
+                  {cardSearchResults?.reversed_pulls}
+                </p>
+                <p className={styles["searched-stat-detail"]}>
+                  {cardSearchResults?.reversed_pct}% of all pulls
+                </p>
+              </div>
+              <div className={styles["searched-card-stat-container"]}>
+                <p>Notes logged</p>
+                <p className={styles["searched-stat"]}>
+                  {cardSearchResults?.reading_notes?.length}
+                </p>
+                <p className={styles["searched-stat-detail"]}>
+                  readings with notes
+                </p>
+              </div>
+            </div>
+            <p className={styles["monthly-frequency-title"]}>
+              Monthly Frequency
+            </p>
+            <div className={styles["frequency-graph-container"]}>
+              {cardSearchResults?.reading_notes && (
+                <MonthlyFrequencyChart
+                  data={getPullsByMonth(cardSearchResults.reading_notes)}
+                />
+              )}
+            </div>
+            <p className={styles["reading-notes-title"]}>Reading Notes</p>
+            <div className={styles["reading-notes-container"]}>
+              {renderReadingNotes(cardSearchResults?.reading_notes ?? [])}
+            </div>
           </div>
-          <div className={styles["searched-card-stat"]}>
-            <p>reversed</p>
-            <p>{cardSearchResults?.reversed_pulls}</p>
-            <p>{cardSearchResults?.reversed_pct}% of all pulls</p>
-          </div>
-          <div className={styles["searched-card-stat"]}>
-            <p>notes logged</p>
-            <p>{cardSearchResults?.reading_notes?.length}</p>
-            <p>readings with notes</p>
-          </div>
-        </div>
-        <div className={styles["frequency-graph-container"]}>
-          {cardSearchResults?.reading_notes && (
-            <MonthlyFrequencyChart
-              data={getPullsByMonth(cardSearchResults.reading_notes)}
-            />
-          )}
-          <div>this is where the freqeuency graph goes</div>
-        </div>
-        <div className={styles["reading-notes-container"]}>
-          {renderReadingNotes(cardSearchResults?.reading_notes ?? [])}
-        </div>
-        <div className={styles["charts"]}>
-          <div
-            className={styles["most-pulled-cards-container"]}
-            // style={{ width: "500px", height: "300px", border: "1px solid red" }}
-          >
-            <h3>Most pulled cards</h3>
-            <p>by total pull count</p>
+        )}
+      </div>
+      <div className={styles["charts"]}>
+        <div className={styles["most-pulled-cards-container"]}>
+          <h3 className={styles["chart-title"]}>Most pulled cards</h3>
+          <p className={styles["chart-subtitle"]}>by total pull count</p>
+          <div className={styles["chart-container"]}>
             <MostPulledCardsChart mostPulled={mostPulled} />
           </div>
-          <div className={styles["suit-trend-container"]}>
-            <h3>Suit trend</h3>
-            <p>share of pulls</p>
+        </div>
+        <div className={styles["suit-trend-container"]}>
+          <h3 className={styles["chart-title"]}>Suit trend</h3>
+          <p className={styles["chart-subtitle"]}>share of pulls</p>
+          <div className={styles["chart-container"]}>
             <SuitTrendChart suitTrend={suitTrend} />
           </div>
         </div>
