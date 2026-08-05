@@ -16,11 +16,13 @@ interface SuitTrendChartProps {
 }
 
 const SuitTrendChart = ({ suitTrend }: SuitTrendChartProps) => {
+  console.log("suitTrend", suitTrend);
   return (
     <ResponsiveContainer width="100%" height={260}>
       <LineChart
         data={suitTrend}
-        margin={{ top: 8, right: 16, left: 0, bottom: 0 }}
+        margin={{ top: 8, right: 34, left: -11, bottom: 20 }}
+        width={100}
       >
         <CartesianGrid vertical={false} strokeOpacity={0.1} />
         <XAxis
@@ -36,39 +38,51 @@ const SuitTrendChart = ({ suitTrend }: SuitTrendChartProps) => {
           tickLine={false}
         />
         <Tooltip />
-        <Legend />
+        <Legend
+          verticalAlign="bottom"
+          align="center"
+          layout="horizontal"
+          iconType="circle"
+          iconSize={5}
+          wrapperStyle={{
+            fontSize: "0.85rem",
+            fontFamily: "Libertinus Serif, serif",
+            paddingTop: 12,
+            paddingLeft: 55,
+          }}
+        />
         <Line
           type="monotone"
           dataKey="cups"
-          stroke="#7F77DD"
+          stroke="#b4bbdb"
           dot={false}
           strokeWidth={2}
         />
         <Line
           type="monotone"
           dataKey="swords"
-          stroke="#D4537E"
+          stroke="#c9a9d6"
           dot={false}
           strokeWidth={2}
         />
         <Line
           type="monotone"
           dataKey="wands"
-          stroke="#D85A30"
+          stroke="#f39a7a"
           dot={false}
           strokeWidth={2}
         />
         <Line
           type="monotone"
           dataKey="pentacles"
-          stroke="#1D9E75"
+          stroke="#aac1a2"
           dot={false}
           strokeWidth={2}
         />
         <Line
           type="monotone"
-          dataKey="major arcana"
-          stroke="#BA7517"
+          dataKey="major"
+          stroke="#d4935a"
           dot={false}
           strokeWidth={2}
         />

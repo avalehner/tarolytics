@@ -117,7 +117,7 @@
 }
 
 .search-filter-btn-selected {
-  background-color: #eacaf6; /* darker/more saturated than the normal #f7e4ff */
+  background-color: #eacaf6;
   border-color: #b397da;
   font-weight: 600;
 }
@@ -186,8 +186,13 @@
   margin-bottom: 1.2rem;
 }
 
+.chart-container {
+  padding: 1.7rem 0 0.3rem 0;
+  width: 97%;
+}
+
 .frequency-graph-container {
-  padding: 1rem 0 0.3rem 0;
+  padding: 1.2rem 0 0.3rem 0;
 }
 
 .reading-note-headers {
@@ -217,13 +222,6 @@
   /* margin: 0; */
 }
 
-.most-pulled-cards-container,
-.suit-trend-container {
-  width: 500px;
-  height: 300px;
-  /* border: 1px solid red; */
-}
-
 .chart-title {
   font-size: 1.2rem;
   font-style: italic;
@@ -242,12 +240,18 @@
 
 .charts {
   display: grid;
-  grid-template-columns: 2fr 2fr;
+  grid-template-columns: max-content max-content;
   border: none;
   background-color: rgb(255, 252, 241, 0.37);
-  padding: 0.7rem 2.5rem 7rem;
+  padding: 0.7rem 2.5rem 1rem;
   border-radius: 10px;
   margin-top: 2.5rem;
+  gap: 1.3rem;
+}
+
+.most-pulled-cards-container,
+.suit-trend-container {
+  width: 440px;
 }
 
 .frequency-graph-container {

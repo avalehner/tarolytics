@@ -22,14 +22,14 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
   return (
     // <ResponsiveContainer width="100%" height={220}>
     <BarChart
-      width={500}
-      height={220}
+      width={100}
+      height={mostPulled.length * 40}
       data={mostPulled}
       layout="vertical"
       style={{
-        width: "100%",
-        maxWidth: "700px",
-        maxHeight: "70vh", 
+        width: "95%",
+        maxWidth: "500px",
+        // maxHeight: "70vh",
         aspectRatio: 1.618,
       }}
       responsive
@@ -48,13 +48,20 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
         type="category"
         interval={0}
         dataKey="card_name"
-        width={110}
+        width={100}
         axisLine={false}
         tickLine={false}
         tick={{ fontSize: 12 }}
       />
       <Tooltip cursor={{ fill: "rgba(0,0,0,0.04)" }} />
-      <Bar dataKey="pull_count" fill="#7F77DD" radius={[0, 3, 3, 0]} />
+      <Bar
+        dataKey="pull_count"
+        fill="#E2E8FF"
+        stroke="#0041C4"
+        strokeWidth={0.5}
+        radius={[6, 6, 6, 6]}
+        barSize={25}
+      />
       {/* <RechartsDevtools /> */}
     </BarChart>
     // </ResponsiveContainer>
