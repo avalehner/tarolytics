@@ -87,6 +87,10 @@
   padding-bottom: 0.4rem;
 }
 
+.search-dropdown-list li:hover {
+  background-color: rgb(229, 229, 229);
+}
+
 .search-input {
   width: 400px;
   height: 100%;
@@ -110,6 +114,12 @@
 .search-btn {
   border: 1px solid #97b48e;
   background-color: #ebffe4;
+}
+
+.search-filter-btn-selected {
+  background-color: #eacaf6; /* darker/more saturated than the normal #f7e4ff */
+  border-color: #b397da;
+  font-weight: 600;
 }
 
 .search-filter-btn:hover {
@@ -231,7 +241,7 @@
   grid-template-columns: 2fr 2fr;
   border: none;
   background-color: rgb(255, 252, 241, 0.37);
-  padding: 0.7rem 2.5rem 5rem;
+  padding: 0.7rem 2.5rem 7rem;
   border-radius: 10px;
   margin-top: 2.5rem;
 }

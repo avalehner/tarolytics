@@ -228,25 +228,25 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           </div>
           <div className={styles["search-btns-container"]}>
             <button
-              className={styles["search-filter-btn"]}
+              className={`${styles["search-filter-btn"]} ${timePeriodInput === 7 ? styles["search-filter-btn-selected"] : ""}`}
               onClick={() => setTimePeriodInput(7)}
             >
               1 WEEK
             </button>
             <button
-              className={styles["search-filter-btn"]}
+              className={`${styles["search-filter-btn"]} ${timePeriodInput === 30 ? styles["search-filter-btn-selected"] : ""}`}
               onClick={() => setTimePeriodInput(30)}
             >
               1 MONTH
             </button>
             <button
-              className={styles["search-filter-btn"]}
+              className={`${styles["search-filter-btn"]} ${timePeriodInput === 90 ? styles["search-filter-btn-selected"] : ""}`}
               onClick={() => setTimePeriodInput(90)}
             >
               3 MONTHS
             </button>
             <button
-              className={styles["search-filter-btn"]}
+              className={`${styles["search-filter-btn"]} ${timePeriodInput === null ? styles["search-filter-btn-selected"] : ""}`}
               onClick={() => setTimePeriodInput(null)}
             >
               ALL TIME
