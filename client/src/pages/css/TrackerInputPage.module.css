@@ -22,7 +22,7 @@
 }
 
 .reading-notes input {
-  border: 1px solid #c199cd;
+  border: 1px solid rgb(193, 153, 205, 0.6);
   border-radius: 9px;
   padding: 12px;
   font-family: "Libertinus Serif", serif;
@@ -35,7 +35,7 @@
 
 .save-reading-btn,
 .upload-picture-btn {
-  border: 1px solid #97b48e;
+  border: 1px solid rgb(151, 180, 142, 0.5);
   border-radius: 9px;
   padding: 0.8rem 1.2rem;
   font-family: "Libertinus Serif", serif;
@@ -45,7 +45,7 @@
 }
 
 .add-card-btn {
-  border: 1px solid #889fcc;
+  border: 1px solid rgb(136, 159, 204, 0.6);
   border-radius: 9px;
   padding: 0.6rem 1rem;
   font-family: "Libertinus Serif", serif;
@@ -86,7 +86,7 @@
   margin: 1.5rem auto;
   padding: 2.5rem 1rem 1rem;
   background-color: #fff8e5;
-  border: 1px dashed #c45500;
+  border: 1px dashed rgb(196, 85, 0, 0.6);
   border-radius: 20px;
   /* transform: translateX(-50%) */
 }
@@ -105,7 +105,7 @@
   left: 39%;
   padding: 3rem;
   background-color: #fff8e5;
-  border: 1px solid #c45500;
+  border: 1px solid rgb(196, 85, 0, 0.6);
   border-radius: 12px;
   width: 22%;
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
@@ -121,12 +121,12 @@
 }
 
 .view-reading-btn {
-  border: 1px solid #97b48e;
+  border: 1px solid rgb(151, 180, 142, 0.6);
   background-color: #ebffe4;
 }
 
 .submit-another-btn {
-  border: 1px solid #889fcc;
+  border: 1px solid rgb(136, 159, 204, 0.6);
   background-color: #e2e8ff;
 }
 
