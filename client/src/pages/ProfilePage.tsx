@@ -92,38 +92,43 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
   if (!currentUser) return null; //prevents form from flashing while auth loads
 
   return (
-    <div className={styles["profile-page-container"]}>
-      <div className={styles["profile-container"]}>
-        <h1 className={styles["profile-header"]}>Your Profile</h1>
-        <hr className={styles["profile-border"]}></hr>
+    <div className={styles["profile-container"]}>
+      <h1 className={styles["profile-header"]}>Your Profile</h1>
+      <hr className={styles["profile-border"]}></hr>
+      <div className={styles["profile-contents-container"]}>
         <div className={styles["profile-group"]}>
-          <p className={styles["profile-label"]}>name</p>
+          <p className={styles["profile-label"]}>Name</p>
           <p>{currentUser?.full_name}</p>
         </div>
         <div className={styles["profile-group"]}>
-          <p className={styles["profile-label"]}>email</p>
+          <p className={styles["profile-label"]}>Email</p>
           <p>{currentUser?.email}</p>
         </div>
         <div className={styles["birthday-container"]}>
           <div className={styles["profile-group"]}>
-            <p className={styles["profile-label"]}>birthday</p>
+            <p className={styles["profile-label"]}>Birthday</p>
             <DatePicker date={birthDate} setDate={setBirthDate} />
           </div>
         </div>
         <div className={styles["birthtime-container"]}>
-          <label className={styles["profile-label"]}>birth time</label>
+          <label className={styles["profile-label"]}>Birth time</label>
           <input
+            className={styles["time-select"]}
             type="time"
             value={birthTime}
             onChange={(e) => setBirthTime(e.target.value)}
           />
         </div>
         <div className={styles["birth-timezone-container"]}>
-          <label className={styles["profile-label"]}>timezone</label>
-          <TimezoneSelect value={birthTimeZone} onChange={setBirthTimeZone} />
+          <label className={styles["profile-label"]}>Timezone</label>
+          <TimezoneSelect
+            className={styles["timezone-select"]}
+            value={birthTimeZone}
+            onChange={setBirthTimeZone}
+          />
         </div>
         <div className={styles["birth-location-container"]}>
-          <p className={styles["profile-label"]}>birth location</p>
+          <p className={styles["profile-label"]}>Birth location</p>
           <AsyncSelect<CityOptionTypes>
             className={styles["birth-location-select"]}
             value={
@@ -148,18 +153,17 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
             }}
           />
         </div>
-        <button
-          className="save-profile-btn"
-          onClick={async () => {
-            console.log("button clicked");
-            await handleSaveProfile();
-          }}
-        >
-          UPDATE PROFILE
-        </button>
-
-        {/* <button>UPDATE PROFILE</button>
-      )} */}
+        <div className={styles["save-profile-btn-container"]}>
+          <button
+            className={styles["save-profile-btn"]}
+            onClick={async () => {
+              console.log("button clicked");
+              await handleSaveProfile();
+            }}
+          >
+            UPDATE PROFILE
+          </button>
+        </div>
         {saveMessage}
       </div>
     </div>

@@ -85,11 +85,13 @@
 }
 
 .search-dropdown-list li {
-  padding-bottom: 0.4rem;
+  padding: 0.4rem;
 }
 
 .search-dropdown-list li:hover {
   background-color: rgb(229, 229, 229);
+  transition: all 0.1s ease;
+  border-radius: 5px;
 }
 
 .search-input {
@@ -125,10 +127,12 @@
 
 .search-filter-btn:hover {
   background-color: #f0d4fc;
+  transition: all 0.1s ease;
 }
 
 .search-btn:hover {
   background-color: #d8f6cd;
+  transition: all 0.1s ease;
 }
 
 .searched-card {

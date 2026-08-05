@@ -63,8 +63,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-body.login-page-bg::before,
-body.profile-page-bg::before {
+body.login-page-bg::before {
   content: "";
   position: fixed;
   inset: 0;

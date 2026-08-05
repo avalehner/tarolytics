@@ -1,10 +1,28 @@
+.profile-container::before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 1050px 1250px at 50% 500px,
+    rgb(253, 110, 0, 0.27) 8%,
+    rgb(252, 184, 107, 0.24) 24%,
+    rgb(255, 210, 127, 0.15) 32%,
+    rgb(255, 219, 164, 0.1) 61%,
+    rgb(255, 232, 212, 0.05) 72%,
+    rgb(255, 248, 22, 0) 100%,
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
 .profile-container {
   margin: 5rem auto 0;
-  background-color: rgb(255, 252, 241, 0.45);
+  background-color: rgb(255, 252, 241, 0.3);
   border-radius: 17px;
   max-width: 32%;
   font-family: "Libertinus Serif", serif;
-  padding: 1rem 5rem;
+  padding: 1rem 4rem;
 }
 
 .profile-header {
@@ -16,10 +34,10 @@
 }
 
 .profile-border {
-  width: 40%;
+  width: 35%;
   border: none;
   border-top: 1px solid #c4a78a;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .profile-group {
@@ -32,21 +50,71 @@
   font-style: italic;
 }
 
-.birthday-container {
+.profile-group p {
+  margin-top: 0.5rem;
+}
+
+.birthday-container,
+.birthtime-container {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.time-select {
+  border: 1px solid #c199cd;
+  border-radius: 9px;
+  padding: 10px;
+  font-family: "Libertinus Serif", serif;
+  width: 135px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fffefa;
+  cursor: pointer;
+}
+
+.timezone-select {
+  /* border: 1px solid #c199cd; */
+  border-radius: 9px;
+  /* padding: 10px; */
+  font-family: "Libertinus Serif", serif;
+  width: 200px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fffefa;
+  cursor: pointer;
 }
 
 .birth-timezone-container {
   margin-top: 1rem;
   display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .birth-location-container {
-  margin-top: 0;
+  margin: 0.5rem 0;
   display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .birth-location-select {
   max-width: 60%;
+}
+
+.save-profile-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.save-profile-btn {
+  margin: 0.8rem 0 1.7rem;
+  border: 1px solid rgb(151, 180, 142, 0.65);
+  background-color: #ebffe4;
+}
+
+.save-profile-btn:hover {
+  background-color: #d8f6cd;
+  transition: all 0.1s ease;
 }
