@@ -39,6 +39,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   const [suitTrend, setSuitTrend] = useState<SuitTrendTypes[] | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [cardSearchInput, setCardSearchInput] = useState<string>("");
+  const [currentSearchedCard, setCurrentSearchedCard] = useState<string>("");
   const [timePeriodInput, setTimePeriodInput] = useState<number | null>(null);
   const [cardSearchResults, setCardSearchResults] =
     useState<CardSearchTypes | null>(null);
@@ -253,7 +254,10 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
             </button>
             <button
               className={styles["search-btn"]}
-              onClick={() => handleCardSearch(cardSearchInput, timePeriodInput)}
+              onClick={() => {
+                handleCardSearch(cardSearchInput, timePeriodInput);
+                setCurrentSearchedCard(cardSearchInput);
+              }}
             >
               SEARCH
             </button>
@@ -262,14 +266,14 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         {cardSearchResults && (
           <div className={styles["card-search-results"]}>
             <div className={styles["searched-card-container"]}>
-              <h2 className={styles["searched-card"]}>{cardSearchInput}</h2>
+              <h2 className={styles["searched-card"]}>{currentSearchedCard}</h2>
               <p className={styles["card-suit"]}>
                 {cardSearchResults?.suit ? "minor arcana" : "major arcana"}
               </p>
             </div>
             <div className={styles["searched-card-stats-container"]}>
               <div className={styles["searched-card-stat-container"]}>
-                <p>Pulled</p>
+                <p className={styles["searched-card-stat-label"]}>Pulled</p>
                 <p className={styles["searched-stat"]}>
                   {cardSearchResults?.total_pulls}
                 </p>
@@ -278,7 +282,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
                 </p>
               </div>
               <div className={styles["searched-card-stat-container"]}>
-                <p>Reversed</p>
+                <p className={styles["searched-card-stat-label"]}>Reversed</p>
                 <p className={styles["searched-stat"]}>
                   {cardSearchResults?.reversed_pulls}
                 </p>
@@ -287,7 +291,9 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
                 </p>
               </div>
               <div className={styles["searched-card-stat-container"]}>
-                <p>Notes logged</p>
+                <p className={styles["searched-card-stat-label"]}>
+                  Notes logged
+                </p>
                 <p className={styles["searched-stat"]}>
                   {cardSearchResults?.reading_notes?.length}
                 </p>

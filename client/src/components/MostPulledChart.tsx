@@ -57,7 +57,7 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
       <Bar
         dataKey="pull_count"
         fill="#E2E8FF"
-        stroke="#0041C4"
+        stroke="rgb(0, 65, 196, 0.6)"
         strokeWidth={0.5}
         radius={[6, 6, 6, 6]}
         barSize={25}
