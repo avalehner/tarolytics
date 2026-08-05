@@ -125,11 +125,29 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
             className={styles["timezone-select"]}
             value={birthTimeZone}
             onChange={setBirthTimeZone}
+            styles={{
+              control: (base: any) => ({
+                ...base,
+                border: "1px solid rgb(193, 153, 205, 0.6)",
+                borderRadius: "8px",
+                cursor: "pointer",
+                padding: "1px",
+              }),
+            }}
           />
         </div>
         <div className={styles["birth-location-container"]}>
           <p className={styles["profile-label"]}>Birth location</p>
           <AsyncSelect<CityOptionTypes>
+            styles={{
+              control: (base: any) => ({
+                ...base,
+                border: "1px solid rgb(193, 153, 205, 0.6)",
+                borderRadius: "8px",
+                cursor: "pointer",
+                padding: "1px",
+              }),
+            }}
             className={styles["birth-location-select"]}
             value={
               birthCity
