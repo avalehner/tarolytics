@@ -1,7 +1,12 @@
 import styles from "./css/LoginPage.module.css";
-import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
 const LoginPage = () => {
+  useEffect(() => {
+    document.body.classList.add("login-page-bg");
+    return () => document.body.classList.remove("login-page-bg");
+  }, []);
+
   return (
     <>
       <div className={styles["login-container"]}>
