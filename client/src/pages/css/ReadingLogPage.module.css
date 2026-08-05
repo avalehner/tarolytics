@@ -29,10 +29,19 @@
 .reading-log-container {
   margin: 0 auto;
   background-color: #fff8e5;
-  border: 1px solid #c45500;
+  border: 1px solid rgb(220, 175, 141);
   border-radius: 20px;
   max-width: 75%;
+  min-width: 1400px;
   padding: 0.5rem 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.reading-log-container > *:hover {
+  background-color: #fcf1d3;
+  border-radius: 10px;
+  /* padding: 0rem; */
 }
 
 .reading-log-labels {
@@ -43,13 +52,14 @@
   font-weight: 900;
   margin: 1.5rem auto 0.4rem;
   max-width: 75%;
+  min-width: 1400px;
   padding: 0 1.5rem;
   font-size: 1.1rem;
 }
 
 .log-divider {
   border: none;
-  border-top: 1px dashed black;
+  border-top: 0.1px solid rgba(215, 168, 168, 0.4);
   width: 95%;
 }
 
