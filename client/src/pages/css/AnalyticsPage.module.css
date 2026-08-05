@@ -1,6 +1,7 @@
 .analytics-page-container {
   width: 1200px;
-  max-width: calc(100% - 20rem);
+  max-width: calc(100% - 200rem);
+  min-width: 1000px;
   margin: auto;
   color: #201105;
 }
