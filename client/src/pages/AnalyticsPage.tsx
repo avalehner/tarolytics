@@ -107,7 +107,11 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   const renderReadingNotes = (notes: CardSearchNotesTypes[]) => {
     return notes.map((note, index) => {
       return (
-        <div key={index} className={styles["reading-note-card"]}>
+        <div
+          key={index}
+          className={styles["reading-note-card"]}
+          onClick={() => navigate(`/reading/${note.reading_id}`)}
+        >
           <div className={styles["reading-note-headers"]}>
             <p>{note.date}</p>
             <p className={styles["spread-type-tag"]}>{note.spread_type}</p>
@@ -162,7 +166,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
   // console.log("suit trend", suitTrend);
-  // console.log("card search results", cardSearchResults);
+  console.log("card search results", cardSearchResults);
   // if (cardSearchResults?.reading_notes) {
   //   console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
   // }

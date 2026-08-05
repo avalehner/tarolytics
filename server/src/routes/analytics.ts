@@ -95,6 +95,7 @@ analyticsRouter.get(
           ROUND(COUNT(*) FILTER (WHERE cards.reversed = true) * 100.00 / NULLIF(COUNT(*), 0), 1) AS reversed_pct, 
           JSON_AGG(
             JSON_BUILD_OBJECT(
+              'reading_id', readings.id, 
               'date', readings.reading_date, 
               'spread_type', readings.spread_type, 
               'position_name', cards.position_name, 

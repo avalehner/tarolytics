@@ -144,6 +144,7 @@ export interface NonSearchDataTypes {
 }
 
 export interface CardSearchNotesTypes {
+  reading_id: string;
   date: string;
   spread_type: string;
   position_name: string;
