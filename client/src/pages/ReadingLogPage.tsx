@@ -109,7 +109,7 @@ const ReadingLogPage = ({
 
   return (
     <div className={styles["reading-log-page-container"]}>
-      <h1 className={styles["title"]}>Tarolytics</h1>
+      <h1 className={styles["title"]}>History</h1>
       <div className={styles["search-bar-container"]}>
         <p className={styles["search-label"]}>search by:</p>
         <SearchMenu

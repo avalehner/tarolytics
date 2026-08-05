@@ -3,7 +3,8 @@
 }
 
 .title {
-  font-family: "Pamela";
+  font-family: "Libertinus Serif", serif;
+  font-style: italic;
   margin: 4rem 0 1.7rem;
 }
 
@@ -46,7 +47,7 @@
 
 .reading-log-labels {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+  grid-template-columns: 1.5fr 1.5fr 2fr 2fr 2fr 2fr 2fr;
   place-items: center;
   place-content: center;
   font-weight: 900;
