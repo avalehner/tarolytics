@@ -1,5 +1,27 @@
+.tracker-input-page-container::before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 1050px 1250px at 50% 500px,
+    rgb(253, 110, 0, 0.17) 8%,
+    rgb(252, 184, 107, 0.2) 24%,
+    rgb(255, 210, 127, 0.15) 32%,
+    rgb(255, 219, 164, 0.1) 61%,
+    rgb(255, 232, 212, 0.05) 72%,
+    rgb(255, 248, 22, 0) 100%,
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
 .tracker-input-page-container {
   text-align: center;
+  /* background-color: rgb(255, 252, 241, 0.3);
+  min-width: 500px;
+  max-width: 700px;
+  margin: 0 auto; */
 }
 
 .title {

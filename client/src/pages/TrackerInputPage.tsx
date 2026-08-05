@@ -109,55 +109,6 @@ const TrackerInputPage = ({
     );
   };
 
-  // const renderCardImages = (card: string, index: number) => {
-  //   const { positions, cardWidth } = spreadPositions[readingSpread];
-  //   const position = positions[pulledCards.indexOf(card)];
-  //   if (!position) return null; //skip any card without a valid position
-  //   const { x, y, rotation, labelOffset } = position;
-  //   const cardImagePath = getCardImagePath(card);
-  //   let cardRotation = rotation;
-  //   const labelRotation = cardRotation;
-  //   if (card.includes("rx")) cardRotation += 180;
-  //   const spreadType = readingSpread;
-
-  //   const labelStyle = labelOffset
-  //     ? {
-  //         position: "absolute" as const,
-  //         left: `${labelOffset.x}%`,
-  //         top: `${labelOffset.y}%`,
-  //         transform: `rotate(${labelRotation}deg)`,
-  //       }
-  //     : { transform: `rotate(${labelRotation}deg)` };
-
-  //   return (
-  //     <>
-  //       <div
-  //         className={styles["card-image-container"]}
-  //         style={{
-  //           position: "absolute",
-  //           left: `${x}%`,
-  //           top: `${y}%`,
-  //           width: `${cardWidth}%`,
-  //           // transform: `rotate(${cardRotation}deg)`,
-  //         }}
-  //       >
-  //         <img
-  //           className={styles["card-image"]}
-  //           src={`${cardImagePath}`}
-  //           style={{
-  //             //style is a React prop that accepts a JS object which is y it need 2 brackets
-  //             transform: `rotate(${cardRotation}deg)`,
-  //             width: `100%`,
-  //           }}
-  //         ></img>
-  //         <p className={styles["card-label"]} style={labelStyle}>
-  //           {spreadConfig[spreadType][index]}
-  //         </p>
-  //       </div>
-  //     </>
-  //   );
-  // };
-
   const renderCardInputs = (readingSpread: string) => {
     const labels = spreadConfig[readingSpread] || [];
 
@@ -215,11 +166,35 @@ const TrackerInputPage = ({
   };
 
   const saveReading = async () => {
+    const activeCards = inputtedCards.filter((card) => card !== "");
+
     //null guard for currentUser date (fixes possibly null type errors)
     if (!currentUser) return;
     if (!date) {
-      setMessage("Please select a date");
+      setMessage("please select a date");
       return;
+    } else if (!notes) {
+      setMessage("please input your notes");
+      return;
+    } else if (!userInterpretation) {
+      setMessage("please input your interpretation");
+      return;
+    }
+
+    if (isManual) {
+      const allPositionsFilled = spreadConfig[readingSpread].every(
+        (_, index) => inputtedCards[index] && inputtedCards[index] !== "",
+      );
+      if (!allPositionsFilled) {
+        setMessage("please select a card for every position in the spread");
+        return;
+      }
+    } else {
+      const activeCards = inputtedCards.filter((card) => card !== "");
+      if (activeCards.length === 0) {
+        setMessage("please select your cards");
+        return;
+      }
     }
 
     setSaving(true);
@@ -268,6 +243,7 @@ const TrackerInputPage = ({
       }
 
       setMessage("reading saved :)");
+      setViewReadingModal(true);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Something went wrong"; //checks if error is an error object, if it is we can access the error message, if not itll say 'Unknown error' since we dont know what was thrown. typescript doesn't know what's thrown, anything can eb thrown so we gotta make sure it's an error object
@@ -295,6 +271,8 @@ const TrackerInputPage = ({
 
   //null guards
   if (!currentUser) return null; //prevents form from flashing while auth loads
+
+  console.log("inputted cards", inputtedCards);
 
   return (
     <div className={styles["tracker-input-page-container"]}>
@@ -376,7 +354,7 @@ const TrackerInputPage = ({
               className={styles["save-reading-btn"]}
               onClick={async () => {
                 await saveReading(); //making sure the reading has been saved before showing the modal
-                setViewReadingModal(true);
+                // setViewReadingModal(true);
               }}
               disabled={saving}
             >
