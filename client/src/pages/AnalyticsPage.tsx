@@ -6,6 +6,8 @@ import {
   getNonSearchData,
   getCardSearchData,
 } from "../services/analyticsService";
+//util functions
+import { formatDate } from "../util.ts";
 //components
 import MostPulledCardsChart from "../components/MostPulledChart";
 //types
@@ -113,19 +115,21 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           // onClick={() => navigate(`/reading/${note.reading_id}`)}
         >
           <div className={styles["reading-note-headers"]}>
-            <p>{note.date}</p>
+            <p className={styles["reading-note-date"]}>
+              {formatDate(note.date)}
+            </p>
             <p className={styles["spread-type-tag"]}>{note.spread_type}</p>
           </div>
-          <p className={styles["card-position"]}>
-            Position: {note.position_name}
-          </p>
           <p className={styles["reading-note"]}>{note.notes}</p>
-          <p
-            onClick={() => navigate(`/reading/${note.reading_id}`)}
-            className={styles["navigate-to-reading"]}
-          >
-            go to reading{" "}
-          </p>
+          <div className={styles["bottom-row-note"]}>
+            <p className={styles["card-position"]}>{note.position_name}</p>
+            <p
+              onClick={() => navigate(`/reading/${note.reading_id}`)}
+              className={styles["navigate-to-reading"]}
+            >
+              go to reading {">"}
+            </p>
+          </div>
         </div>
       );
     });
@@ -151,17 +155,6 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     }));
   };
 
-  // const getPullsByMonthArr = () => {
-  //   const pullsByMonthObj = getPullsByMonth(cardSearchResults.reading_notes);
-
-  //   const chartData: ChartDataPoint[] = Object.entries(pullsByMonthObj).map(
-  //     ([month, count]) => ({
-  //       month, // e.g., "2026-05"
-  //       pulls: count, // e.g., 3
-  //     }),
-  //   );
-  // };
-
   const filteredCards = tarotCards
     .slice(0, 78)
     .filter((card) =>
@@ -172,7 +165,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
   // console.log("suit trend", suitTrend);
-  console.log("card search results", cardSearchResults);
+  // console.log("card search results", cardSearchResults);
   // if (cardSearchResults?.reading_notes) {
   //   console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
   // }

@@ -1,14 +1,6 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  // ResponsiveContainer,
-  // CartesianGrid,
-  Tooltip,
-  // Legend,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import styles from "./css/MonthlyFrequencyChart.module.css";
+import { formatMonth } from "../util";
 import type { MonthlyPullEntryType } from "../types";
 
 interface MonthlyFrequencyChartTypes {
@@ -50,6 +42,7 @@ const MonthlyFrequencyChart = ({ data }: MonthlyFrequencyChartTypes) => {
         axisLine={false}
         tickLine={false}
         tick={{ fontSize: 12 }}
+        tickFormatter={formatMonth}
       />
       <Tooltip cursor={{ fill: "rgba(0,0,0,0.04)" }} />
       <Bar

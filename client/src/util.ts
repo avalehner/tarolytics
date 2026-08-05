@@ -43,3 +43,28 @@ export const convertDayToWord = (day: number) => {
 
   return values[day - 1];
 };
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const formatDate = (dateStr: string) => {
+  const [year, month, day] = dateStr.substring(0, 10).split("-").map(Number);
+  return `${MONTHS[month - 1]} ${day}, ${year}`;
+};
+
+export const formatMonth = (monthStr: string) => {
+  const [year, month] = monthStr.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${year}`;
+};

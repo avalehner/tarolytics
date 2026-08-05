@@ -206,28 +206,44 @@
   font-size: 1rem;
 }
 
+.reading-note-date {
+  font-style: italic;
+}
+
 .card-position {
-  margin-top: 0;
+  background-color: #f7edfb;
+  border: 1px solid rgba(216, 191, 247, 0.5);
+  border-radius: 15px;
+  padding: 0.1rem 0.5rem 0.1rem;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .reading-note {
   border: 1px solid rgb(196, 85, 0, 0.2);
   border-radius: 10px;
   background-color: #ffe8d4;
-  padding: 0.5rem 1.5rem;
-  margin-bottom: 1.2rem;
+  padding: 0.5rem 1.25rem;
+  margin: 0.2rem 0 1.2rem 0;
 }
 
 .navigate-to-reading {
-  margin-left: 90%;
+  margin: 0;
   font-size: 0.8rem;
   font-style: italic;
+  /* margin: 0; */
 }
 
 .navigate-to-reading:hover {
   cursor: pointer;
   color: gray;
   transition: all 0.1s ease;
+}
+
+.bottom-row-note {
+  margin: 0.3rem 1rem 0.7rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .spread-type-tag {
