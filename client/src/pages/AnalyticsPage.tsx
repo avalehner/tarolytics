@@ -110,7 +110,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         <div
           key={index}
           className={styles["reading-note-card"]}
-          onClick={() => navigate(`/reading/${note.reading_id}`)}
+          // onClick={() => navigate(`/reading/${note.reading_id}`)}
         >
           <div className={styles["reading-note-headers"]}>
             <p>{note.date}</p>
@@ -120,6 +120,12 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
             Position: {note.position_name}
           </p>
           <p className={styles["reading-note"]}>{note.notes}</p>
+          <p
+            onClick={() => navigate(`/reading/${note.reading_id}`)}
+            className={styles["navigate-to-reading"]}
+          >
+            go to reading{" "}
+          </p>
         </div>
       );
     });

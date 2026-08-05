@@ -218,6 +218,18 @@
   margin-bottom: 1.2rem;
 }
 
+.navigate-to-reading {
+  margin-left: 90%;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.navigate-to-reading:hover {
+  cursor: pointer;
+  color: gray;
+  transition: all 0.1s ease;
+}
+
 .spread-type-tag {
   background-color: #ebffe4;
   border: 1px solid rgb(151, 180, 142, 0.6);
