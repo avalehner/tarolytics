@@ -29,6 +29,11 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
   const [saveMessage, setSaveMessage] = useState<string>("");
 
   useEffect(() => {
+    document.body.classList.add("profile-page-bg");
+    return () => document.body.classList.remove("profile-page-bg");
+  }, []);
+
+  useEffect(() => {
     if (isAuthLoading) return;
     if (!currentUser) {
       navigate("/login");
@@ -87,64 +92,76 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
   if (!currentUser) return null; //prevents form from flashing while auth loads
 
   return (
-    <div className={styles["profile-container"]}>
-      <h1>Your Profile</h1>
-      <p>name: {currentUser?.full_name}</p>
-      <p>email: {currentUser?.email}</p>
-      <div className={styles["birthday-container"]}>
-        <p>birthday:</p>
-        <DatePicker date={birthDate} setDate={setBirthDate} />
-      </div>
-      <div className={styles["birthtime-container"]}>
-        <label>birth time:</label>
-        <input
-          type="time"
-          value={birthTime}
-          onChange={(e) => setBirthTime(e.target.value)}
-        />
-      </div>
-      <div className={styles["birth-timezone-container"]}>
-        <label>timezone:</label>
-        <TimezoneSelect value={birthTimeZone} onChange={setBirthTimeZone} />
-      </div>
-      <div className={styles["birth-location-container"]}>
-        <p>birth location:</p>
-        <AsyncSelect<CityOptionTypes>
-          value={
-            birthCity
-              ? {
-                  label: birthCity,
-                  value: birthLocationObj ?? {
-                    formatted: birthCity,
-                    lat: 0, //placeholder
-                    lng: 0, //placeholder
-                  },
-                }
-              : null
-          }
-          loadOptions={loadCityOptions}
-          placeholder="search city..."
-          onChange={(selected) => {
-            if (selected) {
-              setBirthLocationObj(selected.value);
-              setBirthCity(selected.value.formatted);
+    <div className={styles["profile-page-container"]}>
+      <div className={styles["profile-container"]}>
+        <h1 className={styles["profile-header"]}>Your Profile</h1>
+        <hr className={styles["profile-border"]}></hr>
+        <div className={styles["profile-group"]}>
+          <p className={styles["profile-label"]}>name</p>
+          <p>{currentUser?.full_name}</p>
+        </div>
+        <div className={styles["profile-group"]}>
+          <p className={styles["profile-label"]}>email</p>
+          <p>{currentUser?.email}</p>
+        </div>
+        <div className={styles["birthday-container"]}>
+          <div className={styles["profile-group"]}>
+            <p className={styles["profile-label"]}>birthday</p>
+            <DatePicker date={birthDate} setDate={setBirthDate} />
+          </div>
+        </div>
+        <div className={styles["birthtime-container"]}>
+          <label className={styles["profile-label"]}>birth time</label>
+          <input
+            type="time"
+            value={birthTime}
+            onChange={(e) => setBirthTime(e.target.value)}
+          />
+        </div>
+        <div className={styles["birth-timezone-container"]}>
+          <label className={styles["profile-label"]}>timezone</label>
+          <TimezoneSelect value={birthTimeZone} onChange={setBirthTimeZone} />
+        </div>
+        <div className={styles["birth-location-container"]}>
+          <p className={styles["profile-label"]}>birth location</p>
+          <AsyncSelect<CityOptionTypes>
+            className={styles["birth-location-select"]}
+            value={
+              birthCity
+                ? {
+                    label: birthCity,
+                    value: birthLocationObj ?? {
+                      formatted: birthCity,
+                      lat: 0, //placeholder
+                      lng: 0, //placeholder
+                    },
+                  }
+                : null
             }
+            loadOptions={loadCityOptions}
+            placeholder="search city..."
+            onChange={(selected) => {
+              if (selected) {
+                setBirthLocationObj(selected.value);
+                setBirthCity(selected.value.formatted);
+              }
+            }}
+          />
+        </div>
+        <button
+          className="save-profile-btn"
+          onClick={async () => {
+            console.log("button clicked");
+            await handleSaveProfile();
           }}
-        />
-      </div>
-      <button
-        className="save-profile-btn"
-        onClick={async () => {
-          console.log("button clicked");
-          await handleSaveProfile();
-        }}
-      >
-        UPDATE PROFILE
-      </button>
+        >
+          UPDATE PROFILE
+        </button>
 
-      {/* <button>UPDATE PROFILE</button>
+        {/* <button>UPDATE PROFILE</button>
       )} */}
-      {saveMessage}
+        {saveMessage}
+      </div>
     </div>
   );
 };

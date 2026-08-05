@@ -3,17 +3,11 @@
 }
 
 .login-container {
-  /* min-height: calc(100vh - 300px); */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 10rem auto 0;
-  /* background: radial-gradient(
-    ellipse 1200px 1200px at 9% 140%,
-    rgba(194, 102, 93, 0.2),
-    transparent 60%
-  ); */
 }
 
 .welcome-text {

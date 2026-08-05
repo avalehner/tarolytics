@@ -1,8 +1,52 @@
+.profile-container {
+  margin: 5rem auto 0;
+  background-color: rgb(255, 252, 241, 0.45);
+  border-radius: 17px;
+  max-width: 32%;
+  font-family: "Libertinus Serif", serif;
+  padding: 1rem 5rem;
+}
+
+.profile-header {
+  text-align: center;
+  font-style: italic;
+  font-size: 2.7rem;
+  font-weight: 600;
+  margin-bottom: 1.3rem;
+}
+
+.profile-border {
+  width: 40%;
+  border: none;
+  border-top: 1px solid #c4a78a;
+  margin-bottom: 2rem;
+}
+
+.profile-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-label {
+  font-weight: 800;
+  font-style: italic;
+}
+
 .birthday-container {
   display: flex;
   gap: 1rem;
 }
 
-.profile-container {
-  margin: 0 2rem;
+.birth-timezone-container {
+  margin-top: 1rem;
+  display: flex;
+}
+
+.birth-location-container {
+  margin-top: 0;
+  display: flex;
+}
+
+.birth-location-select {
+  max-width: 60%;
 }
