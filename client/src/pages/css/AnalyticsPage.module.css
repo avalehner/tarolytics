@@ -1,6 +1,6 @@
 .analytics-page-container {
   width: 1200px;
-  max-width: calc(100% - 10rem);
+  max-width: calc(100% - 20rem);
   margin: auto;
 }
 
@@ -184,6 +184,10 @@
   background-color: #fff8e5;
   padding: 0.5rem 1.5rem;
   margin-bottom: 1.2rem;
+}
+
+.frequency-graph-container {
+  padding: 1rem 0 0.3rem 0;
 }
 
 .reading-note-headers {

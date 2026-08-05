@@ -18,18 +18,20 @@ interface MonthlyFrequencyChartTypes {
 const MonthlyFrequencyChart = ({ data }: MonthlyFrequencyChartTypes) => {
   return (
     <BarChart
-      width={500}
-      height={220}
+      width={100}
+      height={data.length * 65}
       data={data}
       layout="vertical"
       style={{
         width: "100%",
-        maxWidth: "700px",
+        maxWidth: "90%",
         maxHeight: "70vh",
-        aspectRatio: 1.618,
+        // aspectRatio: 1.618,
       }}
       responsive
       margin={{ top: 0, right: 16, left: 8, bottom: 0 }}
+      barCategoryGap="0%"
+      barGap="10%"
     >
       <XAxis
         type="number"
@@ -44,13 +46,20 @@ const MonthlyFrequencyChart = ({ data }: MonthlyFrequencyChartTypes) => {
         type="category"
         interval={0}
         dataKey="month"
-        width={110}
+        width={90}
         axisLine={false}
         tickLine={false}
         tick={{ fontSize: 12 }}
       />
       <Tooltip cursor={{ fill: "rgba(0,0,0,0.04)" }} />
-      <Bar dataKey="pulls" fill="#7F77DD" radius={[0, 3, 3, 0]} />
+      <Bar
+        dataKey="pulls"
+        fill="#E2E8FF"
+        stroke="#0041C4"
+        strokeWidth={0.5}
+        radius={[6, 6, 6, 6]}
+        barSize={33}
+      />
       {/* <RechartsDevtools /> */}
     </BarChart>
   );
