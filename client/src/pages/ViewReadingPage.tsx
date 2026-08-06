@@ -45,6 +45,7 @@ const ViewReadingPage = ({
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isReversals, setIsReversals] = useState<boolean>(false);
@@ -77,39 +78,74 @@ const ViewReadingPage = ({
     };
   };
 
-  const renderCardImage = (card: CardTypes, index: number) => {
+  const renderCardImage = (card: CardTypes) => {
     if (!reading) return;
-
+    const isClarifier = card.position_name === "clarifier";
     const { positions, cardWidth } = spreadPositions[reading.spread_type];
-    const position = positions[card.position_order];
-    if (!position) return null; //skip any card without a valid position
-    const { x, y, rotation, labelOffset } = position;
-    const cardImagePath = getCardImagePath(card.card_name);
-    let cardRotation = rotation;
-    const labelRotation = cardRotation;
-    if (card.card_name.includes("rx")) cardRotation += 180;
-    const spreadType = reading.spread_type;
 
-    const labelStyle = labelOffset
-      ? {
-          position: "absolute" as const,
-          left: `${labelOffset.x}%`,
-          top: `${labelOffset.y}%`,
-          transform: `rotate(${labelRotation}deg)`,
-        }
-      : { transform: `rotate(${labelRotation}deg)` };
+    let containerStyle, label, positionRotation, labelStyle;
+    if (isClarifier) {
+      containerStyle = { width: `${(cardWidth / 100) * 500}px` };
+      label = "clarifier";
+      positionRotation = 0;
+      labelStyle = {};
+    } else {
+      const position = positions[card.position_order];
+      if (!position) return null;
+      containerStyle = {
+        position: "absolute" as const,
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+        width: `${cardWidth}%`,
+      };
+      label = spreadConfig[reading.spread_type][card.position_order];
+      positionRotation = position.rotation;
+      labelStyle = position.labelOffset
+        ? {
+            position: "absolute" as const,
+            left: `${position.labelOffset.x}%`,
+            top: `${position.labelOffset.y}%`,
+            transform: `rotate(${positionRotation}deg)`,
+          }
+        : { transform: `rotate(${positionRotation}deg)` };
+    }
+
+    const cardRotation =
+      positionRotation + (card.card_name.includes("rx") ? 180 : 0);
+
+    // const position = positions[card.position_order];
+    // if (!position) return null; //skip any card without a valid position
+    // const { x, y, rotation, labelOffset } = position;
+    const cardImagePath = getCardImagePath(card.card_name);
+    // // let cardRotation = rotation;
+    // const labelRotation = cardRotation;
+    // if (card.card_name.includes("rx")) cardRotation += 180;
+    // const spreadType = reading.spread_type;
+
+    // const labelStyle = labelOffset
+    //   ? {
+    //       position: "absolute" as const,
+    //       left: `${labelOffset.x}%`,
+    //       top: `${labelOffset.y}%`,
+    //       transform: `rotate(${labelRotation}deg)`,
+    //     }
+    //   : { transform: `rotate(${labelRotation}deg)` };
 
     return (
       <div
-        key={index}
+        key={card.id}
         className={styles["card-image-container"]}
-        style={{
-          position: "absolute",
-          left: `${x}%`,
-          top: `${y}%`,
-          width: `${cardWidth}%`,
-          // transform: `rotate(${cardRotation}deg)`,
+        onPointerEnter={(e) => {
+          if (e.pointerType === "mouse") {
+            setActiveCardId(card.id);
+          }
         }}
+        onPointerLeave={(e) => {
+          if (e.pointerType === "mouse") {
+            setActiveCardId(null);
+          }
+        }}
+        style={containerStyle}
       >
         <img
           className={styles["card-image"]}
@@ -120,8 +156,14 @@ const ViewReadingPage = ({
             width: `100%`,
           }}
         ></img>
+        {/* {activeCardId === index && (
+          <div className={styles["card-popup"]}>
+
+            <p>placeholder</p>
+          </div>
+        )} */}
         <p className={styles["card-label"]} style={labelStyle}>
-          {spreadConfig[spreadType][index]}
+          {label}
         </p>
       </div>
     );
@@ -252,19 +294,19 @@ const ViewReadingPage = ({
     try {
       const randomNumber = await getRandomSequence(1, isReversals);
       const cardName = tarotCards[randomNumber[0]];
-      console.log("card name:", cardName);
+      // console.log("card name:", cardName);
 
       const updateCardRequestObj = {
         reading_id: readingId!,
         card_name: cardName,
         position_name: "clarifier",
-        position_order: cards.length + 1,
+        position_order: cards.length,
       };
 
       await saveCards(updateCardRequestObj);
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
-      console.log("pulled clarifier added");
+      // console.log("pulled clarifier added");
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
@@ -280,6 +322,10 @@ const ViewReadingPage = ({
   if (!currentUser) return null;
   if (!readingId) return null;
   if (!reading) return null; //makes sure reading is not null
+
+  // console.log("activeCardId", activeCardId);
+  console.log("cards", cards);
+  console.log("clarifies", clarifiers);
 
   return (
     <>
@@ -381,16 +427,27 @@ const ViewReadingPage = ({
         </div>
         <div className={styles["all-card-display-container"]}>
           <div className={styles["spread-display-container"]}>
-            {originalSpread.map((card, index) => renderCardImage(card, index))}
+            {originalSpread.map((card, index) => renderCardImage(card))}
           </div>
           <div className={styles["clarifier-display-container"]}>
-            <div className={styles["clarifier-container"]}>
+            {clarifiers.map((card, index) => renderCardImage(card))}
+            {/* <div className={styles["clarifier-container"]}>
               {clarifiers.map((card, index) => (
                 <div
                   key={index}
                   className={styles["clarifier-card-container"]}
                   style={{
                     width: `${spreadPositions[reading.spread_type].cardWidth}%`,
+                  }}
+                  onPointerEnter={(e) => {
+                    if (e.pointerType === "mouse") {
+                      setActiveCardIndex(card.position_order);
+                    }
+                  }}
+                  onPointerLeave={(e) => {
+                    if (e.pointerType === "mouse") {
+                      setActiveCardIndex(null);
+                    }
                   }}
                 >
                   <img
@@ -401,10 +458,15 @@ const ViewReadingPage = ({
                       transform: `rotate(${card.card_name.includes("rx") ? 180 : 0}deg)`,
                     }}
                   />
+                  {activeCardId === index && (
+                    <div className={styles["card-popup"]}>
+                      <p>placeholder</p>
+                    </div>
+                  )}
                   <p className={styles["clarifier-card-label"]}>clarifier</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
         {updateModal && (
