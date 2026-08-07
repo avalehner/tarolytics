@@ -156,7 +156,7 @@ const ReadingLogPage = ({
                   index={index}
                 />
                 <i
-                  className="fa-regular fa-x"
+                  className={`fa-regular fa-x ${styles["x-btn"]}`}
                   style={{ cursor: "pointer" }}
                   onClick={() => handleRemoveCard(index)}
                 ></i>

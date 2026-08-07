@@ -18,10 +18,6 @@
 
 .tracker-input-page-container {
   text-align: center;
-  /* background-color: rgb(255, 252, 241, 0.3);
-  min-width: 500px;
-  max-width: 700px;
-  margin: 0 auto; */
 }
 
 .title {
@@ -59,7 +55,7 @@
 .upload-picture-btn {
   border: 1px solid rgb(151, 180, 142, 0.5);
   border-radius: 9px;
-  padding: 0.8rem 1.2rem;
+  padding: 0.65rem 1.1rem;
   font-family: "Libertinus Serif", serif;
   background-color: #ebffe4;
   font-size: 1rem;
@@ -69,11 +65,20 @@
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
   border-radius: 9px;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   font-family: "Libertinus Serif", serif;
   background-color: #e2e8ff;
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem;
+}
+
+.x-btn {
+  font-size: 0.75rem;
+}
+
+.x-btn:hover {
+  color: rgb(177, 78, 78);
+  transition: all 0.1s ease;
 }
 
 .save-reading-btn:hover,
@@ -104,13 +109,11 @@
   gap: 1rem;
   justify-content: center;
   width: 30%;
-  /* height: 20%;  */
   margin: 1.5rem auto;
   padding: 2.5rem 1rem 1rem;
   background-color: #fff8e5;
   border: 1px dashed rgb(196, 85, 0, 0.6);
   border-radius: 20px;
-  /* transform: translateX(-50%) */
 }
 
 .card-image-container {

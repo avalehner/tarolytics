@@ -350,15 +350,16 @@ const ViewReadingPage = ({
               <p>{reading.user_interpretation}</p>
             </div>
           </div>
-          <div className={styles["button-container"]}>
-            <button
-              className={styles["update-reading-btn"]}
-              onClick={() => {
-                setUpdateModal(true);
-              }}
-            >
-              MANUAL UPDATE
-            </button>
+          {/* <div className={styles["button-container"]}> */}
+          <button
+            className={styles["update-reading-btn"]}
+            onClick={() => {
+              setUpdateModal(true);
+            }}
+          >
+            UPDATE
+          </button>
+          <div className={styles["pull-clarifier-container"]}>
             <button className={styles["clarifier-btn"]} onClick={pullClarifier}>
               PULL CLARIFIER
             </button>
@@ -376,6 +377,7 @@ const ViewReadingPage = ({
               </label>
             </div>
           </div>
+          {/* </div> */}
           <hr className={styles["aesthetic-divider"]} />
           <div
             className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
