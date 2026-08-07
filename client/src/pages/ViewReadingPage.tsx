@@ -101,7 +101,7 @@ const ViewReadingPage = ({
       containerStyle = {
         position: "absolute",
         left: `${position.x}%`,
-        top: `${position.y}%`,
+        top: `${(position.y / 100) * 400}px`,
         width: `${cardWidth}%`,
       };
       label = spreadConfig[reading.spread_type][card.position_order];
@@ -413,7 +413,12 @@ const ViewReadingPage = ({
           </button>
         </div>
         <div className={styles["all-card-display-container"]}>
-          <div className={styles["spread-display-container"]}>
+          <div
+            className={styles["spread-display-container"]}
+            style={{
+              height: spreadPositions[reading.spread_type].canvasHeight,
+            }}
+          >
             {originalSpread.map((card, index) => renderCardImage(card))}
           </div>
           <div className={styles["clarifier-display-container"]}>

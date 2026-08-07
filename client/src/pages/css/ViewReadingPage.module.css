@@ -3,10 +3,12 @@
   padding: 0;
 }
 
+/* reading info container */
+
 .reading-info-container {
   margin: 0rem 7rem;
   color: black;
-  width: 25%;
+  width: 45%;
   padding: 0.1px;
 }
 
@@ -107,8 +109,11 @@
   transition: all 0.1s ease;
 }
 
+/* card containers */
+
 .all-card-display-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
 }
 
@@ -119,14 +124,12 @@
 }
 
 .clarifier-display-container {
-  margin-top: 200px;
+  margin-top: 2rem;
   margin-left: 5%;
-  width: 500px;
-}
-
-.clarifier-container {
+  width: 70%;
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .clarifier-card-label {
@@ -181,6 +184,8 @@
   margin-top: 0.5rem;
 }
 
+/* update modal */
+
 .update-reading-modal {
   position: absolute;
   left: 40%;
@@ -227,10 +232,8 @@
 .all-card-inputs-container {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center;  */
   align-items: center;
   max-width: 40%;
-  /* margin:0 auto;  */
 }
 
 .delete-reading-btn {
@@ -245,6 +248,8 @@
   border: 1px solid rgb(175, 64, 64, 0);
   transition: all 0.1s ease;
 }
+
+/* delete modal */
 
 .delete-modal {
   position: absolute;
