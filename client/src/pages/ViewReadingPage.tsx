@@ -1,5 +1,5 @@
 import styles from "./css/ViewReadingPage.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {
@@ -83,9 +83,15 @@ const ViewReadingPage = ({
     const isClarifier = card.position_name === "clarifier";
     const { positions, cardWidth } = spreadPositions[reading.spread_type];
 
-    let containerStyle, label, positionRotation, labelStyle;
+    let containerStyle: CSSProperties;
+    let label: string;
+    let positionRotation: number;
+    let labelStyle: CSSProperties;
     if (isClarifier) {
-      containerStyle = { width: `${(cardWidth / 100) * 500}px` };
+      containerStyle = {
+        position: "relative",
+        width: `${(cardWidth / 100) * 500}px`,
+      };
       label = "clarifier";
       positionRotation = 0;
       labelStyle = {};
@@ -93,7 +99,7 @@ const ViewReadingPage = ({
       const position = positions[card.position_order];
       if (!position) return null;
       containerStyle = {
-        position: "absolute" as const,
+        position: "absolute",
         left: `${position.x}%`,
         top: `${position.y}%`,
         width: `${cardWidth}%`,
@@ -102,7 +108,7 @@ const ViewReadingPage = ({
       positionRotation = position.rotation;
       labelStyle = position.labelOffset
         ? {
-            position: "absolute" as const,
+            position: "absolute",
             left: `${position.labelOffset.x}%`,
             top: `${position.labelOffset.y}%`,
             transform: `rotate(${positionRotation}deg)`,
@@ -113,23 +119,7 @@ const ViewReadingPage = ({
     const cardRotation =
       positionRotation + (card.card_name.includes("rx") ? 180 : 0);
 
-    // const position = positions[card.position_order];
-    // if (!position) return null; //skip any card without a valid position
-    // const { x, y, rotation, labelOffset } = position;
     const cardImagePath = getCardImagePath(card.card_name);
-    // // let cardRotation = rotation;
-    // const labelRotation = cardRotation;
-    // if (card.card_name.includes("rx")) cardRotation += 180;
-    // const spreadType = reading.spread_type;
-
-    // const labelStyle = labelOffset
-    //   ? {
-    //       position: "absolute" as const,
-    //       left: `${labelOffset.x}%`,
-    //       top: `${labelOffset.y}%`,
-    //       transform: `rotate(${labelRotation}deg)`,
-    //     }
-    //   : { transform: `rotate(${labelRotation}deg)` };
 
     return (
       <div
@@ -156,12 +146,11 @@ const ViewReadingPage = ({
             width: `100%`,
           }}
         ></img>
-        {/* {activeCardId === index && (
+        {activeCardId === card.id && (
           <div className={styles["card-popup"]}>
-
             <p>placeholder</p>
           </div>
-        )} */}
+        )}
         <p className={styles["card-label"]} style={labelStyle}>
           {label}
         </p>
@@ -294,7 +283,6 @@ const ViewReadingPage = ({
     try {
       const randomNumber = await getRandomSequence(1, isReversals);
       const cardName = tarotCards[randomNumber[0]];
-      // console.log("card name:", cardName);
 
       const updateCardRequestObj = {
         reading_id: readingId!,
@@ -306,7 +294,6 @@ const ViewReadingPage = ({
       await saveCards(updateCardRequestObj);
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
-      // console.log("pulled clarifier added");
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
@@ -323,9 +310,9 @@ const ViewReadingPage = ({
   if (!readingId) return null;
   if (!reading) return null; //makes sure reading is not null
 
-  // console.log("activeCardId", activeCardId);
-  console.log("cards", cards);
-  console.log("clarifies", clarifiers);
+  console.log("activeCardId", activeCardId);
+  // console.log("cards", cards);
+  // console.log("clarifies", clarifiers);
 
   return (
     <>
@@ -431,42 +418,6 @@ const ViewReadingPage = ({
           </div>
           <div className={styles["clarifier-display-container"]}>
             {clarifiers.map((card, index) => renderCardImage(card))}
-            {/* <div className={styles["clarifier-container"]}>
-              {clarifiers.map((card, index) => (
-                <div
-                  key={index}
-                  className={styles["clarifier-card-container"]}
-                  style={{
-                    width: `${spreadPositions[reading.spread_type].cardWidth}%`,
-                  }}
-                  onPointerEnter={(e) => {
-                    if (e.pointerType === "mouse") {
-                      setActiveCardIndex(card.position_order);
-                    }
-                  }}
-                  onPointerLeave={(e) => {
-                    if (e.pointerType === "mouse") {
-                      setActiveCardIndex(null);
-                    }
-                  }}
-                >
-                  <img
-                    className={styles["card-image"]}
-                    src={`${getCardImagePath(card.card_name)}`}
-                    style={{
-                      width: "100%",
-                      transform: `rotate(${card.card_name.includes("rx") ? 180 : 0}deg)`,
-                    }}
-                  />
-                  {activeCardId === index && (
-                    <div className={styles["card-popup"]}>
-                      <p>placeholder</p>
-                    </div>
-                  )}
-                  <p className={styles["clarifier-card-label"]}>clarifier</p>
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
         {updateModal && (

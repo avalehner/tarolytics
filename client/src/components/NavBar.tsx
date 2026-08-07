@@ -19,9 +19,9 @@ const NavBar = ({ currentUser }: NavBarProps) => {
         <li>
           <NavLink to="/analytics">ANALYTICS</NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/astrology">ASTROLOGY</NavLink>
-        </li>
+        </li> */}
       </ul>
       <ul className={styles["nav-right"]}>
         {currentUser ? (
