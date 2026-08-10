@@ -7,10 +7,11 @@
 }
 
 .analytics-page-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 600;
   font-style: italic;
   text-align: center;
+  font-family: "Pamela";
 }
 
 .searched-card-stats-container,

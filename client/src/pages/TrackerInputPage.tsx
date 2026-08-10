@@ -136,7 +136,7 @@ const TrackerInputPage = ({
                     index={index}
                   />
                 </div>
-                <div className={styles["reading-notes"]}>
+                <div className={styles["card-position"]}>
                   <input
                     type="text"
                     value={customReadingSpreadPositions[index] || ""}
@@ -309,19 +309,22 @@ const TrackerInputPage = ({
       </div>
       {!isManual && !isCardsPulled && (
         <div>
-          <div className={styles["toggle-container"]}>
-            <label className={styles["toggle"]}>
-              <span className={styles["toggle-label"]}>no reversals</span>
-              <input
-                type="checkbox"
-                checked={isReversals}
-                onChange={(e) => setIsReversals(e.target.checked)}
-                className={styles["toggle-input"]}
-              />
-              <span className={styles["toggle-slider"]} />
-              <span className={styles["toggle-label"]}>reversals</span>
-            </label>
-          </div>
+          {readingSpread !== "custom" && (
+            <div className={styles["toggle-container"]}>
+              <label className={styles["toggle"]}>
+                <span className={styles["toggle-label"]}>no reversals</span>
+
+                <input
+                  type="checkbox"
+                  checked={isReversals}
+                  onChange={(e) => setIsReversals(e.target.checked)}
+                  className={styles["toggle-input"]}
+                />
+                <span className={styles["toggle-slider"]} />
+                <span className={styles["toggle-label"]}>reversals</span>
+              </label>
+            </div>
+          )}
           <button
             className={styles["save-reading-btn"]}
             onClick={() => setIsManual(true)}

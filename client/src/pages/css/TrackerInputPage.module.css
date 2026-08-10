@@ -35,16 +35,28 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  max-width: 40%;
+  max-width: 30%;
   margin: 0 auto;
 }
 
 .reading-notes input {
   border: 1px solid rgb(193, 153, 205, 0.6);
-  border-radius: 9px;
-  padding: 12px;
+  border-radius: 7px;
+  padding: 8px 10px;
   font-family: "Libertinus Serif", serif;
   width: 250px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fffefa;
+  margin: 0.6rem 0;
+}
+
+.card-position input {
+  border: 1px solid rgb(193, 153, 205, 0.6);
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-family: "Libertinus Serif", serif;
+  width: 150px;
   text-align: center;
   font-size: 1rem;
   background-color: #fffefa;
@@ -54,7 +66,7 @@
 .save-reading-btn,
 .upload-picture-btn {
   border: 1px solid rgb(151, 180, 142, 0.5);
-  border-radius: 9px;
+  border-radius: 7px;
   padding: 0.65rem 1.1rem;
   font-family: "Libertinus Serif", serif;
   background-color: #ebffe4;
@@ -64,7 +76,7 @@
 
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: 9px;
+  border-radius: 7px;
   padding: 0.5rem 1rem;
   font-family: "Libertinus Serif", serif;
   background-color: #e2e8ff;
@@ -74,6 +86,7 @@
 
 .x-btn {
   font-size: 0.75rem;
+  margin-left: 8px;
 }
 
 .x-btn:hover {
@@ -138,7 +151,7 @@
 
 .view-reading-btn,
 .submit-another-btn {
-  border-radius: 9px;
+  border-radius: 7px;
   padding: 0.8rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   font-size: 1rem;

@@ -1,11 +1,17 @@
 .reading-log-page-container {
   text-align: center;
+  overflow-y: hidden;
+  color: #201105;
 }
 
 .title {
-  font-family: "Libertinus Serif", serif;
+  font-family: "Pamela";
   font-style: italic;
-  margin: 4rem 0 1.7rem;
+  margin: 2rem 0 0.7rem;
+  font-size: 3rem;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
 }
 
 .search-bar-container {
