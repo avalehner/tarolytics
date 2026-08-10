@@ -35,6 +35,8 @@ const TrackerInputPage = ({
   const [customReadingTopic, setCustomReadingTopic] = useState<string>("");
   const [readingSpread, setReadingSpread] = useState<string>("top-bottom");
   const [customReadingSpread, setCustomReadingSpread] = useState<string>("");
+  const [customReadingSpreadPositions, setCustomReadingSpreadPositions] =
+    useState<string[]>([""]);
   const [inputtedCards, setInputtedCards] = useState<string[]>([""]);
   const [pulledCards, setPulledCards] = useState<string[]>([""]);
   const [notes, setNotes] = useState<string>("");
@@ -60,21 +62,15 @@ const TrackerInputPage = ({
   const pullCards = async () => {
     try {
       setIsCardsPulled(true);
-      if (readingSpread === "custom") {
-        console.log("custom");
-      } else {
-        const numberOfCards = spreadConfig[readingSpread].length;
-        const randomSequence = await getRandomSequence(
-          numberOfCards,
-          isReversals,
-        );
-        console.log(randomSequence.length);
-        const cardNames = randomSequence.map(
-          (number) => tarotCards[number - 1],
-        );
-        setPulledCards(cardNames);
-        console.log("pulled cards", cardNames);
-      }
+      const numberOfCards = spreadConfig[readingSpread].length;
+      const randomSequence = await getRandomSequence(
+        numberOfCards,
+        isReversals,
+      );
+      // console.log(randomSequence.length);
+      const cardNames = randomSequence.map((number) => tarotCards[number - 1]);
+      setPulledCards(cardNames);
+      // console.log("pulled cards", cardNames);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
@@ -132,12 +128,28 @@ const TrackerInputPage = ({
           <div className={styles["all-card-inputs-container"]}>
             {inputtedCards.map((_, index) => (
               <div key={index} className={styles["card-input-container"]}>
-                <CardInput
-                  cards={inputtedCards}
-                  setCards={setInputtedCards}
-                  label="select card"
-                  index={index}
-                />
+                <div className={styles["reading-notes"]}>
+                  <CardInput
+                    cards={inputtedCards}
+                    setCards={setInputtedCards}
+                    label="select card"
+                    index={index}
+                  />
+                </div>
+                <div className={styles["reading-notes"]}>
+                  <input
+                    type="text"
+                    value={customReadingSpreadPositions[index] || ""}
+                    placeholder="position"
+                    onChange={(e) =>
+                      setCustomReadingSpreadPositions((currentPositions) => {
+                        const updated = [...currentPositions];
+                        updated[index] = e.target.value;
+                        return updated;
+                      })
+                    }
+                  />
+                </div>
                 <i
                   className={`fa-regular fa-x ${styles["x-btn"]}`}
                   style={{ cursor: "pointer" }}
@@ -166,8 +178,6 @@ const TrackerInputPage = ({
   };
 
   const saveReading = async () => {
-    const activeCards = inputtedCards.filter((card) => card !== "");
-
     //null guard for currentUser date (fixes possibly null type errors)
     if (!currentUser) return;
     if (!date) {
@@ -191,7 +201,7 @@ const TrackerInputPage = ({
       }
     } else {
       const activeCards = inputtedCards.filter((card) => card !== "");
-      if (activeCards.length === 0) {
+      if (isManual && activeCards.length === 0) {
         setMessage("please select your cards");
         return;
       }
@@ -204,8 +214,7 @@ const TrackerInputPage = ({
       reading_date: date?.toISOString() ?? null, //converts
       reading_topic:
         readingTopic === "custom" ? customReadingTopic : readingTopic,
-      spread_type:
-        readingSpread === "custom" ? customReadingSpread : readingSpread,
+      spread_type: readingSpread,
       notes: notes,
       user_interpretation: userInterpretation,
     };
@@ -222,7 +231,7 @@ const TrackerInputPage = ({
             card_name: card,
             position_name:
               readingSpread === "custom"
-                ? null
+                ? customReadingSpreadPositions[index]
                 : spreadConfig[readingSpread][index],
             position_order: index,
           };
@@ -272,7 +281,7 @@ const TrackerInputPage = ({
   //null guards
   if (!currentUser) return null; //prevents form from flashing while auth loads
 
-  console.log("inputted cards", inputtedCards);
+  // console.log("inputted cards", inputtedCards);
 
   return (
     <div className={styles["tracker-input-page-container"]}>
@@ -319,9 +328,11 @@ const TrackerInputPage = ({
           >
             ENTER MANUALLY
           </button>
-          <button className={styles["save-reading-btn"]} onClick={pullCards}>
-            PULL CARDS
-          </button>
+          {readingSpread !== "custom" && (
+            <button className={styles["save-reading-btn"]} onClick={pullCards}>
+              PULL CARDS
+            </button>
+          )}
           {/* <button className={styles["upload-picture-btn"]}>
             UPLOAD PICTURE
           </button> */}

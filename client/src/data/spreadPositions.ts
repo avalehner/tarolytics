@@ -62,6 +62,11 @@ const spreadPositions: Record<
     ],
     canvasHeight: 900,
   },
+  // custom: {
+  //   cardWidth: 40,
+  //   positions: [],
+  //   canvasHeight: 500,
+  // },
 };
 
 export default spreadPositions;

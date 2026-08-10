@@ -78,25 +78,35 @@ const ViewReadingPage = ({
     };
   };
 
-  const renderCardImage = (card: CardTypes) => {
+  const renderCardImage = (card: CardTypes, index: number) => {
     if (!reading) return;
+    const isCustom = reading.spread_type === "custom";
     const isClarifier = card.position_name === "clarifier";
-    const { positions, cardWidth } = spreadPositions[reading.spread_type];
+    const isFlowCard = isClarifier || isCustom;
+
+    const spreadLayout = spreadPositions[reading.spread_type]; // undefined for custom
+    const cardWidth = spreadLayout?.cardWidth ?? 30; //fallback width for custom
+
+    // const { positions, cardWidth } = spreadPositions[reading.spread_type];
 
     let containerStyle: CSSProperties;
     let label: string;
     let positionRotation: number;
     let labelStyle: CSSProperties;
-    if (isClarifier) {
+    if (isFlowCard) {
+      //clarifiers or custom reading
       containerStyle = {
         position: "relative",
         width: `${(cardWidth / 100) * 500}px`,
       };
-      label = "clarifier";
+      label = isClarifier
+        ? (clarifiers[index]?.position_name ?? "clarifier")
+        : (cards[index]?.position_name ?? "clarifier");
       positionRotation = 0;
       labelStyle = {};
     } else {
-      const position = positions[card.position_order];
+      //original spread or non custom reading
+      const position = spreadLayout?.positions[card.position_order];
       if (!position) return null;
       containerStyle = {
         position: "absolute",
@@ -304,15 +314,18 @@ const ViewReadingPage = ({
     (card) => card.position_name !== "clarifier",
   );
   const clarifiers = cards.filter((card) => card.position_name === "clarifier");
+  console.log("clarifiers", clarifiers);
 
   if (isAuthLoading) return null;
   if (!currentUser) return null;
   if (!readingId) return null;
   if (!reading) return null; //makes sure reading is not null
 
-  console.log("activeCardId", activeCardId);
+  // console.log("activeCardId", activeCardId);
   // console.log("cards", cards);
   // console.log("clarifies", clarifiers);
+  // console.log("reading", reading);
+  console.log("cards", cards);
 
   return (
     <>
@@ -415,16 +428,26 @@ const ViewReadingPage = ({
           </button>
         </div>
         <div className={styles["all-card-display-container"]}>
-          <div
-            className={styles["spread-display-container"]}
-            style={{
-              height: spreadPositions[reading.spread_type].canvasHeight,
-            }}
-          >
-            {originalSpread.map((card, index) => renderCardImage(card))}
-          </div>
+          {reading.spread_type === "custom" ? (
+            <div className={styles["clarifier-display-container"]}>
+              {originalSpread.map((card, index) =>
+                renderCardImage(card, index),
+              )}
+            </div>
+          ) : (
+            <div
+              className={styles["spread-display-container"]}
+              style={{
+                height: spreadPositions[reading.spread_type].canvasHeight,
+              }}
+            >
+              {originalSpread.map((card, index) =>
+                renderCardImage(card, index),
+              )}
+            </div>
+          )}
           <div className={styles["clarifier-display-container"]}>
-            {clarifiers.map((card, index) => renderCardImage(card))}
+            {clarifiers.map((card, index) => renderCardImage(card, index))}
           </div>
         </div>
         {updateModal && (
