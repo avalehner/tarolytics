@@ -168,3 +168,16 @@ export interface MonthlyPullEntryType {
   month: string;
   pulls: number;
 }
+
+export interface TarotCardTypes {
+  card_name: string;
+  meanings: {
+    upright: string;
+    reversed: string;
+  };
+  number: number | null;
+  card_links: string | null;
+  astrological_sign: string | null;
+  element: string;
+  wikipedia_link: string;
+}

@@ -21,7 +21,7 @@ import spreadPositions from "../data/spreadPositions";
 import topicLabels from "../data/topicLabels";
 import spreadLabels from "../data/spreadLabels";
 import spreadConfig from "../data/spreadConfig";
-import tarotCards from "../data/tarotCards";
+import { tarotCards } from "../data/tarotCards";
 
 interface ViewReadingPageProps {
   currentUser: UserTypes | null;
@@ -292,7 +292,7 @@ const ViewReadingPage = ({
   const pullClarifier = async () => {
     try {
       const randomNumber = await getRandomSequence(1, isReversals);
-      const cardName = tarotCards[randomNumber[0]];
+      const cardName = tarotCards[randomNumber[0]].card_name;
 
       const updateCardRequestObj = {
         reading_id: readingId!,

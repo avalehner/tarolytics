@@ -13,7 +13,7 @@ import ReadingSpreadMenu from "../components/ReadingSpreadMenu";
 import CardInput from "../components/CardInput";
 //data imports
 import spreadConfig from "../data/spreadConfig";
-import tarotCards from "../data/tarotCards";
+import { tarotCardNames } from "../data/tarotCards";
 import spreadPositions from "../data/spreadPositions";
 //types
 import { ReadingTypes, UserTypes } from "../types";
@@ -68,7 +68,9 @@ const TrackerInputPage = ({
         isReversals,
       );
       // console.log(randomSequence.length);
-      const cardNames = randomSequence.map((number) => tarotCards[number - 1]);
+      const cardNames = randomSequence.map(
+        (number) => tarotCardNames[number - 1],
+      );
       setPulledCards(cardNames);
       // console.log("pulled cards", cardNames);
     } catch (error) {

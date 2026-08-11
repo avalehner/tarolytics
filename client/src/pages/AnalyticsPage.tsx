@@ -24,7 +24,7 @@ import type {
 //styles
 import styles from "./css/AnalyticsPage.module.css";
 import SuitTrendChart from "../components/SuitTrendChart";
-import tarotCards from "../data/tarotCards";
+import { tarotCardNames } from "../data/tarotCards";
 import MonthlyFrequencyChart from "../components/MonthlyFrequencyChart";
 
 interface AnalyticsPageProps {
@@ -155,7 +155,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     }));
   };
 
-  const filteredCards = tarotCards
+  const filteredCards = tarotCardNames
     .slice(0, 78)
     .filter((card) =>
       card.toLowerCase().includes(cardSearchInput.toLowerCase()),

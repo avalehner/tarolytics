@@ -1,5 +1,5 @@
 import styles from "./css/CardInput.module.css";
-import tarotCards from "../data/tarotCards";
+import { tarotCards, tarotCardNames } from "../data/tarotCards";
 import { useRef, useEffect } from "react";
 
 interface CardInputProps {
@@ -39,7 +39,7 @@ const CardInput = ({
 
   const getFilteredCards = (index: number) => {
     const otherSelectedCards = cards.filter((_, i) => i !== index);
-    const availableCards = tarotCards.filter(
+    const availableCards = tarotCardNames.filter(
       (cardName) =>
         !otherSelectedCards.includes(cardName) &&
         !excludedCards?.includes(cardName),
