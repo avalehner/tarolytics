@@ -158,11 +158,11 @@ const ViewReadingPage = ({
         ></img>
         {activeCardId === card.id && (
           <div className={styles["card-popup"]}>
-            <p>Upright:</p>
+            <p className={styles["upright-label"]}>Upright:</p>
             <p className={styles["upright-meaning"]}>
               {cardMeaning?.card.meanings.upright}
             </p>
-            <p>Reversed:</p>
+            <p className={styles["reversed-label"]}>Reversed:</p>
             <p className={styles["reversed-meaning"]}>
               {cardMeaning?.card.meanings.reversed}
             </p>

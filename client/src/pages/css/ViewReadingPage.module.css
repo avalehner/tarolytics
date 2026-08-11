@@ -7,9 +7,20 @@
 
 .reading-info-container {
   margin: 0rem 4rem 0rem 7rem;
-  color: black;
+  color: #201105;
   width: 45%;
   padding: 0.1px;
+  position: relative;
+}
+
+.reading-info-container::after {
+  content: "";
+  position: absolute;
+  right: -3%;
+  top: 175px; /* Adjusts vertical position */
+  height: 81%; /* Controls the exact height of the "border" */
+  width: 0.8px; /* Controls the border thickness */
+  background: #201105; /* Controls the border color */
 }
 
 .month-day-container {
@@ -36,7 +47,7 @@
 .aesthetic-divider {
   width: 8.5%;
   margin: 0.8rem 0 0;
-  border-bottom: 0.5px;
+  border-bottom: 0.2px;
 }
 
 .spread-container,
@@ -214,6 +225,12 @@
   justify-content: center;
 }
 
+.upright-label,
+.reversed-label {
+  font-weight: 600;
+  margin: 0;
+}
+
 .card-popup {
   position: absolute;
   background-color: #fff8e5;
@@ -223,22 +240,8 @@
   z-index: 20;
   width: 200px;
   border-radius: 0.4em;
+  padding: 1rem;
 }
-
-/* .card-popup:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 20px solid transparent;
-  border-right-color: #fff8e5;
-  border-left: 0;
-  border-bottom: 0;
-  margin-top: -10px;
-  margin-left: -20px;
-} */
 
 .card-label {
   margin-top: 0.5rem;
