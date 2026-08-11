@@ -14,7 +14,7 @@ analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
         (SELECT COUNT(*)
         FROM readings WHERE user_id = $1) AS total_readings, 
 
-        (SELECT COUNT(DISTINCT card_name) 
+        (SELECT COUNT(DISTINCT REGEXP_REPLACE(card_name, ' rx$', ''))
         FROM cards JOIN readings ON cards.reading_id = readings.id 
         WHERE readings.user_id = $1) AS unique_cards, 
         
@@ -30,13 +30,13 @@ analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
       `;
 
     const mostPulledQuery = `
-      SELECT card_name, COUNT(*) AS pull_count
+      SELECT REGEXP_REPLACE(card_name, ' rx$', '') AS card_name, COUNT(*) AS pull_count
       FROM cards
       JOIN readings ON cards.reading_id = readings.id
       WHERE readings.user_id = $1
-      GROUP BY card_name
+      GROUP BY REGEXP_REPLACE(card_name, ' rx$', '')
       ORDER BY pull_count DESC
-      LIMIT 10;
+      LIMIT 6;
     `;
 
     const suitTrendQuery = `
@@ -56,20 +56,33 @@ analyticsRouter.get("/", requireAuth, async (req: Request, res: Response) => {
       ORDER BY year ASC, month_num ASC;
     `;
 
+    const readingsPerMonthQuery = `
+    SELECT
+      TO_CHAR(reading_date, 'YYYY-MM') AS month,
+      COUNT(*) AS readings
+    FROM readings
+    WHERE user_id = $1
+    GROUP BY TO_CHAR(reading_date, 'YYYY-MM')
+    ORDER BY month ASC;
+    `;
+
     // COUNT(*) returns the total number of rows in a table or filtered result set
     // :: shorthand operator for data type casting
     // JOIN combine columns from two or more tables into a single result set based on a related column between them
 
-    const [summaryStats, mostPulled, suitTrend] = await Promise.all([
-      pool.query(combinedStatsQuery, [userId]),
-      pool.query(mostPulledQuery, [userId]),
-      pool.query(suitTrendQuery, [userId]),
-    ]);
+    const [summaryStats, mostPulled, suitTrend, pullsPerMonth] =
+      await Promise.all([
+        pool.query(combinedStatsQuery, [userId]),
+        pool.query(mostPulledQuery, [userId]),
+        pool.query(suitTrendQuery, [userId]),
+        pool.query(readingsPerMonthQuery, [userId]),
+      ]);
 
     const data = {
       summary_stats: summaryStats.rows[0],
       most_pulled: mostPulled.rows,
       suit_trend: suitTrend.rows,
+      readings_per_month: pullsPerMonth.rows,
     };
 
     res.status(200).json(data);

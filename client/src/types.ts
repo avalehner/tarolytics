@@ -141,6 +141,7 @@ export interface NonSearchDataTypes {
   summary_stats: SummaryStatsTypes;
   most_pulled: MostPulledTypes[];
   suit_trend: SuitTrendTypes[];
+  readings_per_month: ReadingsPerMonthTypes[];
 }
 
 export interface CardSearchNotesTypes {
@@ -180,4 +181,9 @@ export interface TarotCardTypes {
   astrological_sign: string | null;
   element: string;
   wikipedia_link: string;
+}
+
+export interface ReadingsPerMonthTypes {
+  month: string;
+  readings: number;
 }

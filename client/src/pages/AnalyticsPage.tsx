@@ -20,6 +20,7 @@ import type {
   CardSearchNotesTypes,
   PullsPerMonthTypes,
   MonthlyPullEntryType,
+  ReadingsPerMonthTypes,
 } from "../types";
 //styles
 import styles from "./css/AnalyticsPage.module.css";
@@ -38,6 +39,9 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     null,
   );
   const [mostPulled, setMostPulled] = useState<MostPulledTypes[] | null>(null);
+  const [readingsPerMonth, setReadingsPerMonth] = useState<
+    ReadingsPerMonthTypes[] | null
+  >(null);
   const [suitTrend, setSuitTrend] = useState<SuitTrendTypes[] | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [cardSearchInput, setCardSearchInput] = useState<string>("");
@@ -64,6 +68,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           pull_count: Number(item.pull_count),
         })),
       );
+      setReadingsPerMonth(data.readings_per_month);
       setSuitTrend(
         data.suit_trend.map((item: any) => ({
           ...item,
@@ -155,19 +160,55 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     }));
   };
 
+  const getStatDetails = () => {
+    if (!readingsPerMonth) return;
+    const previousMonthsReadings = Number(
+      readingsPerMonth[readingsPerMonth.length - 2].readings,
+    );
+
+    const currentMonthsReadings = Number(
+      readingsPerMonth[readingsPerMonth.length - 1].readings,
+    );
+
+    const readingRate = (
+      (currentMonthsReadings / previousMonthsReadings) *
+      100
+    ).toFixed(0);
+    const isReadingRatePositive = Number(readingRate) > 0 ? true : false;
+    const unseenCards = 78 - Number(summaryStats?.unique_cards);
+    const majorArcanaPercentage = (
+      Number(summaryStats?.major_arcana_pct) - 28
+    ).toFixed(0);
+    const isMajorArcanaPercentagePositive =
+      Number(majorArcanaPercentage) > 0 ? true : false;
+
+    return {
+      reading_rate: [readingRate, isReadingRatePositive],
+      unseen_cards: unseenCards,
+      major_arcana_percentage: [
+        majorArcanaPercentage,
+        isMajorArcanaPercentagePositive,
+      ],
+    };
+  };
+
   const filteredCards = tarotCardNames
     .slice(0, 78)
     .filter((card) =>
       card.toLowerCase().includes(cardSearchInput.toLowerCase()),
     );
 
+  console.log("readings", readingsPerMonth);
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
   // console.log("most pulled", mostPulled);
   // console.log("suit trend", suitTrend);
   // console.log("card search results", cardSearchResults);
   // if (cardSearchResults?.reading_notes) {
-  //   console.log(typeof getPullsByMonth(cardSearchResults.reading_notes));
+  //   console.log(
+  //     "pulls by month",
+  //     getPullsByMonth(cardSearchResults.reading_notes),
+  //   );
   // }
 
   //null guards
@@ -180,19 +221,26 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>total readings</p>
           <p className={styles["stat"]}>{summaryStats?.total_readings}</p>
-          <p className={styles["stat-detail"]}>[detail]</p>
+          <p className={styles["stat-detail"]}>
+            {getStatDetails()?.reading_rate[1] ? "up " : "down "}
+            {getStatDetails()?.reading_rate[0]}% from last month
+          </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>unique cards seen</p>
           <p className={styles["stat"]}>{summaryStats?.unique_cards}</p>
           <p className={styles["stat-detail"]}>
-            {78 - Number(summaryStats?.unique_cards)} unseen
+            {getStatDetails()?.unseen_cards} unseen
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>major arcana share</p>
-          <p className={styles["stat"]}>{summaryStats?.major_arcana_pct}/78</p>
-          <p className={styles["stat-detail"]}>[detail]</p>
+          <p className={styles["stat"]}>{summaryStats?.major_arcana_pct}%</p>
+          <p className={styles["stat-detail"]}>
+            {getStatDetails()?.major_arcana_percentage[0]}%{" "}
+            {getStatDetails()?.major_arcana_percentage[1] ? "above " : "below "}{" "}
+            average
+          </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>avg pulls/week</p>
