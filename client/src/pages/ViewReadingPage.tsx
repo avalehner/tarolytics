@@ -21,7 +21,7 @@ import spreadPositions from "../data/spreadPositions";
 import topicLabels from "../data/topicLabels";
 import spreadLabels from "../data/spreadLabels";
 import spreadConfig from "../data/spreadConfig";
-import { tarotCards } from "../data/tarotCards";
+import { tarotCards, getCardInfo } from "../data/tarotCards";
 
 interface ViewReadingPageProps {
   currentUser: UserTypes | null;
@@ -87,8 +87,6 @@ const ViewReadingPage = ({
     const spreadLayout = spreadPositions[reading.spread_type]; // undefined for custom
     const cardWidth = spreadLayout?.cardWidth ?? 30; //fallback width for custom
 
-    // const { positions, cardWidth } = spreadPositions[reading.spread_type];
-
     let containerStyle: CSSProperties;
     let label: string;
     let positionRotation: number;
@@ -130,7 +128,9 @@ const ViewReadingPage = ({
       positionRotation + (card.card_name.includes("rx") ? 180 : 0);
 
     const cardImagePath = getCardImagePath(card.card_name);
+    const cardMeaning = getCardInfo(card.card_name);
 
+    console.log("card", card);
     return (
       <div
         key={card.id}
@@ -158,7 +158,14 @@ const ViewReadingPage = ({
         ></img>
         {activeCardId === card.id && (
           <div className={styles["card-popup"]}>
-            <p>placeholder</p>
+            <p>Upright:</p>
+            <p className={styles["upright-meaning"]}>
+              {cardMeaning?.card.meanings.upright}
+            </p>
+            <p>Reversed:</p>
+            <p className={styles["reversed-meaning"]}>
+              {cardMeaning?.card.meanings.reversed}
+            </p>
           </div>
         )}
         <p className={styles["card-label"]} style={labelStyle}>
@@ -314,7 +321,6 @@ const ViewReadingPage = ({
     (card) => card.position_name !== "clarifier",
   );
   const clarifiers = cards.filter((card) => card.position_name === "clarifier");
-  console.log("clarifiers", clarifiers);
 
   if (isAuthLoading) return null;
   if (!currentUser) return null;
@@ -325,7 +331,6 @@ const ViewReadingPage = ({
   // console.log("cards", cards);
   // console.log("clarifies", clarifiers);
   // console.log("reading", reading);
-  console.log("cards", cards);
 
   return (
     <>

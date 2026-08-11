@@ -225,7 +225,7 @@
   border-radius: 0.4em;
 }
 
-.card-popup:after {
+/* .card-popup:after {
   content: "";
   position: absolute;
   left: 0;
@@ -238,7 +238,7 @@
   border-bottom: 0;
   margin-top: -10px;
   margin-left: -20px;
-}
+} */
 
 .card-label {
   margin-top: 0.5rem;

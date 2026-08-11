@@ -1096,3 +1096,15 @@ export const tarotCardNames: string[] = [
   ...tarotCards.map((c) => c.card_name),
   ...tarotCards.map((c) => `${c.card_name} rx`),
 ];
+
+//a Map instance gets its own methods (like .get which we use in getCardInfo)
+//the functino inside map returns a two element array with the cards name and the cards entire object
+const cardsByName = new Map(tarotCards.map((c) => [c.card_name, c]));
+
+export const getCardInfo = (rawName: string) => {
+  const isReversed = rawName.endsWith(" rx");
+  const baseName = isReversed ? rawName.slice(0, -3) : rawName; //everything except the last three elements
+  const card = cardsByName.get(baseName);
+  if (!card) return null;
+  return { card, isReversed };
+};
