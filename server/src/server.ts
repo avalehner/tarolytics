@@ -15,7 +15,7 @@ const app: Express = express(); //creates app instance: the request handling log
 
 //middleware
 app.use(express.json()); //parses incoming JSON request bodies from the front end (only does this if req has a body)
-app.use(cors({ origin: "http://localhost:5173", credentials: true })); //tells express to only allow requests from the vite dev server, credentials true for cookie parser
+app.use(cors({ origin: `${process.env.CLIENT_URL}`, credentials: true })); //tells express to only allow requests from the vite dev server, credentials true for cookie parser
 app.use(cookieParser());
 
 //routes

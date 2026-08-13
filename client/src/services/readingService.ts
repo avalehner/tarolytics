@@ -6,7 +6,7 @@ import {
 } from "../types";
 
 export const getAllReadings = async (): Promise<ReadingTypes[]> => {
-  const response = await fetch("http://localhost:3000/api/readings/", {
+  const response = await fetch("/api/readings/", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include", //for auth
@@ -23,14 +23,11 @@ export const getAllReadings = async (): Promise<ReadingTypes[]> => {
 export const getReadingByReadingId = async (
   readingId: string,
 ): Promise<ReadingTypes> => {
-  const response = await fetch(
-    `http://localhost:3000/api/readings/${readingId}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include", //for auth
-    },
-  );
+  const response = await fetch(`/api/readings/${readingId}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", //for auth
+  });
   if (!response.ok)
     throw new Error(
       `Server error [getReadingById - readingService.ts]: ${response.status}`,
@@ -43,7 +40,7 @@ export const getReadingByReadingId = async (
 export const getReadingsByUserId = async (): Promise<
   ReadingWithCardTypes[]
 > => {
-  const response = await fetch(`http://localhost:3000/api/readings/user/`, {
+  const response = await fetch(`/api/readings/user/`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include", //for auth
@@ -60,7 +57,7 @@ export const getReadingsByUserId = async (): Promise<
 export const createReading = async (
   data: NewReadingTypes,
 ): Promise<ReadingTypes> => {
-  const response = await fetch("http://localhost:3000/api/readings/", {
+  const response = await fetch("/api/readings/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data), //convert data from object to string
@@ -79,15 +76,12 @@ export const updateReadingById = async (
   readingId: string,
   data: UpdateReadingTypes,
 ): Promise<ReadingTypes> => {
-  const response = await fetch(
-    `http://localhost:3000/api/readings/${readingId}`,
-    {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      credentials: "include",
-    },
-  );
+  const response = await fetch(`/api/readings/${readingId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+    credentials: "include",
+  });
   if (!response.ok)
     throw new Error(
       `Server error [updateReadingById - readingService.ts]: ${response.status}`,
@@ -98,14 +92,11 @@ export const updateReadingById = async (
 };
 
 export const deletedReadingById = async (readingId: string | undefined) => {
-  const response = await fetch(
-    `http://localhost:3000/api/readings/${readingId}`,
-    {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include", //for auth
-    },
-  );
+  const response = await fetch(`/api/readings/${readingId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", //for auth
+  });
 
   if (!response.ok)
     throw new Error(
@@ -119,14 +110,11 @@ export const deletedReadingById = async (readingId: string | undefined) => {
 export const interpretReadingById = async (
   readingId: string,
 ): Promise<string> => {
-  const response = await fetch(
-    `http://localhost:3000/api/readings/${readingId}/interpret`,
-    {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      credentials: "include",
-    },
-  );
+  const response = await fetch(`/api/readings/${readingId}/interpret`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    credentials: "include",
+  });
 
   if (!response.ok)
     throw new Error(
@@ -141,15 +129,12 @@ export const saveAIInterpretation = async (
   readingId: string,
   interpretation: Object,
 ): Promise<ReadingTypes> => {
-  const response = await fetch(
-    `http://localhost:3000/api/readings/${readingId}/ai-interpretation`,
-    {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(interpretation),
-      credentials: "include",
-    },
-  );
+  const response = await fetch(`/api/readings/${readingId}/ai-interpretation`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(interpretation),
+    credentials: "include",
+  });
 
   if (!response.ok)
     throw new Error(

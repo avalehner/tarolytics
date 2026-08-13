@@ -3,7 +3,7 @@ import { CardTypes, NewCardTypes, UpdateCardTypes } from "../types";
 export const getCardsByReadingId = async (
   readingId: string,
 ): Promise<CardTypes[]> => {
-  const response = await fetch(`http://localhost:3000/api/cards/${readingId}`, {
+  const response = await fetch(`/api/cards/${readingId}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include", //for auth
@@ -18,7 +18,7 @@ export const getCardsByReadingId = async (
 };
 
 export const getAllCards = async (): Promise<CardTypes[]> => {
-  const response = await fetch(`http://localhost:3000/api/cards/`, {
+  const response = await fetch(`/api/cards/`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include", //for auth
@@ -33,7 +33,7 @@ export const getAllCards = async (): Promise<CardTypes[]> => {
 };
 
 export const saveCards = async (data: NewCardTypes): Promise<CardTypes> => {
-  const response = await fetch("http://localhost:3000/api/cards/", {
+  const response = await fetch("/api/cards/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -52,7 +52,7 @@ export const updateCardsByReadingId = async (
   readingId: string,
   data: UpdateCardTypes,
 ): Promise<CardTypes> => {
-  const response = await fetch(`http://localhost:3000/api/cards/${readingId}`, {
+  const response = await fetch(`/api/cards/${readingId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

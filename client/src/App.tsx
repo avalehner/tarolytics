@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const fetchUser = async (): Promise<void> => {
       try {
-        const response = await fetch("http://localhost:3000/auth/me", {
+        const response = await fetch("/auth/me", {
           method: "GET",
           credentials: "include", //sending cookie
         });

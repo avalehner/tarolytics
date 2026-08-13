@@ -1,7 +1,7 @@
 import type { NonSearchDataTypes, CardSearchTypes } from "../types";
 
 export const getNonSearchData = async (): Promise<NonSearchDataTypes> => {
-  const response = await fetch(`http://localhost:3000/api/analytics/`, {
+  const response = await fetch(`/api/analytics/`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -21,8 +21,8 @@ export const getCardSearchData = async (
   timePeriod: number | null,
 ): Promise<CardSearchTypes> => {
   const url = timePeriod
-    ? `http://localhost:3000/api/analytics/card-search?cardName=${encodeURIComponent(cardName)}&period=${timePeriod}`
-    : `http://localhost:3000/api/analytics/card-search?cardName=${encodeURIComponent(cardName)}`;
+    ? `/api/analytics/card-search?cardName=${encodeURIComponent(cardName)}&period=${timePeriod}`
+    : `/api/analytics/card-search?cardName=${encodeURIComponent(cardName)}`;
 
   const response = await fetch(`${url}`, {
     method: "GET",

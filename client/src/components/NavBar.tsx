@@ -30,7 +30,7 @@ const NavBar = ({ currentUser }: NavBarProps) => {
               <NavLink to="/profile">PROFILE</NavLink>
             </li>
             <li>
-              <NavLink to="http://localhost:3000/auth/logout/">LOG OUT</NavLink>
+              <a href="/auth/logout/">LOG OUT</a>
             </li>
           </>
         ) : (

@@ -4,7 +4,7 @@ export const saveProfileData = async (
   userId: string,
   userProfile: UserProfileTypes,
 ): Promise<UserTypes> => {
-  const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+  const response = await fetch(`/api/users/${userId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userProfile),

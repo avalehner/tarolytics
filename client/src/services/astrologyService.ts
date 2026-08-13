@@ -5,7 +5,7 @@ export const getAstrologyData = async (): Promise<{
   planetsData: PlanetTypes[];
   interpretations: any;
 }> => {
-  const response = await fetch(`http://localhost:3000/api/astrology/`, {
+  const response = await fetch(`/api/astrology/`, {
     method: "GET",
     headers: { "content-type": "application/json" },
     credentials: "include",

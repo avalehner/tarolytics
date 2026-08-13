@@ -12,9 +12,13 @@ const authRouter = Router();
 //fetch: how you send outgoing requests to another server. its a tool for making http requests
 
 //send user to google auth url, returns user to a url with a code
+
+const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
+const CLIENT_URL = process.env.CLIENT_URL;
+
 authRouter.get("/google", async (req: Request, res: Response) => {
   try {
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=http://localhost:3000/auth/google/callback&response_type=code&scope=profile%20email`;
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=profile%20email`;
 
     res.redirect(url);
   } catch (error) {
@@ -34,7 +38,7 @@ authRouter.get("/google/callback", async (req: Request, res: Response) => {
       body: new URLSearchParams({
         code: `${authenticationCode}`,
         client_id: `${process.env.GOOGLE_OAUTH_CLIENT_ID}`,
-        redirect_uri: `http://localhost:3000/auth/google/callback`,
+        redirect_uri: `${REDIRECT_URI}`,
         grant_type: "authorization_code",
         client_secret: `${process.env.GOOGLE_OAUTH_CLIENT_SECRET}`,
       }),
@@ -90,10 +94,10 @@ authRouter.get("/google/callback", async (req: Request, res: Response) => {
     res.cookie("authToken", `${token}`, {
       httpOnly: true,
       sameSite: "lax",
-      secure: false, //false for local development (HTTP)
+      secure: process.env.NODE_ENV === "production", //false for local development (HTTP)
     });
 
-    res.redirect("http://localhost:5173/");
+    res.redirect(`${CLIENT_URL}`);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Error";
     res.status(500).json({ error: message });
@@ -130,7 +134,7 @@ authRouter.get("/me", async (req: Request, res: Response) => {
 
 authRouter.get("/logout", async (req: Request, res: Response) => {
   res.clearCookie("authToken"); //clears jwt token
-  res.redirect("http://localhost:5173/login"); //redirects to login page
+  res.redirect(`${CLIENT_URL}/login`); //redirects to login page
 });
 
 export default authRouter;
