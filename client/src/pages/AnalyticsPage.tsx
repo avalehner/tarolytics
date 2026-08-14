@@ -161,7 +161,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   };
 
   const getStatDetails = () => {
-    if (!readingsPerMonth) return;
+    if (!readingsPerMonth || readingsPerMonth.length < 2) return;
     const previousMonthsReadings = Number(
       readingsPerMonth[readingsPerMonth.length - 2].readings,
     );
@@ -170,10 +170,9 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
       readingsPerMonth[readingsPerMonth.length - 1].readings,
     );
 
-    const readingRate = (
-      (currentMonthsReadings / previousMonthsReadings) *
-      100
-    ).toFixed(0);
+    const readingRate = previousMonthsReadings
+      ? ((currentMonthsReadings / previousMonthsReadings) * 100).toFixed(0)
+      : "0";
     const isReadingRatePositive = Number(readingRate) > 0 ? true : false;
     const unseenCards = 78 - Number(summaryStats?.unique_cards);
     const majorArcanaPercentage = (
@@ -192,17 +191,18 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
     };
   };
 
+  const statDetails = getStatDetails();
   const filteredCards = tarotCardNames
     .slice(0, 78)
     .filter((card) =>
       card.toLowerCase().includes(cardSearchInput.toLowerCase()),
     );
 
-  console.log("readings", readingsPerMonth);
+  // console.log("readings", readingsPerMonth);
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
-  // console.log("most pulled", mostPulled);
-  // console.log("suit trend", suitTrend);
+  console.log("most pulled", mostPulled);
+  console.log("suit trend", suitTrend);
   // console.log("card search results", cardSearchResults);
   // if (cardSearchResults?.reading_notes) {
   //   console.log(
@@ -222,29 +222,41 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           <p className={styles["stat-title"]}>total readings</p>
           <p className={styles["stat"]}>{summaryStats?.total_readings}</p>
           <p className={styles["stat-detail"]}>
-            {getStatDetails()?.reading_rate[1] ? "up " : "down "}
-            {getStatDetails()?.reading_rate[0]}% from last month
+            {statDetails
+              ? `${statDetails.reading_rate[1] ? "up " : "down "} ${statDetails.reading_rate[0]} % from last month`
+              : "N/A - not enought data"}
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>unique cards seen</p>
           <p className={styles["stat"]}>{summaryStats?.unique_cards}</p>
           <p className={styles["stat-detail"]}>
-            {getStatDetails()?.unseen_cards} unseen
+            {statDetails
+              ? `${statDetails.unseen_cards} unseen`
+              : "N/A - not enought data"}
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>major arcana share</p>
-          <p className={styles["stat"]}>{summaryStats?.major_arcana_pct}%</p>
+          <p className={styles["stat"]}>
+            {summaryStats.major_arcana_pct
+              ? summaryStats.major_arcana_pct
+              : "0"}
+            %
+          </p>
           <p className={styles["stat-detail"]}>
-            {getStatDetails()?.major_arcana_percentage[0]}%{" "}
-            {getStatDetails()?.major_arcana_percentage[1] ? "above " : "below "}{" "}
-            average
+            {statDetails
+              ? `${statDetails.major_arcana_percentage[0]}% ${statDetails.major_arcana_percentage[1] ? "above" : "below "} average`
+              : "N/A - not enought data"}
+            {/* {getStatDetails()?.major_arcana_percentage[0]}%{" "}
+            {getStatDetails()?.major_arcana_percentage[1] ? "above " : "below "}{" "} */}
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>avg pulls/week</p>
-          <p className={styles["stat"]}>{summaryStats?.avg_per_week}</p>
+          <p className={styles["stat"]}>
+            {summaryStats.avg_per_week ? summaryStats.avg_per_week : "0"}
+          </p>
           <p className={styles["stat-detail"]}>all time</p>
         </div>
       </div>
@@ -371,20 +383,33 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         )}
       </div>
       <div className={styles["charts"]}>
-        <div className={styles["most-pulled-cards-container"]}>
-          <h3 className={styles["chart-title"]}>Most pulled cards</h3>
-          <p className={styles["chart-subtitle"]}>by total pull count</p>
-          <div className={styles["chart-container"]}>
-            <MostPulledCardsChart mostPulled={mostPulled} />
-          </div>
-        </div>
-        <div className={styles["suit-trend-container"]}>
-          <h3 className={styles["chart-title"]}>Suit trend</h3>
-          <p className={styles["chart-subtitle"]}>share of pulls</p>
-          <div className={styles["chart-container"]}>
-            <SuitTrendChart suitTrend={suitTrend} />
-          </div>
-        </div>
+        {mostPulled.length > 0 && suitTrend.length > 0 ? (
+          <>
+            <div className={styles["most-pulled-cards-container"]}>
+              <h3 className={styles["chart-title"]}>Most pulled cards</h3>
+              <p className={styles["chart-subtitle"]}>by total pull count</p>
+              <div className={styles["chart-container"]}>
+                <MostPulledCardsChart mostPulled={mostPulled} />
+              </div>
+            </div>
+            <div className={styles["suit-trend-container"]}>
+              <h3 className={styles["chart-title"]}>Suit trend</h3>
+              <p className={styles["chart-subtitle"]}>share of pulls</p>
+              <div className={styles["chart-container"]}>
+                <SuitTrendChart suitTrend={suitTrend} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <p>
+            Two graphs will display here showing your most pulled cards and the
+            proportion of each suit you are pulling once you've entered a fewx
+            readings. Click here to{" "}
+            <a href="/" className={styles["enter-reading-link"]}>
+              enter a reading.
+            </a>
+          </p>
+        )}
       </div>
     </div>
   );

@@ -288,6 +288,23 @@
   gap: 1.3rem;
 }
 
+.charts:has(> p) {
+  display: block;
+}
+
+.charts p {
+  font-size: 1.1rem;
+}
+
+.enter-reading-link {
+  font-weight: 600;
+  color: rgba(45, 142, 16, 0.65);
+}
+
+.enter-reading-link:hover {
+  cursor: pointer;
+}
+
 .most-pulled-cards-container,
 .suit-trend-container {
   width: 440px;

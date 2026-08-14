@@ -1,17 +1,7 @@
 //types
 import type { MostPulledTypes } from "../types";
 //recharts imports
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
-// import { RechartsDevtools } from "@recharts/devtools";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
 interface MostPulledChartTypes {
   mostPulled: MostPulledTypes[];
@@ -20,16 +10,14 @@ interface MostPulledChartTypes {
 const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
   // console.log("most pulled component", mostPulled);
   return (
-    // <ResponsiveContainer width="100%" height={220}>
     <BarChart
       width={100}
-      height={mostPulled.length * 40}
+      height={mostPulled.length > 0 ? mostPulled.length * 40 : 260}
       data={mostPulled}
       layout="vertical"
       style={{
         width: "95%",
         maxWidth: "500px",
-        // maxHeight: "70vh",
         aspectRatio: 1.618,
       }}
       responsive
@@ -62,9 +50,7 @@ const MostPulledChart = ({ mostPulled }: MostPulledChartTypes) => {
         radius={[6, 6, 6, 6]}
         barSize={25}
       />
-      {/* <RechartsDevtools /> */}
     </BarChart>
-    // </ResponsiveContainer>
   );
 };
 
