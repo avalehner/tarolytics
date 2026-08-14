@@ -67,12 +67,10 @@ const TrackerInputPage = ({
         numberOfCards,
         isReversals,
       );
-      // console.log(randomSequence.length);
       const cardNames = randomSequence.map(
         (number) => tarotCardNames[number - 1],
       );
       setPulledCards(cardNames);
-      // console.log("pulled cards", cardNames);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
@@ -338,9 +336,6 @@ const TrackerInputPage = ({
               PULL CARDS
             </button>
           )}
-          {/* <button className={styles["upload-picture-btn"]}>
-            UPLOAD PICTURE
-          </button> */}
         </div>
       )}
 
@@ -370,15 +365,11 @@ const TrackerInputPage = ({
               className={styles["save-reading-btn"]}
               onClick={async () => {
                 await saveReading(); //making sure the reading has been saved before showing the modal
-                // setViewReadingModal(true);
               }}
               disabled={saving}
             >
               {saving ? "Saving..." : "SAVE READING"}
             </button>
-            {/* <button className={styles["upload-picture-btn"]}>
-            UPLOAD PICTURE
-          </button> */}
             {message && <p>{message}</p>}
           </div>
           {/* pull cards logic */}
@@ -389,15 +380,6 @@ const TrackerInputPage = ({
               )}
             </div>
           )}
-          {/* {isCardsPulled && readingSpread === 'celtic' 
-            ? (
-            <div className={styles["spread-display-container"]}>
-              {pulledCards.map((card, index) => renderCardImages(card, index))}
-            </div>) 
-            : (<div className={styles["spread-display-container"]}>
-              {pulledCards.map((card, index) => renderCardImagesV2(card, index))}
-            </div>)   
-          } */}
         </>
       )}
       {viewReadingModal && (
