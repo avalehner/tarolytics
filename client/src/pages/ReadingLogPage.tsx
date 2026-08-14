@@ -114,7 +114,7 @@ const ReadingLogPage = ({
         <div className={styles["no-readings-msg"]}>
           <p>
             You haven't entered any readings yet! Your history will appear here
-            when you being tracking your readings.
+            when you begin tracking your readings.
           </p>
           <p>
             Click here to{" "}
