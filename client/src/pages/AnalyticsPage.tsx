@@ -49,6 +49,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
   const [timePeriodInput, setTimePeriodInput] = useState<number | null>(null);
   const [cardSearchResults, setCardSearchResults] =
     useState<CardSearchTypes | null>(null);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   //useEffects
@@ -198,11 +199,11 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
       card.toLowerCase().includes(cardSearchInput.toLowerCase()),
     );
 
-  // console.log("readings", readingsPerMonth);
+  console.log("readings", readingsPerMonth);
   // console.log("current user", currentUser);
   // console.log("summary stats", summaryStats);
-  console.log("most pulled", mostPulled);
-  console.log("suit trend", suitTrend);
+  // console.log("most pulled", mostPulled);
+  // console.log("suit trend", suitTrend);
   // console.log("card search results", cardSearchResults);
   // if (cardSearchResults?.reading_notes) {
   //   console.log(
@@ -262,6 +263,16 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
       </div>
       <div className={styles["card-search-container"]}>
         <h3 className={styles["search-title"]}>Search</h3>
+        {readingsPerMonth?.length === 0 ? (
+          <p className={styles["enter-a-reading"]}>
+            Enter a reading to use the card search. Click here to{" "}
+            <a href="/" className={styles["enter-reading-link"]}>
+              enter a reading
+            </a>{" "}
+          </p>
+        ) : (
+          ""
+        )}
         <div ref={dropdownRef} className={styles["search-container"]}>
           <div className={styles["search-dropdown"]}>
             <input
@@ -321,6 +332,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
                 handleCardSearch(cardSearchInput, timePeriodInput);
                 setCurrentSearchedCard(cardSearchInput);
               }}
+              disabled={readingsPerMonth?.length === 0 ? true : false}
             >
               SEARCH
             </button>
@@ -403,10 +415,10 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
         ) : (
           <p>
             Two graphs will display here showing your most pulled cards and the
-            proportion of each suit you are pulling once you've entered a fewx
+            proportion of each suit you are pulling once you've entered a few
             readings. Click here to{" "}
             <a href="/" className={styles["enter-reading-link"]}>
-              enter a reading.
+              enter a reading
             </a>
           </p>
         )}
