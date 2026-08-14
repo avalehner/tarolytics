@@ -14,6 +14,21 @@
   text-align: center;
 }
 
+.no-readings-msg {
+  margin-top: 2.3rem;
+  font-size: 1.3rem;
+}
+
+.no-readings-msg a {
+  font-weight: 600;
+  color: rgba(45, 142, 16, 0.65);
+}
+.no-readings-msg a:hover {
+  cursor: pointer;
+  color: rgba(28, 64, 16, 0.65);
+  transition: ease-in 0.1s;
+}
+
 .search-bar-container {
   display: flex;
   justify-content: center;

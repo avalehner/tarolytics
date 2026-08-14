@@ -110,73 +110,93 @@ const ReadingLogPage = ({
   return (
     <div className={styles["reading-log-page-container"]}>
       <h1 className={styles["title"]}>History</h1>
-      <div className={styles["search-bar-container"]}>
-        <p className={styles["search-label"]}>search by:</p>
-        <SearchMenu
-          searchCategory={searchCategory}
-          setSearchCategory={setSearchCategory}
-        />
-        {searchCategory === "date" && (
-          <DatePicker date={date} setDate={setDate} />
-        )}
-        {searchCategory === "reading-topic" && (
-          <ReadingTopicMenu
-            readingTopic={readingTopic}
-            setReadingTopic={setReadingTopic}
-            customReadingTopic={customReadingTopic}
-            setCustomReadingTopic={setCustomReadingTopic}
-          />
-        )}
-        {searchCategory === "spread-type" && (
-          <ReadingSpreadMenu
-            readingSpread={readingSpread}
-            setReadingSpread={setReadingSpread}
-            customReadingSpread={customReadingSpread}
-            setCustomReadingSpread={setCustomReadingSpread}
-          />
-        )}
-        {searchCategory === "cards" && (
-          <button
-            className={styles["add-card-btn"]}
-            onClick={() => setSearchCards([...searchCards, ""])}
-          >
-            ADD CARD
-          </button>
-        )}
-      </div>
-      {searchCategory === "cards" && (
+      {readings.length === 0 ? (
+        <div className={styles["no-readings-msg"]}>
+          <p>
+            You haven't entered any readings yet! Your history will appear here
+            when you being tracking your readings.
+          </p>
+          <p>
+            Click here to{" "}
+            <a href="/" className={styles["enter-reading-link"]}>
+              enter a reading
+            </a>
+          </p>
+        </div>
+      ) : (
         <>
-          <div className={styles["all-card-inputs-container"]}>
-            {searchCards.map((_, index) => (
-              <div key={index} className={styles["search-card-input-wrapper"]}>
-                <CardInput
-                  cards={searchCards}
-                  setCards={setSearchCards}
-                  label="select card"
-                  index={index}
-                />
-                <i
-                  className={`fa-regular fa-x ${styles["x-btn"]}`}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleRemoveCard(index)}
-                ></i>
+          <div className={styles["search-bar-container"]}>
+            <p className={styles["search-label"]}>search by:</p>
+            <SearchMenu
+              searchCategory={searchCategory}
+              setSearchCategory={setSearchCategory}
+            />
+            {searchCategory === "date" && (
+              <DatePicker date={date} setDate={setDate} />
+            )}
+            {searchCategory === "reading-topic" && (
+              <ReadingTopicMenu
+                readingTopic={readingTopic}
+                setReadingTopic={setReadingTopic}
+                customReadingTopic={customReadingTopic}
+                setCustomReadingTopic={setCustomReadingTopic}
+              />
+            )}
+            {searchCategory === "spread-type" && (
+              <ReadingSpreadMenu
+                readingSpread={readingSpread}
+                setReadingSpread={setReadingSpread}
+                customReadingSpread={customReadingSpread}
+                setCustomReadingSpread={setCustomReadingSpread}
+              />
+            )}
+            {searchCategory === "cards" && (
+              <button
+                className={styles["add-card-btn"]}
+                onClick={() => setSearchCards([...searchCards, ""])}
+              >
+                ADD CARD
+              </button>
+            )}
+          </div>
+          {searchCategory === "cards" && (
+            <>
+              <div className={styles["all-card-inputs-container"]}>
+                {searchCards.map((_, index) => (
+                  <div
+                    key={index}
+                    className={styles["search-card-input-wrapper"]}
+                  >
+                    <CardInput
+                      cards={searchCards}
+                      setCards={setSearchCards}
+                      label="select card"
+                      index={index}
+                    />
+                    <i
+                      className={`fa-regular fa-x ${styles["x-btn"]}`}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleRemoveCard(index)}
+                    ></i>
+                  </div>
+                ))}
               </div>
-            ))}
+            </>
+          )}
+          <div className={styles["reading-log-labels"]}>
+            <p>DATE</p>
+            <p>TOPIC</p>
+            <p>SPREAD</p>
+            <p>CARDS</p>
+            <p>NOTES</p>
+            <p>INTERPRETATION</p>
+            <p>AI INTERPRETATION</p>
+          </div>
+          <div className={styles["reading-log-container"]}>
+            {renderReadingLogs()}
           </div>
         </>
       )}
-      <div className={styles["reading-log-labels"]}>
-        <p>DATE</p>
-        <p>TOPIC</p>
-        <p>SPREAD</p>
-        <p>CARDS</p>
-        <p>NOTES</p>
-        <p>INTERPRETATION</p>
-        <p>AI INTERPRETATION</p>
-      </div>
-      <div className={styles["reading-log-container"]}>
-        {renderReadingLogs()}
-      </div>
     </div>
   );
 };
