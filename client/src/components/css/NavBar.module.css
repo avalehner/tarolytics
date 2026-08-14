@@ -28,3 +28,8 @@ nav a:hover {
   list-style-type: none;
   gap: 36px;
 }
+
+.nav-left li,
+.nav-right li {
+  font-size: 1.18rem;
+}
