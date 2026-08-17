@@ -353,22 +353,24 @@ const ViewReadingPage = ({
           <hr className={styles["aesthetic-divider"]} />
           <div className={styles["details-container"]}>
             <div className={styles["topic-container"]}>
-              <p>topic:</p>
-              <p>
+              <p className={styles["detail-label"]}>Topic:</p>
+              <p className={styles["detail"]}>
                 {topicLabels[reading.reading_topic] || reading.reading_topic}
               </p>
             </div>
             <div className={styles["spread-container"]}>
-              <p>spread:</p>
-              <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
+              <p className={styles["detail-label"]}>Spread:</p>
+              <p className={styles["detail"]}>
+                {spreadLabels[reading.spread_type] || reading.spread_type}
+              </p>
             </div>
             <div className={styles["notes-container"]}>
-              <p>notes:</p>
-              <p>{reading.notes}</p>
+              <p className={styles["detail-label"]}>Notes:</p>
+              <p className={styles["detail"]}>{reading.notes}</p>
             </div>
             <div className={styles["notes-container"]}>
-              <p>your interpretation:</p>
-              <p>{reading.user_interpretation}</p>
+              <p className={styles["detail-label"]}>Your interpretation:</p>
+              <p className={styles["detail"]}>{reading.user_interpretation}</p>
             </div>
           </div>
           {/* <div className={styles["button-container"]}> */}

@@ -2,7 +2,7 @@
   width: 1200px;
   max-width: calc(100% - 200rem);
   min-width: 1000px;
-  margin: auto;
+  margin: 0 auto;
   color: #201105;
 }
 
@@ -12,6 +12,7 @@
   font-style: italic;
   text-align: center;
   font-family: "Pamela";
+  margin-top: 2rem;
 }
 
 .searched-card-stats-container,

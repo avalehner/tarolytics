@@ -61,6 +61,18 @@
 .notes-container p,
 .topic-container p {
   margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.detail-label {
+  font-weight: 600;
+  /* color: rgb(40, 96, 23); */
+}
+
+.detail {
+  font-weight: 600;
+
+  color: rgb(40, 96, 23);
 }
 
 .details-container {
@@ -110,6 +122,12 @@
   gap: 20px;
   cursor: pointer;
   margin: 0.5rem 0 0;
+}
+
+.toggle-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  /* color: rgb(40, 96, 23); */
 }
 
 .toggle-input {
@@ -244,7 +262,7 @@
   left: 105%;
   top: 0;
   z-index: 20;
-  width: 200px;
+  width: 300px;
   border-radius: 0.4em;
   padding: 1rem;
 }
