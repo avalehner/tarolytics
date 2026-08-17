@@ -1,2 +1,32 @@
 .how-to-page-container {
+  /* text-align: center; */
+  font-size: 1.3rem;
+  width: 1200px;
+  max-width: calc(100% - 250rem);
+  min-width: 1000px;
+  margin: auto;
+  color: #201105;
+}
+
+.welcome-text {
+  text-align: center;
+  margin-bottom: 2.3rem;
+}
+
+.welcome {
+  font-family: "Pamela";
+  font-size: 3rem;
+  margin: 1.5rem;
+  text-align: center;
+}
+
+.bold {
+  font-weight: 600;
+  color: rgba(21, 92, 0, 0.65);
+  text-align: left;
+}
+
+.link {
+  color: rgb(164, 132, 196);
+  font-weight: 600;
 }
