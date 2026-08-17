@@ -7,6 +7,7 @@ import ViewReadingPage from "./pages/ViewReadingPage";
 import LoginPage from "./pages/LoginPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import AstrologyChartPage from "./pages/AstrologyChartPage";
+import HowToPage from "./pages/HowToPage";
 import ProfilePage from "./pages/ProfilePage";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -81,6 +82,15 @@ function App() {
           path="/reading/:readingId"
           element={
             <ViewReadingPage
+              currentUser={currentUser}
+              isAuthLoading={isAuthLoading}
+            />
+          }
+        />
+        <Route
+          path="/how-to"
+          element={
+            <HowToPage
               currentUser={currentUser}
               isAuthLoading={isAuthLoading}
             />

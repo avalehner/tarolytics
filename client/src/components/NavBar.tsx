@@ -27,6 +27,9 @@ const NavBar = ({ currentUser }: NavBarProps) => {
         {currentUser ? (
           <>
             <li>
+              <NavLink to="/how-to">HOW TO</NavLink>
+            </li>
+            <li>
               <NavLink to="/profile">PROFILE</NavLink>
             </li>
             <li>
