@@ -42,8 +42,8 @@ const ViewReadingPage = ({
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
-  const [updateModal, setUpdateModal] = useState<boolean>(true);
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [updateModal, setUpdateModal] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(true);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -240,8 +240,8 @@ const ViewReadingPage = ({
       const updatedCards = await getCardsByReadingId(readingId!);
       setCards(updatedCards);
       setReading(updatedReading);
-      setUpdatedNotes(updatedReading.notes);
-      setUpdatedUserInterpretation(updatedReading.user_interpretation);
+      // setUpdatedNotes(updatedReading.notes);
+      // setUpdatedUserInterpretation(updatedReading.user_interpretation);
       setUpdateMessage("reading updated :)");
     } catch (error) {
       const message =
@@ -249,6 +249,9 @@ const ViewReadingPage = ({
       setUpdateMessage(message);
     } finally {
       setIsUpdating(false);
+      setUpdateModal(false);
+      setUpdateMessage("");
+      setAddedCards([]);
     }
   };
 
@@ -256,7 +259,7 @@ const ViewReadingPage = ({
     try {
       const deletedReading = await deletedReadingById(readingId);
       setDeleteMessage("reading deleted :)");
-      navigate("/analytics");
+      navigate("/history");
       return deletedReading;
     } catch (error) {
       const message =
@@ -497,22 +500,24 @@ const ViewReadingPage = ({
         {deleteModal && (
           <div className={styles["delete-modal"]}>
             <p>are you sure you want to delete this reading?</p>
-            <button
-              className={styles["yes-delete-btn"]}
-              onClick={() => {
-                deleteReading(readingId!);
-              }}
-            >
-              YES
-            </button>
-            <button
-              className={styles["no-delete-btn"]}
-              onClick={() => {
-                setDeleteModal(false);
-              }}
-            >
-              NO
-            </button>
+            <div className={styles["delete-modal-btns-container"]}>
+              <button
+                className={styles["yes-delete-btn"]}
+                onClick={() => {
+                  deleteReading(readingId!);
+                }}
+              >
+                YES
+              </button>
+              <button
+                className={styles["no-delete-btn"]}
+                onClick={() => {
+                  setDeleteModal(false);
+                }}
+              >
+                NO
+              </button>
+            </div>
             {deleteMessage && <p>{deleteMessage}</p>}
           </div>
         )}
