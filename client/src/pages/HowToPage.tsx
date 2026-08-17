@@ -77,6 +77,12 @@ const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
         reading. However, I found it difficult to fully capture the reading in a
         way that would allow me to look back and understand my state of mind.
       </p>
+      <p>
+        I built Tarolytics to solve that problem and as a tool to further aid in
+        the self-discovery that I access through tarot. I'm hoping you find it
+        useful for your practice, enjoy :)
+      </p>
+      <p>- Ava</p>
     </div>
   );
 };
