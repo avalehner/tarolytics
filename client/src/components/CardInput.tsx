@@ -14,7 +14,7 @@ const CardInput = ({
   cards,
   setCards,
   label,
-  index,
+  index, 
   excludedCards,
 }: CardInputProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);

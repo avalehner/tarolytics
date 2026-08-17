@@ -42,7 +42,7 @@ const ViewReadingPage = ({
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
-  const [updateModal, setUpdateModal] = useState<boolean>(false);
+  const [updateModal, setUpdateModal] = useState<boolean>(true);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteMessage, setDeleteMessage] = useState<string>("");
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -201,7 +201,7 @@ const ViewReadingPage = ({
                 excludedCards={cards.map((card) => card.card_name)}
               />
               <i
-                className="fa-regular fa-x"
+                className={`fa-regular fa-x ${styles["x-btn"]}`}
                 style={{ cursor: "pointer" }}
                 onClick={() => handleRemoveCard(index)}
               ></i>
@@ -456,38 +456,42 @@ const ViewReadingPage = ({
           </div>
         </div>
         {updateModal && (
-          <div className={styles["update-reading-modal"]}>
+          <div className={styles["update-reading-modal-container"]}>
             <i
-              className="fa-regular fa-x"
-              style={{ cursor: "pointer" }}
+              className={`fa-regular fa-x ${styles["x-btn"]}`}
+              style={{ marginLeft: "98%" }}
               onClick={() => setUpdateModal(false)}
             ></i>
-            <div className={styles["reading-notes"]}>
-              <input
-                type="text"
-                value={updatedNotes}
-                placeholder="notes"
-                onChange={(e) => setUpdatedNotes(e.target.value)}
-              />
+            <div className={styles["update-reading-modal-contents"]}>
+              <div className={styles["reading-notes"]}>
+                <input
+                  type="text"
+                  value={updatedNotes}
+                  placeholder="notes"
+                  onChange={(e) => setUpdatedNotes(e.target.value)}
+                />
+              </div>
+              <div className={styles["reading-notes"]}>
+                <input
+                  type="text"
+                  //inputs current value
+                  value={updatedUserInterpretation}
+                  placeholder="interpretation"
+                  onChange={(e) => setUpdatedUserInterpretation(e.target.value)}
+                />
+              </div>
+              {renderCardInputsForUpdate()}
+              <button
+                className={styles["update-reading-btn-modal"]}
+                onClick={updateReadingAndCards}
+                disabled={isUpdating}
+              >
+                {isUpdating ? "Updating..." : "UPDATE READING"}
+              </button>
+              {updateMessage && (
+                <p className={styles["update-msg"]}>{updateMessage}</p>
+              )}
             </div>
-            <div className={styles["reading-notes"]}>
-              <input
-                type="text"
-                //inputs current value
-                value={updatedUserInterpretation}
-                placeholder="interpretation"
-                onChange={(e) => setUpdatedUserInterpretation(e.target.value)}
-              />
-            </div>
-            {renderCardInputsForUpdate()}
-            <button
-              className={styles["save-interpretation-btn"]}
-              onClick={updateReadingAndCards}
-              disabled={isUpdating}
-            >
-              {isUpdating ? "Updating..." : "UPDATE READING"}
-            </button>
-            {updateMessage && <p>{updateMessage}</p>}
           </div>
         )}
         {deleteModal && (
