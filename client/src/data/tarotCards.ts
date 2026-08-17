@@ -5,7 +5,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Fool",
     meanings: {
       upright:
-        "The Fool is the card of beginnings--of new adventures and goals. This is a time for discovery and to follow ideals, proviing you consider the potential risks. There may be danfer in rushing ahead too quickly, so you may need to plan--or look--before you take your leap of faith.",
+        "The Fool is the card of beginnings--of new adventures and goals. This is a time for discovery and to follow ideals, providing you consider the potential risks. There may be danger in rushing ahead too quickly, so you may need to plan--or look--before you take your leap of faith.",
       reversed:
         "The reversed Fool can indicate the dangers of an idiotic decision; it is best to hold back and consider the options.",
     },
@@ -19,7 +19,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Magician",
     meanings: {
       upright:
-        "The Magician signifies action, so now is the time to begin a new project. At work you take the lead or benegit from strong leadership, and in your personal projects you discover a new creative path. If you are looking for a relationship, this is the time to meet someone new;in a fledgling romance, love develops as you make plans.",
+        "The Magician signifies action, so now is the time to begin a new project. At work you take the lead or benefit from strong leadership, and in your personal projects you discover a new creative path. If you are looking for a relationship, this is the time to meet someone new; in a fledgling romance, love develops as you make plans.",
       reversed:
         "The reversed Magician suggests manipulation and dishonesty--so what you hear may not be accurate or true.",
     },
@@ -33,9 +33,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The High Priestess",
     meanings: {
       upright:
-        "The High Priestess is a card of spiritual advice, so a mentor, new teacher or other guide finds you. You intuitively ssense a stronger connection with the Universe or the divine, and your dreams hold messages: new spiritual pathways beckon.In your personal life you tap into your inner wisdom and may need privacy to process your insights.",
+        "The High Priestess is a card of spiritual advice, so a mentor, new teacher or other guide finds you. You intuitively sense a stronger connection with the Universe or the divine, and your dreams hold messages: new spiritual pathways beckon. In your personal life you tap into your inner wisdom and may need privacy to process your insights.",
       reversed:
-        "When reversed, trust issues arise as you feel you have been influences to follow a path that is not right for you. Listen to your intuition. ",
+        "When reversed, trust issues arise as you feel you have been influenced to follow a path that is not right for you. Listen to your intuition. ",
     },
     number: 2,
     card_links: "XI Justice and XX Judgement",
@@ -49,7 +49,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "The Empress symbolizes the female partner in traditional tarot meanings, but the card has many further attributes--beginning with enrichment, security, and abundance. Money grows, you feel content within and, if you are looking for love, now could be the right time for a new relationship. As this is the card of mothering, you feel nurtured and support others, too, so all your relationships benefit.",
       reversed:
-        "The reversed Empress shows discord--so there may be financial problems and miscommunication in relationships",
+        "The reversed Empress shows discord--so there may be financial problems and miscommunication in relationships.",
     },
     number: 3,
     card_links: "XII The Hanged Man, XXI The World",
@@ -63,7 +63,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "The Emperor, while symbolizing the father and traditionally the romantic partner, has broader meanings. The card represents calmness and stability after a time of disruption, so order returns. At work, The Emperor shows strong leadership and new structures that will please or challenge you depending on how well you respond to authority. As a card of advice, The Emperor encourages you to manage your time and energy. ",
       reversed:
-        "When reversed, the Emperor is comineering--so you may need to say no to unreasonable demands.",
+        "When reversed, the Emperor is domineering--so you may need to say no to unreasonable demands.",
     },
     number: 4,
     card_links: "XIII Death",
@@ -75,7 +75,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Hierophant",
     meanings: {
       upright:
-        "The Hierophant's meaning may appear diverse--from learning and education to conformity, religion, and commitment--yet the common denominator is unity and development. When the Hierophant appears, work and finances improve. You take on a leadership role or fine and inspiring teacher; you discover higher wisdom, fint the right advice and benefit from years of experience. The card also relates to communities so you may find a project or group that brings learning and personal growth.",
+        "The Hierophant's meaning may appear diverse--from learning and education to conformity, religion, and commitment--yet the common denominator is unity and development. When the Hierophant appears, work and finances improve. You take on a leadership role or find an inspiring teacher; you discover higher wisdom, find the right advice and benefit from years of experience. The card also relates to communities so you may find a project or group that brings learning and personal growth.",
       reversed:
         "The reversed Hierophant can show a wrong spiritual direction and generally, poor guidance.",
     },
@@ -89,7 +89,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Lovers",
     meanings: {
       upright:
-        "Given the cards title, it seems clear that the theme can only be love--so you may meet a new potential partner now. However, there is much more to the card's meaning: this is a time for a decision, and this appliest to every life area, not purely relationships.",
+        "Given the card’s title, it seems clear that the theme can only be love--so you may meet a new potential partner now. However, there is much more to the card's meaning: this is a time for a decision, and this applies to every life area, not purely relationships.",
       reversed:
         "The reversed Lovers reveals poor choices often driven by materialism. In relationships, the card can show imbalance.",
     },
@@ -103,9 +103,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Chariot",
     meanings: {
       upright:
-        "The Chariot means success and progress, so travel and discovery are favored now. In you relationships you find a new and meaningful path together or decide to venture out alone (the surrounding cards will reveal which). IN projects and work, you find success and abundance. In readings the card often appears as the result of a mahor decision, as the energy locked up in the process of choosing is released--so you feel revitalized and ready to move on.",
+        "The Chariot means success and progress, so travel and discovery are favored now. In your relationships you find a new and meaningful path together or decide to venture out alone (the surrounding cards will reveal which). In projects and work, you find success and abundance. In readings the card often appears as the result of a major decision, as the energy locked up in the process of choosing is released--so you feel revitalized and ready to move on.",
       reversed:
-        "The reversed card can reveal delays to plans or arrogance tather than assertiveness; try to regain your balance.",
+        "The reversed card can reveal delays to plans or arrogance rather than assertiveness; try to regain your balance.",
     },
     number: 7,
     card_links: "XVI The Tower",
@@ -117,9 +117,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Strength",
     meanings: {
       upright:
-        "Strength's meaning is just as the image portrays--having the courage to hold your ground when facing potentially fierce opposition. Rather than play by others' rules to avoid conflict, you negotiate a solution. In love the card brings hope, but also shows a relationship test and the need to work through issues; in health matters, Strength shows recuperation and resilience. A further interpretation is having compasion for others and compasion for yourself.",
+        "Strength's meaning is just as the image portrays--having the courage to hold your ground when facing potentially fierce opposition. Rather than play by others' rules to avoid conflict, you negotiate a solution. In love the card brings hope, but also shows a relationship test and the need to work through issues; in health matters, Strength shows recuperation and resilience. A further interpretation is having compassion for others and compassion for yourself.",
       reversed:
-        "The reversed card can reveal delays to plans or arrogance tather than assertiveness; try to regain your balance.",
+        "The reversed card can reveal delays to plans or arrogance rather than assertiveness; try to regain your balance.",
     },
     number: 8,
     card_links: "XVII The Star",
@@ -131,9 +131,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Hermit",
     meanings: {
       upright:
-        "The Hermit reveals a quiet time of contemplation and reflection, so you find space to gether your thoughts and consider your next step. The card also signifies a new path--this may take the form of a spiritual retreat, a physical pilgrimage, or other learning journey you are now ready for. In relationships, the Hermit shows you going your own way or at least, taking time out. Overall, this is a time of self-discovery and healing. ",
+        "The Hermit reveals a quiet time of contemplation and reflection, so you find space to gather your thoughts and consider your next step. The card also signifies a new path--this may take the form of a spiritual retreat, a physical pilgrimage, or other learning journey you are now ready for. In relationships, the Hermit shows you going your own way or at least, taking time out. Overall, this is a time of self-discovery and healing. ",
       reversed:
-        "When reversed, the Hermit can show enforced but temporary solitude. See this as an opporunity to please yourself and trust your inner wisdom. ",
+        "When reversed, the Hermit can show enforced but temporary solitude. See this as an opportunity to please yourself and trust your inner wisdom. ",
     },
     number: 9,
     card_links: "XVIII The Moon",
@@ -160,9 +160,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Justice",
     meanings: {
       upright:
-        "Justice, the card of lay, represents legal issues and formal agreements. It brings successful conclusions--so decisions fo in your favor. As one of the virtue cards, there is naturally a moral dimension here too: you must be deserving of justive. For this reason, the card reminds us to have integrity in all our dealings and relationships, and to make wise choices that are fair to ourselves and others.",
+        "Justice, the card of law, represents legal issues and formal agreements. It brings successful conclusions--so decisions go in your favor. As one of the virtue cards, there is naturally a moral dimension here too: you must be deserving of justice. For this reason, the card reminds us to have integrity in all our dealings and relationships, and to make wise choices that are fair to ourselves and others.",
       reversed:
-        "The reversed card suggests intolerace and a lack of integrity. A decision or accusation may be unjust.",
+        "The reversed card suggests intolerance and a lack of integrity. A decision or accusation may be unjust.",
     },
     number: 11,
     card_links: "II The High Priestess",
@@ -174,7 +174,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Hanged Man",
     meanings: {
       upright:
-        "The Hanged Man literally means waiting around, so you may be in limbo just now, waiting for a decision. Your unusual position presents an opporunity to see the situation differently, gaining a new perspective. However, to create momentum, you may need to make a compromise or scrifice rather than remain in a state of suspense (or suspension).",
+        "The Hanged Man literally means waiting around, so you may be in limbo just now, waiting for a decision. Your unusual position presents an opportunity to see the situation differently, gaining a new perspective. However, to create momentum, you may need to make a compromise or sacrifice rather than remain in a state of suspense (or suspension).",
       reversed:
         "When reversed, the card can show martyrdom. This may be a way to avoid certain decisions and if so, it is time to make the changes you need.",
     },
@@ -188,7 +188,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Death",
     meanings: {
       upright:
-        "Death brings necessary engins. This may applu to work, relationships, a fledfling idea or project, or your livign situation. There is no ambiguity here, and you may have sensed this ending all along. If not, be prepared to let go rather than resist; know this change is inevitable and will bring in new opporunities.",
+        "Death brings necessary endings. This may apply to work, relationships, a fledgling idea or project, or your living situation. There is no ambiguity here, and you may have sensed this ending all along. If not, be prepared to let go rather than resist; know this change is inevitable and will bring in new opportunities.",
       reversed:
         "Death reversed emphasizes the upright meaning, so the ending may be accompanied by disbelief or drama. The message is the situation is settled, and to move on.",
     },
@@ -204,10 +204,10 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "Temperance reveals the need for peaceful balance. Broadly, the card shows managing your time so you prioritize tasks and look after work, family, and home as efficiently as you are able. ",
       reversed:
-        "Reversed Temperance can show pressue and imbalance. It may be difficult to reconcile warring demands.",
+        "Reversed Temperance can show pressure and imbalance. It may be difficult to reconcile warring demands.",
     },
     number: 14,
-    card_links: "V THe Hierophant",
+    card_links: "V The Hierophant",
     astrological_sign: "Sagittarius",
     element: "Fire",
     wikipedia_link: "https://en.wikipedia.org/wiki/Temperance_(tarot_card)",
@@ -216,9 +216,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Devil",
     meanings: {
       upright:
-        "Th Devil signifies restriciton. This manifests as contracts and personal arrangements that keep you trapped, feeling oppressed by people or authorities who have power over you. It is also the card that reveals materialism, greed, addictions, and negative behaviors that block personal growth and inhibit good relationships.",
+        "The Devil signifies restriction. This manifests as contracts and personal arrangements that keep you trapped, feeling oppressed by people or authorities who have power over you. It is also the card that reveals materialism, greed, addictions, and negative behaviors that block personal growth and inhibit good relationships.",
       reversed:
-        "The reversed Devil is more positive than the upright card, as the darkness is nearly over; you being to see clearly what must be done and can embrace a new freedom.",
+        "The reversed Devil is more positive than the upright card, as the darkness is nearly over; you begin to see clearly what must be done and can embrace a new freedom.",
     },
     number: 15,
     card_links: "VI The Lovers",
@@ -230,7 +230,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Tower",
     meanings: {
       upright:
-        "The Tower's meaning is indisputable: here is sudden destruction, without warning--so you may deal with shock endings. In money matters and relationships there may be exposure and revelation as certain truths, once hidden, come to light. This is The Tower of the ego, too, so old ways of thinking and living collapse as you let go of what you have constructed. You can only surrender to The Tower's fall",
+        "The Tower's meaning is indisputable: here is sudden destruction, without warning--so you may deal with shock endings. In money matters and relationships there may be exposure and revelation as certain truths, once hidden, come to light. This is The Tower of the ego, too, so old ways of thinking and living collapse as you let go of what you have constructed. You can only surrender to The Tower's fall.",
       reversed:
         "The reversed Tower can show victimhood and an unwillingness to let go. A further interpretation is taking needless blame.",
     },
@@ -244,9 +244,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Star",
     meanings: {
       upright:
-        "The Stae brings hope and inspiration. After a period of darkness, the brightest Star guides us back to peace, to freedom, and to ourselves as life begins to flow again. This is a time for recover, self-car, and self-expression.",
+        "The Star brings hope and inspiration. After a period of darkness, the brightest Star guides us back to peace, to freedom, and to ourselves as life begins to flow again. This is a time for recovery, self-care, and self-expression.",
       reversed:
-        "The reversed Star may indicate dissappointment and lack of fulfillment. This message is not to give up; you can still find your way.",
+        "The reversed Star may indicate disappointment and lack of fulfillment. This message is not to give up; you can still find your way.",
     },
     number: 17,
     card_links: "VIII Strength",
@@ -258,9 +258,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Moon",
     meanings: {
       upright:
-        "All is not as it seems; moonlight both enchants and distorts the picture. This is a time of soul-searching and uncertainty, when you may doubt what you see; you may be unsure whoom or what to trust, or whether a risk is worth taking. If so, your intuition and your dreams--the language of the unconcious mind--will guide you forward.",
+        "All is not as it seems; moonlight both enchants and distorts the picture. This is a time of soul-searching and uncertainty, when you may doubt what you see; you may be unsure whom or what to trust, or whether a risk is worth taking. If so, your intuition and your dreams--the language of the unconscious mind--will guide you forward.",
       reversed:
-        "When reversed, the card can show a struffle to move forward. An old dilemma or relationship issue may need revisiting.",
+        "When reversed, the card can show a struggle to move forward. An old dilemma or relationship issue may need revisiting.",
     },
     number: 18,
     card_links: "IX The Hermit",
@@ -272,12 +272,12 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The Sun",
     meanings: {
       upright:
-        "The Sun brings jow into your love life, family, work, and projects--and is one of the most optimistic cards in the deck, canceling out any negative cards nearby. If you need recharging, The Sun says the rest is coming.",
+        "The Sun brings joy into your love life, family, work, and projects--and is one of the most optimistic cards in the deck, canceling out any negative cards nearby. If you need recharging, The Sun says the rest is coming.",
       reversed:
-        "The Sun is so positive that the upright meaning holds; the only issues may be a slight delay or temprary dissapointment (clouds in front of the sun).",
+        "The Sun is so positive that the upright meaning holds; the only issues may be a slight delay or temporary disappointment (clouds in front of the sun).",
     },
     number: 19,
-    card_links: "X THe WHeel of Fortune and I The Magician",
+    card_links: "X The Wheel of Fortune and I The Magician",
     astrological_sign: "The Sun",
     element: "Fire",
     wikipedia_link: "https://en.wikipedia.org/wiki/The_Sun_(tarot_card)",
@@ -286,9 +286,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Judgement",
     meanings: {
       upright:
-        "Judegement brings a key decision about the future and asks that you asess your past actions and experiences before making that choice and moving on. You may feel pleased with your achievements and relationships so far--and look back with pride and love--or realize that forgiveness is in order. This is the opporunity to give something a second chance.",
+        "Judgement brings a key decision about the future and asks that you assess your past actions and experiences before making that choice and moving on. You may feel pleased with your achievements and relationships so far--and look back with pride and love--or realize that forgiveness is in order. This is the opportunity to give something a second chance.",
       reversed:
-        "When reversed, Judgement can show a need to learn past lessons and work on self-acceptance and releasing guilt. A furter meaning is delay. ",
+        "When reversed, Judgement can show a need to learn past lessons and work on self-acceptance and releasing guilt. A further meaning is delay. ",
     },
     number: 20,
     card_links: "II The High Priestess",
@@ -300,9 +300,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "The World",
     meanings: {
       upright:
-        "The World signifies success and expansion. It often reveals the completion and celebration of a life stage. Overall, the card brings optimisim for the future.",
+        "The World signifies success and expansion. It often reveals the completion and celebration of a life stage. Overall, the card brings optimism for the future.",
       reversed:
-        "The reversed World often shows delay and frusteration. You may need to wait a little longer for the result you wanted, or revise your goal.",
+        "The reversed World often shows delay and frustration. You may need to wait a little longer for the result you wanted, or revise your goal.",
     },
     number: 21,
     card_links: "III The Empress, XII The Hanged Man",
@@ -314,9 +314,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Ace of Cups",
     meanings: {
       upright:
-        "A new love begins. Expect deep, and potentially overwhelming emotions--this is a card of conception, pregnancy, birth, and falling in loce with something or someone new.",
+        "A new love begins. Expect deep, and potentially overwhelming emotions--this is a card of conception, pregnancy, birth, and falling in love with something or someone new.",
       reversed:
-        "The reversed card shows blocks, dissapointment and trust issues in a new relationship. Can also indicate misplaced feelings towards someone, or an inability accept love from someone.",
+        "The reversed card shows blocks, disappointment and trust issues in a new relationship. Can also indicate misplaced feelings towards someone, or an inability to accept love from someone.",
     },
     number: 1,
     card_links: "I The Magician",
@@ -370,9 +370,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Five of Cups",
     meanings: {
       upright:
-        "This is a card of loss and sadness. The figure stares forlorn a the cups overturned in front of him. However there are still two full cups behind him. You may have lost something, but do not become so focused on your loss that you forget what you still have.",
+        "This is a card of loss and sadness. The figure stares forlorn at the cups overturned in front of him. However there are still two full cups behind him. You may have lost something, but do not become so focused on your loss that you forget what you still have.",
       reversed:
-        "You may feel ready to accept the dissapointments you've come across. There may be an element of forgiveness at work you didn't know you possesed. Go with it and don't doubt yourself. ",
+        "You may feel ready to accept the disappointments you've come across. There may be an element of forgiveness at work you didn't know you possessed. Go with it and don't doubt yourself. ",
     },
     number: 5,
     card_links: null,
@@ -456,7 +456,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As an influence the card brings beginnings in the form of friendships and other key relationships. It's also a time for playfulness and letting your intuition guide you to a new creative pathway.",
       reversed:
-        "When reversed, its a time of extremes--you discard your dreams too readily or retreat into a dream world. Additionally, there may be dissapointment in relationships.",
+        "When reversed, it’s a time of extremes--you discard your dreams too readily or retreat into a dream world. Additionally, there may be disappointment in relationships.",
     },
     number: null,
     card_links: null,
@@ -468,13 +468,13 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Knight of Cups",
     meanings: {
       upright:
-        "As an influence the card means proposals and opporunities and, in particular, new friendships and new love. As a person the Knight appears to offer exactly what you want, but it is best to judge them by actions rather than words.",
+        "As an influence the card means proposals and opportunities and, in particular, new friendships and new love. As a person the Knight appears to offer exactly what you want, but it is best to judge them by actions rather than words.",
       reversed:
-        "Dissapointment, an offer does not materialize, at least in the way you expect. Can also indicate commitment issues.",
+        "Disappointment, an offer does not materialize, at least in the way you expect. Can also indicate commitment issues.",
     },
     number: null,
     card_links: "VII The Chariot",
-    astrological_sign: "Aquarious and Pisces",
+    astrological_sign: "Aquarius and Pisces",
     element: "Water",
     wikipedia_link: "https://en.wikipedia.org/wiki/Knight_of_Cups",
   },
@@ -484,7 +484,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As an influence: a time for nurturing relationships with friends, family and yourself with love and sensitivity. The Queen traditionally represents an individual with high emotional intelligence and empathy.",
       reversed:
-        "Dissapointment, an offer does not materialize, at least in the way you expect. Can also indicate commitment issues.",
+        "Disappointment, an offer does not materialize, at least in the way you expect. Can also indicate commitment issues.",
     },
     number: null,
     card_links: "III The Empress",
@@ -498,7 +498,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As an influence the King represents managing emotions, offering steadiness when life is in flux. This card represents sensitive communication so intuition rather than logic will help you navigate what unfolds.",
       reversed:
-        "Creative and emotional blocks. Vulerability showing up as defensiveness. Destructive behaviors.",
+        "Creative and emotional blocks. Vulnerability showing up as defensiveness. Destructive behaviors.",
     },
     number: null,
     card_links: "IV The Emperor",
@@ -510,9 +510,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Ace of Pentacles",
     meanings: {
       upright:
-        "The Ace means the potential for abundance, in terms of finances to righ opportunities that will bring you what you desire. This may translate to new income.",
+        "The Ace means the potential for abundance, in terms of finances to right opportunities that will bring you what you desire. This may translate to new income.",
       reversed:
-        "The reversed card shows materialistic atitudes and false starts. You may need to wait for the right time to begin.",
+        "The reversed card shows materialistic attitudes and false starts. You may need to wait for the right time to begin.",
     },
     number: 1,
     card_links: "I The Magician",
@@ -526,7 +526,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "Weighing your options, it is time to make a decision, particularly relating to material concerns. The card can show the need to manage money carefully.",
       reversed:
-        "Money worries and overall imbalance, feeling life is out of balance. You may be adversely affected by other's irresponsible spending or expectations.",
+        "Money worries and overall imbalance, feeling life is out of balance. You may be adversely affected by others' irresponsible spending or expectations.",
     },
     number: 2,
     card_links: null,
@@ -538,7 +538,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Three of Pentacles",
     meanings: {
       upright:
-        "This is a card of productive collaboration. A new enterprise is successful bringin respect and material rewards. In projects, the card shows solid work that's in alignment with your spiritual values.",
+        "This is a card of productive collaboration. A new enterprise is successful bringing respect and material rewards. In projects, the card shows solid work that's in alignment with your spiritual values.",
       reversed:
         "Missed opportunities due to a lack of commitment, planning, or incompetence.",
     },
@@ -554,7 +554,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "Stability, particularly in finance and property. This is a time to conserve energy, money, and be cautious with your resources.",
       reversed:
-        "When reversed, there is stubborness and in some instances clinging to what you have due to a fear of change.",
+        "When reversed, there is stubbornness and in some instances clinging to what you have due to a fear of change.",
     },
     number: 4,
     card_links: null,
@@ -566,7 +566,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Five of Pentacles",
     meanings: {
       upright:
-        "In readings this card often comes up to represent some kind of poverty whether that be related to health of finances. However the church window shows us that there is a path to the lgiht. Rather than wallow in misfortune, change your approach to reach the light.",
+        "In readings this card often comes up to represent some kind of poverty whether that be related to health or finances. However the church window shows us that there is a path to the light. Rather than wallow in misfortune, change your approach to reach the light.",
       reversed:
         "The reversed card can mean debt, money loss, loss of friendship, or generally a loss of resources. ",
     },
@@ -594,9 +594,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Seven of Pentacles",
     meanings: {
       upright:
-        "A situation has great potential but needs consistent effort and investment of time, money, ot other resources.",
+        "A situation has great potential but needs consistent effort and investment of time, money, or other resources.",
       reversed:
-        "The reversed card says you may be gining up too soon. A situation needs more time to mature.",
+        "The reversed card says you may be giving up too soon. A situation needs more time to mature.",
     },
     number: 7,
     card_links: null,
@@ -622,9 +622,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Nine of Pentacles",
     meanings: {
       upright:
-        "This is the card of luxury and abundance when you enjoys lifes richness. This is a time not only of financial stability but satisfaction as you get to enjoy what you have created.",
+        "This is the card of luxury and abundance when you enjoy life’s richness. This is a time not only of financial stability but satisfaction as you get to enjoy what you have created.",
       reversed:
-        "The reversed card shows financial problems. Particularly regarding work, property, and land.It may also indicate excessive ego or pride.",
+        "The reversed card shows financial problems. Particularly regarding work, property, and land. It may also indicate excessive ego or pride.",
     },
     number: 7,
     card_links: null,
@@ -636,9 +636,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Ten of Pentacles",
     meanings: {
       upright:
-        "The Ten brings wealth and accoumulation but also calues and connection--so the focus can be on family and the friends we choose as family.",
+        "The Ten brings wealth and accumulation but also values and connection--so the focus can be on family and the friends we choose as family.",
       reversed:
-        "The reversed Ten means disagreement over money and personal values. there may be conflict around commitment in relationships and issues with tradition and freedom.",
+        "The reversed Ten means disagreement over money and personal values. There may be conflict around commitment in relationships and issues with tradition and freedom.",
     },
     number: 10,
     card_links: null,
@@ -652,7 +652,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As an influence: The card brings beginnings and offers related to money, work, home, education, and travel. This card can indicate apprenticeship and practice. As an individual, the Page is a younger person, loyal, and hardworking, who is beginning to reap the rewards of their efforts.",
       reversed:
-        "Plans are unrealistic or unaffordable. There may also be irresponsible spending or ignored debt tha curtails your freedom.",
+        "Plans are unrealistic or unaffordable. There may also be irresponsible spending or ignored debt that curtails your freedom.",
     },
     number: null,
     card_links: null,
@@ -666,7 +666,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As an influence, work no matter how tough is worthwhile as you will reap the long-term benefits. As a person the Knight is not spontaneous but goal-driven and reliable.",
       reversed:
-        "Review your finances and make key decisions about your home and income; stubborness and lack of vision may lead to loss.",
+        "Review your finances and make key decisions about your home and income; stubbornness and lack of vision may lead to loss.",
     },
     number: null,
     card_links: "VII The Chariot",
@@ -678,7 +678,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Queen of Pentacles",
     meanings: {
       upright:
-        "As an influence this si a card of abundance and well-being. You enjoy more prosperity, tend to your health, and can give practical support to others.",
+        "As an influence this is a card of abundance and well-being. You enjoy more prosperity, tend to your health, and can give practical support to others.",
       reversed:
         "Being mean with money or overspending. Overall, neglecting finances, home, and self-care.",
     },
@@ -692,9 +692,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "King of Pentacles",
     meanings: {
       upright:
-        "As an influence, building wealth for a solid financial future, the card says hard work bring the success you deserve.",
+        "As an influence, building wealth for a solid financial future, the card says hard work brings the success you deserve.",
       reversed:
-        "Greed and a lack of trust: there is also the possiblity of debt that needs to be managed. A further interpretation is extreme materialsim and potential corruption.",
+        "Greed and a lack of trust: there is also the possibility of debt that needs to be managed. A further interpretation is extreme materialism and potential corruption.",
     },
     number: null,
     card_links: "IV The Emperor",
@@ -706,8 +706,8 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Ace of Swords",
     meanings: {
       upright:
-        "Time to decide, consider a new way of thinking. Use logic regarding th situation or relationship.",
-      reversed: "The reversed car dindicates ignorance and misinformation.",
+        "Time to decide, consider a new way of thinking. Use logic regarding the situation or relationship.",
+      reversed: "The reversed card indicates ignorance and misinformation.",
     },
     number: 1,
     card_links: "I The Magician",
@@ -719,7 +719,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Two of Swords",
     meanings: {
       upright:
-        "This card indicates an important decision and a need for logical resolution. taking too much time to process your thoughts and staying in your head rather than trusting your intuition can lead to procrastination and avoidance.",
+        "This card indicates an important decision and a need for logical resolution. Taking too much time to process your thoughts and staying in your head rather than trusting your intuition can lead to procrastination and avoidance.",
       reversed:
         "The reversed card intensifies the upright meaning along with being manipulated and willful deception, so the message is to protect your interests.",
     },
@@ -733,7 +733,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Three of Swords",
     meanings: {
       upright:
-        "The message of this card is intentionally direct: it foretells sorrow and grief. This applies to all relationships, from romance to family. This can also reveal disloyality as painful truths come to light.",
+        "The message of this card is intentionally direct: it foretells sorrow and grief. This applies to all relationships, from romance to family. This can also reveal disloyalty as painful truths come to light.",
       reversed: "The reversed card can indicate self-pity and anxiety.",
     },
     number: 3,
@@ -760,9 +760,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Five of Swords",
     meanings: {
       upright:
-        "What you hoped for deos not materialize, so it is wise to accept defeat. In readings the card spells a finite ending and is a message to retreat rather than continue.",
+        "What you hoped for does not materialize, so it is wise to accept defeat. In readings the card spells a finite ending and is a message to retreat rather than continue.",
       reversed:
-        "When reversed the card can indicate dispair and distrust. You may find a situation is ending more dramatically and quickly.",
+        "When reversed the card can indicate despair and distrust. You may find a situation is ending more dramatically and quickly.",
     },
     number: 5,
     card_links: null,
@@ -774,9 +774,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Six of Swords",
     meanings: {
       upright:
-        "The Six shows healing and moving on after a period of stress. Past pressue dissipates and you feel a sense of resolution and completion. Transition and old giving way to new.",
+        "The Six shows healing and moving on after a period of stress. Past pressure dissipates and you feel a sense of resolution and completion. Transition and old giving way to new.",
       reversed:
-        "The reversed card expresses feelings of powerlessness as you cannot find the solution you need just now--but it will come in time. Fear of the unknown, forced change",
+        "The reversed card expresses feelings of powerlessness as you cannot find the solution you need just now--but it will come in time. Fear of the unknown, forced change.",
     },
     number: 6,
     card_links: null,
@@ -790,7 +790,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "The Seven often appears in readings to show fear of loss or as a warning to protect yourself from deception. This card can also indicate secrecy and stealth.",
       reversed:
-        "The meaning is like that of the upright card but advises to not fall victim to others dishonesty or greed.",
+        "The meaning is like that of the upright card but advises to not fall victim to others' dishonesty or greed.",
     },
     number: 7,
     card_links: null,
@@ -802,7 +802,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Eight of Swords",
     meanings: {
       upright:
-        "The Eight means restriction to your thinking that are often self-imposed. You need to address an break a pattern of negative thinking.",
+        "The Eight means restrictions to your thinking that are often self-imposed. You need to address and break a pattern of negative thinking.",
       reversed: "Reversed this card can indicate victimhood and hopelessness.",
     },
     number: 8,
@@ -815,7 +815,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Nine of Swords",
     meanings: {
       upright:
-        "This is the card of anxiety. Pay close attention to your thoughts. You may be feeling anxious in reponse to recent events.",
+        "This is the card of anxiety. Pay close attention to your thoughts. You may be feeling anxious in response to recent events.",
       reversed:
         "When reversed there may be guilt or despair which will dissipate as you move through this cycle.",
     },
@@ -829,7 +829,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Ten of Swords",
     meanings: {
       upright:
-        "The ten means a sudden ending. Though direct the card gives you the clarity you need: there is no doubt that the situation is over. However this card like Death does not mean physical endings. Instead it indicates an ending that must come with new opporunities.",
+        "The ten means a sudden ending. Though direct the card gives you the clarity you need: there is no doubt that the situation is over. However this card like Death does not mean physical endings. Instead it indicates an ending that must come with new opportunities.",
       reversed:
         "When reversed the upright meaning is accompanied by stress and clinging on to what is past. This message is to trust what comes and release what you cannot hold.",
     },
@@ -857,7 +857,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Knight of Swords",
     meanings: {
       upright:
-        "As a person the Knight of Swords is a driven and astute individual, willing to endure conflit to et the result he desires. Associated with clarity and decisiveness.",
+        "As a person the Knight of Swords is a driven and astute individual, willing to endure conflict to get the result he desires. Associated with clarity and decisiveness.",
       reversed:
         "When reversed, the card can indicate brash and hasty decision-making.",
     },
@@ -885,7 +885,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "King of Swords",
     meanings: {
       upright:
-        "As an influence it is time for a strategy as the head rather than the heard, takes charge. As a person the King is a decisive leader but may lack empathy and patience.",
+        "As an influence it is time for a strategy as the head rather than the heart, takes charge. As a person the King is a decisive leader but may lack empathy and patience.",
       reversed:
         "Mental overload of feeling manipulated by other's unreasonable demands. Ruthlessness and potential cruelty.",
     },
@@ -913,9 +913,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Two of Wands",
     meanings: {
       upright:
-        "This Tow holds a vision for the future, so this is a tim of planning--to look ahead. You need to choose a direction and take stpes to move forward with determination and confidence. You are in a strong position to create what you desire.",
+        "This Two holds a vision for the future, so this is a time of planning--to look ahead. You need to choose a direction and take steps to move forward with determination and confidence. You are in a strong position to create what you desire.",
       reversed:
-        "When reversed, the card shows frusteration as plans do not materialize. This can also indicate fear or indecision.",
+        "When reversed, the card shows frustration as plans do not materialize. This can also indicate fear or indecision.",
     },
     number: 2,
     card_links: null,
@@ -927,7 +927,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Three of Wands",
     meanings: {
       upright:
-        "The path is clwar and you need to invest your time and energy to succeed. The plans, maybe those made in the Two of Wands, have evolved and you now see the path to progress and reward.",
+        "The path is clear and you need to invest your time and energy to succeed. The plans, maybe those made in the Two of Wands, have evolved and you now see the path to progress and reward.",
       reversed: "When reversed the card shows miscommunication and delay.",
     },
     number: 3,
@@ -954,7 +954,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Five of Wands",
     meanings: {
       upright:
-        "This Five is a card of conflict or competition. This conflict or competition while not pleasant may be ncessary to keep moving forward.",
+        "This Five is a card of conflict or competition. This conflict or competition while not pleasant may be necessary to keep moving forward.",
       reversed:
         "The reversed card can indicate poor leadership and trouble-making.",
     },
@@ -984,7 +984,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "This Seven is the card of effort and of overcoming all obstacles with courage. You are right to hold your ground and with determination you can succeed.",
       reversed:
-        "The reversed card indicates problems that feel too demending to deal with. It can also show a lack of conviction or even treachery.",
+        "The reversed card indicates problems that feel too demanding to deal with. It can also show a lack of conviction or even treachery.",
     },
     number: 7,
     card_links: null,
@@ -996,9 +996,9 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Eight of Wands",
     meanings: {
       upright:
-        "This card represents rapid incoming communications. It also advises you to be focused and intense, let nothign distract you from your goal.",
+        "This card represents rapid incoming communications. It also advises you to be focused and intense, let nothing distract you from your goal.",
       reversed:
-        "The reversed card shows issues with communication, general confusion, and frusteration. It advises a need for patience.",
+        "The reversed card shows issues with communication, general confusion, and frustration. It advises a need for patience.",
     },
     number: 8,
     card_links: "VII The Chariot",
@@ -1012,7 +1012,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "This card reveals strength and resilience during a time of stress. You are tired but you are nearing the end of your journey and are advised to hold on for just a bit longer.",
       reversed:
-        "When reversed this card can indicate obstinacy and stubborness. This too advises you to hold your ground.",
+        "When reversed this card can indicate obstinacy and stubbornness. This too advises you to hold your ground.",
     },
     number: 9,
     card_links: null,
@@ -1038,7 +1038,7 @@ export const tarotCards: TarotCardTypes[] = [
     card_name: "Page of Wands",
     meanings: {
       upright:
-        "As an influence the card brings beginnings and creative pursuits along with opporunities for travel and communication. As a person the page is yound and full of ideas.",
+        "As an influence the card brings beginnings and creative pursuits along with opportunities for travel and communication. As a person the page is young and full of ideas.",
       reversed:
         "The reversed card can indicate unpredictability and foolishness.",
     },
@@ -1068,7 +1068,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "As a person the Queen is full of creative energy and confidence. The Queen is highly attuned to the energy of those around her. ",
       reversed:
-        "The reversed car dindicates a lack of confidence, insecurity, and potentially even jealousy or vindictive behaviour.",
+        "The reversed card indicates a lack of confidence, insecurity, and potentially even jealousy or vindictive behaviour.",
     },
     number: null,
     card_links: "III The Empress",
@@ -1082,7 +1082,7 @@ export const tarotCards: TarotCardTypes[] = [
       upright:
         "The King is a role model and an example of independence. Take the lead by doing.",
       reversed:
-        "Can represent a person who is egotistical, impatient, and selfish. Can also indicate restrition in creative output/feeling you are not following your truth.",
+        "Can represent a person who is egotistical, impatient, and selfish. Can also indicate restriction in creative output/feeling you are not following your truth.",
     },
     number: null,
     card_links: "IV The Emperor",
