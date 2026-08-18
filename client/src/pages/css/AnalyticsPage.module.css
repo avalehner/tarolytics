@@ -2,7 +2,7 @@
   width: 1200px;
   max-width: calc(100% - 200rem);
   min-width: 1000px;
-  margin: 0 auto;
+  margin: 0 auto 8rem;
   color: #201105;
 }
 
@@ -28,10 +28,10 @@
 }
 
 .stat-highlight-card {
-  border: none;
   background-color: rgb(255, 252, 241, 0.37);
   padding: 0.25rem 1.6rem 0.3rem;
   border-radius: 10px;
+  border: 1px solid rgb(196, 39, 0, 0.2);
 }
 
 .stat-title {
@@ -54,7 +54,7 @@
 }
 
 .card-search-container {
-  border: none;
+  border: 1px solid rgb(196, 39, 0, 0.2);
   background-color: rgb(255, 252, 241, 0.37);
   padding: 0.7rem 2.5rem 2.2rem;
   border-radius: 10px;
@@ -281,7 +281,7 @@
 .charts {
   display: grid;
   grid-template-columns: max-content max-content;
-  border: none;
+  border: 1px solid rgb(196, 39, 0, 0.2);
   background-color: rgb(255, 252, 241, 0.37);
   padding: 0.7rem 2.5rem 1rem;
   border-radius: 10px;
