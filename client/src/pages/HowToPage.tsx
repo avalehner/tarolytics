@@ -35,7 +35,7 @@ const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
         and gives you the option to add clarifiers, update the reading, and
         generate an LLM powered interpretation to compare to your own.
       </p>
-      <p className={styles["bold"]}>What else can this website do?</p>
+      <p className={styles["bold"]}>What else can this app do?</p>
       <p>
         You can access all of your saved readings on the{" "}
         <a className={styles["link"]} href="/history">
