@@ -11,13 +11,11 @@ const spreadPositions: Record<
         y: number;
       };
     }[];
-    canvasHeight: number;
   }
 > = {
   "single-card": {
     cardWidth: 55,
     positions: [{ x: 50, y: 30, rotation: 0 }],
-    canvasHeight: 400,
   },
   "top-bottom": {
     cardWidth: 37,
@@ -25,7 +23,6 @@ const spreadPositions: Record<
       { x: 25, y: 25, rotation: 0 },
       { x: 75, y: 25, rotation: 0 },
     ],
-    canvasHeight: 500,
   },
   "past-present-future": {
     cardWidth: 42,
@@ -34,7 +31,6 @@ const spreadPositions: Record<
       { x: 57.5, y: 35, rotation: 0 },
       { x: 110, y: 35, rotation: 0 },
     ],
-    canvasHeight: 540,
   },
   "past-present-future-advice": {
     cardWidth: 37,
@@ -44,7 +40,6 @@ const spreadPositions: Record<
       { x: 80, y: 37, rotation: 0 },
       { x: 122, y: 39, rotation: 5 },
     ],
-    canvasHeight: 500,
   },
   celtic: {
     cardWidth: 23.5,
@@ -60,7 +55,6 @@ const spreadPositions: Record<
       { x: 119, y: 69, rotation: 0 },
       { x: 119, y: 7, rotation: 0 },
     ],
-    canvasHeight: 900,
   },
 };
 

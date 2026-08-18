@@ -1,5 +1,5 @@
 import styles from "./css/ViewReadingPage.module.css";
-import { useState, useEffect, CSSProperties } from "react";
+import { useState, useEffect, useRef, CSSProperties } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {
@@ -49,6 +49,8 @@ const ViewReadingPage = ({
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isReversals, setIsReversals] = useState<boolean>(false);
+  const spreadAreaRef = useRef<HTMLDivElement>(null);
+  const [availableWidth, setAvailableWidth] = useState<number | null>(null);
 
   const { readingId } = useParams();
 
@@ -69,6 +71,17 @@ const ViewReadingPage = ({
     getCardsByReadingId(readingId).then((data) => setCards(data));
   }, [readingId]);
 
+  //measure the width available to the spread so it can scale to fit
+  useEffect(() => {
+    const el = spreadAreaRef.current;
+    if (!el) return;
+    const resizeObserver = new ResizeObserver(([entry]) =>
+      setAvailableWidth(entry.contentRect.width),
+    );
+    resizeObserver.observe(el);
+    return () => resizeObserver.disconnect();
+  }, [reading]);
+
   //functions
   const formatDate = (date: string) => {
     const rawDate = date.slice(0, 10);
@@ -81,12 +94,36 @@ const ViewReadingPage = ({
   };
 
   const getSpreadBounds = (spreadType: string) => {
+    const X_SCALE = 5; // px per position unit (500px canvas / 100)
+    const Y_SCALE = 4; // px per position unit (400px canvas / 100)
+    const CARD_ASPECT = 1.75; // card height ≈ 1.75 × width
+    const LABEL_ALLOWANCE = 40; // room for the label under the lowest card
+
     const layout = spreadPositions[spreadType];
-    const minX = Math.min(...layout.positions.map((p) => p.x));
-    const maxX = Math.max(
-      ...layout.positions.map((p) => p.x + layout.cardWidth),
-    );
-    return { minX, widthPx: ((maxX - minX) / 100) * 500 };
+    const cardW = layout.cardWidth * X_SCALE;
+    const cardH = cardW * CARD_ASPECT;
+
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const p of layout.positions) {
+      const x = p.x * X_SCALE;
+      const y = p.y * Y_SCALE;
+      // a card rotated 90° visually overhangs its layout box on the sides
+      const sideways = Math.abs(p.rotation % 180) === 90;
+      const overhang = sideways ? (cardH - cardW) / 2 : 0;
+      minX = Math.min(minX, x - overhang);
+      maxX = Math.max(maxX, x + cardW + overhang);
+      minY = Math.min(minY, y + overhang);
+      maxY = Math.max(maxY, y + cardH - overhang);
+    }
+    return {
+      minXPx: minX,
+      minYPx: minY,
+      widthPx: maxX - minX,
+      heightPx: maxY - minY + LABEL_ALLOWANCE,
+    };
   };
 
   const renderCardImage = (card: CardTypes, index: number) => {
@@ -117,11 +154,11 @@ const ViewReadingPage = ({
       //original spread or non custom reading
       const position = spreadLayout?.positions[card.position_order];
       if (!position) return null;
-      const { minX } = getSpreadBounds(reading.spread_type);
+      const { minXPx, minYPx } = getSpreadBounds(reading.spread_type);
       containerStyle = {
         position: "absolute",
-        left: `${((position.x - minX) / 100) * 500}px`,
-        top: `${(position.y / 100) * 400}px`,
+        left: `${(position.x / 100) * 500 - minXPx}px`,
+        top: `${(position.y / 100) * 400 - minYPx}px`,
         width: `${(cardWidth / 100) * 500}px`,
       };
       label = spreadConfig[reading.spread_type][card.position_order];
@@ -473,7 +510,10 @@ const ViewReadingPage = ({
           </button>
         </div>
         <div className={styles["reading-main-container"]}>
-          <div className={styles["all-card-display-container"]}>
+          <div
+            className={styles["all-card-display-container"]}
+            ref={spreadAreaRef}
+          >
             {reading.spread_type === "custom" ? (
               <div className={styles["clarifier-display-container"]}>
                 {originalSpread.map((card, index) =>
@@ -481,17 +521,36 @@ const ViewReadingPage = ({
                 )}
               </div>
             ) : (
-              <div
-                className={styles["spread-display-container"]}
-                style={{
-                  width: getSpreadBounds(reading.spread_type).widthPx,
-                  height: spreadPositions[reading.spread_type].canvasHeight,
-                }}
-              >
-                {originalSpread.map((card, index) =>
-                  renderCardImage(card, index),
-                )}
-              </div>
+              (() => {
+                const bounds = getSpreadBounds(reading.spread_type);
+                //scale the spread down uniformly when it is wider than the column
+                const scale = availableWidth
+                  ? Math.min(1, availableWidth / bounds.widthPx)
+                  : 1;
+                return (
+                  <div
+                    className={styles["spread-scale-frame"]}
+                    style={{
+                      width: bounds.widthPx * scale,
+                      height: bounds.heightPx * scale,
+                    }}
+                  >
+                    <div
+                      className={styles["spread-display-container"]}
+                      style={{
+                        width: bounds.widthPx,
+                        height: bounds.heightPx,
+                        transform: `scale(${scale})`,
+                        transformOrigin: "top left",
+                      }}
+                    >
+                      {originalSpread.map((card, index) =>
+                        renderCardImage(card, index),
+                      )}
+                    </div>
+                  </div>
+                );
+              })()
             )}
             <div className={styles["clarifier-display-container"]}>
               {clarifiers.map((card, index) => renderCardImage(card, index))}
