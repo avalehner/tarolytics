@@ -1,3 +1,7 @@
+.view-reading-page-container {
+  margin-bottom: 2rem;
+}
+
 .view-reading-container {
   display: flex;
   padding: 0;
@@ -127,7 +131,7 @@
   text-align: left;
   display: block;
   width: fit-content;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.3rem;
 }
 
 .update-reading-btn:hover,
@@ -139,6 +143,10 @@
 .pull-clarifier-container {
   display: flex;
   align-items: center;
+}
+
+.rx-input-container {
+  display: flex;
 }
 
 .rx-input {
@@ -165,6 +173,7 @@
 
 .rx-label {
   margin-bottom: 0.3rem;
+  color: #fa393c75;
 }
 
 /* toggle */
@@ -250,7 +259,7 @@
   font-size: 0.85rem;
   display: block;
   width: fit-content;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }
 
 .save-interpretation-btn-sidebar {
@@ -433,18 +442,25 @@
   background-color: rgb(255, 224, 224);
   border: 1px solid rgb(225, 134, 134, 0.5);
   border-radius: 9px;
-  /* display: block; */
+  display: block;
   /* width: fit-content; */
   font-size: 0.85rem;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  margin: 1.2rem 0 0;
+  margin: 0 auto;
 }
 
 .delete-reading-btn:hover,
 .no-delete-btn:hover {
   background-color: rgb(245, 201, 201);
   transition: all 0.1s ease;
+}
+
+.delete-border {
+  width: 40%;
+  margin: 8rem auto 1.7rem;
+  border: none; /* removes browser default */
+  border-bottom: 0.5px solid #201105;
 }
 
 /* delete modal */

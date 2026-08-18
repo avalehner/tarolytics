@@ -12,9 +12,8 @@ import {
 import { saveCards } from "../services/cardsService";
 import type { ReadingTypes, CardTypes, UserTypes } from "../types";
 import { format } from "date-fns";
-import { convertDayToWord } from "../util";
+import { convertDayToWord, getCardImagePath, getReadingSummary } from "../util";
 import { getCardsByReadingId } from "../services/cardsService";
-import { getCardImagePath } from "../util";
 import { getRandomSequence } from "../services/randomService";
 import CardInput from "../components/CardInput";
 import spreadPositions from "../data/spreadPositions";
@@ -356,13 +355,13 @@ const ViewReadingPage = ({
     }
   };
 
-  const getReadingSummary = (interpretation: string): string => {
-    // grab everything between the summary heading and the next ### heading (or end)
-    const match = interpretation.match(
-      /#+\s*Overall Reading Summary\s*([\s\S]*?)(?=\n#+|$)/i,
-    );
-    return match ? match[1].trim() : interpretation; // fallback: show full text
-  };
+  // const getReadingSummary = (interpretation: string): string => {
+  //   // grab everything between the summary heading and the next ### heading (or end)
+  //   const match = interpretation.match(
+  //     /#+\s*Overall Reading Summary\s*([\s\S]*?)(?=\n#+|$)/i,
+  //   );
+  //   return match ? match[1].trim() : interpretation; // fallback: show full text
+  // };
 
   const pullClarifier = async () => {
     try {
@@ -402,101 +401,102 @@ const ViewReadingPage = ({
 
   return (
     <>
-      <div className={styles["view-reading-container"]}>
-        <div className={styles["reading-info-container"]}>
-          <div className={styles["month-day-container"]}>
-            <h1 className={styles["month"]}>
-              {formatDate(reading.reading_date).month}
-            </h1>
-            <h1 className={styles["day"]}>
-              {convertDayToWord(formatDate(reading.reading_date).day)}
-            </h1>
-          </div>
-          <h2 className={styles["year"]}>
-            {formatDate(reading.reading_date).year}
-          </h2>
-          <hr className={styles["aesthetic-divider"]} />
-          <div className={styles["details-container"]}>
-            <div className={styles["topic-container"]}>
-              <p className={styles["detail-label"]}>topic:</p>
-              <p className={styles["detail"]}>
-                {topicLabels[reading.reading_topic] || reading.reading_topic}
-              </p>
+      <div className={styles["view-reading-page-container"]}>
+        <div className={styles["view-reading-container"]}>
+          <div className={styles["reading-info-container"]}>
+            <div className={styles["month-day-container"]}>
+              <h1 className={styles["month"]}>
+                {formatDate(reading.reading_date).month}
+              </h1>
+              <h1 className={styles["day"]}>
+                {convertDayToWord(formatDate(reading.reading_date).day)}
+              </h1>
             </div>
-            <div className={styles["spread-container"]}>
-              <p className={styles["detail-label"]}>spread:</p>
-              <p className={styles["detail"]}>
-                {spreadLabels[reading.spread_type] || reading.spread_type}
-              </p>
-            </div>
-            <div className={styles["notes-container"]}>
-              <p className={styles["detail-label"]}>notes:</p>
-              <div>
-                <p className={notesExpanded ? "" : styles["truncate"]}>
-                  {reading.notes}
+            <h2 className={styles["year"]}>
+              {formatDate(reading.reading_date).year}
+            </h2>
+            <hr className={styles["aesthetic-divider"]} />
+            <div className={styles["details-container"]}>
+              <div className={styles["topic-container"]}>
+                <p className={styles["detail-label"]}>topic:</p>
+                <p className={styles["detail"]}>
+                  {topicLabels[reading.reading_topic] || reading.reading_topic}
                 </p>
-                <button
-                  className={styles["see-more-btn"]}
-                  onClick={() => setNotesExpanded(!notesExpanded)}
-                >
-                  {notesExpanded ? "[see less]" : "[see more]"}
-                </button>
+              </div>
+              <div className={styles["spread-container"]}>
+                <p className={styles["detail-label"]}>spread:</p>
+                <p className={styles["detail"]}>
+                  {spreadLabels[reading.spread_type] || reading.spread_type}
+                </p>
+              </div>
+              <div className={styles["notes-container"]}>
+                <p className={styles["detail-label"]}>notes:</p>
+                <div>
+                  <p className={notesExpanded ? "" : styles["truncate"]}>
+                    {reading.notes}
+                  </p>
+                  <button
+                    className={styles["see-more-btn"]}
+                    onClick={() => setNotesExpanded(!notesExpanded)}
+                  >
+                    {notesExpanded ? "[see less]" : "[see more]"}
+                  </button>
+                </div>
+              </div>
+              <div className={styles["notes-container"]}>
+                <p className={styles["detail-label"]}>yours:</p>
+                <div>
+                  <p
+                    className={
+                      userInterpretationExpanded ? "" : styles["truncate"]
+                    }
+                  >
+                    {reading.user_interpretation}
+                  </p>
+                  <button
+                    className={styles["see-more-btn"]}
+                    onClick={() =>
+                      setUserInterpretationExpanded(!userInterpretationExpanded)
+                    }
+                  >
+                    {userInterpretationExpanded ? "[see less]" : "[see more]"}
+                  </button>
+                </div>
               </div>
             </div>
-            <div className={styles["notes-container"]}>
-              <p className={styles["detail-label"]}>yours:</p>
-              <div>
-                <p
-                  className={
-                    userInterpretationExpanded ? "" : styles["truncate"]
-                  }
-                >
-                  {reading.user_interpretation}
-                </p>
-                <button
-                  className={styles["see-more-btn"]}
-                  onClick={() =>
-                    setUserInterpretationExpanded(!userInterpretationExpanded)
-                  }
-                >
-                  {userInterpretationExpanded ? "[see less]" : "[see more]"}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["button-container"]}>
-            <button
-              className={styles["update-reading-btn"]}
-              onClick={() => {
-                setUpdateModal(true);
-              }}
-            >
-              EDIT
-            </button>
-            {/* <button
+            <div className={styles["button-container"]}>
+              <button
+                className={styles["update-reading-btn"]}
+                onClick={() => {
+                  setUpdateModal(true);
+                }}
+              >
+                EDIT
+              </button>
+              {/* <button
               className={styles["delete-reading-btn"]}
               onClick={() => setDeleteModal(true)}
             >
               DELETE
             </button> */}
-            <div className={styles["pull-clarifier-container"]}>
-              <button
-                className={styles["clarifier-btn"]}
-                onClick={pullClarifier}
-              >
-                CLARIFIER
-              </button>
-              <div className={styles["rx-input-container"]}>
-                <input
-                  type="checkbox"
-                  checked={isReversals}
-                  onChange={(e) => setIsReversals(e.target.checked)}
-                  className={styles["rx-input"]}
-                />
-                <span className={styles["rx-label"]}>rx</span>
+              <div className={styles["pull-clarifier-container"]}>
+                <button
+                  className={styles["clarifier-btn"]}
+                  onClick={pullClarifier}
+                >
+                  CLARIFIER
+                </button>
+                <div className={styles["rx-input-container"]}>
+                  <input
+                    type="checkbox"
+                    checked={isReversals}
+                    onChange={(e) => setIsReversals(e.target.checked)}
+                    className={styles["rx-input"]}
+                  />
+                  <span className={styles["rx-label"]}>rx</span>
+                </div>
               </div>
-            </div>
-            {/* <div className={styles["toggle-container"]}>
+              {/* <div className={styles["toggle-container"]}>
               <label className={styles["toggle"]}>
                 <span className={styles["toggle-label"]}>no reversals</span>
                 <input
@@ -509,156 +509,174 @@ const ViewReadingPage = ({
                 <span className={styles["toggle-label"]}>rx</span>
               </label>
             </div> */}
-          </div>
-          <hr className={styles["aesthetic-divider"]} />
-          {/* <button
+            </div>
+            <hr className={styles["aesthetic-divider"]} />
+            {/* <button
             className={styles["delete-reading-btn"]}
             onClick={() => setDeleteModal(true)}
           >
             DELETE
           </button> */}
-          <div
-            className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
-          >
-            <div className={styles["interpretation"]}>
-              {isGenerating && !AIInterpretation ? (
-                "interpreting..."
-              ) : (
-                <ReactMarkdown>
-                  {getReadingSummary(AIInterpretation)}
-                </ReactMarkdown>
-              )}
-            </div>
-          </div>
-          <button
-            className={`${styles["interpret-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
-            onClick={async () => {
-              await handleGenerateAIInterpretation(readingId);
-            }}
-          >
-            {isGenerating ? "generating..." : "INTERPRET"}
-          </button>
-          <button
-            className={`${styles["interpret-btn"]} ${styles["save-interpretation-btn-sidebar"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
-            disabled={savedAIInterpretation}
-            onClick={async () => {
-              await handleSaveAIInterpretation(readingId, AIInterpretation);
-            }}
-          >
-            {savedAIInterpretation ? "saved!" : "SAVE INTERPRETATION"}
-          </button>
-        </div>
-        <div className={styles["reading-main-container"]}>
-          <div
-            className={styles["all-card-display-container"]}
-            ref={spreadAreaRef}
-          >
-            {reading.spread_type === "custom" ? (
-              <div className={styles["clarifier-display-container"]}>
-                {originalSpread.map((card, index) =>
-                  renderCardImage(card, index),
+            <div
+              className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
+            >
+              <div className={styles["interpretation"]}>
+                {isGenerating && !AIInterpretation ? (
+                  "interpreting..."
+                ) : (
+                  <ReactMarkdown>
+                    {getReadingSummary(AIInterpretation)}
+                  </ReactMarkdown>
                 )}
               </div>
-            ) : (
-              (() => {
-                const bounds = getSpreadBounds(reading.spread_type);
-                //scale the spread down uniformly when it is wider than the column
-                const scale = availableWidth
-                  ? Math.min(1, availableWidth / bounds.widthPx)
-                  : 1;
-                return (
-                  <div
-                    className={styles["spread-scale-frame"]}
-                    style={{
-                      width: bounds.widthPx * scale,
-                      height: bounds.heightPx * scale,
-                    }}
-                  >
+            </div>
+            <button
+              className={`${styles["interpret-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
+              onClick={async () => {
+                await handleGenerateAIInterpretation(readingId);
+              }}
+            >
+              {isGenerating ? "generating..." : "INTERPRET"}
+            </button>
+            <button
+              className={`${styles["interpret-btn"]} ${styles["save-interpretation-btn-sidebar"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
+              disabled={savedAIInterpretation}
+              onClick={async () => {
+                await handleSaveAIInterpretation(readingId, AIInterpretation);
+              }}
+            >
+              {savedAIInterpretation ? "saved!" : "SAVE INTERPRETATION"}
+            </button>
+          </div>
+          <div className={styles["reading-main-container"]}>
+            <div
+              className={styles["all-card-display-container"]}
+              ref={spreadAreaRef}
+            >
+              {reading.spread_type === "custom" ? (
+                <div className={styles["clarifier-display-container"]}>
+                  {originalSpread.map((card, index) =>
+                    renderCardImage(card, index),
+                  )}
+                </div>
+              ) : (
+                (() => {
+                  const bounds = getSpreadBounds(reading.spread_type);
+                  //scale the spread down uniformly when it is wider than the column
+                  const scale = availableWidth
+                    ? Math.min(1, availableWidth / bounds.widthPx)
+                    : 1;
+                  return (
                     <div
-                      className={styles["spread-display-container"]}
+                      className={styles["spread-scale-frame"]}
                       style={{
-                        width: bounds.widthPx,
-                        height: bounds.heightPx,
-                        transform: `scale(${scale})`,
-                        transformOrigin: "top left",
+                        width: bounds.widthPx * scale,
+                        height: bounds.heightPx * scale,
+                        marginTop:
+                          spreadPositions[reading.spread_type].topMargin,
                       }}
                     >
-                      {originalSpread.map((card, index) =>
-                        renderCardImage(card, index),
-                      )}
+                      <div
+                        className={styles["spread-display-container"]}
+                        style={{
+                          width: bounds.widthPx,
+                          height: bounds.heightPx,
+                          transform: `scale(${scale})`,
+                          transformOrigin: "top left",
+                        }}
+                      >
+                        {originalSpread.map((card, index) =>
+                          renderCardImage(card, index),
+                        )}
+                      </div>
                     </div>
-                  </div>
-                );
-              })()
-            )}
-            <div className={styles["clarifier-display-container"]}>
-              {clarifiers.map((card, index) => renderCardImage(card, index))}
-            </div>
-          </div>
-        </div>
-        {updateModal && (
-          <div className={styles["update-reading-modal-container"]}>
-            <i
-              className={`fa-regular fa-x ${styles["x-btn"]}`}
-              style={{ marginLeft: "98%" }}
-              onClick={() => setUpdateModal(false)}
-            ></i>
-            <div className={styles["update-reading-modal-contents"]}>
-              <div className={styles["reading-notes"]}>
-                <input
-                  type="text"
-                  value={updatedNotes}
-                  placeholder="notes"
-                  onChange={(e) => setUpdatedNotes(e.target.value)}
-                />
-              </div>
-              <div className={styles["reading-notes"]}>
-                <input
-                  type="text"
-                  //inputs current value
-                  value={updatedUserInterpretation}
-                  placeholder="interpretation"
-                  onChange={(e) => setUpdatedUserInterpretation(e.target.value)}
-                />
-              </div>
-              {renderCardInputsForUpdate()}
-              <button
-                className={styles["update-reading-btn-modal"]}
-                onClick={updateReadingAndCards}
-                disabled={isUpdating}
-              >
-                {isUpdating ? "Updating..." : "UPDATE READING"}
-              </button>
-              {updateMessage && (
-                <p className={styles["update-msg"]}>{updateMessage}</p>
+                  );
+                })()
               )}
+              <div className={styles["clarifier-display-container"]}>
+                {clarifiers.map((card, index) => renderCardImage(card, index))}
+              </div>
             </div>
           </div>
-        )}
-        {deleteModal && (
-          <div className={styles["delete-modal"]}>
-            <p>are you sure you want to delete this reading?</p>
-            <div className={styles["delete-modal-btns-container"]}>
-              <button
-                className={styles["yes-delete-btn"]}
-                onClick={() => {
-                  deleteReading(readingId!);
-                }}
-              >
-                YES
-              </button>
-              <button
-                className={styles["no-delete-btn"]}
-                onClick={() => {
-                  setDeleteModal(false);
-                }}
-              >
-                NO
-              </button>
+          {updateModal && (
+            <div className={styles["update-reading-modal-container"]}>
+              <i
+                className={`fa-regular fa-x ${styles["x-btn"]}`}
+                style={{ marginLeft: "98%" }}
+                onClick={() => setUpdateModal(false)}
+              ></i>
+              <div className={styles["update-reading-modal-contents"]}>
+                <div className={styles["reading-notes"]}>
+                  <input
+                    type="text"
+                    value={updatedNotes}
+                    placeholder="notes"
+                    onChange={(e) => setUpdatedNotes(e.target.value)}
+                  />
+                </div>
+                <div className={styles["reading-notes"]}>
+                  <input
+                    type="text"
+                    //inputs current value
+                    value={updatedUserInterpretation}
+                    placeholder="interpretation"
+                    onChange={(e) =>
+                      setUpdatedUserInterpretation(e.target.value)
+                    }
+                  />
+                </div>
+                {renderCardInputsForUpdate()}
+                <button
+                  className={styles["update-reading-btn-modal"]}
+                  onClick={updateReadingAndCards}
+                  disabled={isUpdating}
+                >
+                  {isUpdating ? "Updating..." : "UPDATE READING"}
+                </button>
+                {updateMessage && (
+                  <p className={styles["update-msg"]}>{updateMessage}</p>
+                )}
+              </div>
             </div>
-            {deleteMessage && <p>{deleteMessage}</p>}
-          </div>
-        )}
+          )}
+          {deleteModal && (
+            <div className={styles["delete-modal"]}>
+              <p>are you sure you want to delete this reading?</p>
+              <div className={styles["delete-modal-btns-container"]}>
+                <button
+                  className={styles["yes-delete-btn"]}
+                  onClick={() => {
+                    deleteReading(readingId!);
+                  }}
+                >
+                  YES
+                </button>
+                <button
+                  className={styles["no-delete-btn"]}
+                  onClick={() => {
+                    setDeleteModal(false);
+                  }}
+                >
+                  NO
+                </button>
+              </div>
+              {deleteMessage && <p>{deleteMessage}</p>}
+            </div>
+          )}
+          {/* <button
+          className={styles["delete-reading-btn"]}
+          onClick={() => setDeleteModal(true)}
+        >
+          DELETE
+        </button> */}
+        </div>
+        <hr className={styles["delete-border"]} />
+        <button
+          className={styles["delete-reading-btn"]}
+          onClick={() => setDeleteModal(true)}
+        >
+          DELETE READING
+        </button>
       </div>
     </>
   );
