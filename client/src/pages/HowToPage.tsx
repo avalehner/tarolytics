@@ -9,9 +9,9 @@ interface HowToPageProps {
 const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
   return (
     <div className={styles["how-to-page-container"]}>
-      <p className={styles["welcome"]}>How to</p>
+      <p className={styles["title"]}>How to</p>
       <p className={styles["welcome-text"]}>
-        Hello and welcome to Tarolytics! A tool to help you track and manage
+        Hello and welcome to Tarolytics! An app to help you track and manage
         your tarot readings digitally.
       </p>
       <p className={styles["bold"]}>Where should I get started?</p>
@@ -82,7 +82,7 @@ const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
         the self-discovery that I access through tarot. I'm hoping you find it
         useful for your practice, enjoy :)
       </p>
-      <p>- Ava</p>
+      <p className={styles["ava"]}>- Ava</p>
     </div>
   );
 };
