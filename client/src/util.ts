@@ -68,3 +68,11 @@ export const formatMonth = (monthStr: string) => {
   const [year, month] = monthStr.split("-").map(Number);
   return `${MONTHS[month - 1]} ${year}`;
 };
+
+export const getReadingSummary = (interpretation: string): string => {
+  // grab everything between the summary heading and the next ### heading (or end)
+  const match = interpretation.match(
+    /#+\s*Overall Reading Summary\s*([\s\S]*?)(?=\n#+|$)/i,
+  );
+  return match ? match[1].trim() : interpretation; // fallback: show full text
+};
