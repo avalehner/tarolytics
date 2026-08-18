@@ -20,10 +20,10 @@ const spreadPositions: Record<
     canvasHeight: 400,
   },
   "top-bottom": {
-    cardWidth: 40,
+    cardWidth: 37,
     positions: [
       { x: 25, y: 25, rotation: 0 },
-      { x: 85, y: 25, rotation: 0 },
+      { x: 75, y: 25, rotation: 0 },
     ],
     canvasHeight: 500,
   },
@@ -47,26 +47,21 @@ const spreadPositions: Record<
     canvasHeight: 500,
   },
   celtic: {
-    cardWidth: 20,
+    cardWidth: 23.5,
     positions: [
-      { x: 45, y: 80, rotation: 0 },
-      { x: 45, y: 80, rotation: 90, labelOffset: { x: -90, y: 40 } },
-      { x: 45, y: 26, rotation: 0 },
-      { x: 45, y: 135, rotation: 0 },
-      { x: 7, y: 80, rotation: 0 },
-      { x: 83, y: 80, rotation: 0 },
-      { x: 119, y: 162, rotation: 0 },
-      { x: 119, y: 109, rotation: 0 },
-      { x: 119, y: 56, rotation: 0 },
-      { x: 119, y: 3, rotation: 0 },
+      { x: 42, y: 86, rotation: 0 },
+      { x: 42, y: 86, rotation: 90, labelOffset: { x: -90, y: 40 } },
+      { x: 42, y: 24, rotation: 0 },
+      { x: 42, y: 149, rotation: 0 },
+      { x: -2, y: 86, rotation: 0 },
+      { x: 83, y: 86, rotation: 0 },
+      { x: 119, y: 192, rotation: 0 },
+      { x: 119, y: 130, rotation: 0 },
+      { x: 119, y: 69, rotation: 0 },
+      { x: 119, y: 7, rotation: 0 },
     ],
     canvasHeight: 900,
   },
-  // custom: {
-  //   cardWidth: 40,
-  //   positions: [],
-  //   canvasHeight: 500,
-  // },
 };
 
 export default spreadPositions;

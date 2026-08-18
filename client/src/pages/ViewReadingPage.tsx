@@ -63,6 +63,8 @@ const ViewReadingPage = ({
     getReadingByReadingId(readingId).then((data) => {
       setReading(data);
       setAIInterpretation(data.ai_interpretation || "");
+      setUpdatedNotes(data.notes || "");
+      setUpdatedUserInterpretation(data.user_interpretation || "");
     });
     getCardsByReadingId(readingId).then((data) => setCards(data));
   }, [readingId]);
@@ -76,6 +78,15 @@ const ViewReadingPage = ({
       day: Number(format(unformattedDate, "dd")),
       year: format(unformattedDate, "yyyy"),
     };
+  };
+
+  const getSpreadBounds = (spreadType: string) => {
+    const layout = spreadPositions[spreadType];
+    const minX = Math.min(...layout.positions.map((p) => p.x));
+    const maxX = Math.max(
+      ...layout.positions.map((p) => p.x + layout.cardWidth),
+    );
+    return { minX, widthPx: ((maxX - minX) / 100) * 500 };
   };
 
   const renderCardImage = (card: CardTypes, index: number) => {
@@ -106,11 +117,12 @@ const ViewReadingPage = ({
       //original spread or non custom reading
       const position = spreadLayout?.positions[card.position_order];
       if (!position) return null;
+      const { minX } = getSpreadBounds(reading.spread_type);
       containerStyle = {
         position: "absolute",
-        left: `${position.x}%`,
+        left: `${((position.x - minX) / 100) * 500}px`,
         top: `${(position.y / 100) * 400}px`,
-        width: `${cardWidth}%`,
+        width: `${(cardWidth / 100) * 500}px`,
       };
       label = spreadConfig[reading.spread_type][card.position_order];
       positionRotation = position.rotation;
@@ -299,6 +311,14 @@ const ViewReadingPage = ({
     }
   };
 
+  const getReadingSummary = (interpretation: string): string => {
+    // grab everything between the summary heading and the next ### heading (or end)
+    const match = interpretation.match(
+      /#+\s*Overall Reading Summary\s*([\s\S]*?)(?=\n#+|$)/i,
+    );
+    return match ? match[1].trim() : interpretation; // fallback: show full text
+  };
+
   const pullClarifier = async () => {
     try {
       const randomNumber = await getRandomSequence(1, isReversals);
@@ -353,55 +373,74 @@ const ViewReadingPage = ({
           <hr className={styles["aesthetic-divider"]} />
           <div className={styles["details-container"]}>
             <div className={styles["topic-container"]}>
-              <p className={styles["detail-label"]}>Topic:</p>
+              <p className={styles["detail-label"]}>topic:</p>
               <p className={styles["detail"]}>
                 {topicLabels[reading.reading_topic] || reading.reading_topic}
               </p>
             </div>
             <div className={styles["spread-container"]}>
-              <p className={styles["detail-label"]}>Spread:</p>
+              <p className={styles["detail-label"]}>spread:</p>
               <p className={styles["detail"]}>
                 {spreadLabels[reading.spread_type] || reading.spread_type}
               </p>
             </div>
             <div className={styles["notes-container"]}>
-              <p className={styles["detail-label"]}>Notes:</p>
+              <p className={styles["detail-label"]}>notes:</p>
               <p className={styles["detail"]}>{reading.notes}</p>
             </div>
             <div className={styles["notes-container"]}>
-              <p className={styles["detail-label"]}>Your interpretation:</p>
+              <p className={styles["detail-label"]}>yours:</p>
               <p className={styles["detail"]}>{reading.user_interpretation}</p>
             </div>
           </div>
-          {/* <div className={styles["button-container"]}> */}
-          <button
-            className={styles["update-reading-btn"]}
-            onClick={() => {
-              setUpdateModal(true);
-            }}
-          >
-            UPDATE
-          </button>
-          <div className={styles["pull-clarifier-container"]}>
-            <button className={styles["clarifier-btn"]} onClick={pullClarifier}>
-              PULL CLARIFIER
+          <div className={styles["button-container"]}>
+            <button
+              className={styles["update-reading-btn"]}
+              onClick={() => {
+                setUpdateModal(true);
+              }}
+            >
+              EDIT
             </button>
-            <div className={styles["toggle-container"]}>
+            <div className={styles["pull-clarifier-container"]}>
+              <button
+                className={styles["clarifier-btn"]}
+                onClick={pullClarifier}
+              >
+                CLARIFIER
+              </button>
+              <div className={styles["rx-input-container"]}>
+                <input
+                  type="checkbox"
+                  checked={isReversals}
+                  onChange={(e) => setIsReversals(e.target.checked)}
+                  className={styles["rx-input"]}
+                />
+                <span className={styles["rx-label"]}>rx</span>
+              </div>
+            </div>
+            {/* <div className={styles["toggle-container"]}>
               <label className={styles["toggle"]}>
                 <span className={styles["toggle-label"]}>no reversals</span>
                 <input
                   type="checkbox"
                   checked={isReversals}
                   onChange={(e) => setIsReversals(e.target.checked)}
-                  className={styles["toggle-input"]}
+                  // className={styles["toggle-input"]}
                 />
                 <span className={styles["toggle-slider"]} />
-                <span className={styles["toggle-label"]}>reversals</span>
+                <span className={styles["toggle-label"]}>rx</span>
               </label>
-            </div>
+            </div> */}
           </div>
-          {/* </div> */}
           <hr className={styles["aesthetic-divider"]} />
+
+          <button
+            className={styles["delete-reading-btn"]}
+            onClick={() => setDeleteModal(true)}
+          >
+            DELETE
+          </button>
           <div
             className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
           >
@@ -409,20 +448,22 @@ const ViewReadingPage = ({
               {isGenerating && !AIInterpretation ? (
                 "interpreting..."
               ) : (
-                <ReactMarkdown>{AIInterpretation}</ReactMarkdown>
+                <ReactMarkdown>
+                  {getReadingSummary(AIInterpretation)}
+                </ReactMarkdown>
               )}
             </div>
           </div>
           <button
-            className={`${styles["save-interpretation-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
+            className={`${styles["interpret-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
             onClick={async () => {
               await handleGenerateAIInterpretation(readingId);
             }}
           >
-            {isGenerating ? "generating..." : "GENERATE INTERPRETATION"}
+            {isGenerating ? "generating..." : "INTERPRET"}
           </button>
           <button
-            className={`${styles["save-interpretation-btn"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
+            className={`${styles["interpret-btn"]} ${styles["save-interpretation-btn-sidebar"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
             disabled={isSaving}
             onClick={async () => {
               await handleSaveAIInterpretation(readingId, AIInterpretation);
@@ -430,34 +471,31 @@ const ViewReadingPage = ({
           >
             {isSaving ? "saving..." : "SAVE INTERPRETATION"}
           </button>
-          <button
-            className={styles["delete-reading-btn"]}
-            onClick={() => setDeleteModal(true)}
-          >
-            DELETE READING
-          </button>
         </div>
-        <div className={styles["all-card-display-container"]}>
-          {reading.spread_type === "custom" ? (
+        <div className={styles["reading-main-container"]}>
+          <div className={styles["all-card-display-container"]}>
+            {reading.spread_type === "custom" ? (
+              <div className={styles["clarifier-display-container"]}>
+                {originalSpread.map((card, index) =>
+                  renderCardImage(card, index),
+                )}
+              </div>
+            ) : (
+              <div
+                className={styles["spread-display-container"]}
+                style={{
+                  width: getSpreadBounds(reading.spread_type).widthPx,
+                  height: spreadPositions[reading.spread_type].canvasHeight,
+                }}
+              >
+                {originalSpread.map((card, index) =>
+                  renderCardImage(card, index),
+                )}
+              </div>
+            )}
             <div className={styles["clarifier-display-container"]}>
-              {originalSpread.map((card, index) =>
-                renderCardImage(card, index),
-              )}
+              {clarifiers.map((card, index) => renderCardImage(card, index))}
             </div>
-          ) : (
-            <div
-              className={styles["spread-display-container"]}
-              style={{
-                height: spreadPositions[reading.spread_type].canvasHeight,
-              }}
-            >
-              {originalSpread.map((card, index) =>
-                renderCardImage(card, index),
-              )}
-            </div>
-          )}
-          <div className={styles["clarifier-display-container"]}>
-            {clarifiers.map((card, index) => renderCardImage(card, index))}
           </div>
         </div>
         {updateModal && (
