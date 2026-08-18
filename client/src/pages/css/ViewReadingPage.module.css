@@ -80,16 +80,31 @@
   margin: 0 0 0.5rem;
   font-size: 1.1rem;
 }
-/* 
-.detail-label {
-  font-weight: 600;
-  color: rgb(40, 96, 23);
+
+.truncate {
+  width: 350px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* number of lines before the ellipsis */
+  line-clamp: 3;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
 }
 
-.detail {
-  font-weight: 600; 
-  color: rgb(40, 96, 23);
-} */
+.see-more-btn {
+  border: none;
+  background: none;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  display: inline;
+  font-style: italic;
+}
+
+.see-more-btn:hover {
+  color: gray;
+  transition: all ease 0.1s;
+}
 
 .details-container {
   margin: 1rem 0 0.8rem;
@@ -128,6 +143,28 @@
 
 .rx-input {
   margin: 0 0.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #fa393c66;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 0.5rem 0.3rem 0.7rem;
+}
+
+.rx-input:checked {
+  background-color: #fa393c66;
+  box-shadow: inset 0 0 0 0px #fa393c66;
+}
+
+.rx-input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.rx-label {
+  margin-bottom: 0.3rem;
 }
 
 /* toggle */
@@ -205,7 +242,7 @@
 }
 
 .interpret-btn {
-  border: 0.5px solid rgb(151, 180, 142, 0.9);
+  border: 1px solid rgb(151, 180, 142, 0.9);
   border-radius: 9px;
   padding: 0.5rem 1rem;
   font-family: "Libertinus Serif", serif;
@@ -397,10 +434,11 @@
   border: 1px solid rgb(225, 134, 134, 0.5);
   border-radius: 9px;
   /* display: block; */
-  width: fit-content;
+  /* width: fit-content; */
   font-size: 0.85rem;
   padding: 0.5rem 1rem;
-  margin: 1.2rem auto 0;
+  margin-bottom: 0.5rem;
+  margin: 1.2rem 0 0;
 }
 
 .delete-reading-btn:hover,

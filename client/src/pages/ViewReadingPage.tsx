@@ -40,6 +40,8 @@ const ViewReadingPage = ({
   const [updatedUserInterpretation, setUpdatedUserInterpretation] =
     useState<string>("");
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
+  const [savedAIInterpretation, setSavedAInterpretation] =
+    useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -51,6 +53,9 @@ const ViewReadingPage = ({
   const [isReversals, setIsReversals] = useState<boolean>(false);
   const spreadAreaRef = useRef<HTMLDivElement>(null);
   const [availableWidth, setAvailableWidth] = useState<number | null>(null);
+  const [notesExpanded, setNotesExpanded] = useState<boolean>(false);
+  const [userInterpretationExpanded, setUserInterpretationExpanded] =
+    useState<boolean>(false);
 
   const { readingId } = useParams();
 
@@ -67,6 +72,8 @@ const ViewReadingPage = ({
       setAIInterpretation(data.ai_interpretation || "");
       setUpdatedNotes(data.notes || "");
       setUpdatedUserInterpretation(data.user_interpretation || "");
+
+      if (data.ai_interpretation) setSavedAInterpretation(true);
     });
     getCardsByReadingId(readingId).then((data) => setCards(data));
   }, [readingId]);
@@ -345,6 +352,7 @@ const ViewReadingPage = ({
       console.error(message);
     } finally {
       setIsSaving(false);
+      setSavedAInterpretation(true);
     }
   };
 
@@ -423,11 +431,37 @@ const ViewReadingPage = ({
             </div>
             <div className={styles["notes-container"]}>
               <p className={styles["detail-label"]}>notes:</p>
-              <p className={styles["detail"]}>{reading.notes}</p>
+              <div>
+                <p className={notesExpanded ? "" : styles["truncate"]}>
+                  {reading.notes}
+                </p>
+                <button
+                  className={styles["see-more-btn"]}
+                  onClick={() => setNotesExpanded(!notesExpanded)}
+                >
+                  {notesExpanded ? "[see less]" : "[see more]"}
+                </button>
+              </div>
             </div>
             <div className={styles["notes-container"]}>
               <p className={styles["detail-label"]}>yours:</p>
-              <p className={styles["detail"]}>{reading.user_interpretation}</p>
+              <div>
+                <p
+                  className={
+                    userInterpretationExpanded ? "" : styles["truncate"]
+                  }
+                >
+                  {reading.user_interpretation}
+                </p>
+                <button
+                  className={styles["see-more-btn"]}
+                  onClick={() =>
+                    setUserInterpretationExpanded(!userInterpretationExpanded)
+                  }
+                >
+                  {userInterpretationExpanded ? "[see less]" : "[see more]"}
+                </button>
+              </div>
             </div>
           </div>
           <div className={styles["button-container"]}>
@@ -439,6 +473,12 @@ const ViewReadingPage = ({
             >
               EDIT
             </button>
+            {/* <button
+              className={styles["delete-reading-btn"]}
+              onClick={() => setDeleteModal(true)}
+            >
+              DELETE
+            </button> */}
             <div className={styles["pull-clarifier-container"]}>
               <button
                 className={styles["clarifier-btn"]}
@@ -471,13 +511,12 @@ const ViewReadingPage = ({
             </div> */}
           </div>
           <hr className={styles["aesthetic-divider"]} />
-
-          <button
+          {/* <button
             className={styles["delete-reading-btn"]}
             onClick={() => setDeleteModal(true)}
           >
             DELETE
-          </button>
+          </button> */}
           <div
             className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
           >
@@ -501,12 +540,12 @@ const ViewReadingPage = ({
           </button>
           <button
             className={`${styles["interpret-btn"]} ${styles["save-interpretation-btn-sidebar"]} ${!AIInterpretation ? styles["hidden"] : ""}`}
-            disabled={isSaving}
+            disabled={savedAIInterpretation}
             onClick={async () => {
               await handleSaveAIInterpretation(readingId, AIInterpretation);
             }}
           >
-            {isSaving ? "saving..." : "SAVE INTERPRETATION"}
+            {savedAIInterpretation ? "saved!" : "SAVE INTERPRETATION"}
           </button>
         </div>
         <div className={styles["reading-main-container"]}>
