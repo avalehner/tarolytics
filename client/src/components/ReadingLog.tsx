@@ -4,6 +4,7 @@ import type { ReadingWithCardTypes } from "../types";
 import spreadLabels from "../data/spreadLabels";
 import topicLabels from "../data/topicLabels";
 import { useNavigate } from "react-router-dom";
+import { getReadingSummary } from "../util";
 
 interface ReadingLogProps {
   reading: ReadingWithCardTypes;
@@ -29,7 +30,11 @@ const ReadingLog = ({ reading }: ReadingLogProps) => {
       <p className={styles["truncate"]}>{reading.notes}</p>
       <p className={styles["truncate"]}>{reading.user_interpretation}</p>
       <div className={`${styles["truncate"]} ${styles["ai-interpretation"]}`}>
-        <ReactMarkdown>{reading.ai_interpretation}</ReactMarkdown>
+        <ReactMarkdown>
+          {reading.ai_interpretation
+            ? getReadingSummary(reading.ai_interpretation)
+            : ""}
+        </ReactMarkdown>
       </div>
     </div>
   );
