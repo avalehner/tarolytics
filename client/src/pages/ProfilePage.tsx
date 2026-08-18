@@ -182,7 +182,7 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
             UPDATE PROFILE
           </button>
         </div>
-        {saveMessage}
+        <p className={styles["save-message"]}>{saveMessage}</p>
       </div>
     </div>
   );

@@ -17,13 +17,13 @@
 }
 
 .profile-container {
-  margin: 2rem auto 0;
+  margin: 2rem auto 0rem;
   background-color: rgb(255, 252, 241, 0.3);
   border-radius: 17px;
   max-width: calc(100% - 200rem);
   min-width: 450px;
   font-family: "Libertinus Serif", serif;
-  padding: 1rem 4rem;
+  padding: 1rem 4rem 1.7rem;
   color: #201105;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .save-profile-btn {
-  margin: 0.8rem 0 1.7rem;
+  margin: 0.8rem 0 0.5rem;
   border: 1px solid rgb(151, 180, 142, 0.65);
   background-color: #ebffe4;
 }
@@ -121,4 +121,8 @@
 .save-profile-btn:hover {
   background-color: #d8f6cd;
   transition: all 0.1s ease;
+}
+
+.save-message {
+  text-align: center;
 }
