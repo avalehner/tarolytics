@@ -5,6 +5,7 @@ nav {
   align-items: center;
   padding: 2.2rem 2rem;
   width: 100%;
+  min-width: 900px;
   top: 0;
   color: black;
   /* margin: 0 auto; */
