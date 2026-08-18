@@ -20,6 +20,7 @@ const ReadingLogPage = ({
   currentUser,
   isAuthLoading,
 }: ReadingLogPageProps) => {
+  const [isLoadingReadings, setIsLoadingReadings] = useState<boolean>(true);
   const [searchCategory, setSearchCategory] = useState<string>("all");
   const [date, setDate] = useState<Date | null>(null);
   const [readingTopic, setReadingTopic] = useState<string>("card-of-day");
@@ -38,7 +39,9 @@ const ReadingLogPage = ({
 
   useEffect(() => {
     if (!currentUser) return;
-    getReadingsByUserId().then((data) => setReadings(data));
+    getReadingsByUserId()
+      .then((data) => setReadings(data))
+      .finally(() => setIsLoadingReadings(false));
   }, [currentUser]); //[] tells react to only run the effect once on initial mount
 
   const handleRemoveCard = (indexToRemove: number) => {
@@ -110,7 +113,7 @@ const ReadingLogPage = ({
   return (
     <div className={styles["reading-log-page-container"]}>
       <h1 className={styles["title"]}>History</h1>
-      {readings.length === 0 ? (
+      {isLoadingReadings ? null : readings.length === 0 ? (
         <div className={styles["no-readings-msg"]}>
           <p>
             You haven't entered any readings yet! Your history will appear here
