@@ -31,7 +31,7 @@ const spreadPositions: Record<
     cardWidth: 38,
     topMargin: 85,
     positions: [
-      { x: 7, y: 50, rotation: 0 },
+      { x: 5, y: 50, rotation: 0 },
       { x: 57.5, y: 50, rotation: 0 },
       { x: 110, y: 50, rotation: 0 },
     ],

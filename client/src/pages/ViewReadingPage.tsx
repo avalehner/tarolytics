@@ -355,14 +355,6 @@ const ViewReadingPage = ({
     }
   };
 
-  // const getReadingSummary = (interpretation: string): string => {
-  //   // grab everything between the summary heading and the next ### heading (or end)
-  //   const match = interpretation.match(
-  //     /#+\s*Overall Reading Summary\s*([\s\S]*?)(?=\n#+|$)/i,
-  //   );
-  //   return match ? match[1].trim() : interpretation; // fallback: show full text
-  // };
-
   const pullClarifier = async () => {
     try {
       const randomNumber = await getRandomSequence(1, isReversals);

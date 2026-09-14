@@ -26,6 +26,15 @@
   font-size: 3.3rem;
 }
 
+.reading-input-container {
+  border-radius: 25px;
+  margin: 0ch auto;
+  padding: 3rem 0 2.3rem;
+  background: rgba(255, 255, 255, 0.15);
+  max-width: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
 .topic-label,
 .spread-label,
 .toggle-label {

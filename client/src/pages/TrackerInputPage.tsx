@@ -286,92 +286,101 @@ const TrackerInputPage = ({
   return (
     <div className={styles["tracker-input-page-container"]}>
       <h1 className={styles["title"]}>Tarolytics</h1>
-      <DatePicker date={date} setDate={setDate} />
-      <div className={styles["reading-topic-menu-container"]}>
-        <p className={styles["topic-label"]}>topic:</p>
-        <ReadingTopicMenu
-          readingTopic={readingTopic}
-          setReadingTopic={setReadingTopic}
-          customReadingTopic={customReadingTopic}
-          setCustomReadingTopic={setCustomReadingTopic}
-        />
-      </div>
-      <div className={styles["reading-topic-menu-container"]}>
-        <p className={styles["spread-label"]}>spread:</p>
-        <ReadingSpreadMenu
-          readingSpread={readingSpread}
-          setReadingSpread={setReadingSpread}
-          customReadingSpread={customReadingSpread}
-          setCustomReadingSpread={setCustomReadingSpread}
-          setCards={setInputtedCards}
-          isDisabled={isCardsPulled}
-        />
-      </div>
-      {!isManual && !isCardsPulled && (
-        <div>
-          {readingSpread !== "custom" && (
-            <div className={styles["toggle-container"]}>
-              <label className={styles["toggle"]}>
-                <span className={styles["toggle-label"]}>no reversals</span>
-
-                <input
-                  type="checkbox"
-                  checked={isReversals}
-                  onChange={(e) => setIsReversals(e.target.checked)}
-                  className={styles["toggle-input"]}
-                />
-                <span className={styles["toggle-slider"]} />
-                <span className={styles["toggle-label"]}>reversals</span>
-              </label>
-            </div>
-          )}
-          <button
-            className={styles["save-reading-btn"]}
-            onClick={() => setIsManual(true)}
-          >
-            ENTER MANUALLY
-          </button>
-          {readingSpread !== "custom" && (
-            <button className={styles["save-reading-btn"]} onClick={pullCards}>
-              PULL CARDS
-            </button>
-          )}
+      <div className={styles["reading-input-container"]}>
+        <DatePicker date={date} setDate={setDate} />
+        <div className={styles["reading-topic-menu-container"]}>
+          <p className={styles["topic-label"]}>topic:</p>
+          <ReadingTopicMenu
+            readingTopic={readingTopic}
+            setReadingTopic={setReadingTopic}
+            customReadingTopic={customReadingTopic}
+            setCustomReadingTopic={setCustomReadingTopic}
+          />
         </div>
-      )}
-
-      {/* manual input logic */}
-      {isManual && renderCardInputs(readingSpread)}
-
-      {(isManual || isCardsPulled) && ( //wrapping in parenthesis for order of operations issue (&& stronger than ||)
-        <>
-          <div className={styles["reading-notes"]}>
-            <input
-              type="text"
-              value={notes}
-              placeholder="notes"
-              onChange={(e) => setNotes(e.target.value)}
-            />
-          </div>
-          <div className={styles["reading-notes"]}>
-            <input
-              type="text"
-              value={userInterpretation}
-              placeholder="interpretation"
-              onChange={(e) => setUserInterpretation(e.target.value)}
-            />
-          </div>
+        <div className={styles["reading-topic-menu-container"]}>
+          <p className={styles["spread-label"]}>spread:</p>
+          <ReadingSpreadMenu
+            readingSpread={readingSpread}
+            setReadingSpread={setReadingSpread}
+            customReadingSpread={customReadingSpread}
+            setCustomReadingSpread={setCustomReadingSpread}
+            setCards={setInputtedCards}
+            isDisabled={isCardsPulled}
+          />
+        </div>
+        {!isManual && !isCardsPulled && (
           <div>
+            {readingSpread !== "custom" && (
+              <div className={styles["toggle-container"]}>
+                <label className={styles["toggle"]}>
+                  <span className={styles["toggle-label"]}>no reversals</span>
+
+                  <input
+                    type="checkbox"
+                    checked={isReversals}
+                    onChange={(e) => setIsReversals(e.target.checked)}
+                    className={styles["toggle-input"]}
+                  />
+                  <span className={styles["toggle-slider"]} />
+                  <span className={styles["toggle-label"]}>reversals</span>
+                </label>
+              </div>
+            )}
             <button
               className={styles["save-reading-btn"]}
-              onClick={async () => {
-                await saveReading(); //making sure the reading has been saved before showing the modal
-              }}
-              disabled={saving}
+              onClick={() => setIsManual(true)}
             >
-              {saving ? "Saving..." : "SAVE READING"}
+              ENTER MANUALLY
             </button>
-            {message && <p>{message}</p>}
+            {readingSpread !== "custom" && (
+              <button
+                className={styles["save-reading-btn"]}
+                onClick={pullCards}
+              >
+                PULL CARDS
+              </button>
+            )}
           </div>
+        )}
+
+        {/* manual input logic */}
+        {isManual && renderCardInputs(readingSpread)}
+
+        {(isManual || isCardsPulled) && ( //wrapping in parenthesis for order of operations issue (&& stronger than ||)
+          <>
+            <div className={styles["reading-notes"]}>
+              <input
+                type="text"
+                value={notes}
+                placeholder="notes"
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+            <div className={styles["reading-notes"]}>
+              <input
+                type="text"
+                value={userInterpretation}
+                placeholder="interpretation"
+                onChange={(e) => setUserInterpretation(e.target.value)}
+              />
+            </div>
+            <div>
+              <button
+                className={styles["save-reading-btn"]}
+                onClick={async () => {
+                  await saveReading(); //making sure the reading has been saved before showing the modal
+                }}
+                disabled={saving}
+              >
+                {saving ? "Saving..." : "SAVE READING"}
+              </button>
+              {message && <p>{message}</p>}
+            </div>
+          </>
+        )}
+      </div>
+      {(isManual || isCardsPulled) && (
+        <>
           {/* pull cards logic */}
           {isCardsPulled && (
             <div className={styles["spread-display-container"]}>
