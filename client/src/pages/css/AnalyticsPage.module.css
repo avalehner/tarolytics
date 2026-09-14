@@ -317,3 +317,114 @@
 .frequency-graph-container {
   width: 100%;
 }
+
+@media (max-width: 900px) {
+  .analytics-page-container {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+  }
+
+  .analytics-page-title {
+    margin: 1.25rem 0;
+    font-size: 2.5rem;
+  }
+
+  .stat-highlights-container,
+  .searched-card-stats-container {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-highlight-card,
+  .searched-card-stat-container {
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .card-search-container,
+  .charts {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem 1.25rem;
+  }
+
+  .search-title {
+    margin: 0.75rem 0 1rem;
+    font-size: 1.65rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-dropdown,
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input {
+    height: auto;
+    margin-right: 0;
+  }
+
+  .search-btns-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .search-filter-btn,
+  .search-btn {
+    width: 100%;
+    margin-right: 0;
+    padding: 0.65rem 0.35rem;
+  }
+
+  .search-btn {
+    grid-column: 1 / -1;
+  }
+
+  .searched-card {
+    overflow-wrap: anywhere;
+  }
+
+  .charts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .most-pulled-cards-container,
+  .suit-trend-container,
+  .chart-container,
+  .frequency-graph-container {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .chart-container,
+  .frequency-graph-container {
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .reading-note-card {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .reading-note {
+    padding: 0.5rem 0.75rem;
+    overflow-wrap: anywhere;
+  }
+
+  .bottom-row-note {
+    gap: 0.75rem;
+    margin-right: 0.25rem;
+  }
+}
