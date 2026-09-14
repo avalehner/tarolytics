@@ -18,6 +18,7 @@
 
 .profile-container {
   margin: 2rem auto 0rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgb(255, 252, 241, 0.3);
   border-radius: 17px;
   max-width: calc(100% - 200rem);
@@ -72,7 +73,7 @@
   font-family: "Libertinus Serif", serif;
   width: 135px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.15rem;
   background-color: #fffefa;
   cursor: pointer;
 }
@@ -84,7 +85,7 @@
   font-family: "Libertinus Serif", serif;
   width: 200px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.15rem;
   background-color: #fffefa;
   cursor: pointer;
 }
@@ -125,4 +126,86 @@
 
 .save-message {
   text-align: center;
+}
+
+@media (max-width: 900px) {
+  .profile-container::before {
+    position: fixed;
+  }
+
+  .profile-container {
+    width: calc(100% - 2rem);
+    max-width: 500px;
+    min-width: 0;
+    margin: 2rem auto 0;
+    padding: 1.5rem 2rem 1.75rem;
+  }
+
+  .profile-header {
+    margin: 0.5rem 0 1rem;
+    font-size: 2rem;
+  }
+
+  .profile-border {
+    width: 60%;
+    margin-bottom: 1rem;
+  }
+
+  .profile-group,
+  .birthtime-container,
+  .birth-timezone-container,
+  .birth-location-container {
+    display: grid;
+    grid-template-columns: minmax(90px, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .birthday-container {
+    display: block;
+  }
+
+  .profile-group p,
+  .profile-label {
+    margin: 0.65rem 0;
+    font-size: 1.1rem;
+  }
+
+  .profile-group > :last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .birthtime-container,
+  .birth-timezone-container,
+  .birth-location-container {
+    margin: 0.5rem 0;
+  }
+
+  .time-select,
+  .timezone-select,
+  .birth-location-select {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .birthday-container :global(.react-datepicker-wrapper),
+  .birthday-container :global(.react-datepicker__input-container),
+  .birthday-container :global(.react-datepicker__input-container input) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .birthday-container :global(.react-datepicker__input-container input) {
+    margin-bottom: 0;
+  }
+
+  .save-profile-btn {
+    display: block;
+    width: calc(100% - 2rem);
+    max-width: 260px;
+    margin: 1.25rem auto 0.5rem;
+  }
 }
