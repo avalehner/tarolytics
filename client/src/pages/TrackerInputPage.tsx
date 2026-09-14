@@ -287,7 +287,10 @@ const TrackerInputPage = ({
     <div className={styles["tracker-input-page-container"]}>
       <h1 className={styles["title"]}>Tarolytics</h1>
       <div className={styles["reading-input-container"]}>
-        <DatePicker date={date} setDate={setDate} />
+        <div className={styles["reading-topic-menu-container"]}>
+          <p className={styles["date-label"]}>date:</p>
+          <DatePicker date={date} setDate={setDate} />
+        </div>
         <div className={styles["reading-topic-menu-container"]}>
           <p className={styles["topic-label"]}>topic:</p>
           <ReadingTopicMenu
@@ -383,7 +386,12 @@ const TrackerInputPage = ({
         <>
           {/* pull cards logic */}
           {isCardsPulled && (
-            <div className={styles["spread-display-container"]}>
+            <div
+              className={styles["spread-display-container"]}
+              style={{
+                gridTemplateColumns: `repeat(${Math.min(Math.max(pulledCards.length, 1), 3)}, minmax(0, 1fr))`,
+              }}
+            >
               {pulledCards.map((card, index) =>
                 renderCardImagesV2(card, index),
               )}
