@@ -42,3 +42,25 @@
 .ava {
   margin-top: 3rem;
 }
+
+@media (max-width: 900px) {
+  .how-to-page-container {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0 auto 4rem;
+    padding: 0 1.25rem;
+  }
+
+  .title {
+    margin: 1.25rem 0 1.5rem;
+  }
+
+  .bold {
+    margin-top: 2rem;
+  }
+
+  .ava {
+    margin-top: 2rem;
+  }
+}
