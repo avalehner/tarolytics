@@ -26,10 +26,18 @@ const ReadingLog = ({ reading }: ReadingLogProps) => {
       <p>{getDate()}</p>
       <p>{topicLabels[reading.reading_topic] || reading.reading_topic}</p>
       <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
-      <p className={styles["truncate"]}>{reading.card_names?.join(", ")}</p>
-      <p className={styles["truncate"]}>{reading.notes}</p>
-      <p className={styles["truncate"]}>{reading.user_interpretation}</p>
-      <div className={`${styles["truncate"]} ${styles["ai-interpretation"]}`}>
+      <p className={`${styles.truncate} ${styles["mobile-hidden"]}`}>
+        {reading.card_names?.join(", ")}
+      </p>
+      <p className={`${styles.truncate} ${styles["mobile-hidden"]}`}>
+        {reading.notes}
+      </p>
+      <p className={`${styles.truncate} ${styles["mobile-hidden"]}`}>
+        {reading.user_interpretation}
+      </p>
+      <div
+        className={`${styles.truncate} ${styles["ai-interpretation"]} ${styles["mobile-hidden"]}`}
+      >
         <ReactMarkdown>
           {reading.ai_interpretation
             ? getReadingSummary(reading.ai_interpretation)

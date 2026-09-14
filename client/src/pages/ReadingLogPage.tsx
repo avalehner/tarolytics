@@ -190,10 +190,10 @@ const ReadingLogPage = ({
             <p>DATE</p>
             <p>TOPIC</p>
             <p>SPREAD</p>
-            <p>CARDS</p>
-            <p>NOTES</p>
-            <p>INTERPRETATION</p>
-            <p>AI INTERPRETATION</p>
+            <p className={styles["mobile-hidden"]}>CARDS</p>
+            <p className={styles["mobile-hidden"]}>NOTES</p>
+            <p className={styles["mobile-hidden"]}>INTERPRETATION</p>
+            <p className={styles["mobile-hidden"]}>AI INTERPRETATION</p>
           </div>
           <div className={styles["reading-log-container"]}>
             {renderReadingLogs()}
