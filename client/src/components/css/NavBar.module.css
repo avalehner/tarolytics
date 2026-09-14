@@ -1,4 +1,4 @@
-nav {
+.nav {
   background-color: transparent;
   display: flex;
   justify-content: space-between;
@@ -7,17 +7,28 @@ nav {
   width: 100%;
   min-width: 900px;
   top: 0;
-  color: black;
-  /* margin: 0 auto; */
+  color: #201105;
 }
 
-nav a {
-  color: black;
+.nav a {
+  color: #201105;
 }
 
-nav a:hover {
+.nav a:hover {
   color: #36622a;
   transition: all 0.1s ease;
+}
+
+.brand,
+.menu-toggle {
+  display: none;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .nav-left,
@@ -33,4 +44,97 @@ nav a:hover {
 .nav-left li,
 .nav-right li {
   font-size: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .nav {
+    min-width: 0;
+    padding: 1rem 1.25rem;
+    position: relative;
+    z-index: 20;
+  }
+
+  .brand {
+    display: block;
+    font-family: "Pamela", serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: #201105;
+  }
+
+  .menu-toggle {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+  }
+
+  .menu-toggle span {
+    background-color: #201105;
+    display: block;
+    height: 2px;
+    width: 28px;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .menu-toggle-open span:first-child {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .menu-toggle-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle-open span:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 0.75rem 1.25rem 1.25rem;
+    background: rgba(255, 248, 229, 0.97);
+    border-bottom: 1px solid rgba(54, 98, 42, 0.25);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-menu-open {
+    display: block;
+  }
+
+  .nav-left,
+  .nav-right {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .nav-left li,
+  .nav-right li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 1rem;
+  }
+
+  .nav-right li:last-child {
+    border-bottom: 0;
+  }
+
+  .nav-left a,
+  .nav-right a {
+    display: block;
+    padding: 0.8rem 0;
+  }
 }
