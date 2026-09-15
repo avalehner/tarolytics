@@ -343,8 +343,15 @@
   .stat-highlight-card,
   .searched-card-stat-container {
     width: 100%;
-    padding-right: 0.75rem;
-    padding-left: 0.75rem;
+    padding: 0 0.75rem;
+  }
+
+  .stat-title {
+    font-size: 1.05rem;
+  }
+
+  .stat {
+    font-size: 1.7rem;
   }
 
   .card-search-container,
@@ -413,6 +420,18 @@
     overflow: hidden;
     padding-right: 0;
     padding-left: 0;
+  }
+
+  .chart-container {
+    margin-bottom: 0rem;
+  }
+
+  .chart-title {
+    margin: 0.8rem 0 0.6rem;
+  }
+
+  .charts p {
+    font-size: 1rem;
   }
 
   .reading-note-card {
