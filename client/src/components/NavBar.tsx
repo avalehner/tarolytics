@@ -65,11 +65,11 @@ const NavBar = ({ currentUser }: NavBarProps) => {
               ANALYTICS
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/astrology" onClick={closeMenu}>
               ASTROLOGY
             </NavLink>
-          </li>
+          </li> */}
         </ul>
         <ul className={styles["nav-right"]}>
           {currentUser ? (
