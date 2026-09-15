@@ -29,8 +29,7 @@
   background: radial-gradient(ellipse at center, #fff8e5 20%, #cebcc5 100%);
 }
 
-a,
-a:visited {
+:where(a, a:visited) {
   font-weight: 500;
   color: inherit;
   text-decoration: inherit;
