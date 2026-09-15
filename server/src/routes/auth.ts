@@ -97,7 +97,7 @@ authRouter.get("/google/callback", async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production", //false for local development (HTTP)
     });
 
-    res.redirect(`${CLIENT_URL}/how-to`);
+    res.redirect(`${CLIENT_URL}`);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Error";
     res.status(500).json({ error: message });
