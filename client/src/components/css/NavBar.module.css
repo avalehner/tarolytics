@@ -7,6 +7,7 @@
   width: 100%;
   min-width: 900px;
   top: 0;
+  position: relative;
   color: #201105;
 }
 
@@ -19,7 +20,16 @@
   transition: all 0.1s ease;
 }
 
-.brand,
+.brand {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Pamela", serif;
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
 .menu-toggle {
   display: none;
 }
@@ -56,6 +66,8 @@
 
   .brand {
     display: block;
+    position: static;
+    transform: none;
     font-family: "Pamela", serif;
     font-size: 2rem;
     line-height: 1;

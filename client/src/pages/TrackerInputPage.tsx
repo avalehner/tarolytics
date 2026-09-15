@@ -285,13 +285,8 @@ const TrackerInputPage = ({
 
   return (
     <div className={styles["tracker-input-page-container"]}>
-      <h1 className={styles["title"]}>Tarolytics</h1>
-      {/* <h1 className={styles["mobile-title"]}>Pull a card...</h1> */}
-      {/* <p className={styles["mobile-description"]}>
-        Use the form below to pull cards or enter a reading
-      </p> */}
       <div className={styles["reading-input-container"]}>
-        <h1 className={styles["mobile-title"]}>Pull a card...</h1>
+        <h1 className={styles["mobile-title"]}>Pull a card</h1>
         <hr className={styles["aesthetic-border"]}></hr>
         <div className={styles["reading-topic-menu-container"]}>
           <p className={styles["date-label"]}>date:</p>

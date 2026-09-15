@@ -9,9 +9,11 @@
 }
 
 .title {
-  font-family: "Pamela";
-  font-size: 3rem;
+  font-family: "Libertinus Serif", serif;
+  font-size: 2.5rem;
   margin: 1.5rem 0 2rem;
+  font-style: italic;
+  font-weight: 600;
   text-align: center;
 }
 

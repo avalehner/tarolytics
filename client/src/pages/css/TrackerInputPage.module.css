@@ -20,18 +20,15 @@
   text-align: center;
 }
 
-.title {
-  font-family: "Pamela";
-  margin: 4rem 0 1.7rem;
-  font-size: 3.3rem;
-}
-
 .mobile-title {
-  display: none;
-}
-
-.mobile-description {
-  display: none;
+  display: block;
+  font-family: "Libertinus Serif", serif;
+  color: #201105;
+  font-style: italic;
+  margin: 0.25rem 0 1.5rem;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 2.3rem;
 }
 
 .aesthetic-border {
@@ -44,8 +41,8 @@
 .reading-input-container {
   max-width: 500px;
   border-radius: 25px;
-  margin: 0ch auto;
-  padding: 3rem 0 2.3rem;
+  margin: 5rem auto;
+  padding: 2rem 0 2.3rem;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
@@ -253,10 +250,6 @@
 }
 
 @media (max-width: 900px) {
-  .title {
-    display: none;
-  }
-
   .mobile-title {
     display: block;
     font-family: "Libertinus Serif", serif;

@@ -29,10 +29,20 @@
   background: radial-gradient(ellipse at center, #fff8e5 20%, #cebcc5 100%);
 }
 
-a {
+a,
+a:visited {
   font-weight: 500;
-  color: black;
+  color: inherit;
   text-decoration: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  color: #201105;
+  font: inherit;
+  -webkit-text-fill-color: currentColor;
 }
 
 body {
@@ -48,6 +58,8 @@ h1 {
 }
 
 button {
+  appearance: none;
+  -webkit-appearance: none;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
