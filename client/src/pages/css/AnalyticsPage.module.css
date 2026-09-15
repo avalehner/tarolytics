@@ -328,8 +328,9 @@
   }
 
   .analytics-page-title {
-    margin: 1.25rem 0;
-    font-size: 2.5rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 2.3rem;
+    font-family: "Libertinus Serif", serif;
   }
 
   .stat-highlights-container,
