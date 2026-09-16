@@ -80,14 +80,20 @@
 }
 
 .time-select::-webkit-date-and-time-value {
-  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
 .time-select::-webkit-datetime-edit {
-  display: flex;
-  justify-content: center;
+  display: block;
   width: 100%;
+  padding: 0;
+  text-align: center;
 }
 
 .timezone-select {
@@ -196,7 +202,7 @@
   .birth-timezone-container,
   .birth-location-container {
     display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-columns: minmax(100px, 1fr) min(42vw, 200px);
     align-items: center;
     gap: 0.75rem;
     width: 100%;
@@ -217,28 +223,44 @@
     overflow-wrap: anywhere;
   }
 
+  .birthday-container,
   .birthtime-container,
   .birth-timezone-container,
   .birth-location-container {
-    margin: 0.5rem 0;
+    margin: 0 0 0.75rem;
+  }
+
+  .birthday-container .profile-label,
+  .birthtime-container .profile-label,
+  .birth-timezone-container .profile-label,
+  .birth-location-container .profile-label {
+    margin-block: 0;
   }
 
   .time-select,
   .timezone-select,
   .birth-location-select {
-    width: 100%;
-    max-width: none;
+    flex: 0 0 min(42vw, 200px);
+    width: min(42vw, 200px);
+    max-width: min(42vw, 200px);
     min-width: 0;
+    height: 44px;
   }
 
   .birthday-container :global(.react-datepicker-wrapper),
   .birthday-container :global(.react-datepicker__input-container),
   .birthday-container :global(.react-datepicker__input-container input) {
-    width: 100%;
+    width: min(42vw, 200px);
+    max-width: min(42vw, 200px);
     min-width: 0;
   }
 
+  .birthday-container :global(.react-datepicker-wrapper) {
+    flex: 0 0 min(42vw, 200px);
+  }
+
   .birthday-container :global(.react-datepicker__input-container input) {
+    height: 44px;
     margin-bottom: 0;
   }
 
