@@ -28,6 +28,14 @@
   font-family: "Pamela", serif;
   font-size: 2.25rem;
   line-height: 1;
+  margin: 0;
+  background: none;
+  padding: 0;
+}
+
+/* Keep the brand color unchanged while other nav links turn green. */
+.nav a.brand:hover {
+  color: #201105;
 }
 
 .menu-toggle {

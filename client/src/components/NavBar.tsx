@@ -25,8 +25,8 @@ const NavBar = ({ currentUser }: NavBarProps) => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className={styles.nav}>
-      <NavLink className={styles.brand} to="/" onClick={closeMenu}>
+    <nav className={styles["nav"]}>
+      <NavLink className={styles["brand"]} to="/" onClick={closeMenu}>
         Tarolytics
       </NavLink>
 
