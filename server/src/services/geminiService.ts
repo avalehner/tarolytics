@@ -7,7 +7,7 @@ const interpretReading = async (prompt: string): Promise<string> => {
     console.log("querying gemini...");
     //generateContent generates a text response from the model
     const geminiResponse = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-3.8-flash",
       contents: `${prompt}`,
     });
 
