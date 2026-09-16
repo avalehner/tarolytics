@@ -152,6 +152,22 @@
   text-align: center;
 }
 
+@media (min-width: 901px) {
+  .birthday-container,
+  .birthtime-container,
+  .birth-timezone-container,
+  .birth-location-container {
+    margin: 0 0 0.75rem;
+  }
+
+  .birthday-container .profile-label,
+  .birthtime-container .profile-label,
+  .birth-timezone-container .profile-label,
+  .birth-location-container .profile-label {
+    margin-block: 0;
+  }
+}
+
 @media (max-width: 900px) {
   .profile-container::before {
     position: fixed;
