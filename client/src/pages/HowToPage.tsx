@@ -61,12 +61,14 @@ const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
         </a>{" "}
         page allows you to input you birth date and time to retrieve your
         astrology data which you can then view in the{" "}
-        <a className={styles["link"]} href="/astrology">
+        {/* <a className={styles["link"]} href="/astrology">
           astrology
-        </a>{" "}
-        page. You do not need to input your birth data to use the tarot tracking
-        features of Tarolytics, however if you do you will have the option to
-        link your tarot reaing interpretations to your astrological chart.
+        </a>{" "} */}
+        astrology page (this is currently still in development so the feature is
+        not available yet!). You do not need to input your birth data to use the
+        tarot tracking features of Tarolytics, however if you do you will have
+        the option to link your tarot reaing interpretations to your
+        astrological chart.
       </p>
       <p className={styles["bold"]}>Why did I create this?</p>
       <p>
