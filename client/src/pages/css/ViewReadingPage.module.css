@@ -119,6 +119,10 @@
   margin: 1rem 0 0.8rem;
 }
 
+.reading-details-card {
+  position: relative;
+}
+
 .button-container {
   display: flex;
   gap: 0.5rem;
@@ -129,7 +133,7 @@
 .clarifier-btn {
   border: 1px solid rgba(110, 133, 178, 0.694);
   border-radius: 7px;
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #e2e8ff;
   font-size: 0.85rem;
@@ -257,8 +261,8 @@
 
 .interpret-btn {
   border: 1px solid rgb(151, 180, 142, 0.9);
-  border-radius: 9px;
-  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #ebffe4;
   font-size: 0.85rem;
@@ -279,8 +283,8 @@
 .save-interpretation-btn,
 .update-reading-btn-modal {
   border: 0.5px solid rgb(151, 180, 142, 0.6);
-  border-radius: 9px;
-  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #ebffe4;
   font-size: 0.9rem;
@@ -448,7 +452,7 @@
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
   border-radius: 7px;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #e2e8ff;
   font-size: 0.9rem;
@@ -457,7 +461,7 @@
 
 .add-card-btn,
 .update-reading-btn-modal {
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.2rem;
   border-radius: 7px;
 }
 
@@ -493,14 +497,41 @@
 }
 
 .delete-reading-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.5rem;
+  height: 1.5rem;
   background-color: rgb(255, 224, 224);
   border: 1px solid rgb(225, 134, 134, 0.5);
-  border-radius: 9px;
-  display: block;
-  font-size: 0.85rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-  margin: 0 auto;
+  border-radius: 50%;
+  color: rgb(225, 134, 134, 1);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.delete-reading-btn::before,
+.delete-reading-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.delete-reading-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.delete-reading-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .delete-reading-btn:hover,
@@ -601,6 +632,11 @@
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 17px;
     box-sizing: border-box;
+  }
+
+  .reading-details-card .delete-reading-btn {
+    top: 0.75rem;
+    right: 0.75rem;
   }
 
   .reading-main-container {
@@ -791,10 +827,5 @@
     /* width: calc(100% - 2rem);
     margin: 3rem auto 1.5rem; */
     display: none;
-  }
-
-  .delete-reading-btn {
-    width: fit-content;
-    margin: 4rem auto 0;
   }
 }

@@ -516,6 +516,13 @@ const ViewReadingPage = ({
               </h2>
               <hr className={styles["aesthetic-divider"]} />
               <div className={styles["reading-details-card"]}>
+                <button
+                  type="button"
+                  className={styles["delete-reading-btn"]}
+                  aria-label="Delete reading"
+                  title="Delete reading"
+                  onClick={() => setDeleteModal(true)}
+                />
                 <div className={styles["details-container"]}>
                   <div className={styles["topic-container"]}>
                     <p className={styles["detail-label"]}>topic:</p>
@@ -817,13 +824,6 @@ const ViewReadingPage = ({
             </div>
           </div>
         )}
-        <hr className={styles["delete-border"]} />
-        <button
-          className={styles["delete-reading-btn"]}
-          onClick={() => setDeleteModal(true)}
-        >
-          DELETE READING
-        </button>
       </div>
     </>
   );

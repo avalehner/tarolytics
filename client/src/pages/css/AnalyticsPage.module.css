@@ -110,7 +110,7 @@
 .search-btn {
   border: 1px solid rgb(177, 149, 212, 0.5);
   border-radius: 7px;
-  padding: 0.7rem 0.9rem;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #f7e4ff;
   font-size: 0.8rem;
@@ -391,7 +391,7 @@
   .search-btn {
     width: 100%;
     margin-right: 0;
-    padding: 0.65rem 0.35rem;
+    padding: 0.75rem 1.2rem;
   }
 
   .search-btn {

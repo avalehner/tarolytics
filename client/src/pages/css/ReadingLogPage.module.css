@@ -86,8 +86,8 @@
 
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: 9px;
-  padding: 0.5rem 0.9rem;
+  border-radius: 7px;
+  padding: 0.75rem 1.2rem;
   font-family: "Libertinus Serif", serif;
   background-color: #e2e8ff;
   font-size: 0.9rem;
