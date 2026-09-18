@@ -511,9 +511,9 @@
   width: 1.5rem;
   height: 1.5rem;
   background-color: rgb(255, 224, 224);
-  border: 1px solid rgb(225, 134, 134, 0.2);
+  border: 1px solid rgb(225, 134, 134, 0.5);
   border-radius: 50%;
-  color: rgb(225, 134, 134, 0.5);
+  color: rgb(225, 134, 134, 0.75);
   display: grid;
   place-items: center;
   padding: 0;
