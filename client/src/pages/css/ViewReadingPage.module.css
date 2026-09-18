@@ -4,7 +4,7 @@
 
 .view-reading-container {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: minmax(420px, 35%) minmax(0, 1fr);
   padding: 0;
   column-gap: 3rem;
   max-width: calc(100% - 15rem);
@@ -121,6 +121,13 @@
 
 .reading-details-card {
   position: relative;
+  width: 100%;
+  padding: 1.5rem 2rem 1.75rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 17px;
+  box-sizing: border-box;
+  margin-top: 1.25rem;
 }
 
 .button-container {
@@ -595,6 +602,18 @@
   display: none;
 }
 
+@media (min-width: 901px) {
+  .reading-details-card .delete-reading-btn {
+    top: 0.75rem;
+    right: 0.75rem;
+    left: auto;
+  }
+
+  .reading-details-card .truncate {
+    width: 100%;
+  }
+}
+
 @media (max-width: 900px) {
   .view-reading-page-container {
     width: 100%;
@@ -633,11 +652,6 @@
 
   .reading-details-card {
     margin-top: 1rem;
-    padding: 1.5rem 2rem 1.75rem;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 17px;
-    box-sizing: border-box;
   }
 
   .reading-details-card .delete-reading-btn {

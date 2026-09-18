@@ -399,13 +399,15 @@ const ViewReadingPage = ({
   };
 
   const handleGenerateAIInterpretation = async (readingId: string) => {
+    setIsGenerating(true);
+
     try {
-      setIsGenerating(true);
       setAIInterpretation(await interpretReadingById(readingId));
-      setIsGenerating(false);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -514,7 +516,7 @@ const ViewReadingPage = ({
               <h2 className={styles["year"]}>
                 {formatDate(reading.reading_date).year}
               </h2>
-              <hr className={styles["aesthetic-divider"]} />
+              {/* <hr className={styles["aesthetic-divider"]} /> */}
               <div className={styles["reading-details-card"]}>
                 <button
                   type="button"
@@ -625,7 +627,7 @@ const ViewReadingPage = ({
               </div>
             </div>
             <div className={styles["interpretation-section"]}>
-              <hr className={styles["aesthetic-divider"]} />
+              {/* <hr className={styles["aesthetic-divider"]} /> */}
               <div
                 className={`${styles["interpretation-card"]} ${(isGenerating && !AIInterpretation) || AIInterpretation ? "" : styles["hidden"]} `}
               >
