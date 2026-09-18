@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import interpretReading from "../services/geminiService";
+import interpretReading, { GeminiError } from "../services/geminiService";
 import pool from "../db"; //pool allows backend code to talk to postgres and run SQL queries
 import { requireAuth } from "../middleware/auth";
 
@@ -160,6 +160,24 @@ readingsRouter.post(
       const interpretation = await interpretReading(prompt);
       res.status(200).json(interpretation);
     } catch (error) {
+      if (error instanceof GeminiError) {
+        if (error.status === 503) {
+          res.status(503).json({
+            error:
+              "The interpretation service is busy. Please try again shortly.",
+          });
+          return;
+        }
+
+        if (error.status === 504) {
+          res.status(504).json({
+            error:
+              "The interpretation service took too long to respond. Please try again.",
+          });
+          return;
+        }
+      }
+
       const message = error instanceof Error ? error.message : "Unknown Error";
       res.status(500).json({ error: message });
     }
