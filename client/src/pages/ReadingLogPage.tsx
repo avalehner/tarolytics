@@ -113,6 +113,7 @@ const ReadingLogPage = ({
   return (
     <div className={styles["reading-log-page-container"]}>
       <h1 className={styles["title"]}>History</h1>
+      {/* <hr className={styles["border"]}></hr> */}
       {isLoadingReadings ? null : readings.length === 0 ? (
         <div className={styles["no-readings-msg"]}>
           <p>
