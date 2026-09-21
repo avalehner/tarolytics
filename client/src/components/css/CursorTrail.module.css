@@ -1,0 +1,33 @@
+.trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.position {
+  position: absolute;
+  width: 32px;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 18%);
+  animation: fadeAway 600ms ease-out forwards;
+}
+
+@keyframes fadeAway {
+  from {
+    opacity: 0.85;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(24px) scale(0.65);
+  }
+}

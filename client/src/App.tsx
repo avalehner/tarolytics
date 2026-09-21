@@ -11,6 +11,7 @@ import HowToPage from "./pages/HowToPage";
 import ProfilePage from "./pages/ProfilePage";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import CursorTrail from "./components/CursorTrail";
 import { useState, useEffect } from "react";
 import { UserTypes } from "./types";
 
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <>
+      <CursorTrail />
       <NavBar currentUser={currentUser} />
       <Routes>
         <Route

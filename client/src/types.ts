@@ -187,3 +187,15 @@ export interface ReadingsPerMonthTypes {
   month: string;
   readings: number;
 }
+
+export interface TrailCardTypes {
+  id: number;
+  x: number;
+  y: number;
+  rotation: number;
+  src: string;
+}
+
+export default function CursorTrail() {
+  const [cards, setCards] = useState<TrailCard[]>([]);
+}
