@@ -225,7 +225,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           <p className={styles["stat-detail"]}>
             {statDetails
               ? `${statDetails.reading_rate[1] ? "up " : "down "} ${statDetails.reading_rate[0]} % from last month`
-              : "N/A - not enought data"}
+              : "N/A - not enough data"}
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
@@ -234,7 +234,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           <p className={styles["stat-detail"]}>
             {statDetails
               ? `${statDetails.unseen_cards} unseen`
-              : "N/A - not enought data"}
+              : "N/A - not enough data"}
           </p>
         </div>
         <div className={styles["stat-highlight-card"]}>
@@ -248,7 +248,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
           <p className={styles["stat-detail"]}>
             {statDetails
               ? `${statDetails.major_arcana_percentage[0]}% ${statDetails.major_arcana_percentage[1] ? "above" : "below "} average`
-              : "N/A - not enought data"}
+              : "N/A - not enough data"}
             {/* {getStatDetails()?.major_arcana_percentage[0]}%{" "}
             {getStatDetails()?.major_arcana_percentage[1] ? "above " : "below "}{" "} */}
           </p>
