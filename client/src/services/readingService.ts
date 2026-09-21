@@ -126,9 +126,6 @@ export const interpretReadingById = async (
 
     throw new Error(message);
   }
-  // throw new Error(
-  //   `Server error [interpretReadingById- readingService.ts]: ${response.status}`,
-  // );
 
   const interpretation = await response.json();
   return interpretation;

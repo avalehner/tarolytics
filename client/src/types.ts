@@ -195,7 +195,3 @@ export interface TrailCardTypes {
   rotation: number;
   src: string;
 }
-
-export default function CursorTrail() {
-  const [cards, setCards] = useState<TrailCard[]>([]);
-}
