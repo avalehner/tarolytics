@@ -108,8 +108,6 @@ const ReadingLogPage = ({
   //null guards
   if (!currentUser) return null; //prevents form from flashing while auth loads
 
-  console.log(readings);
-
   return (
     <div className={styles["reading-log-page-container"]}>
       <h1 className={styles["title"]}>History</h1>

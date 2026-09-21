@@ -11,9 +11,10 @@ interface ReadingLogProps {
 }
 
 const ReadingLog = ({ reading }: ReadingLogProps) => {
-  const getDate = () => {
-    const date = new Date(reading.reading_date);
-    return date.toLocaleDateString("en-US").replaceAll("/", ".");
+  const getDate = (date: string) => {
+    const rawDate = date.slice(0, 10);
+    const unformattedDate = new Date(rawDate + "T00:00:00");
+    return unformattedDate.toLocaleDateString("en-US").replaceAll("/", ".");
   };
 
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const ReadingLog = ({ reading }: ReadingLogProps) => {
       className={styles["reading-log"]}
       onClick={() => navigate(`/reading/${reading.id}`)}
     >
-      <p>{getDate()}</p>
+      <p>{getDate(reading.reading_date)}</p>
       <p>{topicLabels[reading.reading_topic] || reading.reading_topic}</p>
       <p>{spreadLabels[reading.spread_type] || reading.spread_type}</p>
       <p className={`${styles.truncate} ${styles["mobile-hidden"]}`}>
