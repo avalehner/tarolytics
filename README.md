@@ -21,15 +21,22 @@ Tarolytics also provides the user with their astrological chart information and 
 
 ## Stack
 
-Tarolytics was built with a Typescript/React/Vite frontend and a Node.js/Express/PostgreSQL backend stack. 
+Tarolytics was built with a Typescript/React/Vite frontend and a Node.js/Express backend. The database is PostgreSQL with parameterized SQL queries and connection pooling. 
 
-The astrology data is sourced from [Free Astro API's](https://www.freeastroapi.com/docs/western/natal/) Natal Chart endpoint. 
+Authentication is implemented using Google Oath login and JWT sessions using HTTP-only cookies. 
+
+The interactive analytics dashboard was built with Recharts to visualize card frequency, reversal rates, and suit trends. 
+
+AI integration is implemented with Google Gemini to generate personalized interpretations from cards, spread positions, and user notes. 
+
+### External APIs
+
+The astrology data is sourced from [Free Astro API's](https://www.freeastroapi.com/docs/western/natal/) Natal Chart endpoint (currently in progress and not live). 
 
 Tarolytics uses natural randomness derived from atmospheric noise to generate it's tarot readings for users. This data is sourced from [random.org](https://www.random.org/clients/http/#sequences) sequence generator API.  
+
+[OpenCage's Geocoding API](https://opencagedata.com/api) is used for location lookup. 
 
 ## Author
 
 Ava Lehner, I made this tool for myself and hope others can enjoy it as well :) 
-
-
-
