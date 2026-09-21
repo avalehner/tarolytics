@@ -41,6 +41,9 @@ const ViewReadingPage = ({
   const [AIInterpretation, setAIInterpretation] = useState<string>("");
   const [savedAIInterpretation, setSavedAInterpretation] =
     useState<boolean>(false);
+  const [interpretationError, setInterpretationError] = useState<string | null>(
+    null,
+  );
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updateMessage, setUpdateMessage] = useState<string>("");
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -399,11 +402,17 @@ const ViewReadingPage = ({
   };
 
   const handleGenerateAIInterpretation = async (readingId: string) => {
+    setInterpretationError(null); //clear any previous errors
     setIsGenerating(true);
 
     try {
       setAIInterpretation(await interpretReadingById(readingId));
     } catch (error) {
+      setInterpretationError(
+        error instanceof Error
+          ? error.message
+          : "Couldn't generate an interpretation. Please try again.",
+      );
       const message = error instanceof Error ? error.message : "Unknown Error";
       console.error(message);
     } finally {
@@ -634,6 +643,8 @@ const ViewReadingPage = ({
                 <div className={styles["interpretation"]}>
                   {isGenerating && !AIInterpretation ? (
                     "interpreting..."
+                  ) : interpretationError ? (
+                    <p role="alert">{interpretationError}</p>
                   ) : (
                     <ReactMarkdown>
                       {getReadingSummary(AIInterpretation)}
@@ -643,6 +654,7 @@ const ViewReadingPage = ({
               </div>
               <button
                 className={`${styles["interpret-btn"]} ${AIInterpretation ? styles["hidden"] : ""}`}
+                disabled={isGenerating}
                 onClick={async () => {
                   await handleGenerateAIInterpretation(readingId);
                 }}

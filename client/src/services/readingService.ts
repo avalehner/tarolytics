@@ -116,10 +116,19 @@ export const interpretReadingById = async (
     credentials: "include",
   });
 
-  if (!response.ok)
-    throw new Error(
-      `Server error [interpretReadingById- readingService.ts]: ${response.status}`,
-    );
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+
+    const message =
+      [503, 504].includes(response.status) && typeof body?.error === "string"
+        ? body.error
+        : "Couldn't generate an interpretation. Please Try again.";
+
+    throw new Error(message);
+  }
+  // throw new Error(
+  //   `Server error [interpretReadingById- readingService.ts]: ${response.status}`,
+  // );
 
   const interpretation = await response.json();
   return interpretation;
