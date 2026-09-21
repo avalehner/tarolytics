@@ -41,7 +41,7 @@
 .reading-input-container {
   max-width: 500px;
   border-radius: 25px;
-  margin: 5rem auto;
+  margin: 5rem auto 3rem;
   padding: 2rem 0 2.3rem;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -150,16 +150,16 @@
   align-items: center;
   gap: 1rem;
   justify-content: center;
-  width: 30%;
+  width: 50%;
   margin: 1.5rem auto;
-  padding: 2.5rem 1rem 1rem;
-  background-color: #fff8e5;
-  border: 1px dashed rgb(196, 85, 0, 0.6);
+  /* padding: 2.5rem 1rem 1rem; */
+  /* background-color: #fff8e5;
+  border: 1px dashed rgb(196, 85, 0, 0.6); */
   border-radius: 20px;
 }
 
 .card-image-container {
-  width: 100px;
+  width: 200px;
 }
 
 .card-image {
