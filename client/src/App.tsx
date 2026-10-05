@@ -41,7 +41,7 @@ function App() {
 
   return (
     <>
-      <CursorTrail />
+      {/* <CursorTrail /> */}
       <NavBar currentUser={currentUser} />
       <Routes>
         <Route
