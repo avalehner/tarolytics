@@ -164,7 +164,7 @@ readingsRouter.post(
         if (error.status === 503) {
           res.status(503).json({
             error:
-              "The interpretation service is busy. Please try again shortly.",
+              "503: The interpretation service is busy. Please try again shortly.",
           });
           return;
         }
@@ -172,7 +172,7 @@ readingsRouter.post(
         if (error.status === 504) {
           res.status(504).json({
             error:
-              "The interpretation service took too long to respond. Please try again.",
+              "504: The interpretation service took too long to respond. Please try again.",
           });
           return;
         }

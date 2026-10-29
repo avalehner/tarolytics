@@ -19,11 +19,11 @@ const interpretReading = async (prompt: string): Promise<string> => {
     console.log("querying gemini...");
     //generateContent generates a text response from the model
     const geminiResponse = await ai.models.generateContent({
-      model: "gemini-3.8-flash",
+      model: "gemini-3.5-flash-lite",
       contents: `${prompt}`,
       config: {
         httpOptions: {
-          timeout: 45_000, //in milliseconds
+          timeout: 90_000, //in milliseconds
         },
       },
     });
