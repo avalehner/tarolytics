@@ -41,16 +41,8 @@
 }
 
 .login-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
   border: 1px solid #97b48e;
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-primary-bg);
   font-size: 1rem;
   margin: 0.7rem 0.5rem;
-}
-
-.login-btn:hover {
-  background-color: var(--action-primary-hover);
-  transition: all 0.1s ease;
 }

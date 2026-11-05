@@ -102,10 +102,8 @@
 }
 
 .see-more-btn {
-  border: none;
-  background: none;
+  composes: text from "../../components/css/Button.module.css";
   margin-bottom: 0.5rem;
-  padding: 0;
   display: inline;
   font-style: italic;
 }
@@ -137,24 +135,21 @@
   margin-bottom: 0rem;
 }
 
+.clarifier-btn {
+  composes: secondary controlFont compact from "../../components/css/Button.module.css";
+}
+
+.update-reading-btn {
+  composes: secondary controlFont compact from "../../components/css/Button.module.css";
+}
+
 .update-reading-btn,
 .clarifier-btn {
   border: 1px solid rgba(110, 133, 178, 0.694);
-  border-radius: var(--radius-control);
-  padding: 0.6rem 1.2rem;
-  font-family: var(--font-control);
-  background-color: var(--action-secondary-bg);
-  font-size: 0.85rem;
   text-align: left;
   display: block;
   width: fit-content;
   margin-bottom: 0.3rem;
-}
-
-.update-reading-btn:hover,
-.clarifier-btn:hover {
-  background-color: var(--action-secondary-hover);
-  transition: all 0.1s ease;
 }
 
 .pull-clarifier-container {
@@ -268,12 +263,8 @@
 }
 
 .interpret-btn {
+  composes: primary controlFont compact from "../../components/css/Button.module.css";
   border: 1px solid rgb(151, 180, 142, 0.9);
-  border-radius: var(--radius-control);
-  padding: 0.6rem 1.2rem;
-  font-family: var(--font-control);
-  background-color: var(--action-primary-bg);
-  font-size: 0.85rem;
   display: block;
   width: fit-content;
   margin: 1rem 0;
@@ -283,27 +274,15 @@
   margin: 1.2rem auto 0;
 }
 
-.interpret-btn:hover {
-  background-color: var(--action-primary-hover);
-  transition: all 0.1s ease;
+.save-interpretation-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
 }
 
 .save-interpretation-btn,
 .update-reading-btn-modal {
   border: 0.5px solid rgb(151, 180, 142, 0.6);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-primary-bg);
   font-size: 0.9rem;
   margin: 0;
-}
-
-.save-interpretation-btn:hover,
-.yes-delete-btn:hover,
-.update-reading-btn-modal:hover {
-  background-color: var(--action-primary-hover);
-  transition: all 0.1s ease;
 }
 
 /* card containers */
@@ -454,24 +433,9 @@
 }
 
 .add-card-btn {
-  border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-secondary-bg);
+  composes: secondary controlFont from "../../components/css/Button.module.css";
   font-size: 0.9rem;
   margin: 0.7rem 0;
-}
-
-.add-card-btn,
-.update-reading-btn-modal {
-  padding: var(--button-padding);
-  border-radius: var(--radius-control);
-}
-
-.add-card-btn:hover {
-  background-color: var(--action-secondary-hover);
-  transition: all 0.1s ease;
 }
 
 .card-input-container {
@@ -491,6 +455,7 @@
 }
 
 .update-reading-btn-modal {
+  composes: primary controlFont from "../../components/css/Button.module.css";
   display: block;
   margin: 1rem auto 0rem;
 }
@@ -501,18 +466,15 @@
 }
 
 .delete-reading-btn {
+  composes: danger icon from "../../components/css/Button.module.css";
   position: absolute;
   top: 0;
   right: 0;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: rgb(255, 224, 224);
   border: 1px solid rgb(225, 134, 134, 0.5);
   border-radius: 50%;
   color: rgb(225, 134, 134, 0.75);
-  display: grid;
-  place-items: center;
-  padding: 0;
   font-family: inherit;
   font-size: 1.25rem;
   line-height: 1;
@@ -536,12 +498,6 @@
 
 .delete-reading-btn::after {
   transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.delete-reading-btn:hover,
-.no-delete-btn:hover {
-  background-color: rgb(245, 201, 201);
-  transition: all 0.1s ease;
 }
 
 .delete-border {
@@ -580,14 +536,13 @@
 }
 
 .no-delete-btn {
-  background-color: rgb(255, 224, 224);
+  composes: danger from "../../components/css/Button.module.css";
   border: 1px solid rgb(225, 134, 134, 0.6);
 }
 
 .yes-delete-btn {
+  composes: primary from "../../components/css/Button.module.css";
   border: 0.5px solid #97b48e;
-  border-radius: var(--radius-control);
-  background-color: var(--action-primary-bg);
 }
 
 .yes-delete-btn,

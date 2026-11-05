@@ -1,3 +1,4 @@
+import headerStyles from "../components/css/Header.module.css";
 //react imports
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -288,7 +289,7 @@ const TrackerInputPage = ({
   return (
     <div className={styles["tracker-input-page-container"]}>
       <div className={styles["reading-input-container"]}>
-        <h1 className={styles["mobile-title"]}>Pull a card</h1>
+        <h1 className={`${headerStyles.title} ${styles["mobile-title"]}`}>Pull a card</h1>
         <hr className={styles["aesthetic-border"]}></hr>
         <div className={styles["reading-topic-menu-container"]}>
           <p className={styles["date-label"]}>date:</p>

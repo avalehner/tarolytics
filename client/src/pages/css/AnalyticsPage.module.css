@@ -7,11 +7,6 @@
 }
 
 .analytics-page-title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  font-style: italic;
-  text-align: center;
-  font-family: var(--font-heading);
   margin-top: 2rem;
 }
 
@@ -119,22 +114,21 @@
   gap: 10px;
 }
 
+.search-filter-btn {
+  composes: filter controlFont from "../../components/css/Button.module.css";
+}
+
 .search-filter-btn,
 .search-btn {
   flex: 1 1 0;
   min-width: 0;
-  border: 1px solid rgb(177, 149, 212, 0.5);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: #f7e4ff;
   font-size: 0.8rem;
   white-space: nowrap;
 }
 
 .search-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
   border: 1px solid rgb(151, 180, 142, 0.65);
-  background-color: var(--action-primary-bg);
 }
 
 .search-filter-btn-selected {
@@ -143,14 +137,8 @@
   font-weight: 600;
 }
 
-.search-filter-btn:hover {
-  background-color: #f0d4fc;
-  transition: all 0.1s ease;
-}
-
 .search-btn:hover {
   background-color: #d8f6cd;
-  transition: all 0.1s ease;
 }
 
 .searched-card {
@@ -344,8 +332,6 @@
 
   .analytics-page-title {
     margin: 1.25rem 0 1.75rem;
-    font-size: 2.3rem;
-    font-family: var(--font-heading);
   }
 
   .stat-highlights-container,
@@ -411,7 +397,6 @@
   .search-btn {
     width: 100%;
     margin-right: 0;
-    padding: var(--button-padding);
   }
 
   .search-btn {

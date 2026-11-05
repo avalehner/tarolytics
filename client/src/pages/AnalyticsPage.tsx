@@ -1,3 +1,4 @@
+import headerStyles from "../components/css/Header.module.css";
 //react imports
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -217,7 +218,7 @@ const AnalyticsPage = ({ currentUser, isAuthLoading }: AnalyticsPageProps) => {
 
   return (
     <div className={styles["analytics-page-container"]}>
-      <p className={styles["analytics-page-title"]}>Analytics</p>
+      <p className={`${headerStyles.title} ${styles["analytics-page-title"]}`}>Analytics</p>
       <div className={styles["stat-highlights-container"]}>
         <div className={styles["stat-highlight-card"]}>
           <p className={styles["stat-title"]}>total readings</p>

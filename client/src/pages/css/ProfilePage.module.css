@@ -29,11 +29,8 @@
 }
 
 .profile-header {
-  text-align: center;
-  font-style: italic;
-  font-size: 2.5rem;
-  font-weight: 600;
   margin-bottom: 1.3rem;
+  font-family: var(--font-serif);
 }
 
 .profile-border {
@@ -140,14 +137,13 @@
 }
 
 .save-profile-btn {
+  composes: primary from "../../components/css/Button.module.css";
   margin: 0.8rem 0 0.5rem;
   border: 1px solid rgb(151, 180, 142, 0.65);
-  background-color: var(--action-primary-bg);
 }
 
 .save-profile-btn:hover {
   background-color: #d8f6cd;
-  transition: all 0.1s ease;
 }
 
 .save-message {

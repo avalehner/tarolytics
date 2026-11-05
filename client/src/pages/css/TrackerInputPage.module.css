@@ -22,12 +22,8 @@
 
 .mobile-title {
   display: block;
-  font-family: var(--font-heading);
   color: var(--color-text);
-  font-style: italic;
   margin: 0.25rem 0 1.5rem;
-  font-style: italic;
-  font-weight: 600;
   font-size: 2.3rem;
 }
 
@@ -82,23 +78,23 @@
   margin: 0.6rem 0;
 }
 
+.upload-picture-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
+}
+
+.save-reading-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
+}
+
 .save-reading-btn,
 .upload-picture-btn {
   border: 1px solid rgb(151, 180, 142, 0.5);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-primary-bg);
   font-size: 1.1rem;
   margin: 0.7rem 0.5rem;
 }
 
 .add-card-btn {
-  border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-secondary-bg);
+  composes: secondary controlFont from "../../components/css/Button.module.css";
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem;
 }
@@ -110,19 +106,6 @@
 
 .x-btn:hover {
   color: rgb(177, 78, 78);
-  transition: all 0.1s ease;
-}
-
-.save-reading-btn:hover,
-.upload-picture-btn:hover,
-.view-reading-btn:hover {
-  background-color: var(--action-primary-hover);
-  transition: all 0.1s ease;
-}
-
-.add-card-btn:hover,
-.submit-another-btn:hover {
-  background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
 
@@ -168,23 +151,19 @@
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
+.submit-another-btn {
+  composes: secondary controlFont from "../../components/css/Button.module.css";
+}
+
 .view-reading-btn,
 .submit-another-btn {
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
   font-size: 1rem;
   margin: 0.7rem 0.5rem;
 }
 
 .view-reading-btn {
+  composes: primary controlFont from "../../components/css/Button.module.css";
   border: 1px solid rgb(151, 180, 142, 0.6);
-  background-color: var(--action-primary-bg);
-}
-
-.submit-another-btn {
-  border: 1px solid rgb(136, 159, 204, 0.6);
-  background-color: var(--action-secondary-bg);
 }
 
 /* toggle */
@@ -242,13 +221,8 @@
 @media (max-width: 900px) {
   .mobile-title {
     display: block;
-    font-family: var(--font-heading);
     color: var(--color-text);
-    font-style: italic;
     margin: 0.25rem 0 1.5rem;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 2.3rem;
   }
 
   .mobile-description {

@@ -5,12 +5,7 @@
 }
 
 .title {
-  font-family: var(--font-heading);
-  font-style: italic;
   margin: 1.5rem 0 1rem;
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-align: center;
 }
 
 .no-readings-msg {
@@ -111,18 +106,9 @@
 }
 
 .add-card-btn {
-  border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: var(--radius-control);
-  padding: var(--button-padding);
-  font-family: var(--font-control);
-  background-color: var(--action-secondary-bg);
+  composes: secondary controlFont from "../../components/css/Button.module.css";
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem 0.7rem 0.05rem;
-}
-
-.add-card-btn:hover {
-  background-color: var(--action-secondary-hover);
-  transition: all 0.1s ease;
 }
 
 .x-btn {
@@ -141,8 +127,6 @@
 
   .title {
     margin-top: 1.25rem;
-    font-size: 2.3rem;
-    font-family: var(--font-heading);
   }
 
   .search-bar-container {

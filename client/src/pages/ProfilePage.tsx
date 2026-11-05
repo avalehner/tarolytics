@@ -1,3 +1,4 @@
+import headerStyles from "../components/css/Header.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TimezoneSelect, { type ITimezone } from "react-timezone-select";
@@ -94,7 +95,7 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
 
   return (
     <div className={styles["profile-container"]}>
-      <h1 className={styles["profile-header"]}>Your Profile</h1>
+      <h1 className={`${headerStyles.title} ${styles["profile-header"]}`}>Your Profile</h1>
       <hr className={styles["profile-border"]}></hr>
       <div className={styles["profile-contents-container"]}>
         <div className={styles["profile-group"]}>

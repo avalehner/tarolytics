@@ -1,3 +1,4 @@
+import headerStyles from "../components/css/Header.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./css/ReadingLogPage.module.css";
@@ -110,7 +111,7 @@ const ReadingLogPage = ({
 
   return (
     <div className={styles["reading-log-page-container"]}>
-      <h1 className={styles["title"]}>History</h1>
+      <h1 className={`${headerStyles.title} ${styles["title"]}`}>History</h1>
       {/* <hr className={styles["border"]}></hr> */}
       {isLoadingReadings ? null : readings.length === 0 ? (
         <div className={styles["no-readings-msg"]}>

@@ -1,3 +1,4 @@
+import headerStyles from "../components/css/Header.module.css";
 import styles from "./css/HowToPage.module.css";
 import { UserTypes } from "../types";
 
@@ -9,7 +10,7 @@ interface HowToPageProps {
 const HowToPage = ({ currentUser, isAuthLoading }: HowToPageProps) => {
   return (
     <div className={styles["how-to-page-container"]}>
-      <p className={styles["title"]}>How to</p>
+      <p className={`${headerStyles.title} ${styles["title"]}`}>How to</p>
       <p className={styles["welcome-text"]}>
         Hello and welcome to Tarolytics! An app to help you track and manage
         your tarot readings digitally.

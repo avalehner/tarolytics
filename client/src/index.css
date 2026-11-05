@@ -21,7 +21,7 @@
 :root {
   --font-sans: "Libertinus Sans", sans-serif;
   --font-serif: "Libertinus Serif", serif;
-  --font-heading: var(--font-serif);
+  --font-heading: var(--font-sans);
   --font-control: var(--font-sans);
   --font-pamela: "Pamela";
 
