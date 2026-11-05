@@ -333,12 +333,6 @@ const TrackerInputPage = ({
               </div>
             )}
             <div className={styles["btn-container"]}>
-              <button
-                className={styles["save-reading-btn"]}
-                onClick={() => setIsManual(true)}
-              >
-                ENTER MANUALLY
-              </button>
               {readingSpread !== "custom" && (
                 <button
                   className={styles["save-reading-btn"]}
@@ -347,6 +341,12 @@ const TrackerInputPage = ({
                   PULL CARDS
                 </button>
               )}
+              <button
+                className={styles["save-reading-btn"]}
+                onClick={() => setIsManual(true)}
+              >
+                ENTER MANUALLY
+              </button>
             </div>
           </div>
         )}
