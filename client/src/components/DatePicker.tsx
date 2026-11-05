@@ -1,6 +1,6 @@
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./css/DatePicker.css";
+import styles from "./css/DatePicker.module.css";
 
 interface DatePickerProps {
   date: Date | null;
@@ -10,6 +10,7 @@ interface DatePickerProps {
 const DatePicker = ({ date, setDate }: DatePickerProps) => {
   return (
     <ReactDatePicker
+      className={styles["date-input"]}
       showYearDropdown
       showMonthDropdown
       dropdownMode="select"

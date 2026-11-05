@@ -1,13 +1,9 @@
 .card-input {
+  composes: control from "./FormControls.module.css";
   appearance: none;
-  border: 1px solid var(--border-input);
-  border-radius: var(--radius-control);
   padding: 0.5rem;
-  font-family: var(--font-control);
   width: 135px;
-  text-align: center;
   font-size: 1.1rem;
-  background-color: var(--surface-input);
   margin: 0.5rem 0.5rem 0.5rem 0;
   cursor: pointer;
 }

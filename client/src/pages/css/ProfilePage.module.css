@@ -67,15 +67,11 @@
 }
 
 .time-select {
-  border: 1px solid var(--border-input);
-  border-radius: var(--radius-control);
+  composes: control from "../../components/css/FormControls.module.css";
   padding: 0 10px;
-  font-family: var(--font-control);
   width: 200px;
   height: 44px;
-  text-align: center;
   font-size: 1.15rem;
-  background-color: var(--surface-input);
   cursor: pointer;
 }
 

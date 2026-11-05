@@ -446,14 +446,10 @@
 }
 
 .reading-notes input {
-  border: 1px solid var(--border-input);
   border-radius: 9px;
   padding: 12px;
-  font-family: var(--font-control);
   width: 250px;
-  text-align: center;
   font-size: 1rem;
-  background-color: var(--surface-input);
   margin: 0.6rem 0;
 }
 

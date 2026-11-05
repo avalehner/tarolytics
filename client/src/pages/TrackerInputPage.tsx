@@ -18,6 +18,7 @@ import spreadPositions from "../data/spreadPositions";
 //types
 import { ReadingTypes, UserTypes } from "../types";
 //styling
+import formControls from "../components/css/FormControls.module.css";
 import styles from "./css/TrackerInputPage.module.css";
 
 interface TrackerInputPageProps {
@@ -138,6 +139,7 @@ const TrackerInputPage = ({
                 </div>
                 <div className={styles["card-position"]}>
                   <input
+                    className={formControls.control}
                     type="text"
                     value={customReadingSpreadPositions[index] || ""}
                     placeholder="position"
@@ -356,6 +358,7 @@ const TrackerInputPage = ({
           <>
             <div className={styles["reading-notes"]}>
               <input
+                className={formControls.control}
                 type="text"
                 value={notes}
                 placeholder="notes"
@@ -364,6 +367,7 @@ const TrackerInputPage = ({
             </div>
             <div className={styles["reading-notes"]}>
               <input
+                className={formControls.control}
                 type="text"
                 value={userInterpretation}
                 placeholder="interpretation"

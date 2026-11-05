@@ -1,0 +1,8 @@
+.date-input {
+  composes: control from "./FormControls.module.css";
+  padding: 10px;
+  width: 120px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  /* margin-bottom: 0.8rem; */
+}

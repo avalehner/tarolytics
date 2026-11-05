@@ -14,14 +14,10 @@
 }
 
 .search-menu {
+  composes: control from "./FormControls.module.css";
   appearance: none;
-  border: 1px solid var(--border-input);
   -webkit-appearance: none;
-  border-radius: var(--radius-control);
-  font-family: var(--font-control);
   padding: 6px 10px;
-  text-align: center;
   font-size: 1.1rem;
-  background-color: var(--surface-input);
   cursor: pointer;
 }

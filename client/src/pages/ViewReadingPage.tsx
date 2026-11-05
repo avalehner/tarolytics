@@ -1,3 +1,4 @@
+import formControls from "../components/css/FormControls.module.css";
 import styles from "./css/ViewReadingPage.module.css";
 import { useState, useEffect, useRef, CSSProperties } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -743,6 +744,7 @@ const ViewReadingPage = ({
               <div className={styles["update-reading-modal-contents"]}>
                 <div className={styles["reading-notes"]}>
                   <input
+                    className={formControls.control}
                     type="text"
                     value={updatedNotes}
                     placeholder="notes"
@@ -751,6 +753,7 @@ const ViewReadingPage = ({
                 </div>
                 <div className={styles["reading-notes"]}>
                   <input
+                    className={formControls.control}
                     type="text"
                     //inputs current value
                     value={updatedUserInterpretation}

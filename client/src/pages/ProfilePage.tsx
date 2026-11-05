@@ -7,6 +7,7 @@ import DatePicker from "../components/DatePicker";
 import type { CityTypes, CityOptionTypes, UserTypes } from "../types";
 import { saveProfileData } from "../services/userService";
 import styles from "./css/ProfilePage.module.css";
+import { timezoneSelectStyles, citySelectStyles } from "./profileSelectStyles";
 
 interface ProflePageProps {
   currentUser: UserTypes | null;
@@ -125,64 +126,13 @@ const ProfilePage = ({ currentUser, isAuthLoading }: ProflePageProps) => {
             className={styles["timezone-select"]}
             value={birthTimeZone}
             onChange={setBirthTimeZone}
-            styles={{
-              control: (base: any) => ({
-                ...base,
-                border: "1px solid rgb(193, 153, 205, 0.6)",
-                borderRadius: "8px",
-                cursor: "pointer",
-                minHeight: "44px",
-                height: "44px",
-              }),
-              valueContainer: (base: any) => ({
-                ...base,
-                justifyContent: "center",
-                padding: "2px 0 2px 40px",
-              }),
-              singleValue: (base: any) => ({
-                ...base,
-                width: "100%",
-                textAlign: "center",
-              }),
-              input: (base: any) => ({
-                ...base,
-                textAlign: "center",
-              }),
-            }}
+            styles={timezoneSelectStyles}
           />
         </div>
         <div className={styles["birth-location-container"]}>
           <p className={styles["profile-label"]}>Birth location</p>
           <AsyncSelect<CityOptionTypes>
-            styles={{
-              control: (base: any) => ({
-                ...base,
-                border: "1px solid rgb(193, 153, 205, 0.6)",
-                borderRadius: "8px",
-                cursor: "pointer",
-                minHeight: "44px",
-                height: "44px",
-              }),
-              valueContainer: (base: any) => ({
-                ...base,
-                justifyContent: "center",
-                padding: "2px 0 2px 40px",
-              }),
-              singleValue: (base: any) => ({
-                ...base,
-                width: "100%",
-                textAlign: "center",
-              }),
-              placeholder: (base: any) => ({
-                ...base,
-                width: "100%",
-                textAlign: "center",
-              }),
-              input: (base: any) => ({
-                ...base,
-                textAlign: "center",
-              }),
-            }}
+            styles={citySelectStyles}
             className={styles["birth-location-select"]}
             value={
               birthCity
