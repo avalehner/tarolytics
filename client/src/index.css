@@ -2,6 +2,8 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&display=swap");
+
 @font-face {
   font-family: "Pamela";
   src: url("./assets/fonts/TarotPamelaColmanSmith-Regular.ttf")
@@ -17,7 +19,32 @@
 }
 
 :root {
-  font-family: "Libertinus Serif", serif;
+  --font-sans: "Libertinus Sans", sans-serif;
+  --font-serif: "Libertinus Serif", serif;
+  --font-heading: var(--font-serif);
+  --font-control: var(--font-sans);
+  --font-pamela: "Pamela";
+
+  --color-text: #201105;
+  --color-text-muted: #5e5f5e;
+
+  --surface-page: #fff8e5;
+  --surface-input: #fffefa;
+  --surface-panel: rgb(255, 252, 241, 0.37);
+
+  --border-input: rgb(193, 153, 205, 0.6);
+  --border-panel: rgb(196, 39, 0, 0.2);
+
+  --action-primary-bg: #ebffe4;
+  --action-primary-hover: #cee9c6;
+  --action-secondary-bg: #e2e8ff;
+  --action-secondary-hover: #c2cbec;
+
+  --radius-control: 7px;
+  --radius-panel: 10px;
+  --button-padding: 0.75rem 1.2rem;
+
+  font-family: var(--font-sans);
   font-weight: 500;
   font-style: normal;
 
@@ -25,8 +52,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff8e5;
-  background: radial-gradient(ellipse at center, #fff8e5 20%, #cebcc5 100%);
+  background-color: var(--surface-page);
+  background: radial-gradient(
+    ellipse at center,
+    var(--surface-page) 20%,
+    #cebcc5 100%
+  );
 }
 
 :where(a, a:visited) {
@@ -39,7 +70,7 @@ button,
 input,
 select,
 textarea {
-  color: #201105;
+  color: var(--color-text);
   font: inherit;
   -webkit-text-fill-color: currentColor;
 }
@@ -74,9 +105,9 @@ h1 {
 button {
   appearance: none;
   -webkit-appearance: none;
-  border-radius: 7px;
+  border-radius: var(--radius-control);
   border: 1px solid transparent;
-  padding: 0.75rem 1.2rem;
+  padding: var(--button-padding);
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

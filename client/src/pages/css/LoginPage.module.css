@@ -35,22 +35,22 @@
 }
 
 .tarolytics {
-  font-family: "Pamela";
+  font-family: var(--font-pamela);
   font-size: 3.6rem;
   margin: 0.5rem 0;
 }
 
 .login-btn {
   border: 1px solid #97b48e;
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #ebffe4;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-primary-bg);
   font-size: 1rem;
   margin: 0.7rem 0.5rem;
 }
 
 .login-btn:hover {
-  background-color: #cee9c6;
+  background-color: var(--action-primary-hover);
   transition: all 0.1s ease;
 }

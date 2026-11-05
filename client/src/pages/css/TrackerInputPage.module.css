@@ -22,8 +22,8 @@
 
 .mobile-title {
   display: block;
-  font-family: "Libertinus Serif", serif;
-  color: #201105;
+  font-family: var(--font-heading);
+  color: var(--color-text);
   font-style: italic;
   margin: 0.25rem 0 1.5rem;
   font-style: italic;
@@ -69,46 +69,46 @@
 }
 
 .reading-notes input {
-  border: 1px solid rgb(193, 153, 205, 0.6);
-  border-radius: 7px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-control);
   padding: 10px 12px;
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-control);
   width: 250px;
   text-align: center;
   font-size: 1.1rem;
-  background-color: #fffefa;
+  background-color: var(--surface-input);
   margin: 0.6rem 0;
 }
 
 .card-position input {
-  border: 1px solid rgb(193, 153, 205, 0.6);
-  border-radius: 7px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-control);
   padding: 8px 10px;
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-control);
   width: 150px;
   text-align: center;
   font-size: 1rem;
-  background-color: #fffefa;
+  background-color: var(--surface-input);
   margin: 0.6rem 0;
 }
 
 .save-reading-btn,
 .upload-picture-btn {
   border: 1px solid rgb(151, 180, 142, 0.5);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #ebffe4;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-primary-bg);
   font-size: 1.1rem;
   margin: 0.7rem 0.5rem;
 }
 
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #e2e8ff;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-secondary-bg);
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem;
 }
@@ -126,13 +126,13 @@
 .save-reading-btn:hover,
 .upload-picture-btn:hover,
 .view-reading-btn:hover {
-  background-color: #cee9c6;
+  background-color: var(--action-primary-hover);
   transition: all 0.1s ease;
 }
 
 .add-card-btn:hover,
 .submit-another-btn:hover {
-  background-color: #c2cbec;
+  background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
 
@@ -171,7 +171,7 @@
   top: 31%;
   left: 39%;
   padding: 3rem;
-  background-color: #fff8e5;
+  background-color: var(--surface-page);
   border: 1px solid rgb(196, 85, 0, 0.6);
   border-radius: 12px;
   width: 22%;
@@ -180,21 +180,21 @@
 
 .view-reading-btn,
 .submit-another-btn {
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
   font-size: 1rem;
   margin: 0.7rem 0.5rem;
 }
 
 .view-reading-btn {
   border: 1px solid rgb(151, 180, 142, 0.6);
-  background-color: #ebffe4;
+  background-color: var(--action-primary-bg);
 }
 
 .submit-another-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  background-color: #e2e8ff;
+  background-color: var(--action-secondary-bg);
 }
 
 /* toggle */
@@ -252,8 +252,8 @@
 @media (max-width: 900px) {
   .mobile-title {
     display: block;
-    font-family: "Libertinus Serif", serif;
-    color: #201105;
+    font-family: var(--font-heading);
+    color: var(--color-text);
     font-style: italic;
     margin: 0.25rem 0 1.5rem;
     font-style: italic;
@@ -263,8 +263,8 @@
 
   .mobile-description {
     display: block;
-    font-family: "Libertinus Serif", serif;
-    color: #201105;
+    font-family: var(--font-serif);
+    color: var(--color-text);
     margin: 0 0 1.5rem;
     font-size: 1.2rem;
   }
@@ -332,7 +332,7 @@
 
   .toggle-container {
     margin: 1.5rem auto;
-    border-radius: 10px;
+    border-radius: var(--radius-panel);
     /* margin: 0ch auto; */
     /* padding: 1rem 0; */
     width: 80%;

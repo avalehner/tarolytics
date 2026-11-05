@@ -18,7 +18,7 @@
 .reading-info-container {
   grid-column: 1;
   margin: 0;
-  color: #201105;
+  color: var(--color-text);
   padding: 0.1px;
   position: relative;
 }
@@ -72,7 +72,7 @@
   width: 25%;
   margin: 0.8rem 0 0;
   border: none; /* removes browser default */
-  border-bottom: 0.5px solid #201105;
+  border-bottom: 0.5px solid var(--color-text);
 }
 
 .spread-container,
@@ -140,10 +140,10 @@
 .update-reading-btn,
 .clarifier-btn {
   border: 1px solid rgba(110, 133, 178, 0.694);
-  border-radius: 7px;
+  border-radius: var(--radius-control);
   padding: 0.6rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #e2e8ff;
+  font-family: var(--font-control);
+  background-color: var(--action-secondary-bg);
   font-size: 0.85rem;
   text-align: left;
   display: block;
@@ -153,7 +153,7 @@
 
 .update-reading-btn:hover,
 .clarifier-btn:hover {
-  background-color: #c2cbec;
+  background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
 
@@ -269,10 +269,10 @@
 
 .interpret-btn {
   border: 1px solid rgb(151, 180, 142, 0.9);
-  border-radius: 7px;
+  border-radius: var(--radius-control);
   padding: 0.6rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #ebffe4;
+  font-family: var(--font-control);
+  background-color: var(--action-primary-bg);
   font-size: 0.85rem;
   display: block;
   width: fit-content;
@@ -284,17 +284,17 @@
 }
 
 .interpret-btn:hover {
-  background-color: #cee9c6;
+  background-color: var(--action-primary-hover);
   transition: all 0.1s ease;
 }
 
 .save-interpretation-btn,
 .update-reading-btn-modal {
   border: 0.5px solid rgb(151, 180, 142, 0.6);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #ebffe4;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-primary-bg);
   font-size: 0.9rem;
   margin: 0;
 }
@@ -302,7 +302,7 @@
 .save-interpretation-btn:hover,
 .yes-delete-btn:hover,
 .update-reading-btn-modal:hover {
-  background-color: #cee9c6;
+  background-color: var(--action-primary-hover);
   transition: all 0.1s ease;
 }
 
@@ -372,7 +372,7 @@
 
 .card-popup {
   position: absolute;
-  background-color: #fff8e5;
+  background-color: var(--surface-page);
   border: 1px solid rgb(194, 84, 0, 0.6);
   top: 0;
   right: 105%;
@@ -405,7 +405,7 @@
   transform: translateX(-50%);
   top: 20%;
   padding: 2rem;
-  background-color: #fff8e5;
+  background-color: var(--surface-page);
   border: 1px solid rgb(194, 84, 0, 0.6);
   border-radius: 12px;
   width: min(420px, 90vw);
@@ -446,35 +446,35 @@
 }
 
 .reading-notes input {
-  border: 1px solid rgb(193, 153, 205, 0.6);
+  border: 1px solid var(--border-input);
   border-radius: 9px;
   padding: 12px;
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-control);
   width: 250px;
   text-align: center;
   font-size: 1rem;
-  background-color: #fffefa;
+  background-color: var(--surface-input);
   margin: 0.6rem 0;
 }
 
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #e2e8ff;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-secondary-bg);
   font-size: 0.9rem;
   margin: 0.7rem 0;
 }
 
 .add-card-btn,
 .update-reading-btn-modal {
-  padding: 0.75rem 1.2rem;
-  border-radius: 7px;
+  padding: var(--button-padding);
+  border-radius: var(--radius-control);
 }
 
 .add-card-btn:hover {
-  background-color: #c2cbec;
+  background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
 
@@ -552,7 +552,7 @@
   width: 40%;
   margin: 8rem auto 1.7rem;
   border: none; /* removes browser default */
-  border-bottom: 0.5px solid #201105;
+  border-bottom: 0.5px solid var(--color-text);
 }
 
 /* delete modal */
@@ -563,7 +563,7 @@
   transform: translateX(-50%);
   top: 30%;
   padding: 2rem 3rem;
-  background-color: #fff8e5;
+  background-color: var(--surface-page);
   border: 1px solid rgb(196, 85, 0, 0.4);
   border-radius: 12px;
   width: min(380px, 85vw);
@@ -590,8 +590,8 @@
 
 .yes-delete-btn {
   border: 0.5px solid #97b48e;
-  border-radius: 7px;
-  background-color: #ebffe4;
+  border-radius: var(--radius-control);
+  background-color: var(--action-primary-bg);
 }
 
 .yes-delete-btn,
@@ -746,7 +746,7 @@
     overflow-y: auto;
     border: 1px solid rgb(194, 84, 0, 0.6);
     border-radius: 0.6rem;
-    background-color: #fff8e5;
+    background-color: var(--surface-page);
     box-sizing: border-box;
   }
 
@@ -757,7 +757,7 @@
     padding: 0.25rem 0.5rem;
     border: 0;
     background: transparent;
-    color: #201105;
+    color: var(--color-text);
     font-size: 1.5rem;
     line-height: 1;
   }

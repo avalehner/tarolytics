@@ -1,11 +1,11 @@
 .reading-log-page-container {
   text-align: center;
   overflow-y: hidden;
-  color: #201105;
+  color: var(--color-text);
 }
 
 .title {
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-heading);
   font-style: italic;
   margin: 1.5rem 0 1rem;
   font-size: 2.5rem;
@@ -75,7 +75,7 @@
 
 .reading-log-container {
   margin: 0 auto;
-  background-color: #fff8e5;
+  background-color: var(--surface-page);
   border: 1px solid rgb(220, 175, 141);
   border-radius: 20px;
   max-width: 75%;
@@ -87,7 +87,7 @@
 
 .reading-log-container > *:hover {
   background-color: #fcf1d3;
-  border-radius: 10px;
+  border-radius: var(--radius-panel);
   /* padding: 0rem; */
 }
 
@@ -112,16 +112,16 @@
 
 .add-card-btn {
   border: 1px solid rgb(136, 159, 204, 0.6);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
-  background-color: #e2e8ff;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
+  background-color: var(--action-secondary-bg);
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem 0.7rem 0.05rem;
 }
 
 .add-card-btn:hover {
-  background-color: #c2cbec;
+  background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
 
@@ -142,7 +142,7 @@
   .title {
     margin-top: 1.25rem;
     font-size: 2.3rem;
-    font-family: "Libertinus Serif", serif;
+    font-family: var(--font-heading);
   }
 
   .search-bar-container {

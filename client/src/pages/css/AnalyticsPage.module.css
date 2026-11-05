@@ -3,7 +3,7 @@
   max-width: calc(100% - 200rem);
   min-width: 1000px;
   margin: 0 auto 8rem;
-  color: #201105;
+  color: var(--color-text);
 }
 
 .analytics-page-title {
@@ -11,7 +11,7 @@
   font-weight: 600;
   font-style: italic;
   text-align: center;
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-heading);
   margin-top: 2rem;
 }
 
@@ -28,10 +28,10 @@
 }
 
 .stat-highlight-card {
-  background-color: rgb(255, 252, 241, 0.37);
+  background-color: var(--surface-panel);
   padding: 0.25rem 1.6rem 0.3rem;
-  border-radius: 10px;
-  border: 1px solid rgb(196, 39, 0, 0.2);
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-panel);
 }
 
 .stat-title {
@@ -50,14 +50,14 @@
   margin-top: 0.8rem;
   font-weight: 500;
   font-style: italic;
-  color: #5e5f5e;
+  color: var(--color-text-muted);
 }
 
 .card-search-container {
-  border: 1px solid rgb(196, 39, 0, 0.2);
-  background-color: rgb(255, 252, 241, 0.37);
+  border: 1px solid var(--border-panel);
+  background-color: var(--surface-panel);
   padding: 0.7rem 2.5rem 2.2rem;
-  border-radius: 10px;
+  border-radius: var(--radius-panel);
   margin-top: 2.5rem;
 }
 
@@ -124,9 +124,9 @@
   flex: 1 1 0;
   min-width: 0;
   border: 1px solid rgb(177, 149, 212, 0.5);
-  border-radius: 7px;
-  padding: 0.75rem 1.2rem;
-  font-family: "Libertinus Serif", serif;
+  border-radius: var(--radius-control);
+  padding: var(--button-padding);
+  font-family: var(--font-control);
   background-color: #f7e4ff;
   font-size: 0.8rem;
   white-space: nowrap;
@@ -134,7 +134,7 @@
 
 .search-btn {
   border: 1px solid rgb(151, 180, 142, 0.65);
-  background-color: #ebffe4;
+  background-color: var(--action-primary-bg);
 }
 
 .search-filter-btn-selected {
@@ -171,9 +171,9 @@
 }
 
 .searched-card-stat-container {
-  border: 1px solid rgb(196, 39, 0, 0.2);
-  border-radius: 10px;
-  background-color: #fff8e5;
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+  background-color: var(--surface-page);
   padding: 0.5rem 1.5rem;
 }
 
@@ -192,7 +192,7 @@
   margin: 0.6rem 0 0.7rem;
   font-weight: 500;
   font-style: italic;
-  color: #5e5f5e;
+  color: var(--color-text-muted);
 }
 
 .monthly-frequency-title,
@@ -206,9 +206,9 @@
 .reading-note-card,
 .frequency-graph-container,
 .chart-container {
-  border: 1px solid rgb(196, 39, 0, 0.2);
-  border-radius: 10px;
-  background-color: #fff8e5;
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+  background-color: var(--surface-page);
   padding: 0.5rem 1.5rem;
   margin-bottom: 1.2rem;
 }
@@ -243,7 +243,7 @@
 
 .reading-note {
   border: 1px solid rgb(196, 85, 0, 0.2);
-  border-radius: 10px;
+  border-radius: var(--radius-panel);
   background-color: #ffe8d4;
   padding: 0.5rem 1.25rem;
   margin: 0.2rem 0 1.2rem 0;
@@ -269,7 +269,7 @@
 }
 
 .spread-type-tag {
-  background-color: #ebffe4;
+  background-color: var(--action-primary-bg);
   border: 1px solid rgb(151, 180, 142, 0.6);
   border-radius: 15px;
   padding: 0.1rem 0.5rem 0.1rem;
@@ -296,10 +296,10 @@
 .charts {
   display: grid;
   grid-template-columns: max-content max-content;
-  border: 1px solid rgb(196, 39, 0, 0.2);
-  background-color: rgb(255, 252, 241, 0.37);
+  border: 1px solid var(--border-panel);
+  background-color: var(--surface-panel);
   padding: 0.7rem 2.5rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--radius-panel);
   margin-top: 2.5rem;
   gap: 1.3rem;
 }
@@ -345,7 +345,7 @@
   .analytics-page-title {
     margin: 1.25rem 0 1.75rem;
     font-size: 2.3rem;
-    font-family: "Libertinus Serif", serif;
+    font-family: var(--font-heading);
   }
 
   .stat-highlights-container,
@@ -411,7 +411,7 @@
   .search-btn {
     width: 100%;
     margin-right: 0;
-    padding: 0.75rem 1.2rem;
+    padding: var(--button-padding);
   }
 
   .search-btn {

@@ -1,12 +1,12 @@
 .react-datepicker__input-container input {
-  border: 1px solid rgb(193, 153, 205, 0.6);
-  border-radius: 7px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-control);
   padding: 10px;
-  font-family: "Libertinus Serif", serif;
+  font-family: var(--font-control);
   width: 120px;
   text-align: center;
   font-size: 1.1rem;
-  background-color: #fffefa;
+  background-color: var(--surface-input);
   cursor: pointer;
   /* margin-bottom: 0.8rem; */
 }
