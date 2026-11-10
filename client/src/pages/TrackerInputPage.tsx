@@ -1,6 +1,6 @@
 import headerStyles from "../components/css/Header.module.css";
 //react imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //function imports
 import { createReading } from "../services/readingService";
@@ -52,13 +52,26 @@ const TrackerInputPage = ({
   const [isCardsPulled, setIsCardsPulled] = useState<boolean>(false);
   const [isReversals, setIsReversals] = useState<boolean>(false);
   const [viewReadingModal, setViewReadingModal] = useState<boolean>(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const loginDialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
   //useEffects
   useEffect(() => {
     if (isAuthLoading) return;
-    if (!currentUser) navigate("/login");
+    // if (!currentUser) navigate("/login");
   }, [currentUser, isAuthLoading]);
+
+  useEffect(() => {
+    const dialog = loginDialogRef.current;
+    if (!dialog) return;
+
+    if (showLoginModal && !dialog.open) {
+      dialog.showModal();
+    } else if (!showLoginModal && dialog.open) {
+      dialog.close();
+    }
+  }, [showLoginModal]);
 
   //functions
   const pullCards = async () => {
@@ -90,7 +103,7 @@ const TrackerInputPage = ({
     if (cardRotation === 90) cardRotation -= 90;
     const spreadType = readingSpread;
     return (
-      <div className={styles["card-image-container"]}>
+      <div key={card} className={styles["card-image-container"]}>
         <img
           className={styles["card-image"]}
           src={`${cardImagePath}`}
@@ -185,7 +198,16 @@ const TrackerInputPage = ({
 
   const saveReading = async () => {
     //null guard for currentUser date (fixes possibly null type errors)
-    if (!currentUser) return;
+    console.log("button clicked");
+    console.log(showLoginModal);
+    if (isAuthLoading) return;
+    if (!currentUser) {
+      setShowLoginModal(true);
+      return;
+    }
+
+    console.log(showLoginModal);
+
     if (!date) {
       setMessage("please select a date");
       return;
@@ -285,14 +307,16 @@ const TrackerInputPage = ({
   };
 
   //null guards
-  if (!currentUser) return null; //prevents form from flashing while auth loads
+  // if (!currentUser) return null; //prevents form from flashing while auth loads
 
   // console.log("inputted cards", inputtedCards);
 
   return (
     <div className={styles["tracker-input-page-container"]}>
       <div className={styles["reading-input-container"]}>
-        <h1 className={`${headerStyles.title} ${styles["mobile-title"]}`}>Pull a card</h1>
+        <h1 className={`${headerStyles.title} ${styles["mobile-title"]}`}>
+          Pull a card
+        </h1>
         <hr className={styles["aesthetic-border"]}></hr>
         <div className={styles["reading-topic-menu-container"]}>
           <p className={styles["date-label"]}>date:</p>
@@ -381,12 +405,14 @@ const TrackerInputPage = ({
             <div>
               <button
                 className={styles["save-reading-btn"]}
-                onClick={async () => {
-                  await saveReading(); //making sure the reading has been saved before showing the modal
-                }}
-                disabled={saving}
+                onClick={saveReading}
+                disabled={saving || isAuthLoading}
               >
-                {saving ? "Saving..." : "SAVE READING"}
+                {isAuthLoading
+                  ? "Checking login..."
+                  : saving
+                    ? "Saving..."
+                    : "SAVE READING"}
               </button>
               {message && <p>{message}</p>}
             </div>
@@ -430,6 +456,36 @@ const TrackerInputPage = ({
             SUBMIT ANOTHER
           </button>
         </div>
+      )}
+      {showLoginModal && (
+        <dialog
+          ref={loginDialogRef}
+          className={styles["login-modal"]}
+          aria-labelledby="login-modal-title"
+          aria-describedby="login-modal-description"
+          onCancel={() => setShowLoginModal(false)}
+          onClose={() => setShowLoginModal(false)}
+        >
+          <h2 id="login-modal-title">Log in to save your reading</h2>
+
+          <p id="login-modal-description">
+            Save your readings and revisit them in your history.
+          </p>
+
+          <div className={styles["login-modal-actions"]}>
+            <a className={styles["login-btn"]} href="/auth/google">
+              Continue with Google
+            </a>
+
+            <button
+              className={styles["keep-editing-btn"]}
+              type="button"
+              onClick={() => setShowLoginModal(false)}
+            >
+              Keep editing
+            </button>
+          </div>
+        </dialog>
       )}
     </div>
   );

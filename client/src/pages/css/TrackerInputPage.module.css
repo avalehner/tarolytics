@@ -93,11 +93,42 @@
   margin-left: 8px;
 }
 
+.login-btn {
+  composes: green-btn from "../../components/css/Button.module.css";
+}
+
+.keep-editing-btn {
+  composes: blue-btn from "../../components/css/Button.module.css";
+}
+
 .reading-topic-menu-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
   align-items: center;
+}
+
+.login-modal {
+  width: min(28rem, calc(100vw - 2rem));
+  background-color: var(--surface-page);
+  border: 1px solid rgb(196, 85, 0, 0.6);
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.login-modal::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.login-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .spread-display-container {
