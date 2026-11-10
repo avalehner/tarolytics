@@ -137,7 +137,7 @@
 }
 
 .save-profile-btn {
-  composes: primary from "../../components/css/Button.module.css";
+  composes: green-btn from "../../components/css/Button.module.css";
   margin: 0.8rem 0 0.5rem;
   border: 1px solid rgb(151, 180, 142, 0.65);
 }

@@ -136,11 +136,11 @@
 }
 
 .clarifier-btn {
-  composes: secondary controlFont compact from "../../components/css/Button.module.css";
+  composes: blue-btn controlFont compact from "../../components/css/Button.module.css";
 }
 
 .update-reading-btn {
-  composes: secondary controlFont compact from "../../components/css/Button.module.css";
+  composes: blue-btn controlFont compact from "../../components/css/Button.module.css";
 }
 
 .update-reading-btn,
@@ -263,7 +263,7 @@
 }
 
 .interpret-btn {
-  composes: primary controlFont compact from "../../components/css/Button.module.css";
+  composes: green-btn controlFont compact from "../../components/css/Button.module.css";
   border: 1px solid rgb(151, 180, 142, 0.9);
   display: block;
   width: fit-content;
@@ -275,7 +275,7 @@
 }
 
 .save-interpretation-btn {
-  composes: primary controlFont from "../../components/css/Button.module.css";
+  composes: green-btn controlFont from "../../components/css/Button.module.css";
 }
 
 .save-interpretation-btn,
@@ -433,7 +433,7 @@
 }
 
 .add-card-btn {
-  composes: secondary controlFont from "../../components/css/Button.module.css";
+  composes: blue-btn controlFont from "../../components/css/Button.module.css";
   font-size: 0.9rem;
   margin: 0.7rem 0;
 }
@@ -455,7 +455,7 @@
 }
 
 .update-reading-btn-modal {
-  composes: primary controlFont from "../../components/css/Button.module.css";
+  composes: green-btn controlFont from "../../components/css/Button.module.css";
   display: block;
   margin: 1rem auto 0rem;
 }
@@ -466,7 +466,7 @@
 }
 
 .delete-reading-btn {
-  composes: danger icon from "../../components/css/Button.module.css";
+  composes: red-btn icon from "../../components/css/Button.module.css";
   position: absolute;
   top: 0;
   right: 0;
@@ -536,12 +536,12 @@
 }
 
 .no-delete-btn {
-  composes: danger from "../../components/css/Button.module.css";
+  composes: red-btn from "../../components/css/Button.module.css";
   border: 1px solid rgb(225, 134, 134, 0.6);
 }
 
 .yes-delete-btn {
-  composes: primary from "../../components/css/Button.module.css";
+  composes: green-btn from "../../components/css/Button.module.css";
   border: 0.5px solid #97b48e;
 }
 

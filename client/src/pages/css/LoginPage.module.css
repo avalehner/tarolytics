@@ -41,7 +41,7 @@
 }
 
 .login-btn {
-  composes: primary controlFont from "../../components/css/Button.module.css";
+  composes: green-btn controlFont from "../../components/css/Button.module.css";
   border: 1px solid #97b48e;
   font-size: 1rem;
   margin: 0.7rem 0.5rem;

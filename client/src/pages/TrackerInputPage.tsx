@@ -153,11 +153,14 @@ const TrackerInputPage = ({
                     }
                   />
                 </div>
-                <i
-                  className={`fa-regular fa-x ${styles["x-btn"]}`}
-                  style={{ cursor: "pointer" }}
+                <button
+                  type="button"
+                  className={styles["x-btn"]}
+                  aria-label={`Remove card ${index + 1}`}
                   onClick={() => handleRemoveCard(index)}
-                ></i>
+                >
+                  <i className="fa-regular fa-x" aria-hidden="true"></i>
+                </button>
               </div>
             ))}
           </div>

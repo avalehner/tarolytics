@@ -106,7 +106,7 @@
 }
 
 .add-card-btn {
-  composes: secondary controlFont from "../../components/css/Button.module.css";
+  composes: blue-btn controlFont from "../../components/css/Button.module.css";
   font-size: 0.9rem;
   margin: 0.7rem 0.5rem 0.7rem 0.05rem;
 }

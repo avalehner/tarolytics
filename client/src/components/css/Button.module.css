@@ -1,9 +1,13 @@
 .button {
   border-radius: var(--radius-control);
   padding: var(--button-padding);
+  font-family: var(--font-control);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-/* Opt in only where the existing button uses the control font. */
+/* Retained for existing compositions that explicitly select this font. */
 .controlFont {
   font-family: var(--font-control);
 }
@@ -13,12 +17,13 @@
   font-size: 0.85rem;
 }
 
-.primary {
+.green-btn {
   composes: button;
+  border: 1px solid rgb(151, 180, 142, 0.5);
   background-color: var(--action-primary-bg);
 }
 
-.secondary {
+.blue-btn {
   composes: button;
   border: 1px solid rgb(136, 159, 204, 0.6);
   background-color: var(--action-secondary-bg);
@@ -30,17 +35,17 @@
   background-color: #f7e4ff;
 }
 
-.danger {
+.red-btn {
   composes: button;
   background-color: rgb(255, 224, 224);
 }
 
-.primary:hover {
+.green-btn:hover {
   background-color: var(--action-primary-hover);
   transition: all 0.1s ease;
 }
 
-.secondary:hover {
+.blue-btn:hover {
   background-color: var(--action-secondary-hover);
   transition: all 0.1s ease;
 }
@@ -50,7 +55,7 @@
   transition: all 0.1s ease;
 }
 
-.danger:hover {
+.red-btn:hover {
   background-color: rgb(245, 201, 201);
   transition: all 0.1s ease;
 }
