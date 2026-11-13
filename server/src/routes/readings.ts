@@ -83,10 +83,11 @@ readingsRouter.get("/:readingId", async (req: Request, res: Response) => {
   }
 });
 
-readingsRouter.post("/", async (req: Request, res: Response) => {
+readingsRouter.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).userId;
+
     const {
-      user_id,
       reading_date,
       reading_topic,
       spread_type,
@@ -99,7 +100,7 @@ readingsRouter.post("/", async (req: Request, res: Response) => {
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;`,
       [
-        user_id,
+        userId,
         reading_date,
         reading_topic,
         spread_type,

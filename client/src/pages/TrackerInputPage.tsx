@@ -258,15 +258,11 @@ const TrackerInputPage = ({
 
   const saveReading = async () => {
     //null guard for currentUser date (fixes possibly null type errors)
-    console.log("button clicked");
-    console.log(showLoginModal);
     if (isAuthLoading) return;
     if (!currentUser) {
       setShowLoginModal(true);
       return;
     }
-
-    console.log(showLoginModal);
 
     if (!date) {
       setMessage("please select a date");
@@ -298,7 +294,6 @@ const TrackerInputPage = ({
     setSaving(true);
 
     const readingRequestObj = {
-      user_id: currentUser.id,
       reading_date: date?.toISOString() ?? null, //converts
       reading_topic:
         readingTopic === "custom" ? customReadingTopic : readingTopic,
@@ -400,8 +395,6 @@ const TrackerInputPage = ({
 
   //null guards
   // if (!currentUser) return null; //prevents form from flashing while auth loads
-
-  // console.log("inputted cards", inputtedCards);
 
   return (
     <div className={styles["tracker-input-page-container"]}>

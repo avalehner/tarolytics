@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import pool from "../db";
+import { requireAuth } from "../middleware/auth";
 
 const cardsRouter = Router();
 
@@ -39,18 +40,26 @@ cardsRouter.get("/:readingId", async (req: Request, res: Response) => {
   }
 });
 
-cardsRouter.post("/", async (req: Request, res: Response) => {
+cardsRouter.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).userId;
     const { reading_id, card_name, position_name, position_order } = req.body;
     const dbResponse = await pool.query(
       `
       INSERT INTO cards (reading_id, card_name, position_name, position_order)
-      VALUES ($1, $2, $3, $4)
+      SELECT id, $2, $3, $4
+      FROM readings
+      WHERE id = $1 and user_id = $5
       RETURNING *;`,
-      [reading_id, card_name, position_name, position_order],
+      [reading_id, card_name, position_name, position_order, userId],
     );
     const cardData = dbResponse.rows[0];
-    res.status(200).json(cardData);
+
+    if (!cardData) {
+      res.status(404).json({ error: "Reading not found" });
+      return;
+    }
+    res.status(201).json(cardData);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({ error: message });
