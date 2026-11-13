@@ -22,6 +22,32 @@ import { ReadingTypes, UserTypes } from "../types";
 import formControls from "../components/css/FormControls.module.css";
 import styles from "./css/TrackerInputPage.module.css";
 
+const READING_DRAFT_KEY = "tarolytics-reading-draft";
+
+interface ReadingDraft {
+  date: string | null;
+  readingTopic: string;
+  customReadingTopic: string;
+  readingSpread: string;
+  customReadingSpread: string;
+  customReadingSpreadPositions: string[];
+  inputtedCards: string[];
+  pulledCards: string[];
+  notes: string;
+  userInterpretation: string;
+  isManual: boolean;
+  isCardsPulled: boolean;
+  isReversals: boolean;
+}
+
+function clearReadingDraft() {
+  try {
+    sessionStorage.removeItem(READING_DRAFT_KEY);
+  } catch {
+    // Storage cleanup should not turn a successful save into an error.
+  }
+}
+
 interface TrackerInputPageProps {
   currentUser: UserTypes | null;
   isAuthLoading: boolean;
@@ -54,6 +80,7 @@ const TrackerInputPage = ({
   const [viewReadingModal, setViewReadingModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const loginDialogRef = useRef<HTMLDialogElement>(null);
+  const [draftError, setDraftError] = useState("");
   const navigate = useNavigate();
 
   //useEffects
@@ -72,6 +99,39 @@ const TrackerInputPage = ({
       dialog.close();
     }
   }, [showLoginModal]);
+
+  //restore reading draft when page mounts
+  useEffect(() => {
+    try {
+      const storedDraft = sessionStorage.getItem(READING_DRAFT_KEY);
+
+      if (!storedDraft) return;
+
+      const draft = JSON.parse(storedDraft) as ReadingDraft;
+
+      const restoredDate = draft.date ? new Date(draft.date) : null;
+
+      if (restoredDate && Number.isNaN(restoredDate.getTime())) {
+        throw new Error("Invalid draft date");
+      }
+
+      setDate(restoredDate);
+      setReadingTopic(draft.readingTopic);
+      setCustomReadingTopic(draft.customReadingTopic);
+      setReadingSpread(draft.readingSpread);
+      setCustomReadingSpread(draft.customReadingSpread);
+      setCustomReadingSpreadPositions(draft.customReadingSpreadPositions);
+      setInputtedCards(draft.inputtedCards);
+      setPulledCards(draft.pulledCards);
+      setNotes(draft.notes);
+      setUserInterpretation(draft.userInterpretation);
+      setIsManual(draft.isManual);
+      setIsCardsPulled(draft.isCardsPulled);
+      setIsReversals(draft.isReversals);
+    } catch {
+      setMessage("Your previous reading draft couldn't be restored.");
+    }
+  }, []);
 
   //functions
   const pullCards = async () => {
@@ -279,6 +339,7 @@ const TrackerInputPage = ({
         }
       }
 
+      clearReadingDraft();
       setMessage("reading saved :)");
       setViewReadingModal(true);
     } catch (error) {
@@ -304,6 +365,37 @@ const TrackerInputPage = ({
     setIsManual(false);
     setMessage("");
     setIsCardsPulled(false);
+  };
+
+  const handleContinueWithGoogle = () => {
+    setDraftError("");
+
+    try {
+      const draft: ReadingDraft = {
+        date: date?.toISOString() ?? null,
+        readingTopic,
+        customReadingTopic,
+        readingSpread,
+        customReadingSpread,
+        customReadingSpreadPositions,
+        inputtedCards,
+        pulledCards,
+        notes,
+        userInterpretation,
+        isManual,
+        isCardsPulled,
+        isReversals,
+      };
+
+      sessionStorage.setItem(READING_DRAFT_KEY, JSON.stringify(draft));
+    } catch {
+      setDraftError(
+        "Couldn't preserve your reading in this browser. Please try again.",
+      );
+      return;
+    }
+
+    window.location.assign("/auth/google");
   };
 
   //null guards
@@ -473,9 +565,13 @@ const TrackerInputPage = ({
           </p>
 
           <div className={styles["login-modal-actions"]}>
-            <a className={styles["login-btn"]} href="/auth/google">
+            <button
+              type="button"
+              className={styles["login-btn"]}
+              onClick={handleContinueWithGoogle}
+            >
               Continue with Google
-            </a>
+            </button>
 
             <button
               className={styles["keep-editing-btn"]}
@@ -484,6 +580,7 @@ const TrackerInputPage = ({
             >
               Keep editing
             </button>
+            {draftError && <p role="alert">{draftError}</p>}
           </div>
         </dialog>
       )}
