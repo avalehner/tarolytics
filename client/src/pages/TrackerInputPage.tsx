@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //function imports
 import { createReading } from "../services/readingService";
-import { saveCards } from "../services/cardsService";
 import { getRandomSequence } from "../services/randomService";
 import { getCardImagePath } from "../util";
 //component imports
@@ -17,7 +16,7 @@ import spreadConfig from "../data/spreadConfig";
 import { tarotCardNames } from "../data/tarotCards";
 import spreadPositions from "../data/spreadPositions";
 //types
-import { ReadingTypes, UserTypes } from "../types";
+import { NewReadingTypes, ReadingTypes, UserTypes } from "../types";
 //styling
 import formControls from "../components/css/FormControls.module.css";
 import styles from "./css/TrackerInputPage.module.css";
@@ -275,65 +274,44 @@ const TrackerInputPage = ({
       return;
     }
 
-    if (isManual) {
-      const allPositionsFilled = spreadConfig[readingSpread].every(
-        (_, index) => inputtedCards[index] && inputtedCards[index] !== "",
-      );
-      if (!allPositionsFilled) {
-        setMessage("please select a card for every position in the spread");
-        return;
-      }
-    } else {
-      const activeCards = inputtedCards.filter((card) => card !== "");
-      if (isManual && activeCards.length === 0) {
-        setMessage("please select your cards");
-        return;
-      }
+    const cardsToSave = Array.from(
+      isManual ? inputtedCards : isCardsPulled ? pulledCards : [],
+    );
+    const spreadLabels = spreadConfig[readingSpread];
+
+    if (
+      !spreadLabels ||
+      cardsToSave.length === 0 ||
+      cardsToSave.some((card) => !card?.trim()) ||
+      (readingSpread !== "custom" && cardsToSave.length !== spreadLabels.length)
+    ) {
+      setMessage("please select a card for every position in the spread");
+      return;
     }
 
     setSaving(true);
 
-    const readingRequestObj = {
-      reading_date: date?.toISOString() ?? null, //converts
+    const readingRequestObj: NewReadingTypes = {
+      reading_date: date.toISOString(),
       reading_topic:
         readingTopic === "custom" ? customReadingTopic : readingTopic,
       spread_type: readingSpread,
       notes: notes,
       user_interpretation: userInterpretation,
+      cards: cardsToSave.map((card, index) => ({
+        card_name: card,
+        position_name:
+          readingSpread === "custom"
+            ? (customReadingSpreadPositions[index] ?? "")
+            : spreadLabels[index],
+        position_order: index,
+      })),
     };
 
     try {
       const newReading = await createReading(readingRequestObj);
       setSavedReadingData(newReading);
-      //card.entries() returns an iterator of [index, value] pairs for ebery element in the array ex: ['0', 'The Fool']
-      //destructures so that you have botht he position and card name available
-      if (isManual) {
-        for (const [index, card] of inputtedCards.entries()) {
-          const cardRequestObj = {
-            reading_id: newReading.id,
-            card_name: card,
-            position_name:
-              readingSpread === "custom"
-                ? customReadingSpreadPositions[index]
-                : spreadConfig[readingSpread][index],
-            position_order: index,
-          };
-          await saveCards(cardRequestObj);
-        }
-      }
-
-      if (isCardsPulled) {
-        for (const [index, card] of pulledCards.entries()) {
-          const cardRequestObj = {
-            reading_id: newReading.id,
-            card_name: card,
-            position_name: spreadConfig[readingSpread][index],
-            position_order: index,
-          };
-          await saveCards(cardRequestObj);
-        }
-      }
-
+      // The server responds only after the reading and every card commit.
       clearReadingDraft();
       setMessage("reading saved :)");
       setViewReadingModal(true);

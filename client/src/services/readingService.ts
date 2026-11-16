@@ -63,10 +63,14 @@ export const createReading = async (
     body: JSON.stringify(data), //convert data from object to string
     credentials: "include", //for auth
   });
-  if (!response.ok)
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
     throw new Error(
-      `Server error [createReading - readingService.ts]: ${response.status}`,
-    ); //fetch only throws error on network falures (no internet/server down). if server responds with status(500) or 404 fetch still considers that successful. this check throws an error for when the server is running but sends back an error
+      typeof body?.error === "string"
+        ? body.error
+        : "Couldn't save the reading and its cards.",
+    );
+  }
 
   const readingData = await response.json();
   return readingData;

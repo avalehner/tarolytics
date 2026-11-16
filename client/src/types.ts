@@ -19,7 +19,9 @@ export interface ReadingWithCardTypes extends ReadingTypes {
 export type NewReadingTypes = Omit<
   ReadingTypes,
   "id" | "user_id" | "created_at" | "updated_at" | "ai_interpretation"
->;
+> & {
+  cards: Omit<NewCardTypes, "reading_id">[];
+};
 export type UpdateReadingTypes = Omit<
   ReadingTypes,
   | "id"
