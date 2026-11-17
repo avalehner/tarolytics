@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {
   createReading,
   ReadingSaveError,
-} from "../services/readingService";
+} from "../services/reading-services/readingService";
 import {
   readReadingDraft,
   writeReadingDraft,
@@ -14,7 +14,7 @@ import {
   prepareReadingSave,
   type ReadingDraft,
   type PendingReadingSave,
-} from "../services/readingDraftService";
+} from "../services/reading-services/readingDraftService";
 import { getRandomSequence } from "../services/randomService";
 import { getCardImagePath } from "../util";
 //component imports

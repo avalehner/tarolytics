@@ -9,7 +9,7 @@ import {
   deletedReadingById,
   interpretReadingById,
   saveAIInterpretation,
-} from "../services/readingService";
+} from "../services/reading-services/readingService";
 import { saveCards } from "../services/cardsService";
 import type { ReadingTypes, CardTypes, UserTypes } from "../types";
 import { format } from "date-fns";

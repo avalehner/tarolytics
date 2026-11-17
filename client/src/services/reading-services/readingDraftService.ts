@@ -1,5 +1,5 @@
-import type { NewReadingTypes } from "../types.ts";
-import spreadConfig from "../data/spreadConfig.ts";
+import type { NewReadingTypes } from "../../types.ts";
+import spreadConfig from "../../data/spreadConfig.ts";
 
 export const READING_DRAFT_KEY = "tarolytics-reading-draft";
 

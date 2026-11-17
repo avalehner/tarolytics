@@ -3,7 +3,7 @@ import {
   NewReadingTypes,
   UpdateReadingTypes,
   ReadingWithCardTypes,
-} from "../types";
+} from "../../types";
 
 export const getAllReadings = async (): Promise<ReadingTypes[]> => {
   const response = await fetch("/api/readings/", {

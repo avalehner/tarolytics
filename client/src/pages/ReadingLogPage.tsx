@@ -7,7 +7,7 @@ import DatePicker from "../components/DatePicker";
 import ReadingTopicMenu from "../components/ReadingTopicMenu";
 import ReadingSpreadMenu from "../components/ReadingSpreadMenu";
 import CardInput from "../components/CardInput";
-import { getReadingsByUserId } from "../services/readingService";
+import { getReadingsByUserId } from "../services/reading-services/readingService";
 import type { ReadingWithCardTypes, UserTypes } from "../types";
 import ReadingLog from "../components/ReadingLog";
 import { Fragment } from "react";
