@@ -20,6 +20,7 @@ export type NewReadingTypes = Omit<
   ReadingTypes,
   "id" | "user_id" | "created_at" | "updated_at" | "ai_interpretation"
 > & {
+  request_id: string;
   cards: Omit<NewCardTypes, "reading_id">[];
 };
 export type UpdateReadingTypes = Omit<

@@ -13,6 +13,7 @@ const userId = "test-user";
 const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
 const reading = { id: "new-reading", user_id: userId };
 const payload = {
+  request_id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
   reading_date: "2026-11-16T12:00:00.000Z",
   reading_topic: "card-of-day",
   spread_type: "top-bottom",
@@ -70,7 +71,13 @@ beforeEach(() => {
         }
       }
       if (sql === fail) throw new Error("Database statement failed");
-      return { rows: /INSERT INTO readings/.test(sql) ? [reading] : [] };
+      return {
+        rows: /INSERT INTO reading_save_requests/.test(sql)
+          ? [{ request_id: payload.request_id }]
+          : /INSERT INTO readings/.test(sql)
+            ? [reading]
+            : [],
+      };
     },
     release(discard) {
       releaseValues.push(discard);
@@ -199,4 +206,18 @@ test("discards a connection when rollback itself fails", async () => {
   assert.equal((await post()).status, 500);
   assert.equal(calls.at(-1).sql, "ROLLBACK");
   assert.deepEqual(releaseValues, [true]);
+});
+
+test("requires a request UUID and valid reading fields before writing", async () => {
+  for (const request_id of [undefined, "", "not-a-uuid"]) {
+    assert.equal((await post({ ...payload, request_id })).status, 400);
+  }
+  for (const changes of [
+    { reading_date: "invalid" },
+    { notes: 12 },
+    { reading_topic: "" },
+  ]) {
+    assert.equal((await post({ ...payload, ...changes })).status, 400);
+  }
+  assert.equal(connectCalls, 0);
 });

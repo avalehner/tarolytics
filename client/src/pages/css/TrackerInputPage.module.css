@@ -360,3 +360,11 @@
     margin: 0.75rem 0;
   }
 }
+
+/* Keep form layout unchanged while locking a pending save's inputs. */
+.reading-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}

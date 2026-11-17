@@ -54,6 +54,15 @@ export const getReadingsByUserId = async (): Promise<
   return readingsData;
 };
 
+export class ReadingSaveError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
+    super(message);
+  }
+}
+
 export const createReading = async (
   data: NewReadingTypes,
 ): Promise<ReadingTypes> => {
@@ -65,10 +74,11 @@ export const createReading = async (
   });
   if (!response.ok) {
     const body = await response.json().catch(() => null);
-    throw new Error(
+    throw new ReadingSaveError(
+      response.status,
       typeof body?.error === "string"
         ? body.error
-        : "Couldn't save the reading and its cards.",
+        : "Couldn't confirm the save. Retry this reading to check its status.",
     );
   }
 

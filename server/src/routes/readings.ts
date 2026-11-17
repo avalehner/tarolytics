@@ -2,7 +2,10 @@ import { Router, Request, Response } from "express";
 import interpretReading, { GeminiError } from "../services/geminiService";
 import pool from "../db"; //pool allows backend code to talk to postgres and run SQL queries
 import { requireAuth } from "../middleware/auth";
-import type { PoolClient } from "pg";
+import {
+  createReadingWithRequest,
+  ReadingSaveError,
+} from "../services/readingCreationService";
 
 //create router instance
 const readingsRouter = Router();
@@ -85,89 +88,21 @@ readingsRouter.get("/:readingId", async (req: Request, res: Response) => {
 });
 
 readingsRouter.post("/", requireAuth, async (req: Request, res: Response) => {
-  const {
-    reading_date,
-    reading_topic,
-    spread_type,
-    notes,
-    user_interpretation,
-    cards,
-  } = req.body ?? {};
-
-  // Initial creation must include every card; clients cannot create an empty shell.
-  if (
-    !Array.isArray(cards) ||
-    cards.length === 0 ||
-    !cards.every(
-      (card, index) =>
-        card !== null &&
-        typeof card === "object" &&
-        typeof card.card_name === "string" &&
-        card.card_name.trim().length > 0 &&
-        (card.position_name == null ||
-          typeof card.position_name === "string") &&
-        card.position_order === index,
-    )
-  ) {
-    res.status(400).json({ error: "Include a valid, ordered list of cards." });
-    return;
-  }
-
-  let client: PoolClient | undefined;
-  let transactionStarted = false;
-  let discardClient = false;
-
   try {
-    const userId = (req as any).userId;
-    // All statements in a transaction must use this same connection.
-    client = await pool.connect();
-    await client.query("BEGIN");
-    transactionStarted = true;
-
-    const dbResponse = await client.query(
-      `
-      INSERT INTO readings (user_id, reading_date, reading_topic, spread_type, notes, user_interpretation)
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING *;`,
-      [
-        userId,
-        reading_date,
-        reading_topic,
-        spread_type,
-        notes,
-        user_interpretation,
-      ],
+    const { reading, replayed } = await createReadingWithRequest(
+      (req as any).userId,
+      req.body,
     );
-    const newReading = dbResponse.rows[0];
-
-    for (const card of cards) {
-      await client.query(
-        `INSERT INTO cards (reading_id, card_name, position_name, position_order)
-         VALUES ($1, $2, $3, $4);`,
-        [
-          newReading.id,
-          card.card_name,
-          card.position_name ?? null,
-          card.position_order,
-        ],
-      );
+    res.status(replayed ? 200 : 201).json(reading);
+  } catch (error) {
+    if (error instanceof ReadingSaveError) {
+      res.status(error.status).json({ error: error.message });
+      return;
     }
-
-    await client.query("COMMIT");
-    transactionStarted = false;
-    res.status(201).json(newReading);
-  } catch {
-    if (client && transactionStarted) {
-      try {
-        await client.query("ROLLBACK");
-      } catch {
-        // A connection that could not roll back must not return to the pool.
-        discardClient = true;
-      }
-    }
-    res.status(500).json({ error: "Couldn't save the reading and its cards." });
-  } finally {
-    client?.release(discardClient);
+    res.status(500).json({
+      error:
+        "Couldn't confirm the save. Retry this reading to check its status.",
+    });
   }
 });
 
