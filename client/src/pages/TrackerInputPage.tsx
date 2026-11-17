@@ -12,8 +12,6 @@ import {
   writeReadingDraft,
   clearReadingDraft,
   prepareReadingSave,
-  type ReadingDraft,
-  type PendingReadingSave,
 } from "../services/reading-services/readingDraftService";
 import { getRandomSequence } from "../services/randomService";
 import { getCardImagePath } from "../util";
@@ -27,7 +25,12 @@ import spreadConfig from "../data/spreadConfig";
 import { tarotCardNames } from "../data/tarotCards";
 import spreadPositions from "../data/spreadPositions";
 //types
-import { ReadingTypes, UserTypes } from "../types";
+import type {
+  ReadingTypes,
+  UserTypes,
+  ReadingDraft,
+  PendingReadingSave,
+} from "../types";
 //styling
 import formControls from "../components/css/FormControls.module.css";
 import styles from "./css/TrackerInputPage.module.css";

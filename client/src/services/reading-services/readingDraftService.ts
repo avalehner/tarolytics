@@ -1,29 +1,7 @@
-import type { NewReadingTypes } from "../../types.ts";
+import type { PendingReadingSave, ReadingDraft } from "../../types";
 import spreadConfig from "../../data/spreadConfig.ts";
 
 export const READING_DRAFT_KEY = "tarolytics-reading-draft";
-
-export interface PendingReadingSave {
-  userId: string;
-  request: NewReadingTypes;
-}
-
-export interface ReadingDraft {
-  date: string | null;
-  readingTopic: string;
-  customReadingTopic: string;
-  readingSpread: string;
-  customReadingSpread: string;
-  customReadingSpreadPositions: string[];
-  inputtedCards: string[];
-  pulledCards: string[];
-  notes: string;
-  userInterpretation: string;
-  isManual: boolean;
-  isCardsPulled: boolean;
-  isReversals: boolean;
-  pendingSave?: PendingReadingSave;
-}
 
 const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
