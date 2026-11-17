@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { getRandomSequence } from "../src/services/randomService.ts";
+import { isValidCardName } from "../src/services/reading-services/cardValidation.ts";
+import { prepareReadingSave } from "../src/services/reading-services/readingDraftService.ts";
 
 test("selects requested cards from a full valid sequence", async (t) => {
   t.mock.method(globalThis, "fetch", async () =>
@@ -71,4 +73,44 @@ test("stalled request is aborted after 15 seconds", async (t) => {
   t.mock.timers.tick(15000);
   await result;
   assert.equal(aborted, true);
+});
+test("validates upright and reversed card names", () => {
+  assert.equal(isValidCardName("The Fool"), true);
+  assert.equal(isValidCardName("The Fool rx"), true);
+  for (const name of [undefined, "", "Unknown", "The Fool reversed"])
+    assert.equal(isValidCardName(name), false);
+});
+test("new saves reject unknown cards but preserve pending retries", () => {
+  const draft = {
+    date: "2026-11-17T12:00:00.000Z",
+    readingTopic: "card-of-day",
+    customReadingTopic: "",
+    readingSpread: "top-bottom",
+    customReadingSpread: "",
+    customReadingSpreadPositions: [],
+    inputtedCards: ["The Fool", "Unknown"],
+    pulledCards: ["The Fool", "Unknown"],
+    notes: "Notes",
+    userInterpretation: "Meaning",
+    isManual: true,
+    isCardsPulled: false,
+    isReversals: false,
+  };
+  assert.throws(() => prepareReadingSave(draft, "user"), /every position/);
+  assert.throws(
+    () =>
+      prepareReadingSave(
+        { ...draft, isManual: false, isCardsPulled: true },
+        "user",
+      ),
+    /every position/,
+  );
+  const pending = prepareReadingSave(
+    { ...draft, inputtedCards: ["The Fool", "The Sun rx"] },
+    "user",
+  );
+  assert.equal(
+    prepareReadingSave({ ...draft, pendingSave: pending }, "user"),
+    pending,
+  );
 });

@@ -13,6 +13,7 @@ import {
   clearReadingDraft,
   prepareReadingSave,
 } from "../services/reading-services/readingDraftService";
+import { isValidCardName } from "../services/reading-services/cardValidation";
 import { getRandomSequence } from "../services/randomService";
 import { getCardImagePath } from "../util";
 //component imports
@@ -154,7 +155,7 @@ const TrackerInputPage = ({
       );
       if (
         cardNames.length !== numberOfCards ||
-        !cardNames.every((card) => tarotCardNames.includes(card))
+        !cardNames.every(isValidCardName)
       ) {
         throw new Error(
           "The card draw was incomplete or invalid. Please try again.",

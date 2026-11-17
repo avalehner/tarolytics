@@ -1,3 +1,4 @@
+import { isValidCardName } from "./cardValidation.ts";
 import type { PendingReadingSave, ReadingDraft } from "../../types";
 import spreadConfig from "../../data/spreadConfig.ts";
 
@@ -132,7 +133,7 @@ export function prepareReadingSave(
   if (
     !labels ||
     !cards.length ||
-    cards.some((card) => !card?.trim()) ||
+    cards.some((card) => !isValidCardName(card)) ||
     (draft.readingSpread !== "custom" && cards.length !== labels.length)
   ) {
     throw new Error("please select a card for every position in the spread");
