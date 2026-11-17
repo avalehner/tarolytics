@@ -1,4 +1,4 @@
-import { TarotCardTypes } from "../types";
+import type { TarotCardTypes } from "../types";
 
 export const tarotCards: TarotCardTypes[] = [
   {

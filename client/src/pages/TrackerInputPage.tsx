@@ -74,6 +74,9 @@ const TrackerInputPage = ({
   );
   const [restoreFailed, setRestoreFailed] = useState(false);
   const [deletedSave, setDeletedSave] = useState(false);
+  const [isPulling, setIsPulling] = useState(false);
+  const [pullError, setPullError] = useState("");
+  const pullInProgress = useRef(false);
   const saveInFlight = useRef(false);
   const pendingSaveRef = useRef<PendingReadingSave | null>(null);
 
@@ -125,9 +128,23 @@ const TrackerInputPage = ({
 
   //functions
   const pullCards = async () => {
+    if (
+      pullInProgress.current ||
+      isCardsPulled ||
+      isManual ||
+      pendingSaveRef.current ||
+      savedReadingData ||
+      restoreFailed
+    )
+      return;
+    pullInProgress.current = true;
+    setIsPulling(true);
+    setPullError("");
     try {
-      setIsCardsPulled(true);
-      const numberOfCards = spreadConfig[readingSpread].length;
+      const numberOfCards = spreadConfig[readingSpread]?.length;
+      if (!numberOfCards || readingSpread === "custom") {
+        throw new Error("Select a supported spread before pulling cards.");
+      }
       const randomSequence = await getRandomSequence(
         numberOfCards,
         isReversals,
@@ -135,10 +152,25 @@ const TrackerInputPage = ({
       const cardNames = randomSequence.map(
         (number) => tarotCardNames[number - 1],
       );
+      if (
+        cardNames.length !== numberOfCards ||
+        !cardNames.every((card) => tarotCardNames.includes(card))
+      ) {
+        throw new Error(
+          "The card draw was incomplete or invalid. Please try again.",
+        );
+      }
       setPulledCards(cardNames);
+      setIsCardsPulled(true);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown Error";
-      console.error(message);
+      setPullError(
+        error instanceof Error
+          ? error.message
+          : "Couldn't pull your cards. Please try again.",
+      );
+    } finally {
+      pullInProgress.current = false;
+      setIsPulling(false);
     }
   };
 
@@ -266,6 +298,7 @@ const TrackerInputPage = ({
   const saveReading = async () => {
     if (
       isAuthLoading ||
+      pullInProgress.current ||
       saveInFlight.current ||
       savedReadingData ||
       restoreFailed ||
@@ -353,6 +386,7 @@ const TrackerInputPage = ({
     setDeletedSave(false);
     setCustomReadingSpreadPositions([""]);
     setIsReversals(false);
+    setPullError("");
     setDate(null);
     setReadingTopic("card-of-day");
     setCustomReadingTopic("");
@@ -418,7 +452,7 @@ const TrackerInputPage = ({
               customReadingSpread={customReadingSpread}
               setCustomReadingSpread={setCustomReadingSpread}
               setCards={setInputtedCards}
-              isDisabled={isCardsPulled}
+              isDisabled={isCardsPulled || isPulling}
             />
           </div>
           {!isManual && !isCardsPulled && (
@@ -430,6 +464,7 @@ const TrackerInputPage = ({
 
                     <input
                       type="checkbox"
+                      disabled={isPulling}
                       checked={isReversals}
                       onChange={(e) => setIsReversals(e.target.checked)}
                       className={styles["toggle-input"]}
@@ -444,19 +479,31 @@ const TrackerInputPage = ({
                   <button
                     className={styles["save-reading-btn"]}
                     onClick={pullCards}
+                    disabled={isPulling}
+                    aria-busy={isPulling}
                   >
-                    PULL CARDS
+                    {isPulling
+                      ? "Pulling cards..."
+                      : pullError
+                        ? "TRY AGAIN"
+                        : "PULL CARDS"}
                   </button>
                 )}
                 <button
                   className={styles["save-reading-btn"]}
-                  onClick={() => setIsManual(true)}
+                  disabled={isPulling}
+                  onClick={() => {
+                    setPullError("");
+                    setIsManual(true);
+                  }}
                 >
                   ENTER MANUALLY
                 </button>
               </div>
             </div>
           )}
+
+          {pullError && <p role="alert">{pullError}</p>}
 
           {/* manual input logic */}
           {isManual && renderCardInputs(readingSpread)}
